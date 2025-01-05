@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./components/navbar/Navbar";
 import HeroSection from "./components/herosection/herosection";
-import FeaturedCourses from "./components/toptutorials/FeaturedCourses";
+import Featuredtutorials from "./components/toptutorials/Featuredtutorials";
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <>
       <Navbar />
       <HeroSection />
-      <FeaturedCourses />
+      <Featuredtutorials />
       
     
     </>
