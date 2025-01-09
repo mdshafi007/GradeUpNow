@@ -1,6 +1,6 @@
 import React from 'react';
 import './heroSection.css';
-const HeroSection = () => {
+const HeroSect = () => {
   return (
     <div className="hero-container">
       <div className="hero-content">
@@ -20,4 +20,4 @@ const HeroSection = () => {
     </div>
   );
 };
-export default HeroSection;
+export default HeroSect;
