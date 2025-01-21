@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "framer-motion": "^11.15.0",
+    "global": "^4.4.0",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0"
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.1.1",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
