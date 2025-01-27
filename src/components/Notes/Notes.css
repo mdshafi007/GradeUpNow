@@ -157,6 +157,71 @@ textarea:focus {
         padding: 1.5rem;
         min-height: 220px;
     }
+
+    .title {
+        font-size: 2rem;
+        margin: 1rem auto 2rem;
+        padding: 0 1rem;
+    }
+
+    .notes-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .note-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .create-note {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        z-index: 100;
+    }
+
+    textarea {
+        height: 120px;
+        font-size: 0.9rem;
+    }
+
+    .notesave {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .note.expanded {
+        width: 95%;
+        max-width: none;
+        height: 90vh;
+        max-height: none;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .notes {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+        margin: 0.75rem auto 1.5rem;
+    }
+
+    .note {
+        padding: 1.25rem;
+        min-height: 200px;
+    }
+
+    .note-body {
+        font-size: 0.9rem;
+    }
 }
 
 /* Scrollbar Styling */
@@ -207,6 +272,30 @@ textarea::-webkit-scrollbar-thumb:hover {
     }
 }
 
+.notes {
+    position: relative;
+}
+
+.notes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 999;
+}
+
+.notes.has-expanded-note::before {
+    opacity: 1;
+    visibility: visible;
+}
+
 .notes::after {
     content: '';
     position: fixed;
@@ -222,7 +311,7 @@ textarea::-webkit-scrollbar-thumb:hover {
     z-index: 999;
 }
 
-.notes:has(.expanded)::after {
+.notes.has-expanded-note::after {
     opacity: 1;
     visibility: visible;
 }
@@ -234,16 +323,16 @@ textarea::-webkit-scrollbar-thumb:hover {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
-  }
+}
 
-  .note-list {
+.note-list {
     flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
-  }
+}
 
-  .create-note {
+.create-note {
     margin-right: 2rem;
     display: flex;
     flex-direction: column;
@@ -257,14 +346,14 @@ textarea::-webkit-scrollbar-thumb:hover {
     font-size: 2rem;
     cursor: pointer;
     transition: all 0.3s ease;
-  }
+}
 
-  .create-note:hover {
+.create-note:hover {
     background-color: #1e293b;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(15, 23, 42, 0.2);
-  }
+}
 
-  .create-note:active {
+.create-note:active {
     transform: translateY(0);
-  }
+}
