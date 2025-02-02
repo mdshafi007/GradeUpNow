@@ -29,6 +29,7 @@ function App() {
             <Route path="/notes" element={<Notes />} />
            
           </Routes>
+          <Footer />
          </div>
       </Router>
       
