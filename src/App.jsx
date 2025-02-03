@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import HeroSect from "./components/herosection/HeroSect";
 import Notes from "./components/Notes/Notes";
 import Notescomp from "./components/Notes/Notescomp";
+import Card from "./components/Card/Card";
 
 
 const Home=()=>{
@@ -27,6 +28,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/courses" element={<Card />} />
+
            
           </Routes>
           <Footer />

@@ -14,7 +14,7 @@ const Navbar = () => {
       <a href="/" className="logo">GradeUpNow</a>
       <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
         
-        <a href="" className="a">Courses</a>
+        <Link to="/courses" className="coursei">Courses</Link>
         <Link to="/notes" className="a">Notes</Link>
         <a href="" className="a">Notifications</a>
         <a href="" className="a">Login</a>
