@@ -1,5 +1,6 @@
 // LoginForm.jsx
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import './LoginForm.css';
 
 const LoginForm = () => {
@@ -60,7 +61,7 @@ const LoginForm = () => {
         
         <p className="register-prompt">
           Don't have an account?{' '}
-          <a href="/signup" className="register-link">Register now</a>
+          <Link to="/signup" className="register-link">Register now</Link>
         </p>
       </div>
     </div>
