@@ -17,8 +17,9 @@ const Navbar = () => {
         <Link to="/courses" className="coursei">Courses</Link>
         <Link to="/notes" className="a">Notes</Link>
         <a href="" className="a">Notifications</a>
-        <a href="" className="a">Login</a>
-        <a href="" className="a">Register</a>
+        <Link to="/login" className="loginn">Login</Link>
+        <Link to="/signup" className="signup">Signup</Link>
+        
       </nav>
       <button className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={toggleMenu}>
         <span className="line"></span>
