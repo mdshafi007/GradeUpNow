@@ -27,7 +27,7 @@
 }
 
 .view-more {
-    color: #6366f1;
+    color: #f9830d;
     font-size: 14px;
     font-weight: 500;
     background: none;
@@ -47,7 +47,7 @@
 }
 
 .card {
-    background: white;
+    background: rgb(255, 255, 255);
     border: 1px solid #e5e7eb;
     border-radius: 20px;
     padding: 24px;
@@ -71,7 +71,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6366f1;
+    color: #f8741c;
     background-color: #f3f4f6;
     border-radius: 12px;
 }
@@ -92,7 +92,7 @@
 }
 
 .button {
-    background-color: #6366f1;
+    background-color: #f78b20;
     color: white;
     padding: 12px 24px;
     border-radius: 12px;
@@ -104,7 +104,7 @@
 }
 
 .button:hover {
-    background-color: #4f46e5;
+    background-color: #ad530e;
 }
 
 @media (max-width: 768px) {
@@ -125,13 +125,13 @@
     right: 12px;
     background: none;
     border: none;
-    color: #6366f1;
+    color: #f89a1e;
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
 .info-button:hover {
-    color: #4f46e5;
+    color: #a35109;
 }
 
 .modal-overlay {
