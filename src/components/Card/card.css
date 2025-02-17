@@ -42,8 +42,8 @@
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr); /* Changed to show exactly 4 columns */
+    gap: 20px; /* Adjusted gap for better spacing */
 }
 
 .card {
@@ -57,6 +57,7 @@
     transition: all 0.3s ease;
     transform: scale(1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative; /* Added for absolute positioning of info button */
 }
 
 .card:hover {
@@ -107,10 +108,22 @@
     background-color: #ad530e;
 }
 
-@media (max-width: 768px) {
+/* Updated media queries for responsiveness */
+@media (max-width: 1200px) {
     .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .card-grid {
+        grid-template-columns: 1fr;
     }
     .section-header {
         flex-direction: column;
@@ -119,6 +132,7 @@
     }
 }
 
+/* Rest of the styles remain the same */
 .info-button {
     position: absolute;
     top: 12px;
