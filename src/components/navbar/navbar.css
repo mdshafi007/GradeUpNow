@@ -9,21 +9,27 @@
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
   height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .logo {
   font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #171919;
   text-decoration: none;
+  z-index: 1001;
 }
 
 .navbar {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .navbar a {
@@ -33,6 +39,11 @@
   text-decoration: none;
   padding: 0.5rem 0.75rem;
   transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar a:hover {
+  color: #ff8e37;
 }
 
 .hamburger {
@@ -42,21 +53,40 @@
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1000;
-  padding: 0;
+  z-index: 1001;
+  padding: 8px;
+  margin: -8px;
 }
 
 .hamburger .line {
   width: 24px;
-  height: 3px;
-  background-color: black;
-  border-radius: 2px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
+.hamburger.active .line:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .line:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
 @media (max-width: 768px) {
+  body.menu-open {
+    overflow: hidden;
+  }
+
   .navbar {
     display: none;
+    opacity: 0;
+    transform: translateX(100%);
   }
   
   .hamburger {
@@ -65,103 +95,152 @@
   
   .navbar.open {
     display: flex;
+    opacity: 1;
+    transform: translateX(0);
     flex-direction: column;
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: 100%;
-    max-width: 375px;
+    max-width: 300px;
     background-color: white;
-    padding: 4rem 1rem 1rem;
-    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.05);
-    z-index: 999;
-    animation: slide-in 0.3s ease-out;
+    padding: 5rem 1.5rem 2rem;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
 
   .navbar.open a {
     width: 100%;
-    padding: 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
     font-weight: 500;
     text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  .navbar.open a:hover {
+    background-color: #f8f9fa;
   }
 
   /* Regular menu items */
   .navbar.open a:not(.login):not(.signup) {
     color: #333;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
-  /* Position login button */
+  /* Auth buttons container */
+  .auth-buttons {
+    margin-top: auto;
+    width: 100%;
+    padding-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  /* Login button */
   .navbar.open .login {
-    position: fixed;
-    bottom: 5.5rem;
-    left: 1rem;
-    right: 1rem;
-    width: calc(100% - 2rem);
-    background-color: #ff8e37;
-    color: white;
-    border-radius: 999px;
+    background-color: white;
+    color: #ff8e37;
+    border: 1px solid #ff8e37;
+    border-radius: 8px;
     text-align: center;
     padding: 0.75rem;
-    border: none;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    font-weight: 500;
+    width: 50%;
   }
 
-  /* Position signup button */
+  /* Signup button */
   .navbar.open .signup {
-    position: fixed;
-    bottom: 2rem;
-    left: 1rem;
-    right: 1rem;
-    width: calc(100% - 2rem);
     background-color: #ff8e37;
     color: white;
-    border-radius: 999px;
+    border: none;
+    border-radius: 8px;
     text-align: center;
     padding: 0.75rem;
-    border: none;
+    font-weight: 500;
+    width: 50%;
   }
 
-  /* Close button */
-  .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 32px;
-    height: 32px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+  /* Backdrop */
+  .backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 999;
   }
 
-  .close-button::before,
-  .close-button::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background-color: #333;
-    top: 50%;
-    left: 50%;
-  }
-
-  .close-button::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .close-button::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
+  .backdrop.show {
+    display: block;
+    opacity: 1;
   }
 }
 
-@keyframes slide-in {
+/* Animations */
+@keyframes slideIn {
   from {
     transform: translateX(100%);
+    opacity: 0;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Close button */
+.navbar.open .close-button {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navbar.open .close-button::before,
+.navbar.open .close-button::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: #333;
+  top: 50%;
+  left: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.navbar.open .close-button::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.navbar.open .close-button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.navbar.open .close-button:hover::before,
+.navbar.open .close-button:hover::after {
+  background-color: #ff8e37;
 }
