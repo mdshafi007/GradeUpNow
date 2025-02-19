@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 * {
     font-family: 'Inter', sans-serif;
+    margin-top: 10px;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    margin-top: 70px;
 }
 
 .section {
