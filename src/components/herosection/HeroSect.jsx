@@ -18,7 +18,7 @@ const HeroSect = () => {
       backgroundColor: 'transparent'
     },
     heroContainer: {
-      marginTop: '60px'
+      marginTop: '0px'
     }
   };
 

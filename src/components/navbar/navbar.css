@@ -1,246 +1,113 @@
-/* navbar.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
-  height: 64px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-.logo {
+body {
   font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #171919;
-  text-decoration: none;
-  z-index: 1001;
+  padding-top: 64px;
 }
 
 .navbar {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  height: 64px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.navbar a {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
+.navbar-brand {
+  font-size: 1.25rem;
+  color: #171919;
+  font-weight: 600;
+}
+
+/* Make space for the left hamburger on mobile */
+@media (max-width: 767.98px) {
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.nav-link {
   color: #333;
-  text-decoration: none;
+  font-weight: 500;
   padding: 0.5rem 0.75rem;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
-.navbar a:hover {
+.nav-link:hover {
   color: #ff8e37;
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-  padding: 8px;
-  margin: -8px;
+.btn-outline-primary {
+  color: #ff8e37;
+  border-color: #ff8e37;
+  background-color: transparent;
 }
 
-.hamburger .line {
-  width: 24px;
-  height: 2px;
-  background-color: #333;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.hamburger.active .line:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-
-.hamburger.active .line:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active .line:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-@media (max-width: 768px) {
-  body.menu-open {
-    overflow: hidden;
-  }
-
-  .navbar {
-    display: none;
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  
-  .hamburger {
-    display: flex;
-  }
-  
-  .navbar.open {
-    display: flex;
-    opacity: 1;
-    transform: translateX(0);
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 100%;
-    max-width: 300px;
-    background-color: white;
-    padding: 5rem 1.5rem 2rem;
-    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-  .navbar.open a {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: left;
-    transition: background-color 0.2s ease;
-  }
-
-  .navbar.open a:hover {
-    background-color: #f8f9fa;
-  }
-
-  /* Regular menu items */
-  .navbar.open a:not(.login):not(.signup) {
-    color: #333;
-    margin-bottom: 0.25rem;
-  }
-
-  /* Auth buttons container */
-  .auth-buttons {
-    margin-top: auto;
-    width: 100%;
-    padding-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  /* Login button */
-  .navbar.open .login {
-    background-color: white;
-    color: #ff8e37;
-    border: 1px solid #ff8e37;
-    border-radius: 8px;
-    text-align: center;
-    padding: 0.75rem;
-    margin-bottom: 0;
-    font-weight: 500;
-    width: 50%;
-  }
-
-  /* Signup button */
-  .navbar.open .signup {
-    background-color: #ff8e37;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    text-align: center;
-    padding: 0.75rem;
-    font-weight: 500;
-    width: 50%;
-  }
-
-  /* Backdrop */
-  .backdrop {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 999;
-  }
-
-  .backdrop.show {
-    display: block;
-    opacity: 1;
-  }
-}
-
-/* Animations */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-/* Close button */
-.navbar.open .close-button {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: 24px;
-  height: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.navbar.open .close-button::before,
-.navbar.open .close-button::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background-color: #333;
-  top: 50%;
-  left: 50%;
-  transition: background-color 0.2s ease;
-}
-
-.navbar.open .close-button::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.navbar.open .close-button::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.navbar.open .close-button:hover::before,
-.navbar.open .close-button:hover::after {
+.btn-outline-primary:hover {
+  color: white;
   background-color: #ff8e37;
+  border-color: #ff8e37;
+}
+
+.btn-primary {
+  background-color: #ff8e37;
+  border-color: #ff8e37;
+}
+
+.btn-primary:hover {
+  background-color: #e57d28;
+  border-color: #e57d28;
+}
+
+/* Customize the navbar toggler icon */
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Mobile view customizations */
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    padding: 1.5rem;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+  }
+
+  .navbar-collapse.show {
+    transform: translateX(0);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .navbar-nav {
+    margin-bottom: 2rem;
+  }
+
+  .nav-item {
+    margin-bottom: 1rem;
+  }
+
+  .auth-buttons {
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .auth-buttons .btn {
+    flex: 1;
+    max-width: none;
+    text-align: center;
+  }
 }
