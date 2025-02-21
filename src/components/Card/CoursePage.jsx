@@ -39,16 +39,14 @@ const CoursesPage = () => {
   };
 
   return (
-    <div className="container py-5" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-     
-      
+    <div className="container py-5" style={{ fontFamily: "'Poppins', sans-serif", backgroundColor: '#f9fafb' }}>
       {Object.entries(courses).map(([category, items]) => (
         <div key={category} className="mb-5">
           <h2 className="mb-4" style={{ 
             marginTop:'2.5rem',
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            color: '#111827',
+            fontSize: '1.75rem',
+            fontWeight: '700',
+            color: '#1f2937',
           }}>
             {formatCategoryTitle(category)}
           </h2>
@@ -56,35 +54,34 @@ const CoursesPage = () => {
             {items.map((course) => (
               <div key={course.title} className="col-sm-6 col-md-4 col-lg-3">
                 <div 
-                  className="card h-100 border-0"
+                  className="card h-100 border-0 shadow-sm"
                   style={{
-                    borderRadius: '12px',
-                    transition: 'all 0.2s ease',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                    backgroundColor: '#fff',
+                    borderRadius: '16px',
+                    transition: 'all 0.3s ease',
+                    backgroundColor: '#ffffff',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)';
+                    e.currentTarget.style.transform = 'translateY(-5px)';
+                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.12)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                    e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.08)';
                   }}
                 >
                   <div className="card-body d-flex flex-column p-4">
                     <h5 className="card-title" style={{ 
-                      fontSize: '1.125rem',
+                      fontSize: '1.25rem',
                       fontWeight: '600',
-                      color: '#111827',
+                      color: '#1f2937',
                       marginBottom: '0.75rem'
                     }}>
                       {course.title}
                     </h5>
                     <p className="card-text" style={{
-                      fontSize: '0.875rem',
+                      fontSize: '0.9rem',
                       color: '#6b7280',
-                      lineHeight: '1.5',
+                      lineHeight: '1.6',
                       marginBottom: '1.5rem'
                     }}>
                       {course.description}
@@ -92,25 +89,23 @@ const CoursesPage = () => {
                     <button 
                       className="btn mt-auto"
                       style={{
-                        backgroundColor: '#f8fafc',
-                        color: '#4f46e5',
+                        backgroundColor: '#ff7700',
+                        color: '#ffffff',
                         fontWeight: '500',
-                        padding: '0.75rem',
+                        padding: '0.75rem 1rem',
                         borderRadius: '8px',
                         border: 'none',
-                        transition: 'all 0.2s ease',
-                        fontSize: '0.875rem',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.9rem',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#4f46e5';
-                        e.currentTarget.style.color = '#ffffff';
+                        e.currentTarget.style.backgroundColor = '#ff7700';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#f8fafc';
-                        e.currentTarget.style.color = '#4f46e5';
+                        e.currentTarget.style.backgroundColor = '#ff7700';
                       }}
                     >
-                      Grade Up
+                      GradeupNow
                     </button>
                   </div>
                 </div>
