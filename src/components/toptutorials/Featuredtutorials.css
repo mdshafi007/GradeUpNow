@@ -1,138 +1,94 @@
-/* Featuredtutorials.css */
-.featured-tutorials-wrapper {
-    width: 100%;
-    position: relative;
+/* Featuredtutorials.css - Bootstrap version */
+.featured-tutorials {
     background-color: #ffffff;
-    overflow: hidden; 
-}
-
-.featured-tutorials-container {
-    width: 100%;
-    max-width: 1280px;
-    margin: -4rem auto 0;
-    padding: 4rem 1.5rem;
-    position: relative; /* Add this to maintain proper stacking context */
-}
-
-/* Rest of your CSS remains the same */
-.tutorials-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #ff7700;
-    letter-spacing: -0.5px;
-    display: inline-block;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.tutorials-title::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 24%;
-    width: 50%;
-    height: 3px;
-    background-color: #ff7700;
-}
-
-.tutorials-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-    padding: 1rem;
-}
-
-@media (min-width: 768px) {
-    .tutorials-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .tutorials-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2.5rem;
-    }
-}
-
-.tutorial-card {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-}
-
-.tutorial-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-}
-
-.card-content {
-    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .tutorial-title {
+    color: #ff7700;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
     text-align: center;
+    margin: 0 auto;
+  }
+  
+  .featured-tutorials {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
-    
-}
-
-.icon-container {
+  }
+  
+  .tutorial-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background-color: #ff7700;
+    margin: 0 auto;
+  }
+  
+  .tutorial-card {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .tutorial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .icon-circle {
+    width: 64px;
+    height: 64px;
     background-color: #f8f9fa;
     border-radius: 50%;
-    padding: 1rem;
-    margin: 0 auto;
-    width: 3.5rem;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.tutorial-card:hover .icon-container {
+  }
+  
+  .tutorial-card:hover .icon-circle {
     transform: scale(1.15);
     background-color: #f0f2f5;
-}
-
-.card-title {
-    font-size: 1.375rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.card-description {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #4a5568;
-    margin: 0;
-}
-
-/* Custom icon colors */
-.tutorial-card:nth-child(1) .icon-container svg {
-    color: #3b82f6;
-}
-
-.tutorial-card:nth-child(2) .icon-container svg {
-    color: #10b981;
-}
-
-.tutorial-card:nth-child(3) .icon-container svg {
-    color: #f97316;
-}
-
-.tutorial-card:nth-child(4) .icon-container svg {
-    color: #ec4899;
-}
-
-/* Smooth font rendering */
-* {
+  }
+  
+  /* Custom Bootstrap color adjustments */
+  .text-primary {
+    color: #3b82f6 !important;
+  }
+  
+  .text-success {
+    color: #10b981 !important;
+  }
+  
+  .text-warning {
+    color: #f97316 !important;
+  }
+  
+  .text-danger {
+    color: #ec4899 !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .tutorial-title {
+      font-size: 2rem;
+    }
+  }
+  
+  /* Fix Bootstrap rounded corners for better match with original design */
+  .rounded-4 {
+    border-radius: 1rem !important;
+  }
+  
+  /* Helper class for transitions */
+  .transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Improve font rendering */
+  body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
+  }
