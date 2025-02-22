@@ -23,11 +23,8 @@ const CoursesPage = () => {
       { title: 'Data Structures', description: 'Efficient data organization' },
       { title: 'AI & ML', description: 'Intelligent systems design' },
       { title: 'Cryptography', description: 'Security fundamentals' },
-    ],
-    databases: [
-      { title: 'SQL', description: 'Data management essentials' },
-      { title: 'MongoDB', description: 'Modern database solutions' },
     ]
+    
   };
 
   const formatCategoryTitle = (title) => {
