@@ -18,9 +18,12 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-md fixed-top bg-white border-bottom">
       <div className="container-fluid">
-        {/* Hamburger menu moved to the left */}
+        {/* Brand on the left */}
+        <Link to="/" className="navbar-brand">GradeUpNow</Link>
+
+        {/* Hamburger menu for mobile view */}
         <button 
-          className="navbar-toggler order-0" 
+          className="navbar-toggler" 
           type="button" 
           onClick={toggleMenu}
           aria-controls="navbarCollapse" 
@@ -29,15 +32,10 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        
-        {/* Brand centered on mobile view */}
-        <Link to="/" className="navbar-brand mx-auto order-1">GradeUpNow</Link>
-        
-        {/* Empty div to balance space (only shows on mobile) */}
-        <div className="order-2 d-md-none" style={{width: "40px"}}></div>
-        
-        <div className={`collapse navbar-collapse order-3 ${isMenuOpen ? "show" : ""}`} id="navbarCollapse">
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
+
+        <div className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`} id="navbarCollapse">
+          {/* Navigation links in the center */}
+          <ul className="navbar-nav mx-auto mb-2 mb-md-0">
             <li className="nav-item">
               <Link to="/courses" className="nav-link" onClick={closeMenu}>Courses</Link>
             </li>
@@ -48,7 +46,8 @@ const Navbar = () => {
               <Link to="/notifications" className="nav-link" onClick={closeMenu}>Notifications</Link>
             </li>
           </ul>
-          
+
+          {/* Authentication buttons on the right */}
           <div className="d-flex auth-buttons">
             <Link to="/login" className="btn btn-outline-primary me-2" onClick={closeMenu}>Login</Link>
             <Link to="/signup" className="btn btn-primary" onClick={closeMenu}>Sign up</Link>
