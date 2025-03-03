@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HeroSect = () => {
+  const navigate = useNavigate();
+
   // Custom styles
   const styles = {
     orangeText: {
@@ -22,6 +25,14 @@ const HeroSect = () => {
     }
   };
 
+  const handleStartLearningClick = () => {
+    navigate('/courses'); // Adjust the path if necessary
+  };
+
+  const handleExploreCoursesClick = () => {
+    navigate('/courses'); // Adjust the path if necessary
+  };
+
   return (
     <div className="container py-5" style={styles.heroContainer}>
       <div className="text-center mb-5">
@@ -38,12 +49,14 @@ const HeroSect = () => {
           <button 
             className="btn px-4 py-2 rounded-pill" 
             style={styles.orangeButton}
+            onClick={handleStartLearningClick}
           >
             Start learning
           </button>
           <button 
             className="btn px-4 py-2 rounded-pill" 
             style={styles.outlineOrangeButton}
+            onClick={handleExploreCoursesClick}
           >
             Explore courses
           </button>
