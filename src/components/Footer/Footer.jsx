@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css';
 
@@ -16,10 +17,8 @@ const Footer = () => {
               cs subjects, tech skills like LinkedIn and GitHub.
             </p>
             <div className="social-icons">
-              <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="#" aria-label="Twitter"><FaTwitter /></a>
-              <a href="#" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="https://www.youtube.com/@GradeUpNow" aria-label="Facebook"><FaYoutube /></a>
+              <a href="https://www.instagram.com/_shafimohammad/?hl=en" aria-label="Instagram"><FaInstagram /></a>
             </div>
           </div>
 
@@ -27,11 +26,8 @@ const Footer = () => {
           <div className="col-lg-2 col-md-6 mb-4">
             <h4>Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/courses">Courses</Link></li>
             </ul>
           </div>
 
@@ -39,11 +35,10 @@ const Footer = () => {
           <div className="col-lg-3 col-md-6 mb-4">
             <h4>Top Courses</h4>
             <ul className="footer-links">
-              <li><a href="#">Programming</a></li>
-              <li><a href="#">Data Structures</a></li>
-              <li><a href="#">Algorithms</a></li>
-              <li><a href="#">Web Development</a></li>
-              
+              <li><Link to="/courses">Programming</Link></li>
+              <li><Link to="/courses">Data Structures</Link></li>
+              <li><Link to="/courses">Algorithms</Link></li>
+              <li><Link to="/courses">Web Development</Link></li>
             </ul>
           </div>
 
@@ -68,8 +63,8 @@ const Footer = () => {
             </div>
             <div className="col-md-6">
               <ul className="terms-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Use</a></li>
+                <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link to="/terms-of-use">Terms of Use</Link></li>
               </ul>
             </div>
           </div>
