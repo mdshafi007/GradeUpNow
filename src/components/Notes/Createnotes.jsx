@@ -5,8 +5,9 @@ const Createnotes = ({ inputText, setInputText, saveHandler, isExpanded }) => {
   const charlimit = char - inputText.length;
 
   return (
-    <div className={`note ${isExpanded ? 'expanded' : ''}`}>
+    <div className={`note card ${isExpanded ? 'expanded' : ''}`}>
       <textarea
+        className="form-control border-0"
         cols={10}
         rows={5}
         placeholder="Write here..."
@@ -15,9 +16,9 @@ const Createnotes = ({ inputText, setInputText, saveHandler, isExpanded }) => {
         maxLength={char}
       >
       </textarea>
-      <div className="note_footer" style={{ justifyContent: "space-between" }}>
+      <div className="note_footer d-flex align-items-center" style={{ justifyContent: "space-between" }}>
         <span className="label">{charlimit} Left</span>
-        <button className="notesave" onClick={saveHandler}>Save</button>
+        <button className="notesave btn" onClick={saveHandler}>Save</button>
       </div>
     </div>
   );

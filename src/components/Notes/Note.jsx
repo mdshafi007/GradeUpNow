@@ -10,13 +10,13 @@ const Note = ({ id, text, editHandler, deleteHandler, isExpanded, toggleExpand }
 
   return (
     <div 
-      className={`note ${isExpanded ? 'expanded' : ''}`}
+      className={`note card ${isExpanded ? 'expanded' : ''}`}
       onClick={handleClick}
     >
       <div className='note-body'>{text}</div>
-      <div className='note_footer' style={{ justifyContent: "flex-end" }}>
-        <button className="notesave" onClick={() => deleteHandler(id)}>Delete</button> &nbsp;
-        <button className="notesave" onClick={() => editHandler(id, text)}>Edit</button>
+      <div className='note_footer d-flex align-items-center' style={{ justifyContent: "flex-end" }}>
+        <button className="notesave btn me-2" onClick={() => deleteHandler(id)}>Delete</button>
+        <button className="notesave btn" onClick={() => editHandler(id, text)}>Edit</button>
       </div>
     </div>
   );

@@ -74,38 +74,44 @@ const Notescomp = () => {
 
   return (
     <div className="notes-container">
-      <div className="create-note" onClick={handleCreateNote}>
+      <div className="create-note d-flex align-items-center justify-content-center" onClick={handleCreateNote}>
         +
       </div>
-      <div className="note-list">
-        {notes.map((note) =>
-          editToggle === note.id ? (
-            <Createnotes
-              key={note.id}
-              inputText={inputText}
-              setInputText={setInputText}
-              saveHandler={saveHandler}
-              isExpanded={expandedNote === note.id}
-            />
-          ) : (
-            <Note
-              key={note.id}
-              id={note.id}
-              text={note.text}
-              editHandler={editHandler}
-              deleteHandler={deleteHandler}
-              isExpanded={expandedNote === note.id}
-              toggleExpand={toggleExpand}
-            />
-          )
-        )}
-        {showCreateNote && (
-          <Createnotes
-            inputText={inputText}
-            setInputText={setInputText}
-            saveHandler={saveHandler}
-          />
-        )}
+      <div className="container-fluid p-0">
+        <div className="row">
+          {notes.map((note) =>
+            editToggle === note.id ? (
+              <div key={note.id} className="col-12 col-md-6 col-lg-4">
+                <Createnotes
+                  inputText={inputText}
+                  setInputText={setInputText}
+                  saveHandler={saveHandler}
+                  isExpanded={expandedNote === note.id}
+                />
+              </div>
+            ) : (
+              <div key={note.id} className="col-12 col-md-6 col-lg-4">
+                <Note
+                  id={note.id}
+                  text={note.text}
+                  editHandler={editHandler}
+                  deleteHandler={deleteHandler}
+                  isExpanded={expandedNote === note.id}
+                  toggleExpand={toggleExpand}
+                />
+              </div>
+            )
+          )}
+          {showCreateNote && (
+            <div className="col-12 col-md-6 col-lg-4">
+              <Createnotes
+                inputText={inputText}
+                setInputText={setInputText}
+                saveHandler={saveHandler}
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div
         className={`notes-overlay ${expandedNote ? "visible" : ""}`}
