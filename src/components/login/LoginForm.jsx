@@ -1,6 +1,7 @@
 // LoginForm.jsx
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from '../../context/UserContext';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -8,10 +9,88 @@ const LoginForm = () => {
     password: '',
     rememberMe: false
   });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
+  const navigate = useNavigate();
+  const { user, login } = useUser();
 
-  const handleSubmit = (e) => {
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login data:', formData);
+    setServerError('');
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email.trim(),
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Update user context and store in localStorage
+      login(data);
+      
+      // Redirect to home page
+      navigate('/');
+    } catch (error) {
+      setServerError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -44,6 +123,12 @@ const LoginForm = () => {
           marginBottom: '2rem'
         }}>Login to access your B.Tech learning journey</p>
 
+        {serverError && (
+          <div className="alert alert-danger" role="alert">
+            {serverError}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1rem' }}>
             <label style={{
@@ -54,8 +139,9 @@ const LoginForm = () => {
             }}>Email</label>
             <input
               type="email"
+              name="email"
               value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={handleChange}
               required
               style={{
                 display: 'block',
@@ -66,11 +152,16 @@ const LoginForm = () => {
                 lineHeight: '1.5',
                 color: '#212529',
                 backgroundColor: '#fff',
-                border: '1px solid #ced4da',
+                border: `1px solid ${errors.email ? '#dc3545' : '#ced4da'}`,
                 borderRadius: '0.25rem',
                 transition: 'border-color .15s ease-in-out'
               }}
             />
+            {errors.email && (
+              <div style={{ color: '#dc3545', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                {errors.email}
+              </div>
+            )}
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
@@ -82,8 +173,9 @@ const LoginForm = () => {
             }}>Password</label>
             <input
               type="password"
+              name="password"
               value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={handleChange}
               required
               style={{
                 display: 'block',
@@ -94,11 +186,16 @@ const LoginForm = () => {
                 lineHeight: '1.5',
                 color: '#212529',
                 backgroundColor: '#fff',
-                border: '1px solid #ced4da',
+                border: `1px solid ${errors.password ? '#dc3545' : '#ced4da'}`,
                 borderRadius: '0.25rem',
                 transition: 'border-color .15s ease-in-out'
               }}
             />
+            {errors.password && (
+              <div style={{ color: '#dc3545', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+                {errors.password}
+              </div>
+            )}
           </div>
 
           <div style={{
@@ -114,20 +211,22 @@ const LoginForm = () => {
             }}>
               <input
                 type="checkbox"
+                name="rememberMe"
                 checked={formData.rememberMe}
-                onChange={(e) => setFormData({...formData, rememberMe: e.target.checked})}
+                onChange={handleChange}
                 style={{ marginRight: '0.5rem' }}
               />
               Remember me
             </label>
-            <a href="#" style={{
+            <Link to="/forgot-password" style={{
               color: '#0d6efd',
               textDecoration: 'none'
-            }}>Forgot Password?</a>
+            }}>Forgot Password?</Link>
           </div>
 
           <button
             type="submit"
+            disabled={isLoading}
             style={{
               display: 'block',
               width: '100%',
@@ -136,14 +235,14 @@ const LoginForm = () => {
               fontWeight: '400',
               lineHeight: '1.5',
               color: '#fff',
-              backgroundColor: '#ff6b00',
+              backgroundColor: isLoading ? '#ccc' : '#ff6b00',
               borderRadius: '0.25rem',
               border: '1px solid #ff6b00',
-              cursor: 'pointer',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
               marginBottom: '1rem'
             }}
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

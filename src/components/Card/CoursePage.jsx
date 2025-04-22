@@ -1,6 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
 
 const CoursesPage = () => {
+  const navigate = useNavigate();
+  const { user } = useUser();
+
   const courses = {
     programmingLanguages: [
       { title: 'C', description: 'Build strong programming foundations' },
@@ -24,7 +29,6 @@ const CoursesPage = () => {
       { title: 'AI & ML', description: 'Intelligent systems design' },
       { title: 'Cryptography', description: 'Security fundamentals' },
     ]
-    
   };
 
   const formatCategoryTitle = (title) => {
@@ -33,6 +37,16 @@ const CoursesPage = () => {
       .split(/(?=[A-Z])/)
       .join(' ')
       .replace(/^\w/, (c) => c.toUpperCase());
+  };
+
+  const handleGradeupNowClick = (courseTitle) => {
+    if (!user) {
+      navigate('/login');
+    } else {
+      // Handle course enrollment for logged-in users
+      console.log(`Enrolling in course: ${courseTitle}`);
+      // Add your course enrollment logic here
+    }
   };
 
   return (
@@ -95,14 +109,15 @@ const CoursesPage = () => {
                         transition: 'all 0.3s ease',
                         fontSize: '0.9rem',
                       }}
+                      onClick={() => handleGradeupNowClick(course.title)}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#ff7700';
+                        e.currentTarget.style.backgroundColor = '#e56a00';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.backgroundColor = '#ff7700';
                       }}
                     >
-                      GradeupNow
+                      {user ? 'GradeUpNow' : 'Login to GradeUpNow'}
                     </button>
                   </div>
                 </div>

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import Note from "./Note";
 import Createnotes from "./Createnotes";
 
 const Notescomp = () => {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const [inputText, setInputText] = useState("");
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem("Notes");
@@ -14,11 +18,20 @@ const Notescomp = () => {
   const [showCreateNote, setShowCreateNote] = useState(false);
 
   const editHandler = (id, text) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     setEditToggle(id);
     setInputText(text);
   };
 
   const saveHandler = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     if (editToggle) {
       setNotes(
         notes.map((note) =>
@@ -40,6 +53,10 @@ const Notescomp = () => {
   };
 
   const deleteHandler = (id) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     const newNotes = notes.filter((n) => n.id !== id);
     setNotes(newNotes);
     if (expandedNote === id) {
@@ -68,6 +85,10 @@ const Notescomp = () => {
   }, [notes]);
 
   const handleCreateNote = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     setShowCreateNote(true);
     setInputText("");
   };

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.1",
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.15.0",
     "global": "^4.4.0",
@@ -33,6 +34,6 @@
     "globals": "^15.14.0",
     "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.0.5"
+    "vite": "^6.3.2"
   }
 }

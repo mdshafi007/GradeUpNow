@@ -11,7 +11,7 @@ import Card from "./components/Card/CoursePage";
 import LoginForm from "./components/login/LoginForm";
 import SignUp from "./components/signup/SignUp";
 import CoursePage from "./components/Card/CoursePage";
-
+import { UserProvider } from "./context/UserContext";
 
 const Home=()=>{
   return(
@@ -25,8 +25,9 @@ const Home=()=>{
 
 function App() {
   return (
+    <UserProvider>
       <Router>
-         <div className="app">
+        <div className="app">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -34,14 +35,11 @@ function App() {
             <Route path="/courses" element={<CoursePage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignUp />} />
-
-           
           </Routes>
           <Footer />
-         </div>
+        </div>
       </Router>
-      
-
+    </UserProvider>
   );
 }
 
