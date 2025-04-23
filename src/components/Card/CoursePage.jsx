@@ -40,13 +40,9 @@ const CoursesPage = () => {
   };
 
   const handleGradeupNowClick = (courseTitle) => {
-    if (!user) {
-      navigate('/login');
-    } else {
-      // Handle course enrollment for logged-in users
-      console.log(`Enrolling in course: ${courseTitle}`);
-      // Add your course enrollment logic here
-    }
+    // Handle course enrollment for all users
+    console.log(`Enrolling in course: ${courseTitle}`);
+    // Add your course enrollment logic here
   };
 
   return (
@@ -117,7 +113,7 @@ const CoursesPage = () => {
                         e.currentTarget.style.backgroundColor = '#ff7700';
                       }}
                     >
-                      {user ? 'GradeUpNow' : 'Login to GradeUpNow'}
+                      GradeUpNow
                     </button>
                   </div>
                 </div>
