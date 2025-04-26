@@ -1,0 +1,102 @@
+{
+  "courseId": "c-programming",
+  "title": "C Programming Tutorial",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "Introduction to C",
+      "content": [
+        {
+          "type": "text",
+          "content": "C is a general-purpose programming language created by Dennis Ritchie at Bell Laboratories in 1972. It is a very popular language, despite being old. The main features of C language include low-level access to memory, simple set of keywords, and clean style, these features make C language suitable for system programming like operating system or compiler development.\n\nC is considered as a middle-level language because it supports both high-level programming features (like structured programming) and low-level programming features (like memory management). It has greatly influenced many other popular programming languages, most notably C++, which began as an extension to C."
+        },
+        {
+          "type": "text",
+          "content": "Key Features of C Programming:\n\n• Procedural Language - Instructions in C are executed step by step\n• Fast and Efficient - Programs written in C are very fast compared to most programming languages\n• Portability - C programs written for one platform can be easily ported to another\n• Extensible - C language can be extended by adding new functions to its library\n• Middle-Level Language - Supports both low-level and high-level programming features\n• Rich Library Support - Extensive built-in functions and standard library support"
+        },
+        {
+          "type": "code",
+          "title": "Your First C Program",
+          "content": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n\n/* This is a simple C program that prints 'Hello, World!' to the console\n   Let's break down this program:\n   1. #include <stdio.h> - Includes the standard input/output library\n   2. int main() - The main function where program execution begins\n   3. printf() - Function to print text to console\n   4. return 0 - Indicates successful program completion\n*/"
+        },
+        {
+          "type": "text",
+          "content": "Program Structure in C:\n\nA C program consists of various components:\n\n1. Preprocessor Commands - Begin with # and are processed before compilation\n2. Functions - Contains the executable code (main function is mandatory)\n3. Variables - Store data to be used in the program\n4. Statements & Expressions - Instructions that perform operations\n5. Comments - Help explain the code (single line // or multi-line /* */)"
+        },
+        {
+          "type": "code",
+          "title": "Basic Program Structure",
+          "content": "/* Program showing basic structure of C */\n\n#include <stdio.h>   // Preprocessor command\n#include <stdlib.h>\n\n// Function declaration\nvoid greet(char name[]);\n\nint main() {         // Main function\n    // Variable declaration\n    int age = 25;\n    char name[] = \"John\";\n    \n    // Function call\n    greet(name);\n    \n    // Print age\n    printf(\"Age: %d\\n\", age);\n    \n    return 0;\n}\n\n// Function definition\nvoid greet(char name[]) {\n    printf(\"Hello, %s!\\n\", name);\n}"
+        },
+        {
+          "type": "text",
+          "content": "Compilation Process:\n\nWhen you write a C program, it goes through several stages before execution:\n\n1. Preprocessing - Expands macros and includes header files\n2. Compilation - Converts source code to assembly code\n3. Assembly - Converts assembly code to object code\n4. Linking - Links object code with libraries to create executable\n\nThis multi-step process ensures efficient execution and proper resource management."
+        }
+      ]
+    },
+    {
+      "id": "environment",
+      "title": "Environment Setup",
+      "content": [
+        {
+          "type": "text",
+          "content": "To start programming in C, you need to set up a development environment. This includes:\n\n1. Text Editor or IDE - For writing code (VS Code, CodeBlocks, Dev-C++)\n2. C Compiler - To compile your code (GCC, Clang, MSVC)\n3. Debugger - For finding and fixing errors"
+        },
+        {
+          "type": "text",
+          "content": "Popular IDEs for C Programming:\n\n• Visual Studio Code - Lightweight, extensible editor with great C/C++ support\n• Code::Blocks - Free C/C++ IDE, especially good for beginners\n• Dev-C++ - Simple IDE focused on C/C++ development\n• CLion - Professional IDE with advanced features (paid)\n• Eclipse with C/C++ plugins - Full-featured development environment"
+        },
+        {
+          "type": "code",
+          "title": "Compiling and Running",
+          "content": "/* Using GCC Compiler */\n\n// Compile:\ngcc program.c -o program\n\n// Run:\n./program\n\n/* Using Make */\n// Makefile:\nCC=gcc\nCFLAGS=-Wall\n\nprogram: program.c\n\t$(CC) $(CFLAGS) -o program program.c"
+        }
+      ]
+    },
+    {
+      "id": "basic-syntax",
+      "title": "Basic Syntax",
+      "content": [
+        {
+          "type": "text",
+          "content": "A C program consists of various tokens such as keywords, identifiers, constants, strings, and symbols. The basic structure of a C program includes headers, main function, and other functions."
+        },
+        {
+          "type": "code",
+          "title": "Basic Structure of C Program",
+          "content": "#include <stdio.h>    // Header file\n\n// Main function\nint main() {\n    // Your code here\n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "data-types",
+      "title": "Data Types",
+      "content": [
+        {
+          "type": "text",
+          "content": "Data types in C refer to an extensive system used for declaring variables or functions of different types. The type of a variable determines how much space it occupies in storage and how the bit pattern stored is interpreted. In this chapter, we will learn about data types in C. A related concept is that of variables, which refer to the addressable location in the memory of the processor. The data captured via different input devices is stored in the computer memory. A symbolic name can be assigned to the storage location called variable name. C is a statically typed language. The name of the variable along with the type of data it intends to store must be explicitly declared before actually using it. C is also a strongly typed language, which means that the automatic or implicit conversion of one data type to another is not allowed."
+        },
+        {
+          "type": "code",
+          "title": "Data Types Example",
+          "content": "#include <stdio.h>\n\nint main() {\n    int age = 25;           // Integer\n    float height = 5.8;     // Floating point\n    char grade = 'A';       // Character\n    double pi = 3.14159;    // Double precision float\n    \n    printf(\"Age: %d\\n\", age);\n    printf(\"Height: %.1f\\n\", height);\n    printf(\"Grade: %c\\n\", grade);\n    printf(\"Pi: %f\\n\", pi);\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "title": "Variables",
+      "content": [
+        {
+          "type": "text",
+          "content": "Variables are containers for storing data values. In C, you must declare a variable before using it, specifying its type. Variable names can contain letters, digits, and underscore, but must start with a letter or underscore."
+        },
+        {
+          "type": "code",
+          "title": "Variable Declaration and Usage",
+          "content": "#include <stdio.h>\n\nint main() {\n    // Variable declaration\n    int number;        // Declaration\n    int count = 10;    // Declaration with initialization\n    float price = 9.99;\n    char letter = 'X';\n    \n    // Assigning value\n    number = 5;\n    \n    // Using variables\n    printf(\"Number: %d\\n\", number);\n    printf(\"Count: %d\\n\", count);\n    printf(\"Price: %.2f\\n\", price);\n    printf(\"Letter: %c\\n\", letter);\n    \n    return 0;\n}"
+        }
+      ]
+    }
+  ]
+} 

@@ -11,6 +11,7 @@ import Card from "./components/Card/CoursePage";
 import LoginForm from "./components/login/LoginForm";
 import SignUp from "./components/signup/SignUp";
 import CoursePage from "./components/Card/CoursePage";
+import CTutorial from "./components/tutorials/CTutorial";
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ToastContainer } from 'react-toastify';
@@ -49,6 +50,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/notes" element={<Notes />} />
               <Route path="/courses" element={<CoursePage />} />
+              <Route path="/courses/c-programming" element={<CTutorial />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUp />} />
             </Routes>

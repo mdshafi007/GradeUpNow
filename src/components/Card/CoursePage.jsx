@@ -42,7 +42,9 @@ const CoursesPage = () => {
   const handleGradeupNowClick = (courseTitle) => {
     // Handle course enrollment for all users
     console.log(`Enrolling in course: ${courseTitle}`);
-    // Add your course enrollment logic here
+    if (courseTitle === 'C') {
+      navigate('/courses/c-programming');
+    }
   };
 
   return (
