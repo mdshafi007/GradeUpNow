@@ -1,65 +1,49 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './HeroSect.css';
 
 const HeroSect = () => {
   const navigate = useNavigate();
 
-  // Custom styles
-  const styles = {
-    orangeText: {
-      color: '#ff7700'
-    },
-    orangeButton: {
-      backgroundColor: '#ff7700',
-      borderColor: '#ff7700',
-      color: 'white'
-    },
-    outlineOrangeButton: {
-      color: '#ff7700',
-      borderColor: '#ff7700',
-      backgroundColor: 'transparent'
-    },
-    heroContainer: {
-      marginTop: '0px'
-    }
-  };
-
   const handleStartLearningClick = () => {
-    navigate('/courses'); // Adjust the path if necessary
+    navigate('/courses');
   };
 
   const handleExploreCoursesClick = () => {
-    navigate('/courses'); // Adjust the path if necessary
+    navigate('/courses');
   };
 
   return (
-    <div className="container py-5" style={styles.heroContainer}>
-      <div className="text-center mb-5">
-        <h1 className="display-3 fw-bold mb-0">
-          <span className="text-dark">Your Complete Guide to</span>
-        </h1>
-        <h1 className="display-3 fw-bold mb-4">
-          <span style={styles.orangeText}>B.Tech Success!</span>
-        </h1>
-        <p className="text-secondary mb-5 fs-5 mx-auto" style={{ maxWidth: '650px' }}>
-          Coding, CS subjects, and tech skills—everything a B.Tech student needs.
-        </p>
-        <div className="d-flex justify-content-center gap-3">
-          <button 
-            className="btn px-4 py-2 rounded-pill" 
-            style={styles.orangeButton}
-            onClick={handleStartLearningClick}
-          >
-            Start learning
-          </button>
-          <button 
-            className="btn px-4 py-2 rounded-pill" 
-            style={styles.outlineOrangeButton}
-            onClick={handleExploreCoursesClick}
-          >
-            Explore courses
-          </button>
+    <div className="hero-section">
+      <div className="hero-overlay"></div>
+      <div className="container position-relative">
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="display-2 fw-bold mb-4 hero-headline">
+              <span style={{ color: "#1a1a1a" }}>Your Complete Guide to</span>
+              <span className="gradient-text"> B.Tech Success!</span>
+            </h1>
+            <p className="hero-subheadline" style={{ maxWidth: '540px', margin: '0 auto 2.5rem auto' }}>
+              Master coding, CS subjects, and tech skills with our comprehensive learning platform.<br />
+              <span style={{ color: '#888' }}>Everything a B.Tech student needs in one place.</span>
+            </p>
+            <div className="hero-buttons">
+              <button 
+                className="btn btn-primary btn-lg px-5 py-3 rounded-pill"
+                onClick={handleStartLearningClick}
+              >
+                Start Learning
+                <i className="fas fa-arrow-right ms-2"></i>
+              </button>
+              <button 
+                className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill"
+                onClick={handleExploreCoursesClick}
+              >
+                Explore Courses
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

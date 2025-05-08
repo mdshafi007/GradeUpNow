@@ -7,43 +7,46 @@ const WhyGradeUpNow = () => {
         {
             icon: <Brain className="feature-icon" />,
             title: "AI Learning Assistant",
-            description: "Get quick answers to your questions with AI tailored to your learning needs."
+            description: "Get instant answers to your questions with our advanced AI assistant, tailored to your learning style and pace.",
+            gradient: "gradient-purple"
         },
         {
             icon: <BookText className="feature-icon" />,
             title: "Digital Notes Platform",
-            description: "Create and access notes easily across all your devices."
+            description: "Create, organize, and access your notes seamlessly across all devices with our intuitive digital platform.",
+            gradient: "gradient-blue"
         },
         {
             icon: <Bell className="feature-icon" />,
             title: "Opportunity Alerts",
-            description: "Stay updated on internships, contests, and events with real-time notifications."
+            description: "Never miss important opportunities with real-time notifications for internships, contests, and events.",
+            gradient: "gradient-orange"
         },
         {
             icon: <BookOpen className="feature-icon" />,
             title: "Clear Learning Content",
-            description: "Understand tough topics with content simplified into easy modules."
+            description: "Master complex topics with our simplified, step-by-step learning modules designed for B.Tech students.",
+            gradient: "gradient-green"
         }
     ];
 
     return (
-        <section className="py-5 bg-light">
+        <section className="why-choose-us">
             <div className="container">
                 <div className="text-center mb-5">
-                    <h2 className="section-title h3 fw-bold mb-4">Why GradeUpNow?</h2>
+                    <h2 className="section-title">Why Choose GradeUpNow?</h2>
                 </div>
                 
                 <div className="row g-4">
                     {features.map((feature, index) => (
                         <div className="col-12 col-md-6 col-lg-3" key={index}>
-                            <div className="card feature-card border-0 shadow-sm h-100">
-                                <div className="card-body text-center d-flex flex-column align-items-center p-4">
-                                    <div className="feature-icon-wrapper mb-4">
-                                        {feature.icon}
-                                        <div className="icon-glow"></div>
-                                    </div>
-                                    <h3 className="feature-title h5">{feature.title}</h3>
-                                    <p className="feature-description text-muted mb-0">{feature.description}</p>
+                            <div className="feature-card">
+                                <div className={`feature-icon-wrapper ${feature.gradient}`}>
+                                    {feature.icon}
+                                </div>
+                                <div className="feature-content">
+                                    <h3 className="feature-title">{feature.title}</h3>
+                                    <p className="feature-description">{feature.description}</p>
                                 </div>
                             </div>
                         </div>

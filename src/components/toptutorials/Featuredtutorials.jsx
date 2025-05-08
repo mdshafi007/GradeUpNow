@@ -9,59 +9,66 @@ const Featuredtutorials = () => {
     {
       id: 1,
       title: "Programming Languages",
-      desc: "Learn C, C++, Python, Java and more",
-      icon: <Code size={24} />,
-      iconColor: "text-primary"
+      desc: "Master C, C++, Python, Java and more with hands-on projects",
+      icon: <Code size={32} />,
+      iconColor: "text-primary",
+      gradient: "gradient-primary"
     },
     {
       id: 2,
       title: "CS Subjects",
-      desc: "Learn Operating Systems, Theory of Computation and more",
-      icon: <BookOpen size={24} />,
-      iconColor: "text-success"
+      desc: "Deep dive into Operating Systems, Theory of Computation and more",
+      icon: <BookOpen size={32} />,
+      iconColor: "text-success",
+      gradient: "gradient-success"
     },
     {
       id: 3,
       title: "Technical Skills",
-      desc: "Learn Git, GitHub, LinkedIn and more",
-      icon: <GitBranch size={24} />,
-      iconColor: "text-warning"
+      desc: "Learn Git, GitHub, LinkedIn and essential developer tools",
+      icon: <GitBranch size={32} />,
+      iconColor: "text-warning",
+      gradient: "gradient-warning"
     },
     {
       id: 4,
       title: "Web Development",
-      desc: "Learn HTML, CSS, JavaScript, ReactJS and more",
-      icon: <Globe size={24} />,
-      iconColor: "text-danger"
+      desc: "Build modern web apps with HTML, CSS, JavaScript, and ReactJS",
+      icon: <Globe size={32} />,
+      iconColor: "text-danger",
+      gradient: "gradient-danger"
     }
   ];
   
   return (
-    <div className="featured-tutorials py-5">
+    <section className="featured-tutorials py-5">
       <div className="container">
         <div className="row mb-5">
           <div className="col-12 text-center">
-            <h2 className="tutorial-title d-inline-block position-relative pb-3 mb-4">Tutorials Offered</h2>
+            <h2 className="section-title1">Explore Our Courses</h2>
           </div>
         </div>
         
-        <div className="row">
+        <div className="row g-4">
           {tutorials.map((tutorial) => (
-            <div key={tutorial.id} className="col-md-6 col-lg-3 mb-4">
-              <div className="card tutorial-card h-100 shadow-sm border-0 rounded-4 transition">
-                <div className="card-body d-flex flex-column align-items-center text-center p-4">
-                  <div className={`icon-circle d-flex align-items-center justify-content-center mb-3 ${tutorial.iconColor}`}>
-                    {tutorial.icon}
-                  </div>
-                  <h3 className="card-title h5 fw-bold mb-3">{tutorial.title}</h3>
-                  <p className="card-text text-muted">{tutorial.desc}</p>
+            <div key={tutorial.id} className="col-md-6 col-lg-3">
+              <div className="tutorial-card">
+                <div className={`card-icon-wrapper ${tutorial.gradient}`}>
+                  {tutorial.icon}
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">{tutorial.title}</h3>
+                  <p className="card-description">{tutorial.desc}</p>
+                  <a href="/courses" className="card-link">
+                    Learn More <i className="fas fa-arrow-right ms-2"></i>
+                  </a>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
