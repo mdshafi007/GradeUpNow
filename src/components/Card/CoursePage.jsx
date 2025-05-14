@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 
 const CoursesPage = () => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const courses = {
     programmingLanguages: [
@@ -40,7 +41,6 @@ const CoursesPage = () => {
   };
 
   const handleGradeupNowClick = (courseTitle) => {
-    // Handle course enrollment for all users
     console.log(`Enrolling in course: ${courseTitle}`);
     if (courseTitle === 'C') {
       navigate('/courses/c-programming');
@@ -48,82 +48,92 @@ const CoursesPage = () => {
   };
 
   return (
-    <div className="container py-5" style={{ fontFamily: "'Poppins', sans-serif", backgroundColor: '#f9fafb' }}>
-      {Object.entries(courses).map(([category, items]) => (
-        <div key={category} className="mb-5">
-          <h2 className="mb-4" style={{ 
-            marginTop:'2.5rem',
-            fontSize: '1.75rem',
-            fontWeight: '700',
-            color: '#1f2937',
-          }}>
-            {formatCategoryTitle(category)}
-          </h2>
-          <div className="row g-4">
-            {items.map((course) => (
-              <div key={course.title} className="col-sm-6 col-md-4 col-lg-3">
-                <div 
-                  className="card h-100 border-0 shadow-sm"
-                  style={{
-                    borderRadius: '16px',
-                    transition: 'all 0.3s ease',
-                    backgroundColor: '#ffffff',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)';
-                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.08)';
-                  }}
-                >
-                  <div className="card-body d-flex flex-column p-4">
-                    <h5 className="card-title" style={{ 
-                      fontSize: '1.25rem',
-                      fontWeight: '600',
-                      color: '#1f2937',
-                      marginBottom: '0.75rem'
-                    }}>
-                      {course.title}
-                    </h5>
-                    <p className="card-text" style={{
-                      fontSize: '0.9rem',
-                      color: '#6b7280',
-                      lineHeight: '1.6',
-                      marginBottom: '1.5rem'
-                    }}>
-                      {course.description}
-                    </p>
-                    <button 
-                      className="btn mt-auto"
-                      style={{
-                        backgroundColor: '#ff7700',
-                        color: '#ffffff',
-                        fontWeight: '500',
-                        padding: '0.75rem 1rem',
-                        borderRadius: '8px',
-                        border: 'none',
-                        transition: 'all 0.3s ease',
-                        fontSize: '0.9rem',
-                      }}
-                      onClick={() => handleGradeupNowClick(course.title)}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#e56a00';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#ff7700';
-                      }}
-                    >
-                      GradeUpNow
-                    </button>
+    <div style={{ backgroundColor: '#f9fafb', minHeight: '100vh', marginTop: '76px' }}>
+      <div className="container py-5" style={{ fontFamily: "'Poppins', sans-serif" }}>
+        {Object.entries(courses).map(([category, items]) => (
+          <div key={category} className="mb-5">
+            <h2
+              className="mb-4"
+              style={{
+                fontSize: '1.75rem',
+                fontWeight: '700',
+                color: '#1f2937',
+              }}
+            >
+              {formatCategoryTitle(category)}
+            </h2>
+            <div className="row g-4">
+              {items.map((course) => (
+                <div key={course.title} className="col-sm-6 col-md-4 col-lg-3">
+                  <div
+                    className="card h-100 border-0 shadow-sm"
+                    style={{
+                      borderRadius: '16px',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: '#ffffff',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-6px)';
+                      e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.06)';
+                    }}
+                  >
+                    <div className="card-body d-flex flex-column p-4">
+                      <h5
+                        className="card-title"
+                        style={{
+                          fontSize: '1.2rem',
+                          fontWeight: '600',
+                          color: '#1f2937',
+                          marginBottom: '0.75rem'
+                        }}
+                      >
+                        {course.title}
+                      </h5>
+                      <p
+                        className="card-text"
+                        style={{
+                          fontSize: '0.9rem',
+                          color: '#6b7280',
+                          lineHeight: '1.6',
+                          marginBottom: '1.5rem'
+                        }}
+                      >
+                        {course.description}
+                      </p>
+                      <button
+                        className="btn mt-auto"
+                        style={{
+                          backgroundColor: '#ff7700',
+                          color: '#ffffff',
+                          fontWeight: '500',
+                          padding: '0.6rem 1rem',
+                          borderRadius: '8px',
+                          border: 'none',
+                          fontSize: '0.9rem',
+                          transition: 'background-color 0.3s ease'
+                        }}
+                        onClick={() => handleGradeupNowClick(course.title)}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#e56a00';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = '#ff7700';
+                        }}
+                      >
+                        GradeUpNow
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
