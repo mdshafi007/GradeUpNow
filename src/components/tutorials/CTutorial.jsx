@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ChevronRight, Book, Code, FileText, Menu, X, Search, Clock, Users, Star } from 'lucide-react';
 import courseDataJson from '../../data/c-tutorial-content.json';
+import { Highlight, themes } from 'prism-react-renderer';
 
 const CTutorial = () => {
   const [courseData, setCourseData] = useState(null);
@@ -260,6 +261,17 @@ const CTutorial = () => {
           <nav aria-label="Course content navigation">
             {filteredSections.map((section) => (
               <div key={section.id}>
+                <div style={{
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#1f2937',
+                  backgroundColor: '#f3f4f6',
+                  borderRadius: '8px',
+                  marginBottom: '8px'
+                }}>
+                  {section.title}
+                </div>
                 {section.content.map((content, contentIndex) => (
                   <button
                     key={contentIndex}
@@ -274,7 +286,7 @@ const CTutorial = () => {
                       textAlign: 'left',
                       padding: '12px 16px',
                       border: 'none',
-                      backgroundColor: selectedSection === section.id && selectedContent === contentIndex ? '#3b82f6' : 'transparent',
+                      backgroundColor: selectedSection === section.id && selectedContent === contentIndex ? '#ff8e37' : 'transparent',
                       color: selectedSection === section.id && selectedContent === contentIndex ? '#ffffff' : '#374151',
                       borderRadius: '8px',
                       cursor: 'pointer',
@@ -283,7 +295,8 @@ const CTutorial = () => {
                       transition: 'all 0.2s',
                       display: 'flex',
                       alignItems: 'center',
-                      marginBottom: '4px'
+                      marginBottom: '4px',
+                      marginLeft: '8px'
                     }}
                   >
                     {content.type === 'code' ? <Code size={16} style={{ marginRight: '8px' }} /> : <FileText size={16} style={{ marginRight: '8px' }} />}
@@ -303,16 +316,26 @@ const CTutorial = () => {
         marginTop: '60px',
         height: 'calc(100vh - 60px)',
         position: 'relative',
-        zIndex: 800
+        zIndex: 800,
+        overflow: 'hidden'
       }}>
+        {/* Main Content Area */}
         <div style={{
-          flex: 1,
+          flexGrow: 1,
+          flexShrink: 1,
+          flexBasis: '0',
           padding: '40px',
-          overflow: 'auto',
-          backgroundColor: '#ffffff'
+          overflowY: 'auto',
+          backgroundColor: '#ffffff',
+          boxSizing: 'border-box',
+          border: '1px solid #e5e7eb',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
         }}>
           {currentContent ? (
-            <article>
+            <article style={{
+              padding: '20px',
+            }}>
               <header style={{
                 marginBottom: '32px',
                 paddingBottom: '16px',
@@ -343,28 +366,228 @@ const CTutorial = () => {
               </header>
 
               <div style={{
-                fontSize: '16px',
-                lineHeight: '1.7',
-                color: '#374151',
-                maxWidth: '800px'
+                whiteSpace: 'normal',
+                fontSize: '1.125rem',
+                lineHeight: '1.8',
+                color: '#2d3748',
+                letterSpacing: '-0.011em',
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                '& p': {
+                  marginBottom: '1.5em'
+                },
+                '& h1, & h2, & h3, & h4, & h5, & h6': {
+                  marginTop: '2em',
+                  marginBottom: '0.8em',
+                  fontWeight: '700',
+                  lineHeight: '1.2',
+                  color: '#1a202c'
+                },
+                '& h1': {
+                  fontSize: '2em',
+                  borderBottom: 'none',
+                  paddingBottom: 0,
+                  marginBottom: '0.8em'
+                },
+                '& h2': {
+                  fontSize: '1.5em',
+                  borderBottom: 'none',
+                  paddingBottom: 0,
+                  marginBottom: '0.6em'
+                },
+                '& h3': {
+                  fontSize: '1.25em'
+                },
+                '& ul, & ol': {
+                  marginBottom: '1.5em',
+                  paddingLeft: '1.5em'
+                },
+                '& li': {
+                  marginBottom: '0.5em',
+                  lineHeight: '1.6'
+                },
+                '& blockquote': {
+                  borderLeft: '4px solid #ff8e37',
+                  paddingLeft: '1em',
+                  marginLeft: 0,
+                  marginRight: 0,
+                  fontStyle: 'italic',
+                  color: '#4a5568'
+                },
+                '& a': {
+                  color: '#ff8e37',
+                  textDecoration: 'none',
+                  borderBottom: '1px solid transparent',
+                  transition: 'border-color 0.2s',
+                  '&:hover': {
+                    borderBottomColor: '#ff8e37'
+                  }
+                },
+                '& strong': {
+                  fontWeight: '700',
+                  color: '#1a202c'
+                },
+                '& em': {
+                  fontStyle: 'italic',
+                  color: '#4a5568'
+                },
+                '& code': {
+                  backgroundColor: '#f7fafc',
+                  padding: '0.2em 0.4em',
+                  borderRadius: '3px',
+                  fontSize: '0.9em',
+                  fontFamily: 'JetBrains Mono, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                  color: '#ff8e37'
+                }
               }}>
                 {currentContent.type === 'code' ? (
-                  <pre style={{
-                    backgroundColor: '#1f2937',
-                    color: '#f9fafb',
-                    padding: '24px',
+                  <div style={{
                     borderRadius: '8px',
-                    overflow: 'auto',
-                    fontSize: '14px',
-                    lineHeight: '1.5',
-                    fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    margin: '1.5em 0'
                   }}>
-                    <code>{currentContent.content}</code>
-                  </pre>
+                    {/* Code block header */}
+                    <div style={{
+                      backgroundColor: '#1e1e1e',
+                      padding: '8px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      borderBottom: '1px solid #333',
+                      fontSize: '12px',
+                      color: '#d4d4d4'
+                    }}>
+                      <span>C</span>
+                    </div>
+                    <Highlight
+                      theme={themes.vsDark}
+                      code={currentContent.content}
+                      language="c"
+                    >
+                      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                        <pre style={{
+                          backgroundColor: '#1e1e1e',
+                          color: '#d4d4d4',
+                          padding: '16px',
+                          margin: 0,
+                          overflow: 'auto',
+                          fontSize: '14px',
+                          lineHeight: '1.6',
+                          fontFamily: 'JetBrains Mono, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                          ...style
+                        }}>
+                          <code className={className}>
+                            {tokens.map((line, i) => (
+                              <div key={i} {...getLineProps({ line })} style={{
+                                display: 'flex',
+                                position: 'relative'
+                              }}>
+                                <span style={{
+                                  display: 'inline-block',
+                                  width: '3.5em',
+                                  userSelect: 'none',
+                                  opacity: 0.5,
+                                  marginRight: '1em',
+                                  textAlign: 'right',
+                                  color: '#858585',
+                                  fontSize: '0.9em'
+                                }}>
+                                  {i + 1}
+                                </span>
+                                <span style={{ flex: 1 }}>
+                                  {line.map((token, key) => (
+                                    <span key={key} {...getTokenProps({ token })} />
+                                  ))}
+                                </span>
+                              </div>
+                            ))}
+                          </code>
+                        </pre>
+                      )}
+                    </Highlight>
+                  </div>
                 ) : (
                   <div style={{
-                    whiteSpace: 'pre-wrap'
-                  }}>{currentContent.content}</div>
+                    whiteSpace: 'normal',
+                    fontSize: '1.125rem',
+                    lineHeight: '1.8',
+                    color: '#2d3748',
+                    letterSpacing: '-0.011em',
+                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  }}>
+                    <div dangerouslySetInnerHTML={{ __html: currentContent.content }} style={{
+                      fontSize: '1.125rem',
+                      lineHeight: '1.8',
+                      color: '#2d3748',
+                      letterSpacing: '-0.011em',
+                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      '& p': {
+                        marginBottom: '1.5em'
+                      },
+                      '& h1, & h2, & h3, & h4, & h5, & h6': {
+                        marginTop: '2em',
+                        marginBottom: '0.8em',
+                        fontWeight: '700',
+                        lineHeight: '1.2',
+                        color: '#1a202c'
+                      },
+                      '& h1': {
+                        fontSize: '2em',
+                        borderBottom: 'none',
+                        paddingBottom: 0,
+                        marginBottom: '0.8em'
+                      },
+                      '& h2': {
+                        fontSize: '1.5em',
+                        borderBottom: 'none',
+                        paddingBottom: 0,
+                        marginBottom: '0.6em'
+                      },
+                      '& h3': {
+                        fontSize: '1.25em'
+                      },
+                      '& ul, & ol': {
+                        marginBottom: '1.5em',
+                        paddingLeft: '1.5em'
+                      },
+                      '& li': {
+                        marginBottom: '0.5em',
+                        lineHeight: '1.6'
+                      },
+                      '& blockquote': {
+                        borderLeft: '4px solid #ff8e37',
+                        paddingLeft: '1em',
+                        marginLeft: 0,
+                        marginRight: 0,
+                        fontStyle: 'italic',
+                        color: '#4a5568'
+                      },
+                      '& a': {
+                        color: '#ff8e37',
+                        textDecoration: 'none',
+                        borderBottom: '1px solid transparent',
+                        transition: 'border-color 0.2s',
+                        '&:hover': {
+                          borderBottomColor: '#ff8e37'
+                        }
+                      },
+                      '& strong': {
+                        fontWeight: '700',
+                        color: '#1a202c'
+                      },
+                      '& em': {
+                        fontStyle: 'italic',
+                        color: '#4a5568'
+                      },
+                      '& code': {
+                        backgroundColor: '#f7fafc',
+                        padding: '0.2em 0.4em',
+                        borderRadius: '3px',
+                        fontSize: '0.9em',
+                        fontFamily: 'JetBrains Mono, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                        color: '#ff8e37'
+                      }
+                    }}/>
+                  </div>
                 )}
               </div>
 
@@ -424,7 +647,7 @@ const CTutorial = () => {
                   aria-label="Next content"
                   style={{
                     padding: '12px 24px',
-                    backgroundColor: '#3b82f6',
+                    backgroundColor: '#ff8e37',
                     border: 'none',
                     borderRadius: '6px',
                     cursor: 'pointer',
@@ -450,109 +673,26 @@ const CTutorial = () => {
           )}
         </div>
 
-        {/* Right Sidebar */}
-        <aside style={{
-          width: isMobile ? '0' : '300px',
-          backgroundColor: '#f8fafc',
-          borderLeft: '1px solid #e5e7eb',
-          padding: '24px',
-          overflow: 'auto',
-          display: isMobile ? 'none' : 'block'
-        }}>
-          <h3 style={{
-            fontSize: '16px',
-            fontWeight: '600',
-            marginBottom: '16px',
-            color: '#1f2937'
-          }}>Course Overview</h3>
-          
-          <div style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '8px',
-            padding: '16px',
-            border: '1px solid #e5e7eb',
-            marginBottom: '20px'
+        {/* Placeholder for Advertisements */}
+        {!isMobile && (
+          <aside style={{
+            width: '300px',
+            backgroundColor: '#f8fafc',
+            borderLeft: '1px solid #e5e7eb',
+            padding: '20px',
+            overflowY: 'auto',
+            display: 'flex',
+            flexShrink: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: '#6b7280',
+            fontSize: '14px',
+            textAlign: 'center'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
-              <Clock size={16} style={{ marginRight: '8px', color: '#6b7280' }} />
-              <span style={{ fontSize: '14px', color: '#6b7280' }}>Progress</span>
-            </div>
-            <div style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#1f2937'
-            }}>
-              {progress}%
-            </div>
-          </div>
+            {/* Removed placeholder text */}
+          </aside>
+        )}
 
-          <div style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '8px',
-            padding: '16px',
-            border: '1px solid #e5e7eb',
-            marginBottom: '20px'
-          }}>
-            <h4 style={{
-              fontSize: '14px',
-              fontWeight: '600',
-              marginBottom: '12px',
-              color: '#1f2937'
-            }}>Course Stats</h4>
-            <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: '1.6' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span>Sections:</span>
-                <span>{courseData.sections.length}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span>Total Content:</span>
-                <span>{courseData.sections.reduce((total, section) => total + section.content.length, 0)}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Code Examples:</span>
-                <span>{courseData.sections.reduce((total, section) => 
-                  total + section.content.filter(content => content.type === 'code').length, 0)}</span>
-              </div>
-            </div>
-          </div>
-
-          <div style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '8px',
-            padding: '16px',
-            border: '1px solid #e5e7eb'
-          }}>
-            <h4 style={{
-              fontSize: '14px',
-              fontWeight: '600',
-              marginBottom: '12px',
-              color: '#1f2937'
-            }}>Quick Navigation</h4>
-            <nav aria-label="Quick navigation">
-              {courseData.sections.map((section, index) => (
-                <button
-                  key={section.id}
-                  onClick={() => handleSectionChange(section.id)}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '8px 12px',
-                    border: 'none',
-                    backgroundColor: selectedSection === section.id ? '#e0f2fe' : 'transparent',
-                    color: selectedSection === section.id ? '#0369a1' : '#6b7280',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    marginBottom: '4px',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  {index + 1}. {section.title}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </aside>
       </main>
 
       {/* Overlay for mobile when sidebar is open */}

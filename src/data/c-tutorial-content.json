@@ -8,50 +8,45 @@
       "content": [
         {
           "type": "text",
-          "title": "What is C Programming?",
-          "content": "C is a powerful general-purpose programming language created by Dennis Ritchie at Bell Laboratories in 1972. It's one of the most widely used programming languages and has influenced many other languages like C++, Java, and Python.\n\nC is known for its efficiency, portability, and ability to work close to the hardware, making it ideal for system programming, embedded systems, and performance-critical applications."
+          "title": "What is C?",
+          "content": "<p>C is a basic but strong computer language made in 1972. It helps you tell the computer exactly what to do, step by step.</p>\n\n<p>It's used for making many types of programs, like parts of operating systems (like Windows or Linux) and software that needs to run very fast.</p>"
         },
         {
           "type": "text",
-          "title": "Why Learn C?",
-          "content": "• Foundation for Other Languages - Understanding C helps you learn other languages faster\n• System Programming - Essential for operating systems and device drivers\n• Performance - Direct hardware access and efficient memory management\n• Portability - Code can run on different platforms with minimal changes\n• Industry Standard - Still widely used in embedded systems and legacy systems"
-        },
-        {
-          "type": "code",
-          "title": "Your First C Program",
-          "content": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n\n/* This simple program demonstrates:\n   1. Including standard library\n   2. Main function declaration\n   3. Basic output using printf\n   4. Return statement */"
+          "title": "Why learn C?",
+          "content": "<p>Learning C is great because:</p>\n\n<ol>\n<li>It helps you understand how computers work at a basic level.</li>\n<li>Many other languages (like C++, Java, and Python) were inspired by C, so learning C makes learning them easier.</li>\n<li>It's still used a lot in special areas like making operating systems and programs for small devices.</li>\n</ol>"
         }
       ]
     },
     {
-      "id": "basics",
-      "title": "Basic Concepts",
+      "id": "structure",
+      "title": "Basic Structure of a C Program",
       "content": [
         {
           "type": "text",
-          "title": "Variables and Data Types",
-          "content": "C provides several basic data types:\n\n• int - Integer numbers\n• float - Single precision floating point\n• double - Double precision floating point\n• char - Single character\n• void - Represents absence of type\n\nVariables must be declared before use, specifying their type and name."
+          "title": "How a C program looks",
+          "content": "<p>A simple C program has a few main parts:</p>\n\n<ol>\n<li><strong>Include files:</strong> These bring in ready-made code that helps your program do things, like printing text.</li>\n<li><strong>The main part (main function):</strong> This is where your program starts running. Every C program must have this.</li>\n<li><strong>Code inside main:</strong> Here you write the steps you want the computer to follow.</li>\n</ol>\n\n<p>Think of it like writing instructions for a robot.</p>"
         },
         {
           "type": "code",
-          "title": "Variable Declaration Example",
-          "content": "#include <stdio.h>\n\nint main() {\n    // Variable declarations\n    int age = 25;\n    float height = 5.9;\n    char grade = 'A';\n    double pi = 3.14159;\n    \n    // Printing variables\n    printf(\"Age: %d\\n\", age);\n    printf(\"Height: %.1f\\n\", height);\n    printf(\"Grade: %c\\n\", grade);\n    printf(\"Pi: %f\\n\", pi);\n    \n    return 0;\n}"
+          "title": "Example program",
+          "content": "#include <stdio.h>\n\nint main() {\n    // This line tells the computer to print something\n    printf(\"Hello, C Programmers!\\n\");\n    \n    // This tells the program everything went okay\n    return 0;\n}"
         }
       ]
     },
     {
-      "id": "control-flow",
-      "title": "Control Flow",
+      "id": "data-types",
+      "title": "Data Types & Variables",
       "content": [
         {
           "type": "text",
-          "title": "Decision Making",
-          "content": "C provides several control structures:\n\n1. if-else statements\n2. switch-case statements\n3. Conditional (ternary) operator\n4. Logical operators (&&, ||, !)\n\nThese structures help control the flow of program execution based on conditions."
+          "title": "What are variables?",
+          "content": "<p>Imagine you have boxes to store different kinds of things. In programming, variables are like these boxes. A variable is a name you give to a storage area in the computer's memory. You use it to hold information (data) that your program needs, like numbers or text.</p>"
         },
         {
-          "type": "code",
-          "title": "Control Flow Examples",
-          "content": "#include <stdio.h>\n\nint main() {\n    int score = 85;\n    \n    // if-else example\n    if (score >= 90) {\n        printf(\"Grade: A\\n\");\n    } else if (score >= 80) {\n        printf(\"Grade: B\\n\");\n    } else {\n        printf(\"Grade: C\\n\");\n    }\n    \n    // switch example\n    switch (score / 10) {\n        case 10:\n        case 9:\n            printf(\"Excellent!\\n\");\n            break;\n        case 8:\n            printf(\"Good!\\n\");\n            break;\n        default:\n            printf(\"Keep trying!\\n\");\n    }\n    \n    return 0;\n}"
+          "type": "text",
+          "title": "Data types in C",
+          "content": "<p>C needs to know what kind of data you want to store in your variable box. This is called a 'data type'.</p>\n\n<p>Common data types in C:</p>\n\n<ul>\n<li><code>int</code>: For whole numbers (like 5, -10, 1000)</li>\n<li><code>float</code>: For numbers with decimal points (like 3.14, 0.01, -2.5)</li>\n<li><code>char</code>: For single letters or symbols (like 'A', 'b', '7', '$')</li>\n</ul>\n\n<p>There are other types too, but these are the basics.</p>"
         }
       ]
     }
