@@ -202,34 +202,77 @@ const CTutorial = () => {
         }}>{courseData.title}</h1>
       </header>
 
+      {/* Mobile Topics Button */}
+      {isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: '60px',
+          left: 0,
+          right: 0,
+          padding: '12px 20px',
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e5e7eb',
+          zIndex: 999,
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 16px',
+              backgroundColor: '#ff8e37',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              boxShadow: '0 2px 4px rgba(255, 142, 55, 0.2)'
+            }}
+          >
+            <Menu size={16} />
+            Topics
+          </button>
+        </div>
+      )}
+
       {/* Sidebar */}
       <aside style={{
-        width: sidebarOpen ? (isMobile ? '100%' : '320px') : '0',
+        width: sidebarOpen ? '320px' : '0',
         backgroundColor: '#f8fafc',
         borderRight: '1px solid #e5e7eb',
         transition: 'all 0.3s ease',
-        overflow: 'hidden',
-        marginTop: '60px',
-        height: 'calc(100vh - 60px)',
-        position: isMobile ? 'fixed' : 'sticky',
-        top: '60px',
+        overflowY: 'auto',
+        marginTop: isMobile ? '120px' : '60px',
+        height: isMobile ? 'calc(100vh - 120px)' : 'calc(100vh - 60px)',
+        position: 'sticky',
+        top: isMobile ? '120px' : '60px',
+        bottom: 'auto',
         left: 0,
-        zIndex: 900,
+        zIndex: sidebarOpen ? 950 : -1,
         visibility: sidebarOpen ? 'visible' : 'hidden',
         opacity: sidebarOpen ? 1 : 0,
-        boxShadow: sidebarOpen ? '2px 0 5px rgba(0, 0, 0, 0.1)' : 'none'
+        boxShadow: sidebarOpen ? '2px 0 5px rgba(0, 0, 0, 0.1)' : 'none',
+        transform: 'none',
+        display: 'auto'
       }}>
-        <div style={{ 
+        <div style={{
           padding: '20px',
+          paddingTop: '20px',
           width: '320px',
           minWidth: '320px',
           height: '100%',
-          overflowY: 'auto'
+          overflowY: 'auto',
+          boxSizing: 'border-box'
         }}>
           {/* Search */}
           <div style={{
             position: 'relative',
-            marginBottom: '24px'
+            marginBottom: '24px',
+            paddingTop: '0'
           }}>
             <Search size={16} style={{
               position: 'absolute',
@@ -317,7 +360,8 @@ const CTutorial = () => {
         height: 'calc(100vh - 60px)',
         position: 'relative',
         zIndex: 800,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginLeft: isMobile ? '0' : 'auto'
       }}>
         {/* Main Content Area */}
         <div style={{
@@ -706,7 +750,7 @@ const CTutorial = () => {
             right: 0,
             bottom: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 850,
+            zIndex: 940,
             transition: 'opacity 0.3s ease'
           }}
         />
