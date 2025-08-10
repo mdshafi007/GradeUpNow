@@ -1,46 +1,63 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './HeroSect.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./HeroSect.css";
 
 const HeroSect = () => {
   const navigate = useNavigate();
 
-  const handleStartLearningClick = () => {
-    navigate('/courses');
-  };
-
-  const handleExploreCoursesClick = () => {
-    navigate('/courses');
-  };
-
   return (
     <div className="hero-section">
-      <div className="hero-overlay"></div>
+      {/* Animated Background Elements */}
+      <div className="hero-bg-elements">
+        <div className="floating-shape shape-1"></div>
+        <div className="floating-shape shape-2"></div>
+        <div className="floating-shape shape-3"></div>
+        <div className="tech-grid"></div>
+      </div>
+
       <div className="container position-relative">
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="display-2 fw-bold mb-4 hero-headline">
-              <span style={{ color: "#1a1a1a" }}>Your Complete Guide to</span>
-              <span className="gradient-text"> B.Tech Success!</span>
+            <div className="badge-container">
+              <span className="tech-badge">
+                <span className="pulse"></span>
+                Revolutionary Learning Platform
+              </span>
+            </div>
+
+            <h1 className="hero-headline">
+              <span className="headline-main">Your Complete Guide to</span>
+              <span className="gradient-text highlight-text">
+                {" "}
+                B.Tech Success!
+              </span>
+              <div className="headline-decorator"></div>
             </h1>
-            <p className="hero-subheadline" style={{ maxWidth: '540px', margin: '0 auto 2.5rem auto' }}>
-              Master coding, CS subjects, and tech skills with our comprehensive learning platform.<br />
-              <span style={{ color: '#888' }}>Everything a B.Tech student needs in one place.</span>
+
+            <p className="hero-description">
+              Master coding, CS subjects, and tech skills with our comprehensive
+              learning platform.
+              <span className="highlight-subtext">
+                Everything a B.Tech student needs in one place.
+              </span>
             </p>
-            <div className="hero-buttons">
-              <button 
-                className="btn btn-primary btn-lg px-5 py-3 rounded-pill"
-                onClick={handleStartLearningClick}
+
+            <div className="hero-actions">
+              <button
+                className="btn-start"
+                onClick={() => navigate("/courses")}
               >
-                Start Learning
-                <i className="fas fa-arrow-right ms-2"></i>
+                <span className="btn-text">Start Learning</span>
+                <span className="btn-icon">→</span>
               </button>
-              <button 
-                className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill"
-                onClick={handleExploreCoursesClick}
+
+              <button
+                className="btn-explore"
+                onClick={() => navigate("/courses")}
               >
                 Explore Courses
+                <span className="btn-hover-effect"></span>
               </button>
             </div>
           </div>

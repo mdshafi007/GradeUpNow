@@ -32,104 +32,231 @@ const Navbar = () => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isDropdownOpen && !event.target.closest('.dropdown')) {
+      if (isDropdownOpen && !event.target.closest(".dropdown")) {
         setIsDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
 
   return (
-    <nav className="navbar navbar-expand-md fixed-top bg-white">
-      <div className="container-fluid">
-        {/* Brand on the left */}
-        <Link to="/" className="navbar-brand">GradeUpNow</Link>
+    <nav
+      className="navbar navbar-expand-md fixed-top"
+      style={{
+        backgroundColor: "#ffffff",
+        boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
+        padding: "0.75rem 0",
+      }}
+    >
+      <div className="container">
+        <Link
+          to="/"
+          className="navbar-brand"
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "700",
+            color: "#FF7700",
+            letterSpacing: "-0.5px",
+          }}
+        >
+          GradeUpNow
+        </Link>
 
-        {/* Hamburger menu for mobile view */}
-        <button 
-          className="navbar-toggler" 
-          type="button" 
+        <button
+          className="navbar-toggler"
+          type="button"
           onClick={toggleMenu}
-          aria-controls="navbarCollapse" 
-          aria-expanded={isMenuOpen ? "true" : "false"} 
+          aria-controls="navbarCollapse"
+          aria-expanded={isMenuOpen ? "true" : "false"}
           aria-label="Toggle navigation"
+          style={{
+            border: "none",
+            padding: "0.5rem",
+          }}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`} id="navbarCollapse">
-          {/* Navigation links in the center */}
-          <ul className="navbar-nav mx-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <Link to="/courses" className="nav-link" onClick={() => setIsMenuOpen(false)}>Courses</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/notes" className="nav-link" onClick={() => setIsMenuOpen(false)}>Notes</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/notifications" className="nav-link" onClick={() => setIsMenuOpen(false)}>Notifications</Link>
-            </li>
+        <div
+          className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}
+          id="navbarCollapse"
+        >
+          <ul
+            className="navbar-nav mx-auto mb-2 mb-md-0"
+            style={{
+              gap: "1.5rem",
+            }}
+          >
+            {[
+              { to: "/courses", text: "Courses" },
+              { to: "/notes", text: "Notes" },
+              { to: "/notifications", text: "Notifications" },
+            ].map((link) => (
+              <li className="nav-item" key={link.to}>
+                <Link
+                  to={link.to}
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    color: "#4B5563",
+                    fontWeight: "500",
+                    fontSize: "1rem",
+                    padding: "0.5rem",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = "#FF7700";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "#4B5563";
+                  }}
+                >
+                  {link.text}
+                </Link>
+              </li>
+            ))}
           </ul>
 
-          {/* Authentication buttons on the right */}
-          <div className="d-flex flex-column flex-md-row auth-buttons">
+          <div className="d-flex flex-column flex-md-row auth-buttons gap-2">
             {user ? (
               <div className="dropdown">
-                <div 
-                  className="user-dropdown-button d-flex align-items-center justify-content-between w-100 w-md-auto" 
+                <div
+                  className="user-dropdown-button d-flex align-items-center gap-2"
                   onClick={toggleDropdown}
+                  style={{
+                    padding: "0.5rem 1rem",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    backgroundColor: "#F3F4F6",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#E5E7EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#F3F4F6";
+                  }}
                 >
-                  <span className="user-name" style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    marginRight: '0.5rem'
-                  }}>
+                  <span
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      backgroundColor: "#FF7700",
+                      color: "#ffffff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {user.fullName?.charAt(0).toUpperCase()}
+                  </span>
+                  <span
+                    className="user-name"
+                    style={{
+                      fontWeight: "500",
+                      color: "#111827",
+                    }}
+                  >
                     {user.fullName}
                   </span>
-                  <span className="dropdown-toggle"></span>
                 </div>
                 {isDropdownOpen && (
-                  <div className="dropdown-menu show">
-                    <Link 
-                      className="dropdown-item" 
-                      to="/profile" 
-                      onClick={() => { 
-                        setIsMenuOpen(false); 
-                        setIsDropdownOpen(false); 
+                  <div
+                    className="dropdown-menu show"
+                    style={{
+                      top: "120%",
+                      right: 0,
+                      left: "auto",
+                      padding: "0.5rem",
+                      border: "none",
+                      borderRadius: "12px",
+                      boxShadow:
+                        "0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    <Link
+                      className="dropdown-item"
+                      to="/profile"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setIsDropdownOpen(false);
+                      }}
+                      style={{
+                        padding: "0.75rem 1rem",
+                        borderRadius: "8px",
+                        color: "#4B5563",
+                        fontWeight: "500",
                       }}
                     >
-                      <span className="dropdown-icon profile-icon"></span>
                       My Profile
                     </Link>
                     <div className="dropdown-divider"></div>
-                    <button 
-                      className="dropdown-item text-danger" 
+                    <button
+                      className="dropdown-item"
                       onClick={handleLogout}
+                      style={{
+                        padding: "0.75rem 1rem",
+                        borderRadius: "8px",
+                        color: "#DC2626",
+                        fontWeight: "500",
+                      }}
                     >
-                      <span className="dropdown-icon logout-icon"></span>
                       Logout
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="d-flex flex-column flex-md-row align-items-stretch">
-                <Link 
-                  to="/login" 
-                  className="btn btn-outline-primary mb-2 mb-md-0 me-md-2" 
+              <div className="d-flex flex-column flex-md-row gap-2">
+                <Link
+                  to="/login"
+                  className="btn"
                   onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    padding: "0.5rem 1.25rem",
+                    fontWeight: "500",
+                    borderRadius: "8px",
+                    color: "#FF7700",
+                    border: "2px solid #FF7700",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#FF7700";
+                    e.currentTarget.style.color = "#ffffff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.color = "#FF7700";
+                  }}
                 >
                   Login
                 </Link>
-                <Link 
-                  to="/signup" 
-                  className="btn btn-primary" 
+                <Link
+                  to="/signup"
+                  className="btn"
                   onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    padding: "0.5rem 1.25rem",
+                    fontWeight: "500",
+                    borderRadius: "8px",
+                    backgroundColor: "#FF7700",
+                    color: "#ffffff",
+                    border: "none",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#FF8800";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#FF7700";
+                  }}
                 >
                   Sign up
                 </Link>
