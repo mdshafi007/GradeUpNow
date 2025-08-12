@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
 import Note from "./Note";
 import Createnotes from "./Createnotes";
 
 const Notescomp = () => {
-  const navigate = useNavigate();
-  const { user } = useUser();
   const [inputText, setInputText] = useState("");
   const [notes, setNotes] = useState(() => {
-    if (!user) return [];
-    const savedNotes = localStorage.getItem(`notes_${user._id}`);
+    const savedNotes = localStorage.getItem("notes");
     return savedNotes ? JSON.parse(savedNotes) : [];
   });
   const [categories, setCategories] = useState(() => {
-    if (!user) return [{ id: "all", name: "All Notes", icon: "📝", isDefault: true }];
-    const savedCategories = localStorage.getItem(`categories_${user._id}`);
-    return savedCategories ? JSON.parse(savedCategories) : [
-      { id: "all", name: "All Notes", icon: "📝", isDefault: true }
-    ];
+    const savedCategories = localStorage.getItem("categories");
+    return savedCategories
+      ? JSON.parse(savedCategories)
+      : [{ id: "all", name: "All Notes", icon: "📝", isDefault: true }];
   });
   const [editToggle, setEditToggle] = useState(null);
   const [expandedNote, setExpandedNote] = useState(null);
@@ -31,39 +25,15 @@ const Notescomp = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showCategoryOptions, setShowCategoryOptions] = useState(null);
 
+  // Save categories to localStorage
   useEffect(() => {
-    if (user) {
-      localStorage.setItem(`categories_${user._id}`, JSON.stringify(categories));
-    }
-  }, [categories, user]);
+    localStorage.setItem("categories", JSON.stringify(categories));
+  }, [categories]);
 
+  // Save notes to localStorage
   useEffect(() => {
-    if (user) {
-      localStorage.setItem(`notes_${user._id}`, JSON.stringify(notes));
-    }
-  }, [notes, user]);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    
-    const savedNotes = localStorage.getItem(`notes_${user._id}`);
-    const savedCategories = localStorage.getItem(`categories_${user._id}`);
-    
-    if (savedNotes) {
-      setNotes(JSON.parse(savedNotes));
-    } else {
-      setNotes([]);
-    }
-    
-    if (savedCategories) {
-      setCategories(JSON.parse(savedCategories));
-    } else {
-      setCategories([{ id: "all", name: "All Notes", icon: "📝", isDefault: true }]);
-    }
-  }, [user, navigate]);
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const addNewCategory = () => {
     if (newCategoryName.trim()) {
@@ -71,7 +41,7 @@ const Notescomp = () => {
         id: uuid(),
         name: newCategoryName.trim(),
         icon: "📁",
-        isDefault: false
+        isDefault: false,
       };
       setCategories([...categories, newCategory]);
       setNewCategoryName("");
@@ -80,43 +50,30 @@ const Notescomp = () => {
   };
 
   const deleteCategory = (categoryId) => {
-    // Move notes from deleted category to "All Notes"
-    setNotes(notes.map(note => 
-      note.category === categoryId ? { ...note, category: "all" } : note
-    ));
-    
-    // Remove the category
-    setCategories(categories.filter(cat => cat.id !== categoryId));
-    
-    // If the deleted category was selected, switch to "All Notes"
+    setNotes(
+      notes.map((note) =>
+        note.category === categoryId ? { ...note, category: "all" } : note
+      )
+    );
+    setCategories(categories.filter((cat) => cat.id !== categoryId));
     if (selectedCategory === categoryId) {
       setSelectedCategory("all");
     }
-    
     setShowCategoryOptions(null);
   };
 
   const editHandler = (id, text) => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
     setEditToggle(id);
     setInputText(text);
   };
 
   const saveHandler = () => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
     const now = new Date().toISOString();
-    
+
     if (editToggle) {
       setNotes(
         notes.map((note) =>
-          note.id === editToggle 
+          note.id === editToggle
             ? { ...note, text: inputText, updatedAt: now }
             : note
         )
@@ -129,7 +86,7 @@ const Notescomp = () => {
           text: inputText,
           createdAt: now,
           updatedAt: now,
-          category: selectedCategory
+          category: selectedCategory,
         },
       ]);
     }
@@ -139,10 +96,6 @@ const Notescomp = () => {
   };
 
   const deleteHandler = (id) => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
     const newNotes = notes.filter((n) => n.id !== id);
     setNotes(newNotes);
     if (expandedNote === id) {
@@ -154,67 +107,58 @@ const Notescomp = () => {
     setExpandedNote(expandedNote === id ? null : id);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest(".category-options") && !e.target.closest(".category-menu-trigger")) {
-        setShowCategoryOptions(null);
-      }
-      if (!e.target.closest(".note")) {
-        setExpandedNote(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleCreateNote = () => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    setShowCreateNote(true);
-    setInputText("");
-  };
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
-  const filteredNotes = notes.filter(note => 
-    (selectedCategory === "all" || note.category === selectedCategory) &&
-    note.text.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredNotes = notes.filter(
+    (note) =>
+      (selectedCategory === "all" || note.category === selectedCategory) &&
+      note.text.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleCreateNote = () => {
+    setShowCreateNote(true);
+  };
+
   return (
-    <div className="app-container">
-      <div className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+    <div
+      className="app-container"
+      style={{
+        padding: "80px 0 20px 0",
+        minHeight: "100vh",
+        backgroundColor: "#f9fafb",
+      }}
+    >
+      <div className={`sidebar ${isSidebarCollapsed ? "collapsed" : ""}`}>
         <div className="sidebar-header">
           <h2>GradeUpNow</h2>
-          <button 
+          <button
             className="collapse-button"
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           >
-            {isSidebarCollapsed ? '→' : '←'}
+            {isSidebarCollapsed ? "→" : "←"}
           </button>
         </div>
         <div className="sidebar-section">
           <h3 className="sidebar-section-title">Notes</h3>
         </div>
         <div className="categories-list">
-          {categories.map(category => (
+          {categories.map((category) => (
             <div key={category.id}>
-              <div 
-                className={`category-item ${selectedCategory === category.id ? 'active' : ''}`}
+              <div
+                className={`category-item ${
+                  selectedCategory === category.id ? "active" : ""
+                }`}
               >
-                <div 
+                <div
                   className="category-content"
                   onClick={() => setSelectedCategory(category.id)}
                 >
@@ -228,7 +172,9 @@ const Notescomp = () => {
                     className="category-menu-trigger"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowCategoryOptions(showCategoryOptions === category.id ? null : category.id);
+                      setShowCategoryOptions(
+                        showCategoryOptions === category.id ? null : category.id
+                      );
                     }}
                   >
                     ⋮
@@ -254,12 +200,12 @@ const Notescomp = () => {
                   placeholder="Category name..."
                   value={newCategoryName}
                   onChange={(e) => setNewCategoryName(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addNewCategory()}
+                  onKeyPress={(e) => e.key === "Enter" && addNewCategory()}
                 />
                 <button onClick={addNewCategory}>Add</button>
               </div>
             ) : (
-              <button 
+              <button
                 className="add-category-button"
                 onClick={() => setIsAddingCategory(true)}
               >
@@ -272,7 +218,8 @@ const Notescomp = () => {
       <div className="main-content">
         <div className="notes-header">
           <h1 className="title">
-            {categories.find(c => c.id === selectedCategory)?.name || "All Notes"}
+            {categories.find((c) => c.id === selectedCategory)?.name ||
+              "All Notes"}
           </h1>
           <div className="search-container">
             <input

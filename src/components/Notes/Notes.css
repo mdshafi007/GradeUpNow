@@ -1,7 +1,8 @@
 /* Custom Bootstrap Styles */
 body {
   background-color: #ffffff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   color: #37352f;
   margin-top: 10px;
@@ -34,9 +35,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   border: 1px solid rgba(55, 53, 47, 0.08);
   overflow: hidden;
@@ -47,9 +46,7 @@ body {
 
 .note:hover {
   background-color: rgba(55, 53, 47, 0.03);
-  box-shadow: 
-    0 3px 6px rgba(0, 0, 0, 0.05),
-    0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .note-body {
@@ -80,7 +77,8 @@ body {
   border: 1px solid rgba(55, 53, 47, 0.16);
   resize: none;
   font-size: 0.95rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Arial, sans-serif;
   color: #37352f;
   line-height: 1.7;
   background-color: white;
@@ -152,9 +150,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   border: 1px dashed rgba(255, 119, 0, 0.3);
   cursor: pointer;
@@ -194,9 +190,7 @@ body {
   max-height: 800px;
   z-index: 1000;
   animation: expandNote 0.2s ease-out;
-  box-shadow: 
-    0 10px 25px rgba(0, 0, 0, 0.1),
-    0 5px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(55, 53, 47, 0.16);
   background-color: white;
   margin: 0;
@@ -217,9 +211,7 @@ body {
 
 .note.expanded:hover {
   transform: translate(-50%, -50%);
-  box-shadow: 
-    0 10px 25px rgba(0, 0, 0, 0.1),
-    0 5px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 .notes-overlay {
@@ -323,32 +315,32 @@ body {
   .notes-container {
     padding: 1rem;
   }
-  
+
   .empty-note {
     padding: 1rem;
     min-height: 160px;
   }
-  
+
   .empty-note-icon {
     font-size: 1.25rem;
   }
-  
+
   .empty-note-text {
     font-size: 0.85rem;
   }
-  
+
   .title {
     font-size: 1.75rem;
     margin: 1.5rem 0 1rem;
   }
-  
+
   .notes-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
     padding: 0 1rem;
   }
-  
+
   .search-container {
     width: 100%;
   }
@@ -359,24 +351,24 @@ body {
     padding: 0.75rem;
     min-height: 140px;
   }
-  
+
   .empty-note-icon {
     font-size: 1.1rem;
   }
-  
+
   .empty-note-text {
     font-size: 0.8rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
     margin: 1rem 0 0.75rem;
   }
-  
+
   .notes-header {
     margin-bottom: 1.5rem;
   }
-  
+
   .search-input {
     font-size: 0.85rem;
   }
@@ -386,22 +378,18 @@ body {
 .app-container {
   display: flex;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: #f9fafb;
 }
 
 /* Sidebar Styles */
 .sidebar {
-  width: 280px;
-  background-color: #f7f7f7;
-  border-right: 1px solid #e5e5e5;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
+  width: 250px;
+  background: white;
+  padding: 20px;
+  border-right: 1px solid #e5e7eb;
+  height: 100vh;
   position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 100;
+  transition: all 0.3s ease;
 }
 
 .sidebar-section {
@@ -513,9 +501,7 @@ body {
   top: 100%;
   background: white;
   border-radius: 6px;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.1),
-    0 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   min-width: 160px;
   padding: 0.5rem 0;
@@ -593,8 +579,8 @@ body {
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 280px;
-  padding: 2rem;
+  padding: 20px;
+  margin-left: 250px;
   transition: all 0.3s ease;
 }
 
@@ -605,13 +591,13 @@ body {
 /* Notes Grid */
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .note-wrapper {
-  height: 100%;
+  min-height: 200px;
 }
 
 /* Existing Styles with Improvements */
@@ -619,7 +605,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 
 .title {
@@ -630,146 +616,19 @@ body {
 }
 
 .search-container {
-  position: relative;
   width: 300px;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.6rem 1rem;
-  padding-left: 2.5rem;
-  border: 1px solid #e5e5e5;
+  padding: 8px 16px;
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
-  font-size: 0.95rem;
-  color: #37352f;
-  background-color: #f7f7f7;
-  transition: all 0.2s ease;
+  font-size: 14px;
 }
 
 .search-input:focus {
   outline: none;
-  background-color: white;
   border-color: #ff7700;
   box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.1);
-}
-
-.search-container::before {
-  content: "🔍";
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.9rem;
-  color: #999;
-  pointer-events: none;
-}
-
-.note {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.25rem;
-  height: 100%;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  border: 1px solid #e5e5e5;
-}
-
-.note:hover {
-  box-shadow: 
-    0 4px 6px rgba(0, 0, 0, 0.05),
-    0 2px 4px rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
-}
-
-.empty-note {
-  height: 100%;
-  min-height: 180px;
-  border: 2px dashed #e5e5e5;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: #f7f7f7;
-}
-
-.empty-note:hover {
-  border-color: #ff7700;
-  background-color: white;
-}
-
-.empty-note-icon {
-  font-size: 1.5rem;
-  color: #999;
-  margin-bottom: 0.5rem;
-}
-
-.empty-note:hover .empty-note-icon {
-  color: #ff7700;
-}
-
-.empty-note-text {
-  color: #999;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.empty-note:hover .empty-note-text {
-  color: #ff7700;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
-
-  .sidebar.collapsed {
-    transform: translateX(0);
-    width: 280px;
-  }
-
-  .main-content {
-    margin-left: 0;
-  }
-
-  .sidebar.collapsed + .main-content {
-    margin-left: 0;
-  }
-
-  .notes-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .search-container {
-    width: 100%;
-  }
-
-  .notes-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: 1rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-  }
-
-  .note, .empty-note {
-    min-height: 160px;
-  }
 }
