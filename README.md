@@ -59,5 +59,7 @@ Contact me - shaikmohamamdshafi177@gmail.com
 
 ## Contributors
 
-- [@Moksha700](https://github.com/Moksha700)
+- [Mokshagna](https://github.com/Moksha700)
+- [Gowtham Penagamuri](https://github.com/gowthampenagamuri)
+- [Tuta Prasanth](https://github.com/gowthampenagamuri)
 
