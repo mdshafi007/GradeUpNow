@@ -61,5 +61,5 @@ Contact me - shaikmohamamdshafi177@gmail.com
 
 - [Mokshagna](https://github.com/Moksha700)
 - [Gowtham Penagamuri](https://github.com/gowthampenagamuri)
-- [Tuta Prasanth](https://github.com/gowthampenagamuri)
+- [Tuta Prasanth](https://github.com/Prasanth1782)
 
