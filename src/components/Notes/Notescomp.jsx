@@ -22,8 +22,6 @@ const Notescomp = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [showCategoryOptions, setShowCategoryOptions] = useState(null);
 
   // Save categories to localStorage
   useEffect(() => {
@@ -59,7 +57,7 @@ const Notescomp = () => {
     if (selectedCategory === categoryId) {
       setSelectedCategory("all");
     }
-    setShowCategoryOptions(null);
+    // Close options if open
   };
 
   const editHandler = (id, text) => {
@@ -137,15 +135,9 @@ const Notescomp = () => {
         backgroundColor: "#f9fafb",
       }}
     >
-      <div className={`sidebar ${isSidebarCollapsed ? "collapsed" : ""}`}>
+      <div className="sidebar">
         <div className="sidebar-header">
           <h2>GradeUpNow</h2>
-          <button
-            className="collapse-button"
-            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          >
-            {isSidebarCollapsed ? "→" : "←"}
-          </button>
         </div>
         <div className="sidebar-section">
           <h3 className="sidebar-section-title">Notes</h3>
@@ -163,57 +155,47 @@ const Notescomp = () => {
                   onClick={() => setSelectedCategory(category.id)}
                 >
                   <span className="category-icon">{category.icon}</span>
-                  {!isSidebarCollapsed && (
-                    <span className="category-name">{category.name}</span>
-                  )}
+                  <span className="category-name">{category.name}</span>
                 </div>
-                {!isSidebarCollapsed && !category.isDefault && (
+                {!category.isDefault && (
                   <button
                     className="category-menu-trigger"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowCategoryOptions(
-                        showCategoryOptions === category.id ? null : category.id
-                      );
+                      // Toggle options display
+                      // For simplicity, immediately delete on click in this example
+                      // In production, you might want a confirmation step.
+                      deleteCategory(category.id);
                     }}
                   >
-                    ⋮
+                    🗑️
                   </button>
-                )}
-                {showCategoryOptions === category.id && !category.isDefault && (
-                  <div className="category-options">
-                    <button onClick={() => deleteCategory(category.id)}>
-                      🗑️ Delete Category
-                    </button>
-                  </div>
                 )}
               </div>
             </div>
           ))}
         </div>
-        {!isSidebarCollapsed && (
-          <div className="add-category">
-            {isAddingCategory ? (
-              <div className="new-category-input">
-                <input
-                  type="text"
-                  placeholder="Category name..."
-                  value={newCategoryName}
-                  onChange={(e) => setNewCategoryName(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && addNewCategory()}
-                />
-                <button onClick={addNewCategory}>Add</button>
-              </div>
-            ) : (
-              <button
-                className="add-category-button"
-                onClick={() => setIsAddingCategory(true)}
-              >
-                + New Subject
-              </button>
-            )}
-          </div>
-        )}
+        <div className="add-category">
+          {isAddingCategory ? (
+            <div className="new-category-input">
+              <input
+                type="text"
+                placeholder="Category name..."
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && addNewCategory()}
+              />
+              <button onClick={addNewCategory}>Add</button>
+            </div>
+          ) : (
+            <button
+              className="add-category-button"
+              onClick={() => setIsAddingCategory(true)}
+            >
+              + New Subject
+            </button>
+          )}
+        </div>
       </div>
       <div className="main-content">
         <div className="notes-header">
