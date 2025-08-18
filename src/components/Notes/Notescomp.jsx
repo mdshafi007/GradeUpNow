@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import Note from "./Note";
 import Createnotes from "./Createnotes";
 
 const Notescomp = () => {
+  const titleEditRef = useRef(null);
   const [inputText, setInputText] = useState("");
+  const [inputTitle, setInputTitle] = useState("");
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem("notes");
     return savedNotes ? JSON.parse(savedNotes) : [];
@@ -18,8 +20,11 @@ const Notescomp = () => {
   const [editToggle, setEditToggle] = useState(null);
   const [expandedNote, setExpandedNote] = useState(null);
   const [showCreateNote, setShowCreateNote] = useState(false);
+  const [viewingNoteId, setViewingNoteId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    return localStorage.getItem("selectedCategory") || "all";
+  });
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
 
@@ -32,6 +37,11 @@ const Notescomp = () => {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
+
+  // Persist selected category
+  useEffect(() => {
+    localStorage.setItem("selectedCategory", selectedCategory);
+  }, [selectedCategory]);
 
   const addNewCategory = () => {
     if (newCategoryName.trim()) {
@@ -63,6 +73,8 @@ const Notescomp = () => {
   const editHandler = (id, text) => {
     setEditToggle(id);
     setInputText(text);
+    const note = notes.find((n) => n.id === id);
+    setInputTitle(note?.title || "");
   };
 
   const saveHandler = () => {
@@ -72,7 +84,7 @@ const Notescomp = () => {
       setNotes(
         notes.map((note) =>
           note.id === editToggle
-            ? { ...note, text: inputText, updatedAt: now }
+            ? { ...note, title: inputTitle, text: inputText, updatedAt: now }
             : note
         )
       );
@@ -81,6 +93,7 @@ const Notescomp = () => {
         ...prevNotes,
         {
           id: uuid(),
+          title: inputTitle,
           text: inputText,
           createdAt: now,
           updatedAt: now,
@@ -89,11 +102,14 @@ const Notescomp = () => {
       ]);
     }
     setInputText("");
+    setInputTitle("");
     setEditToggle(null);
     setShowCreateNote(false);
   };
 
   const deleteHandler = (id) => {
+    const confirmed = window.confirm("Delete this note?");
+    if (!confirmed) return;
     const newNotes = notes.filter((n) => n.id !== id);
     setNotes(newNotes);
     if (expandedNote === id) {
@@ -116,14 +132,24 @@ const Notescomp = () => {
     });
   };
 
-  const filteredNotes = notes.filter(
-    (note) =>
-      (selectedCategory === "all" || note.category === selectedCategory) &&
-      note.text.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredNotes = notes
+    .filter(
+      (note) =>
+        (selectedCategory === "all" || note.category === selectedCategory) &&
+        ((note.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+          note.text.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
   const handleCreateNote = () => {
     setShowCreateNote(true);
+  };
+
+  const isEditing = showCreateNote || editToggle !== null;
+  const isViewing = !isEditing && viewingNoteId !== null;
+
+  const handleWikiLinkClick = (title) => {
+    setSearchQuery(title);
   };
 
   return (
@@ -137,7 +163,7 @@ const Notescomp = () => {
     >
       <div className="sidebar">
         <div className="sidebar-header">
-          <h2>GradeUpNow</h2>
+          <h2>Study Hub</h2>
         </div>
         <div className="sidebar-section">
           <h3 className="sidebar-section-title">Notes</h3>
@@ -198,65 +224,175 @@ const Notescomp = () => {
         </div>
       </div>
       <div className="main-content">
-        <div className="notes-header">
-          <h1 className="title">
-            {categories.find((c) => c.id === selectedCategory)?.name ||
-              "All Notes"}
-          </h1>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search notes..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-          </div>
-        </div>
-        <div className="notes-grid">
-          {filteredNotes.map((note) =>
-            editToggle === note.id ? (
-              <div key={note.id} className="note-wrapper">
-                <Createnotes
-                  inputText={inputText}
-                  setInputText={setInputText}
-                  saveHandler={saveHandler}
-                  isExpanded={expandedNote === note.id}
-                />
-              </div>
-            ) : (
-              <div key={note.id} className="note-wrapper">
-                <Note
-                  id={note.id}
-                  text={note.text}
-                  editHandler={editHandler}
-                  deleteHandler={deleteHandler}
-                  isExpanded={expandedNote === note.id}
-                  toggleExpand={toggleExpand}
-                  createdAt={note.createdAt}
-                  updatedAt={note.updatedAt}
-                  formatDate={formatDate}
-                />
-              </div>
-            )
-          )}
-          {showCreateNote ? (
-            <div className="note-wrapper">
+        {isEditing ? (
+          <>
+            <div className="notes-header">
+              {(() => {
+                const titleRef = titleEditRef;
+                return (
+                  <div
+                    className="title title-edit"
+                    contentEditable
+                    role="textbox"
+                    aria-label="Title"
+                    data-placeholder="Title"
+                    ref={titleRef}
+                    onInput={() => {
+                      const el = titleRef.current;
+                      if (!el) return;
+                      setInputTitle(el.innerText);
+                    }}
+                    onBlur={() => {
+                      const el = titleRef.current;
+                      if (!el) return;
+                      // trim trailing newlines/spaces from contentEditable
+                      const text = (el.innerText || "").replace(/\s+$/g, "");
+                      el.innerText = text;
+                      setInputTitle(text);
+                    }}
+                    suppressContentEditableWarning={true}
+                  >
+                    {inputTitle}
+                  </div>
+                );
+              })()}
+            </div>
+            <div className="editor-container">
               <Createnotes
+                inputTitle={inputTitle}
+                setInputTitle={setInputTitle}
                 inputText={inputText}
                 setInputText={setInputText}
                 saveHandler={saveHandler}
+                isEditor
+                cancelHandler={() => {
+                  setShowCreateNote(false);
+                  setEditToggle(null);
+                  setInputText("");
+                  setInputTitle("");
+                }}
               />
             </div>
-          ) : (
-            <div className="note-wrapper">
-              <div className="empty-note" onClick={handleCreateNote}>
-                <div className="empty-note-icon">+</div>
-                <div className="empty-note-text">Add a new note</div>
+          </>
+        ) : isViewing ? (
+          <>
+            {(() => {
+              const note = notes.find((n) => n.id === viewingNoteId);
+              if (!note) return null;
+              const escapeHtml = (unsafe) =>
+                unsafe
+                  .replaceAll(/&/g, "&amp;")
+                  .replaceAll(/</g, "&lt;")
+                  .replaceAll(/>/g, "&gt;")
+                  .replaceAll(/\"/g, "&quot;")
+                  .replaceAll(/'/g, "&#039;");
+              const renderMarkdown = (raw) => {
+                const escaped = escapeHtml(raw);
+                let html = escaped.replace(/```([\s\S]*?)```/g, (m, p1) => {
+                  return `<pre><code>${p1}</code></pre>`;
+                });
+                html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+                html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+                html = html.replace(/\*(?!\s)([^*]+)\*/g, '<em>$1</em>');
+                html = html.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
+                html = html.replace(/^##\s+(.+)$/gm, '<h2>$1</h2>');
+                html = html.replace(/^#\s+(.+)$/gm, '<h1>$1</h1>');
+                html = html.replace(/^(?:-\s+.+\n?)+/gm, (block) => {
+                  const items = block
+                    .trim()
+                    .split(/\n/)
+                    .map((line) => line.replace(/^[-*]\s+/, ''))
+                    .map((content) => `<li>${content}</li>`)
+                    .join('');
+                  return `<ul>${items}</ul>`;
+                });
+                html = html.replace(/\[\[([^\]]+)\]\]/g, (m, p1) => {
+                  const title = p1.trim();
+                  return `<a href=\"#\" class=\"wikilink\" data-title=\"${title}\">${title}</a>`;
+                });
+                html = html.replace(/\n/g, '<br/>' );
+                return html;
+              };
+              const bodyHtml = renderMarkdown(note.text || "");
+              return (
+                <>
+                  <div className="notes-header">
+                    <h1 className="title">{note.title || "Untitled"}</h1>
+                    <div className="notes-actions">
+                      <button
+                        className="new-note-button"
+                        onClick={() => setViewingNoteId(null)}
+                      >
+                        Back
+                      </button>
+                      <button
+                        className="new-note-button"
+                        onClick={() => {
+                          setEditToggle(note.id);
+                          setInputTitle(note.title || "");
+                          setInputText(note.text || "");
+                          setViewingNoteId(null);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                  <div className="note viewer">
+                    <div className="d-flex" style={{ justifyContent: "flex-start", alignItems: "center", marginBottom: "0.75rem", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+                      <span title={`Created: ${formatDate(note.createdAt)}`}>Updated: {formatDate(note.updatedAt)}</span>
+                    </div>
+                    <div className="note-body" dangerouslySetInnerHTML={{ __html: bodyHtml }}></div>
+                  </div>
+                </>
+              );
+            })()}
+          </>
+        ) : (
+          <>
+            <div className="notes-header">
+              <h1 className="title">
+                {categories.find((c) => c.id === selectedCategory)?.name ||
+                  "All Notes"}
+              </h1>
+              <div className="notes-actions">
+                <div className="search-container">
+                  <input
+                    type="text"
+                    placeholder="Search notes..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                  />
+                </div>
               </div>
             </div>
-          )}
-        </div>
+            <div className="notes-grid">
+              {filteredNotes.map((note) => (
+                <div key={note.id} className="note-wrapper">
+                  <Note
+                    id={note.id}
+                    title={note.title}
+                    text={note.text}
+                    editHandler={editHandler}
+                    deleteHandler={deleteHandler}
+                    onOpen={(id) => setViewingNoteId(id)}
+                    createdAt={note.createdAt}
+                    updatedAt={note.updatedAt}
+                    formatDate={formatDate}
+                    onWikiLinkClick={handleWikiLinkClick}
+                  />
+                </div>
+              ))}
+              <div className="note-wrapper">
+                <div className="empty-note" onClick={handleCreateNote}>
+                  <div className="empty-note-icon">+</div>
+                  <div className="empty-note-text">Add a new note</div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div
         className={`notes-overlay ${expandedNote ? "visible" : ""}`}
