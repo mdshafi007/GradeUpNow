@@ -27,6 +27,7 @@ const Notescomp = () => {
   });
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [mobileCatOpen, setMobileCatOpen] = useState(false);
 
   // Save categories to localStorage
   useEffect(() => {
@@ -152,6 +153,58 @@ const Notescomp = () => {
     setSearchQuery(title);
   };
 
+  // Ensure contentEditable title doesn't lose caret by only mutating DOM when editor starts
+  const placeCaretAtEnd = (element) => {
+    if (!element) return;
+    
+    // Create a range and position it at the end
+    const range = document.createRange();
+    const selection = window.getSelection();
+    
+    if (!selection) return;
+    
+    // Find the last text node
+    let lastTextNode = null;
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    while (walker.nextNode()) {
+      lastTextNode = walker.currentNode;
+    }
+    
+    if (lastTextNode) {
+      range.setStartAfter(lastTextNode);
+      range.setEndAfter(lastTextNode);
+    } else {
+      // If no text nodes, position at the end of the element
+      range.selectNodeContents(element);
+      range.collapse(false);
+    }
+    
+    selection.removeAllRanges();
+    selection.addRange(range);
+  };
+
+  useEffect(() => {
+    // When we enter edit mode or switch the note being edited, seed the DOM once
+    if (!(showCreateNote || editToggle !== null)) return;
+    const el = titleEditRef.current;
+    if (!el) return;
+    
+    // Set the content only if it's different to avoid cursor jumping
+    if (el.innerText !== (inputTitle || "")) {
+      el.innerText = inputTitle || "";
+    }
+    
+    // Focus and place caret at end
+    el.focus();
+    placeCaretAtEnd(el);
+  }, [showCreateNote, editToggle, inputTitle]);
+
   return (
     <div
       className="app-container"
@@ -227,35 +280,39 @@ const Notescomp = () => {
         {isEditing ? (
           <>
             <div className="notes-header">
-              {(() => {
-                const titleRef = titleEditRef;
-                return (
-                  <div
-                    className="title title-edit"
-                    contentEditable
-                    role="textbox"
-                    aria-label="Title"
-                    data-placeholder="Title"
-                    ref={titleRef}
-                    onInput={() => {
-                      const el = titleRef.current;
-                      if (!el) return;
-                      setInputTitle(el.innerText);
-                    }}
-                    onBlur={() => {
-                      const el = titleRef.current;
-                      if (!el) return;
-                      // trim trailing newlines/spaces from contentEditable
-                      const text = (el.innerText || "").replace(/\s+$/g, "");
-                      el.innerText = text;
-                      setInputTitle(text);
-                    }}
-                    suppressContentEditableWarning={true}
-                  >
-                    {inputTitle}
-                  </div>
-                );
-              })()}
+              <div
+                className="title title-edit"
+                contentEditable
+                role="textbox"
+                aria-label="Title"
+                data-placeholder="Title"
+                ref={titleEditRef}
+                onInput={(e) => {
+                  const el = e.target;
+                  if (!el) return;
+                  setInputTitle(el.innerText);
+                }}
+                onKeyDown={(e) => {
+                  // Prevent any default behavior that might interfere
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.target.blur();
+                  }
+                  // Prevent any other keys from causing issues
+                  e.stopPropagation();
+                }}
+                onFocus={(e) => {
+                  // Ensure cursor is at the end when focusing
+                  setTimeout(() => placeCaretAtEnd(e.target), 0);
+                }}
+                onBlur={() => {
+                  const el = titleEditRef.current;
+                  if (!el) return;
+                  const text = (el.innerText || "").replace(/\s+$/g, "");
+                  setInputTitle(text);
+                }}
+                suppressContentEditableWarning={true}
+              />
             </div>
             <div className="editor-container">
               <Createnotes
@@ -287,6 +344,16 @@ const Notescomp = () => {
                   .replaceAll(/\"/g, "&quot;")
                   .replaceAll(/'/g, "&#039;");
               const renderMarkdown = (raw) => {
+                const isHtml = /<[^>]+>/.test(raw || "");
+                if (isHtml) {
+                  // If content contains HTML, sanitize it to prevent XSS and ensure proper rendering
+                  const tempDiv = document.createElement('div');
+                  tempDiv.innerHTML = raw;
+                  // Remove any script tags for security
+                  const scripts = tempDiv.querySelectorAll('script');
+                  scripts.forEach(script => script.remove());
+                  return tempDiv.innerHTML;
+                }
                 const escaped = escapeHtml(raw);
                 let html = escaped.replace(/```([\s\S]*?)```/g, (m, p1) => {
                   return `<pre><code>${p1}</code></pre>`;
@@ -351,12 +418,47 @@ const Notescomp = () => {
         ) : (
           <>
             <div className="notes-header">
-              <h1 className="title">
+              <h1 className="title desktop-only">
                 {categories.find((c) => c.id === selectedCategory)?.name ||
                   "All Notes"}
               </h1>
-              <div className="notes-actions">
-                <div className="search-container">
+              <div className="notes-actions" style={{ width: "100%", justifyContent: "space-between" }}>
+                {/* Mobile-only category dropdown (custom) */}
+                <div className="mobile-only" style={{ flex: 1 }}>
+                  <div className="cat-trigger-wrap">
+                    <button
+                      type="button"
+                      className={`category-trigger ${mobileCatOpen ? "open" : ""}`}
+                      onClick={() => setMobileCatOpen((v) => !v)}
+                      aria-haspopup="listbox"
+                      aria-expanded={mobileCatOpen}
+                    >
+                      <span className="category-trigger-text">
+                        {categories.find((c) => c.id === selectedCategory)?.name || "All Notes"}
+                      </span>
+                      <span className="category-trigger-chevron">▾</span>
+                    </button>
+                    {mobileCatOpen && (
+                      <ul className="category-menu" role="listbox">
+                        {categories.map((c) => (
+                          <li
+                            key={c.id}
+                            role="option"
+                            aria-selected={selectedCategory === c.id}
+                            className={`category-menu-item ${selectedCategory === c.id ? "selected" : ""}`}
+                            onClick={() => {
+                              setSelectedCategory(c.id);
+                              setMobileCatOpen(false);
+                            }}
+                          >
+                            {c.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+                <div className="search-container" style={{ flex: 1 }}>
                   <input
                     type="text"
                     placeholder="Search notes..."

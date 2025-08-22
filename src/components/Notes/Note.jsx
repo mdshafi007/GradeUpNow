@@ -24,7 +24,13 @@ const Note = ({
   const renderMarkdown = (raw) => {
     const isHtml = /<[^>]+>/.test(raw || "");
     if (isHtml) {
-      return raw;
+      // If content contains HTML, sanitize it to prevent XSS and ensure proper rendering
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = raw;
+      // Remove any script tags for security
+      const scripts = tempDiv.querySelectorAll('script');
+      scripts.forEach(script => script.remove());
+      return tempDiv.innerHTML;
     }
     const escaped = escapeHtml(raw);
     // code blocks ```
