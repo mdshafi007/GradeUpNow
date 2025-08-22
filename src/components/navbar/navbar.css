@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  /* padding-top: 80px; */
+  padding-top: 80px;
 }
 
 .navbar {
@@ -73,6 +73,7 @@ body {
 }
 
 @media (max-width: 767.98px) {
+  body { padding-top: 72px; }
   .navbar-collapse {
     padding: 1rem 0;
   }

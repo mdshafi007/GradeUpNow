@@ -138,7 +138,7 @@ const CoursesPage = () => {
             .courses-hero .cta-badge { margin: 0 0 1.25rem 0; }
             .courses-hero h1 { font-size: 2rem !important; line-height: 1.15 !important; }
             .courses-hero p { font-size: 1rem !important; margin-bottom: 1.5rem !important; }
-            .courses-hero .course-cta-btn { width: 100%; padding: 0.875rem 1.25rem !important; font-size: 1rem !important; }
+            .courses-hero .course-cta-btn { width: 100%; height: 44px !important; padding: 0 1rem !important; font-size: 1rem !important; }
 
             .courses-section-title h2 { font-size: 1.75rem !important; }
             .courses-section-title p { font-size: 1rem !important; margin-top: 1rem !important; }
@@ -152,18 +152,48 @@ const CoursesPage = () => {
             .course-card .course-icon { width: 48px !important; height: 48px !important; border-radius: 12px !important; font-size: 18px !important; margin-bottom: 1rem !important; }
             .course-card h5 { font-size: 1.0625rem !important; }
             .course-card p { font-size: 0.9375rem !important; margin-bottom: 1rem !important; }
-            .course-card .course-card-btn { padding: 0.625rem 1rem !important; font-size: 0.9375rem !important; }
+            .course-card .course-card-btn { height: 44px !important; padding: 0 1rem !important; font-size: 1rem !important; }
           }
 
           .course-cta-btn:focus-visible,
           .course-card-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,119,0,0.35) !important; }
+
+          /* Ensure equal card heights and proper layout */
+          .course-col { display: flex; }
+          .course-card { display: flex; flex-direction: column; height: 100%; min-height: 320px; }
+          .course-card .card-body { display: flex; flex-direction: column; height: 100%; }
+
+          /* Uniform button sizing */
+          .course-cta-btn, .course-card-btn { height: 48px; padding: 0 1.25rem; font-size: 1rem; border-radius: 12px; white-space: nowrap; }
+
+          /* Tablet refinements */
+          @media (max-width: 992px) {
+            .courses-hero { padding: 4rem 0 3rem !important; }
+            .category-container { padding: 1.5rem !important; }
+            .course-card { min-height: 300px; }
+          }
+
+          /* Text clamping for consistent card height */
+          .course-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
+          .course-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 3.9em; }
+
+          /* Respect reduced motion */
+          @media (prefers-reduced-motion: reduce) {
+            .float-anim { animation: none !important; }
+            .course-card, .course-cta-btn, .course-card-btn { transition: none !important; }
+          }
+
+          /* Small screens: slightly smaller min-height */
+          @media (max-width: 576px) {
+            .course-card { min-height: 260px; }
+          }
         `}
       </style>
       {/* Updated Hero Section */}
       <div
         style={{
           backgroundColor: "#ffffff",
-          padding: "6rem 0 4rem",
+          padding: "5rem 0 2rem",
           position: "relative",
           borderBottom: "1px solid #f3f4f6",
           overflow: "hidden",
@@ -244,8 +274,8 @@ const CoursesPage = () => {
                 style={{
                   backgroundColor: "#FF7700",
                   color: "#ffffff",
-                  padding: "1rem 2.5rem",
-                  fontSize: "1.125rem",
+                  padding: "0 1.25rem",
+                  fontSize: "1rem",
                   fontWeight: "600",
                   borderRadius: "12px",
                   border: "none",
@@ -290,6 +320,9 @@ const CoursesPage = () => {
                     filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
                     animation: "float 6s ease-in-out infinite",
                   }}
+                  className="float-anim"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <style>
                   {`
@@ -307,7 +340,7 @@ const CoursesPage = () => {
       </div>
 
       {/* Enhanced Course Categories Section */}
-      <div className="container py-5">
+      <div className="container" style={{ paddingTop: "1rem", paddingBottom: "2.5rem" }}>
         {/* Section Header */}
         <div className="row justify-content-center mb-5">
           <div className="col-lg-6 text-center courses-section-title">
@@ -364,6 +397,18 @@ const CoursesPage = () => {
                 overflow: "hidden",
               }}
             >
+              {/* Section background accent and label */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    index % 2 === 0
+                      ? "linear-gradient(180deg, rgba(255,119,0,0.04), transparent 40%)"
+                      : "linear-gradient(180deg, rgba(17,24,39,0.03), transparent 40%)",
+                  pointerEvents: "none",
+                }}
+              />
               {/* Category Header */}
               <div className="d-flex align-items-start gap-4 mb-5 category-header">
                 <div
@@ -400,6 +445,18 @@ const CoursesPage = () => {
                   >
                     {category.description}
                   </p>
+                  <div
+                    style={{
+                      height: "3px",
+                      width: "120px",
+                      background:
+                        index % 2 === 0
+                          ? "linear-gradient(90deg, #FF7700, #FF9A3D)"
+                          : "linear-gradient(90deg, #3B82F6, #06B6D4)",
+                      borderRadius: "2px",
+                      marginTop: "0.75rem",
+                    }}
+                  />
                 </div>
               </div>
 
@@ -408,7 +465,7 @@ const CoursesPage = () => {
                 {category.courses.map((course) => (
                   <div
                     key={course.title}
-                    className="col-12 col-sm-6 col-md-4 col-lg-3"
+                    className="col-12 col-sm-6 col-md-4 col-lg-3 course-col"
                   >
                     <div
                       className="card h-100 course-card"
@@ -419,6 +476,8 @@ const CoursesPage = () => {
                         transition: "all 0.3s ease",
                         position: "relative",
                         boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+                        display: "flex",
+                        flexDirection: "column",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-8px)";
@@ -461,6 +520,7 @@ const CoursesPage = () => {
                             color: "#111827",
                             marginBottom: "0.75rem",
                           }}
+                          className="course-title"
                         >
                           {course.title}
                         </h5>
@@ -471,6 +531,7 @@ const CoursesPage = () => {
                             marginBottom: "1.5rem",
                             lineHeight: "1.6",
                           }}
+                          className="course-desc"
                         >
                           {course.description}
                         </p>
@@ -479,23 +540,25 @@ const CoursesPage = () => {
                         <button
                           className="btn w-100 course-card-btn"
                           style={{
-                            backgroundColor: "#ffffff",
-                            color: "#FF7700",
-                            padding: "0.75rem 1.5rem",
-                            borderRadius: "10px",
-                            border: "2px solid #FF7700",
+                            backgroundColor: "#FF7700",
+                            color: "#ffffff",
+                            padding: "0 1.25rem",
+                            borderRadius: "12px",
+                            border: "none",
+                            boxShadow: "0 4px 14px rgba(255, 119, 0, 0.25)",
                             fontSize: "1rem",
                             fontWeight: "600",
                             transition: "all 0.2s ease",
                             marginTop: "auto",
                           }}
+                          aria-label={`Start learning ${course.title}`}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#FF7700";
+                            e.currentTarget.style.backgroundColor = "#FF8800";
                             e.currentTarget.style.color = "#ffffff";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#ffffff";
-                            e.currentTarget.style.color = "#FF7700";
+                            e.currentTarget.style.backgroundColor = "#FF7700";
+                            e.currentTarget.style.color = "#ffffff";
                           }}
                         >
                           Start Learning
