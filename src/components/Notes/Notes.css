@@ -692,71 +692,39 @@ body {
   .new-note-button { padding: 0.5rem 0.85rem; border-radius: 18px; }
 }
 
-/* Mobile-only category dropdown */
+/* Visibility helpers */
 .desktop-only { display: block; }
-.mobile-only { display: none; }
+.mobile-only { display: none !important; }
 
-.category-dropdown-container {
-  max-width: 280px;
-}
-.category-dropdown {
-  width: 100%;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  padding: 0.6rem 0.8rem;
+/* Title group (heading + chevron) */
+.title-group { display: flex; align-items: center; gap: 0.25rem; }
+
+/* Compact icon version of category trigger next to title */
+.category-trigger--icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
   background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-size: 0.95rem;
+  border: 2px solid var(--border-color);
 }
-.category-dropdown:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.15);
-}
+.category-trigger--icon .category-trigger-chevron { transition: transform var(--transition-speed); }
+.category-trigger--icon.open .category-trigger-chevron { transform: rotate(180deg); }
 
 /* Custom mobile category dropdown */
-.cat-trigger-wrap { position: relative; max-width: 240px; }
-.category-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  padding: 0.6rem 0.8rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: all var(--transition-speed);
+.cat-trigger-wrap { position: relative; display: inline-block; }
+
+/* Mobile layout adjustments */
+@media (max-width: 768px) {
+  .mobile-only { display: inline-flex !important; }
+  .notes-header { align-items: flex-start; }
+  .title { font-size: 1.4rem; }
+  /* Put chevron at far right of the title row */
+  .title-group { width: 100%; justify-content: space-between; }
 }
-.category-trigger.open,
-.category-trigger:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.15);
-}
-.category-trigger-chevron { opacity: 0.7; }
-.category-menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  right: 0;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  z-index: 20;
-  overflow: hidden;
-}
-.category-menu-item {
-  padding: 0.65rem 0.85rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background var(--transition-speed);
-}
-.category-menu-item:hover { background: rgba(0,0,0,0.04); }
-.category-menu-item.selected { background: rgba(255, 119, 0, 0.08); font-weight: 600; }
 
 @media (min-width: 769px) {
   .mobile-only { display: none !important; }

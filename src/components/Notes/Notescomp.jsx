@@ -418,47 +418,45 @@ const Notescomp = () => {
         ) : (
           <>
             <div className="notes-header">
-              <h1 className="title desktop-only">
-                {categories.find((c) => c.id === selectedCategory)?.name ||
-                  "All Notes"}
-              </h1>
-              <div className="notes-actions" style={{ width: "100%", justifyContent: "space-between" }}>
-                {/* Mobile-only category dropdown (custom) */}
-                <div className="mobile-only" style={{ flex: 1 }}>
-                  <div className="cat-trigger-wrap">
-                    <button
-                      type="button"
-                      className={`category-trigger ${mobileCatOpen ? "open" : ""}`}
-                      onClick={() => setMobileCatOpen((v) => !v)}
-                      aria-haspopup="listbox"
-                      aria-expanded={mobileCatOpen}
-                    >
-                      <span className="category-trigger-text">
-                        {categories.find((c) => c.id === selectedCategory)?.name || "All Notes"}
-                      </span>
-                      <span className="category-trigger-chevron">▾</span>
-                    </button>
-                    {mobileCatOpen && (
-                      <ul className="category-menu" role="listbox">
-                        {categories.map((c) => (
-                          <li
-                            key={c.id}
-                            role="option"
-                            aria-selected={selectedCategory === c.id}
-                            className={`category-menu-item ${selectedCategory === c.id ? "selected" : ""}`}
-                            onClick={() => {
-                              setSelectedCategory(c.id);
-                              setMobileCatOpen(false);
-                            }}
-                          >
-                            {c.name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+              <div className="title-group">
+                <h1 className="title">
+                  {categories.find((c) => c.id === selectedCategory)?.name ||
+                    "All Notes"}
+                </h1>
+                {/* Mobile-only chevron beside title */}
+                <div className="cat-trigger-wrap mobile-only" style={{ marginLeft: "0.4rem" }}>
+                  <button
+                    type="button"
+                    className={`category-trigger category-trigger--icon ${mobileCatOpen ? "open" : ""}`}
+                    onClick={() => setMobileCatOpen((v) => !v)}
+                    aria-haspopup="listbox"
+                    aria-expanded={mobileCatOpen}
+                    title="Change subject"
+                  >
+                    <span className="category-trigger-chevron">▾</span>
+                  </button>
+                  {mobileCatOpen && (
+                    <ul className="category-menu" role="listbox">
+                      {categories.map((c) => (
+                        <li
+                          key={c.id}
+                          role="option"
+                          aria-selected={selectedCategory === c.id}
+                          className={`category-menu-item ${selectedCategory === c.id ? "selected" : ""}`}
+                          onClick={() => {
+                            setSelectedCategory(c.id);
+                            setMobileCatOpen(false);
+                          }}
+                        >
+                          {c.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                <div className="search-container" style={{ flex: 1 }}>
+              </div>
+              <div className="notes-actions" style={{ width: "100%", justifyContent: "flex-end" }}>
+                <div className="search-container">
                   <input
                     type="text"
                     placeholder="Search notes..."
