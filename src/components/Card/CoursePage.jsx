@@ -130,6 +130,35 @@ const CoursesPage = () => {
 
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
+      {/* Mobile-first responsive overrides */}
+      <style>
+        {`
+          @media (max-width: 576px) {
+            .courses-hero { padding: 3rem 0 2rem !important; }
+            .courses-hero .cta-badge { margin: 0 0 1.25rem 0; }
+            .courses-hero h1 { font-size: 2rem !important; line-height: 1.15 !important; }
+            .courses-hero p { font-size: 1rem !important; margin-bottom: 1.5rem !important; }
+            .courses-hero .course-cta-btn { width: 100%; padding: 0.875rem 1.25rem !important; font-size: 1rem !important; }
+
+            .courses-section-title h2 { font-size: 1.75rem !important; }
+            .courses-section-title p { font-size: 1rem !important; margin-top: 1rem !important; }
+
+            .category-container { padding: 1rem !important; border-radius: 16px; }
+            .category-header { gap: 12px !important; flex-direction: column; align-items: flex-start !important; }
+            .category-header h2 { font-size: 1.375rem !important; }
+            .category-header p { font-size: 1rem !important; }
+
+            .course-card .card-body { padding: 1rem !important; }
+            .course-card .course-icon { width: 48px !important; height: 48px !important; border-radius: 12px !important; font-size: 18px !important; margin-bottom: 1rem !important; }
+            .course-card h5 { font-size: 1.0625rem !important; }
+            .course-card p { font-size: 0.9375rem !important; margin-bottom: 1rem !important; }
+            .course-card .course-card-btn { padding: 0.625rem 1rem !important; font-size: 0.9375rem !important; }
+          }
+
+          .course-cta-btn:focus-visible,
+          .course-card-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,119,0,0.35) !important; }
+        `}
+      </style>
       {/* Updated Hero Section */}
       <div
         style={{
@@ -139,6 +168,7 @@ const CoursesPage = () => {
           borderBottom: "1px solid #f3f4f6",
           overflow: "hidden",
         }}
+        className="courses-hero"
       >
         <div
           style={{
@@ -169,6 +199,7 @@ const CoursesPage = () => {
                   display: "inline-block",
                   boxShadow: "0 2px 8px rgba(255, 119, 0, 0.15)",
                 }}
+                className="cta-badge"
               >
                 Learn Effectively. Build Confidently.
               </span>
@@ -209,7 +240,7 @@ const CoursesPage = () => {
                 paths and hands-on practice. Learn the way that actually works.
               </p>
               <button
-                className="btn"
+                className="btn course-cta-btn"
                 style={{
                   backgroundColor: "#FF7700",
                   color: "#ffffff",
@@ -279,7 +310,7 @@ const CoursesPage = () => {
       <div className="container py-5">
         {/* Section Header */}
         <div className="row justify-content-center mb-5">
-          <div className="col-lg-6 text-center">
+          <div className="col-lg-6 text-center courses-section-title">
             <h2
               style={{
                 fontSize: "2.25rem",
@@ -323,7 +354,7 @@ const CoursesPage = () => {
           ([categoryKey, category], index) => (
             <div
               key={categoryKey}
-              className="mb-5"
+              className="mb-5 category-container"
               style={{
                 backgroundColor: "#ffffff",
                 borderRadius: "20px",
@@ -334,7 +365,7 @@ const CoursesPage = () => {
               }}
             >
               {/* Category Header */}
-              <div className="d-flex align-items-start gap-4 mb-5">
+              <div className="d-flex align-items-start gap-4 mb-5 category-header">
                 <div
                   style={{
                     backgroundColor: category.iconBg,
@@ -377,10 +408,10 @@ const CoursesPage = () => {
                 {category.courses.map((course) => (
                   <div
                     key={course.title}
-                    className="col-sm-6 col-md-4 col-lg-3"
+                    className="col-12 col-sm-6 col-md-4 col-lg-3"
                   >
                     <div
-                      className="card h-100"
+                      className="card h-100 course-card"
                       style={{
                         borderRadius: "16px",
                         border: "none",
@@ -417,6 +448,7 @@ const CoursesPage = () => {
                             marginBottom: "1.5rem",
                             boxShadow: `0 8px 16px ${course.iconBg}40`,
                           }}
+                          className="course-icon"
                         >
                           {course.icon}
                         </div>
@@ -445,7 +477,7 @@ const CoursesPage = () => {
 
                         {/* Course Button */}
                         <button
-                          className="btn w-100"
+                          className="btn w-100 course-card-btn"
                           style={{
                             backgroundColor: "#ffffff",
                             color: "#FF7700",
