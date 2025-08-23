@@ -155,7 +155,7 @@ const Navbar = () => {
                       fontWeight: "600",
                     }}
                   >
-                    {user.fullName?.charAt(0).toUpperCase()}
+                    {user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
                   </span>
                   <span
                     className="user-name"
@@ -164,7 +164,7 @@ const Navbar = () => {
                       color: "#111827",
                     }}
                   >
-                    {user.fullName}
+                    {user.displayName || user.email}
                   </span>
                 </div>
                 {isDropdownOpen && (
