@@ -14,32 +14,40 @@ const CoursesPage = () => {
           icon: "C",
           iconBg: "#000000",
           title: "C Programming",
-          description: "Build strong programming foundations",
+          description: "Build strong programming foundations with system-level concepts",
+          level: "Beginner",
+          duration: "6 weeks"
         },
         {
           icon: "C++",
           iconBg: "#044F88",
           title: "C++ Programming",
-          description: "Advanced OOP concepts",
+          description: "Advanced object-oriented programming concepts and data structures",
+          level: "Intermediate",
+          duration: "8 weeks"
         },
         {
           icon: "Py",
           iconBg: "#3776AB",
           title: "Python Programming",
-          description: "Modern programming essentials",
+          description: "Modern programming essentials for automation and development",
+          level: "Beginner",
+          duration: "7 weeks"
         },
         {
           icon: "Ja",
           iconBg: "#E32C2C",
           title: "Java Programming",
-          description: "Enterprise-grade development",
+          description: "Enterprise-grade development with robust application design",
+          level: "Intermediate",
+          duration: "10 weeks"
         },
       ],
     },
     webDevelopment: {
       icon: "🌐",
-      iconBg: "#FFF3E0",
-      iconColor: "#FF7700",
+      iconBg: "#E0F7FF",
+      iconColor: "#0284C7",
       title: "Web Development",
       description: "Build modern and responsive web applications",
       courses: [
@@ -47,32 +55,40 @@ const CoursesPage = () => {
           icon: "HTML",
           iconBg: "#E34F26",
           title: "HTML Fundamentals",
-          description: "Core web fundamentals",
+          description: "Core web markup language and semantic structure principles",
+          level: "Beginner",
+          duration: "3 weeks"
         },
         {
           icon: "CSS",
           iconBg: "#1572B6",
           title: "CSS & Styling",
-          description: "Modern web styling",
+          description: "Modern web styling with flexbox, grid, and responsive design",
+          level: "Beginner",
+          duration: "5 weeks"
         },
         {
           icon: "JS",
           iconBg: "#F7DF1E",
           title: "JavaScript",
-          description: "Dynamic web applications",
+          description: "Dynamic web applications with modern ES6+ features",
+          level: "Intermediate",
+          duration: "8 weeks"
         },
         {
           icon: "⚛️",
           iconBg: "#61DAFB",
           title: "React Development",
-          description: "Interactive UI development",
+          description: "Interactive user interface development with hooks and state",
+          level: "Advanced",
+          duration: "9 weeks"
         },
       ],
     },
     computerScience: {
       icon: "🧠",
-      iconBg: "#FFF3E0",
-      iconColor: "#FF7700",
+      iconBg: "#F0F9FF",
+      iconColor: "#3B82F6",
       title: "Computer Science",
       description: "Core computer science concepts and fundamentals",
       courses: [
@@ -80,497 +96,710 @@ const CoursesPage = () => {
           icon: "🌐",
           iconBg: "#0284C7",
           title: "Computer Networks",
-          description: "Network architecture essentials",
+          description: "Network architecture, protocols, and distributed systems",
+          level: "Intermediate",
+          duration: "8 weeks"
         },
         {
           icon: "DB",
           iconBg: "#0891B2",
-          title: "DBMS",
-          description: "Database systems mastery",
+          title: "Database Systems",
+          description: "Relational databases, SQL, and data modeling principles",
+          level: "Intermediate",
+          duration: "7 weeks"
         },
         {
           icon: "CD",
           iconBg: "#6366F1",
           title: "Compiler Design",
-          description: "Language processing concepts",
+          description: "Language processing, parsing, and code generation concepts",
+          level: "Advanced",
+          duration: "10 weeks"
         },
         {
           icon: "OS",
           iconBg: "#8B5CF6",
           title: "Operating Systems",
-          description: "System design principles",
+          description: "System design, process management, and memory allocation",
+          level: "Advanced",
+          duration: "9 weeks"
         },
         {
           icon: "AL",
           iconBg: "#EC4899",
           title: "Algorithms",
-          description: "Problem-solving strategies",
+          description: "Efficient problem-solving strategies and complexity analysis",
+          level: "Intermediate",
+          duration: "8 weeks"
         },
         {
           icon: "DS",
           iconBg: "#F43F5E",
           title: "Data Structures",
-          description: "Efficient data organization",
+          description: "Efficient data organization and manipulation techniques",
+          level: "Intermediate",
+          duration: "6 weeks"
         },
         {
           icon: "AI",
           iconBg: "#10B981",
-          title: "AI & ML",
-          description: "Intelligent systems design",
+          title: "AI & Machine Learning",
+          description: "Intelligent systems design and machine learning fundamentals",
+          level: "Advanced",
+          duration: "12 weeks"
         },
         {
           icon: "🔒",
           iconBg: "#6B7280",
           title: "Cryptography",
-          description: "Security fundamentals",
+          description: "Security fundamentals and encryption algorithm principles",
+          level: "Advanced",
+          duration: "8 weeks"
         },
       ],
     },
   };
 
+  const getLevelColor = (level) => {
+    switch (level) {
+      case 'Beginner': return { bg: '#DCFCE7', color: '#166534' };
+      case 'Intermediate': return { bg: '#FEF3C7', color: '#92400E' };
+      case 'Advanced': return { bg: '#FEE2E2', color: '#991B1B' };
+      default: return { bg: '#F3F4F6', color: '#374151' };
+    }
+  };
+
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
-      {/* Mobile-first responsive overrides */}
       <style>
         {`
-          @media (max-width: 576px) {
-            .courses-hero { padding: 3rem 0 2rem !important; }
-            .courses-hero .cta-badge { margin: 0 0 1.25rem 0; }
-            .courses-hero h1 { font-size: 2rem !important; line-height: 1.15 !important; }
-            .courses-hero p { font-size: 1rem !important; margin-bottom: 1.5rem !important; }
-            .courses-hero .course-cta-btn { width: 100%; height: 44px !important; padding: 0 1rem !important; font-size: 1rem !important; }
-
-            .courses-section-title h2 { font-size: 1.75rem !important; }
-            .courses-section-title p { font-size: 1rem !important; margin-top: 1rem !important; }
-
-            .category-container { padding: 1rem !important; border-radius: 16px; }
-            .category-header { gap: 12px !important; flex-direction: column; align-items: flex-start !important; }
-            .category-header h2 { font-size: 1.375rem !important; }
-            .category-header p { font-size: 1rem !important; }
-
-            .course-card .card-body { padding: 1rem !important; }
-            .course-card .course-icon { width: 48px !important; height: 48px !important; border-radius: 12px !important; font-size: 18px !important; margin-bottom: 1rem !important; }
-            .course-card h5 { font-size: 1.0625rem !important; }
-            .course-card p { font-size: 0.9375rem !important; margin-bottom: 1rem !important; }
-            .course-card .course-card-btn { height: 44px !important; padding: 0 1rem !important; font-size: 1rem !important; }
+          /* Global Styles */
+          .courses-page-container {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f0f9ff 100%);
           }
 
-          .course-cta-btn:focus-visible,
-          .course-card-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,119,0,0.35) !important; }
+          /* Hero Section Styles */
+          .hero-section {
+            background: #ffffff;
+            padding: 5rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #f3f4f6;
+          }
 
-          /* Ensure equal card heights and proper layout */
-          .course-col { display: flex; }
-          .course-card { display: flex; flex-direction: column; height: 100%; min-height: 320px; }
-          .course-card .card-body { display: flex; flex-direction: column; height: 100%; }
+          .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, #FFF3E0 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, #F0F9FF 0%, transparent 50%);
+            opacity: 0.6;
+            z-index: 0;
+          }
 
-          /* Uniform button sizing */
-          .course-cta-btn, .course-card-btn { height: 48px; padding: 0 1.25rem; font-size: 1rem; border-radius: 12px; white-space: nowrap; }
+          .hero-content {
+            position: relative;
+            z-index: 1;
+          }
 
-          /* Tablet refinements */
-          @media (max-width: 992px) {
-            .courses-hero { padding: 4rem 0 3rem !important; }
-            .category-container { padding: 1.5rem !important; }
+          .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #FFF3E0, #FFE4CC);
+            color: #FF7700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(255, 119, 0, 0.2);
+            border: 1px solid rgba(255, 119, 0, 0.1);
+          }
+
+          .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: #111827;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+          }
+
+          .hero-title-accent {
+            display: block;
+            background: linear-gradient(45deg, #FF7700, #FF9A3D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0.75rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1.25rem;
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+          }
+
+          .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+          }
+
+          .hero-cta-primary {
+            background: linear-gradient(135deg, #FF7700, #FF9A3D);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(255, 119, 0, 0.3);
+            transition: all 0.3s ease;
+          }
+
+          .hero-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 119, 0, 0.4);
+            background: linear-gradient(135deg, #FF8800, #FFAA4D);
+          }
+
+          .hero-cta-secondary {
+            background: #ffffff;
+            color: #374151;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: 2px solid #E5E7EB;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+
+          .hero-cta-secondary:hover {
+            border-color: #9CA3AF;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          }
+
+          .hero-illustration {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .hero-illustration-bg1 {
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(135deg, rgba(255, 119, 0, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 50%;
+            position: absolute;
+            opacity: 0.3;
+          }
+
+          .hero-illustration-bg2 {
+            width: 240px;
+            height: 240px;
+            background: linear-gradient(135deg, rgba(255, 119, 0, 0.15), rgba(59, 130, 246, 0.15));
+            border-radius: 50%;
+            position: absolute;
+            opacity: 0.4;
+          }
+
+          .hero-illustration-icon {
+            position: relative;
+            z-index: 10;
+            animation: float 6s ease-in-out infinite;
+            width: 90%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
+          }
+
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+          }
+
+          /* Section Header */
+          .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-top: 4rem;
+          }
+
+          .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+          }
+
+          .section-title-underline {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #FF7700, #FF9A3D);
+            border-radius: 2px;
+          }
+
+          .section-subtitle {
+            font-size: 1.25rem;
+            color: #6B7280;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+          }
+
+          /* Category Styles */
+          .category-section {
+            margin-bottom: 5rem;
+          }
+
+          .category-container {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+          }
+
+          .category-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            pointer-events: none;
+          }
+
+          .category-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+          }
+
+          .category-icon-container {
+            padding: 1.25rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+          }
+
+          .category-icon {
+            font-size: 2.5rem;
+          }
+
+          .category-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.75rem;
+          }
+
+          .category-info p {
+            color: #4B5563;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            max-width: 600px;
+          }
+
+          .category-accent-line {
+            height: 3px;
+            width: 120px;
+            background: linear-gradient(90deg, #FF7700, #FF9A3D);
+            border-radius: 2px;
+            margin-top: 0.75rem;
+          }
+
+          /* Course Grid */
+          .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+          }
+
+          .course-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+          }
+
+          .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 20px 40px rgba(0, 0, 0, 0.15);
+          }
+
+          .course-card-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+          }
+
+          .course-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+          }
+
+          .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+          }
+
+          .course-level-badge {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+          }
+
+          .course-duration {
+            color: #6B7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+          }
+
+          .course-title {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+          }
+
+          .course-description {
+            color: #4B5563;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+          }
+
+          .course-button {
+            background: linear-gradient(135deg, #FF7700, #FF9A3D);
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: auto;
+          }
+
+          .course-button:hover {
+            background: linear-gradient(135deg, #FF8800, #FFAA4D);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 119, 0, 0.3);
+          }
+
+          /* Call to Action Section */
+          .cta-section {
+            background: linear-gradient(135deg, #1F2937, #111827);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            margin: 4rem 0;
+          }
+
+          .cta-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 119, 0, 0.1), rgba(59, 130, 246, 0.1));
+            z-index: 0;
+          }
+
+          .cta-content {
+            position: relative;
+            z-index: 1;
+          }
+
+          .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+          }
+
+          .cta-subtitle {
+            font-size: 1.25rem;
+            color: #D1D5DB;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+
+          .cta-button-primary {
+            background: #ffffff;
+            color: #1F2937;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+
+          .cta-button-primary:hover {
+            background: #F3F4F6;
+            transform: translateY(-2px);
+          }
+
+          .cta-button-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: 2px solid #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+
+          .cta-button-secondary:hover {
+            background: #ffffff;
+            color: #1F2937;
+            transform: translateY(-2px);
+          }
+
+          /* Responsive Design */
+          @media (max-width: 768px) {
+            .hero-section { padding: 3rem 0 2rem; }
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .hero-cta-primary, .hero-cta-secondary { width: 100%; }
+            
+            .section-title { font-size: 2rem; }
+            .section-subtitle { font-size: 1rem; }
+            
+            .category-container { padding: 1.5rem; }
+            .category-header { flex-direction: column; align-items: flex-start; }
+            .category-info h3 { font-size: 1.5rem; }
+            
+            .course-grid { grid-template-columns: 1fr; gap: 1.5rem; }
             .course-card { min-height: 300px; }
+            .course-card-body { padding: 1.5rem; }
+            
+            .cta-section { padding: 2rem 1rem; }
+            .cta-title { font-size: 2rem; }
+            .cta-buttons { flex-direction: column; }
           }
 
-          /* Text clamping for consistent card height */
-          .course-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
-          .course-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 3.9em; }
-
-          /* Respect reduced motion */
           @media (prefers-reduced-motion: reduce) {
-            .float-anim { animation: none !important; }
-            .course-card, .course-cta-btn, .course-card-btn { transition: none !important; }
-          }
-
-          /* Small screens: slightly smaller min-height */
-          @media (max-width: 576px) {
-            .course-card { min-height: 260px; }
+            .hero-illustration-icon { animation: none; }
+            .course-card { transition: none; }
+            .course-button { transition: none; }
+            .hero-cta-primary { transition: none; }
+            .hero-cta-secondary { transition: none; }
           }
         `}
       </style>
-      {/* Updated Hero Section */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          padding: "5rem 0 2rem",
-          position: "relative",
-          borderBottom: "1px solid #f3f4f6",
-          overflow: "hidden",
-        }}
-        className="courses-hero"
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "100%",
-            background:
-              "radial-gradient(circle at 0% 0%, #FFF3E0 0%, transparent 25%)",
-            opacity: 0.5,
-            zIndex: 0,
-          }}
-        />
 
-        <div className="container position-relative" style={{ zIndex: 1 }}>
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <span
-                style={{
-                  backgroundColor: "#FFF3E0",
-                  color: "#FF7700",
-                  padding: "0.75rem 1.5rem",
-                  borderRadius: "30px",
-                  fontSize: "0.875rem",
-                  fontWeight: "600",
-                  marginBottom: "2rem",
-                  display: "inline-block",
-                  boxShadow: "0 2px 8px rgba(255, 119, 0, 0.15)",
-                }}
-                className="cta-badge"
-              >
-                Learn Effectively. Build Confidently.
-              </span>
-              <h1
-                style={{
-                  fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
-                  fontWeight: "800",
-                  color: "#111827",
-                  lineHeight: "1.1",
-                  marginBottom: "1.5rem",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Build Strong
-                <span
-                  style={{
-                    display: "block",
-                    color: "#FF7700",
-                    marginTop: "0.75rem",
-                    background: "linear-gradient(45deg, #FF7700, #FF9A3D)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Technical Foundations
-                </span>
-              </h1>
-              <p
-                style={{
-                  fontSize: "1.25rem",
-                  color: "#4b5563",
-                  lineHeight: "1.7",
-                  marginBottom: "2.5rem",
-                  maxWidth: "540px",
-                }}
-              >
-                Master core programming concepts through structured learning
-                paths and hands-on practice. Learn the way that actually works.
-              </p>
-              <button
-                className="btn course-cta-btn"
-                style={{
-                  backgroundColor: "#FF7700",
-                  color: "#ffffff",
-                  padding: "0 1.25rem",
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                  borderRadius: "12px",
-                  border: "none",
-                  boxShadow: "0 4px 14px rgba(255, 119, 0, 0.25)",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#FF8800";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(255, 119, 0, 0.35)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#FF7700";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 14px rgba(255, 119, 0, 0.25)";
-                }}
-              >
-                Start Learning
-              </button>
-            </div>
-            <div className="col-lg-6 d-none d-lg-block">
-              <div
-                style={{
-                  position: "relative",
-                  height: "500px",
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={OnlineLearning}
-                  alt="Online Learning Illustration"
-                  style={{
-                    width: "90%",
-                    height: "auto",
-                    maxHeight: "450px",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
-                    animation: "float 6s ease-in-out infinite",
-                  }}
-                  className="float-anim"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <style>
-                  {`
-                    @keyframes float {
-                      0% { transform: translateY(0px); }
-                      50% { transform: translateY(-20px); }
-                      100% { transform: translateY(0px); }
-                    }
-                  `}
-                </style>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced Course Categories Section */}
-      <div className="container" style={{ paddingTop: "1rem", paddingBottom: "2.5rem" }}>
-        {/* Section Header */}
-        <div className="row justify-content-center mb-5">
-          <div className="col-lg-6 text-center courses-section-title">
-            <h2
-              style={{
-                fontSize: "2.25rem",
-                fontWeight: "800",
-                color: "#111827",
-                marginBottom: "1rem",
-                position: "relative",
-                display: "inline-block",
-              }}
-            >
-              Our Learning Paths
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "-10px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "60%",
-                  height: "4px",
-                  background: "linear-gradient(to right, #FF7700, #FF9A3D)",
-                  borderRadius: "2px",
-                }}
-              />
-            </h2>
-            <p
-              style={{
-                fontSize: "1.125rem",
-                color: "#6B7280",
-                lineHeight: "1.7",
-                maxWidth: "500px",
-                margin: "1.5rem auto 0",
-              }}
-            >
-              Structured learning paths designed for your success
-            </p>
-          </div>
-        </div>
-
-        {/* Categories Grid */}
-        {Object.entries(courseCategories).map(
-          ([categoryKey, category], index) => (
-            <div
-              key={categoryKey}
-              className="mb-5 category-container"
-              style={{
-                backgroundColor: "#ffffff",
-                borderRadius: "20px",
-                padding: "2rem",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* Section background accent and label */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    index % 2 === 0
-                      ? "linear-gradient(180deg, rgba(255,119,0,0.04), transparent 40%)"
-                      : "linear-gradient(180deg, rgba(17,24,39,0.03), transparent 40%)",
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Category Header */}
-              <div className="d-flex align-items-start gap-4 mb-5 category-header">
-                <div
-                  style={{
-                    backgroundColor: category.iconBg,
-                    padding: "16px",
-                    borderRadius: "16px",
-                    display: "inline-flex",
-                    boxShadow: `0 8px 16px ${category.iconBg}40`,
-                  }}
-                >
-                  <span style={{ color: category.iconColor, fontSize: 32 }}>
-                    {category.icon}
-                  </span>
+      <div className="courses-page-container">
+        {/* Hero Section */}
+        <div className="hero-section">
+          <div className="hero-background"></div>
+          <div className="container hero-content">
+            <div className="row align-items-center">
+              <div className="col-lg-6">
+                <div className="hero-badge">
+                  <span style={{ marginRight: "0.5rem" }}>🚀</span>
+                  Learn Effectively. Build Confidently.
                 </div>
-                <div>
-                  <h2
+                
+                <h1 className="hero-title">
+                  Build Strong
+                  <span className="hero-title-accent">Technical Foundations</span>
+                </h1>
+                
+                <p className="hero-subtitle">
+                  Master core programming concepts through structured learning paths and hands-on practice. 
+                  Learn the way that actually works.
+                </p>
+                
+                <div className="hero-buttons">
+                  <button className="hero-cta-primary">
+                    Start Learning
+                  </button>
+                  <button className="hero-cta-secondary">
+                    View Curriculum
+                  </button>
+                </div>
+              </div>
+              
+              <div className="col-lg-6 d-none d-lg-block">
+                <div className="hero-illustration">
+                  <img
+                    src={OnlineLearning}
+                    alt="Online Learning Illustration"
                     style={{
-                      fontSize: "2rem",
-                      fontWeight: "700",
-                      color: "#111827",
-                      marginBottom: "0.75rem",
+                      width: "90%",
+                      height: "auto",
+                      maxHeight: "450px",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
                     }}
-                  >
-                    {category.title}
-                  </h2>
-                  <p
-                    style={{
-                      color: "#4B5563",
-                      fontSize: "1.125rem",
-                      maxWidth: "600px",
-                      lineHeight: "1.6",
-                    }}
-                  >
-                    {category.description}
-                  </p>
-                  <div
-                    style={{
-                      height: "3px",
-                      width: "120px",
-                      background:
-                        index % 2 === 0
-                          ? "linear-gradient(90deg, #FF7700, #FF9A3D)"
-                          : "linear-gradient(90deg, #3B82F6, #06B6D4)",
-                      borderRadius: "2px",
-                      marginTop: "0.75rem",
-                    }}
+                    className="hero-illustration-icon"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              {/* Course Cards Grid */}
-              <div className="row g-4">
-                {category.courses.map((course) => (
-                  <div
-                    key={course.title}
-                    className="col-12 col-sm-6 col-md-4 col-lg-3 course-col"
+        {/* Main Content */}
+        <div className="container">
+          {/* Section Header */}
+          <div className="section-header">
+            <h2 className="section-title">
+              Our Learning Paths
+              <div className="section-title-underline"></div>
+            </h2>
+            <p className="section-subtitle">
+              Structured learning paths designed for your success, from beginner to advanced levels
+            </p>
+          </div>
+
+          {/* Categories */}
+          {Object.entries(courseCategories).map(([categoryKey, category], categoryIndex) => (
+            <div key={categoryKey} className="category-section">
+              <div className="category-container">
+                <div 
+                  className="category-background"
+                  style={{
+                    background: categoryIndex % 2 === 0 
+                      ? "linear-gradient(135deg, #FF7700, #FF9A3D)" 
+                      : "linear-gradient(135deg, #3B82F6, #0284C7)"
+                  }}
+                ></div>
+                
+                <div className="category-header">
+                  <div 
+                    className="category-icon-container"
+                    style={{ backgroundColor: category.iconBg }}
                   >
-                    <div
-                      className="card h-100 course-card"
-                      style={{
-                        borderRadius: "16px",
-                        border: "none",
-                        backgroundColor: "#ffffff",
-                        transition: "all 0.3s ease",
-                        position: "relative",
-                        boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-8px)";
-                        e.currentTarget.style.boxShadow =
-                          "0 12px 24px rgba(0,0,0,0.1)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow =
-                          "0 2px 4px rgba(0,0,0,0.05)";
-                      }}
+                    <span 
+                      className="category-icon"
+                      style={{ color: category.iconColor }}
                     >
-                      <div className="card-body p-4">
-                        {/* Course Icon */}
-                        <div
-                          style={{
-                            width: "56px",
-                            height: "56px",
-                            borderRadius: "14px",
-                            backgroundColor: course.iconBg,
-                            color: "#ffffff",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "24px",
-                            fontWeight: "bold",
-                            marginBottom: "1.5rem",
-                            boxShadow: `0 8px 16px ${course.iconBg}40`,
-                          }}
-                          className="course-icon"
-                        >
-                          {course.icon}
-                        </div>
-
-                        {/* Course Content */}
-                        <h5
-                          style={{
-                            fontSize: "1.25rem",
-                            fontWeight: "600",
-                            color: "#111827",
-                            marginBottom: "0.75rem",
-                          }}
-                          className="course-title"
-                        >
-                          {course.title}
-                        </h5>
-                        <p
-                          style={{
-                            fontSize: "0.9375rem",
-                            color: "#6B7280",
-                            marginBottom: "1.5rem",
-                            lineHeight: "1.6",
-                          }}
-                          className="course-desc"
-                        >
-                          {course.description}
-                        </p>
-
-                        {/* Course Button */}
-                        <button
-                          className="btn w-100 course-card-btn"
-                          style={{
-                            backgroundColor: "#FF7700",
-                            color: "#ffffff",
-                            padding: "0 1.25rem",
-                            borderRadius: "12px",
-                            border: "none",
-                            boxShadow: "0 4px 14px rgba(255, 119, 0, 0.25)",
-                            fontSize: "1rem",
-                            fontWeight: "600",
-                            transition: "all 0.2s ease",
-                            marginTop: "auto",
-                          }}
-                          aria-label={`Start learning ${course.title}`}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#FF8800";
-                            e.currentTarget.style.color = "#ffffff";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#FF7700";
-                            e.currentTarget.style.color = "#ffffff";
-                          }}
-                        >
-                          Start Learning
-                        </button>
-                      </div>
-                    </div>
+                      {category.icon}
+                    </span>
                   </div>
-                ))}
+                  
+                  <div className="category-info">
+                    <h3>{category.title}</h3>
+                    <p>{category.description}</p>
+                    <div className="category-accent-line"></div>
+                  </div>
+                </div>
+
+                <div className="course-grid">
+                  {category.courses.map((course, courseIndex) => {
+                    const levelStyles = getLevelColor(course.level);
+                    
+                    return (
+                      <div key={courseIndex} className="course-card">
+                        <div className="course-card-body">
+                          <div 
+                            className="course-icon"
+                            style={{ backgroundColor: course.iconBg }}
+                          >
+                            {course.icon}
+                          </div>
+
+                          <div className="course-meta">
+                            <span 
+                              className="course-level-badge"
+                              style={{ 
+                                backgroundColor: levelStyles.bg, 
+                                color: levelStyles.color 
+                              }}
+                            >
+                              {course.level}
+                            </span>
+                            <span className="course-duration">
+                              {course.duration}
+                            </span>
+                          </div>
+                          
+                          <h4 className="course-title">{course.title}</h4>
+                          <p className="course-description">{course.description}</p>
+                          
+                          <button className="course-button">
+                            Start Learning
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          )
-        )}
+          ))}
+        </div>
       </div>
     </div>
   );
