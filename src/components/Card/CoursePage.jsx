@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import OnlineLearning from "./undraw_online-learning_tgmv.svg";
 
 const CoursesPage = () => {
+  const [currentSlide, setCurrentSlide] = useState({});
+  const sliderRefs = useRef({});
+
   const courseCategories = {
     programmingLanguages: {
       icon: "💻",
@@ -169,6 +173,33 @@ const CoursesPage = () => {
     }
   };
 
+  const handleSlideChange = (categoryKey, direction) => {
+    const category = courseCategories[categoryKey];
+    const totalSlides = category.courses.length;
+    const current = currentSlide[categoryKey] || 0;
+    
+    let newSlide;
+    if (direction === 'next') {
+      newSlide = current >= totalSlides - 1 ? 0 : current + 1;
+    } else {
+      newSlide = current <= 0 ? totalSlides - 1 : current - 1;
+    }
+    
+    setCurrentSlide(prev => ({
+      ...prev,
+      [categoryKey]: newSlide
+    }));
+  };
+
+  useEffect(() => {
+    // Initialize current slide for each category
+    const initialSlides = {};
+    Object.keys(courseCategories).forEach(key => {
+      initialSlides[key] = 0;
+    });
+    setCurrentSlide(initialSlides);
+  }, []);
+
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
       <style>
@@ -176,6 +207,7 @@ const CoursesPage = () => {
           /* Global Styles */
           .courses-page-container {
             background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f0f9ff 100%);
+            padding-top: 2rem; /* Added spacing below navbar */
           }
 
           /* Hero Section Styles */
@@ -202,6 +234,16 @@ const CoursesPage = () => {
           .hero-content {
             position: relative;
             z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+          }
+
+          .hero-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 3rem;
           }
 
           .hero-badge {
@@ -295,24 +337,6 @@ const CoursesPage = () => {
             justify-content: center;
           }
 
-          .hero-illustration-bg1 {
-            width: 320px;
-            height: 320px;
-            background: linear-gradient(135deg, rgba(255, 119, 0, 0.1), rgba(59, 130, 246, 0.1));
-            border-radius: 50%;
-            position: absolute;
-            opacity: 0.3;
-          }
-
-          .hero-illustration-bg2 {
-            width: 240px;
-            height: 240px;
-            background: linear-gradient(135deg, rgba(255, 119, 0, 0.15), rgba(59, 130, 246, 0.15));
-            border-radius: 50%;
-            position: absolute;
-            opacity: 0.4;
-          }
-
           .hero-illustration-icon {
             position: relative;
             z-index: 10;
@@ -327,6 +351,13 @@ const CoursesPage = () => {
           @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
+          }
+
+          /* Main Container */
+          .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
           }
 
           /* Section Header */
@@ -433,13 +464,88 @@ const CoursesPage = () => {
             margin-top: 0.75rem;
           }
 
-          /* Course Grid */
+          /* Course Grid - Desktop */
           .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             position: relative;
             z-index: 1;
+          }
+
+          /* Mobile Slider Styles */
+          .mobile-slider-container {
+            display: none;
+            position: relative;
+            z-index: 1;
+          }
+
+          .mobile-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+          }
+
+          .mobile-slider-track {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+          }
+
+          .mobile-slide {
+            flex: 0 0 100%;
+            padding: 0 0.5rem;
+          }
+
+          .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+          }
+
+          .slider-button {
+            background: #ffffff;
+            border: 2px solid #E5E7EB;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+
+          .slider-button:hover {
+            border-color: #FF7700;
+            background: #FFF3E0;
+            color: #FF7700;
+            transform: scale(1.05);
+          }
+
+          .slider-button:active {
+            transform: scale(0.95);
+          }
+
+          .slider-indicators {
+            display: flex;
+            gap: 0.5rem;
+          }
+
+          .slider-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #D1D5DB;
+            transition: all 0.2s ease;
+            cursor: pointer;
+          }
+
+          .slider-indicator.active {
+            background: #FF7700;
+            transform: scale(1.2);
           }
 
           .course-card {
@@ -624,26 +730,94 @@ const CoursesPage = () => {
 
           /* Responsive Design */
           @media (max-width: 768px) {
-            .hero-section { padding: 3rem 0 2rem; }
-            .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
-            .hero-buttons { flex-direction: column; }
-            .hero-cta-primary, .hero-cta-secondary { width: 100%; }
+            .courses-page-container {
+              padding-top: 1rem; /* Reduced spacing for mobile */
+            }
             
-            .section-title { font-size: 2rem; }
-            .section-subtitle { font-size: 1rem; }
+            .hero-section { 
+              padding: 2rem 0 1rem; 
+            }
             
-            .category-container { padding: 1.5rem; }
-            .category-header { flex-direction: column; align-items: flex-start; }
-            .category-info h3 { font-size: 1.5rem; }
+            .hero-row {
+              grid-template-columns: 1fr;
+              gap: 2rem;
+            }
             
-            .course-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .course-card { min-height: 300px; }
-            .course-card-body { padding: 1.5rem; }
+            .hero-title { 
+              font-size: 2rem; 
+            }
             
-            .cta-section { padding: 2rem 1rem; }
-            .cta-title { font-size: 2rem; }
-            .cta-buttons { flex-direction: column; }
+            .hero-subtitle { 
+              font-size: 1rem; 
+              margin-bottom: 1.5rem; 
+            }
+            
+            .hero-buttons { 
+              flex-direction: column; 
+            }
+            
+            .hero-cta-primary, .hero-cta-secondary { 
+              width: 100%; 
+            }
+            
+            .hero-illustration {
+              display: block;
+              height: 300px;
+            }
+            
+            .section-title { 
+              font-size: 2rem; 
+            }
+            
+            .section-subtitle { 
+              font-size: 1rem; 
+            }
+            
+            .category-container { 
+              padding: 1.5rem; 
+            }
+            
+            .category-header { 
+              flex-direction: column; 
+              align-items: flex-start; 
+            }
+            
+            .category-info h3 { 
+              font-size: 1.5rem; 
+            }
+            
+            /* Hide desktop grid, show mobile slider */
+            .course-grid { 
+              display: none; 
+            }
+            
+            .mobile-slider-container { 
+              display: block; 
+            }
+            
+            .course-card { 
+              min-height: 320px; 
+            }
+            
+            .course-card-body { 
+              padding: 1.5rem; 
+            }
+            
+            .course-card:hover {
+              transform: none; /* Disable hover transform on mobile */
+            }
+            
+            .cta-section { 
+              padding: 2rem 1rem; 
+            }
+            
+            .cta-title { 
+              font-size: 2rem; 
+            }
+            
+            .cta-buttons { 
+              flex-direction: column; 
+            }
           }
 
           @media (prefers-reduced-motion: reduce) {
@@ -652,6 +826,7 @@ const CoursesPage = () => {
             .course-button { transition: none; }
             .hero-cta-primary { transition: none; }
             .hero-cta-secondary { transition: none; }
+            .mobile-slider-track { transition: none; }
           }
         `}
       </style>
@@ -660,9 +835,9 @@ const CoursesPage = () => {
         {/* Hero Section */}
         <div className="hero-section">
           <div className="hero-background"></div>
-          <div className="container hero-content">
-            <div className="row align-items-center">
-              <div className="col-lg-6">
+          <div className="hero-content">
+            <div className="hero-row">
+              <div>
                 <div className="hero-badge">
                   <span style={{ marginRight: "0.5rem" }}>🚀</span>
                   Learn Effectively. Build Confidently.
@@ -688,30 +863,28 @@ const CoursesPage = () => {
                 </div>
               </div>
               
-              <div className="col-lg-6 d-none d-lg-block">
-                <div className="hero-illustration">
-                  <img
-                    src={OnlineLearning}
-                    alt="Online Learning Illustration"
-                    style={{
-                      width: "90%",
-                      height: "auto",
-                      maxHeight: "450px",
-                      objectFit: "contain",
-                      filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
-                    }}
-                    className="hero-illustration-icon"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+              <div className="hero-illustration">
+                <img
+                  src={OnlineLearning}
+                  alt="Online Learning Illustration"
+                  style={{
+                    width: "90%",
+                    height: "auto",
+                    maxHeight: "450px",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
+                  }}
+                  className="hero-illustration-icon"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="container">
+        <div className="main-container">
           {/* Section Header */}
           <div className="section-header">
             <h2 className="section-title">
@@ -756,6 +929,7 @@ const CoursesPage = () => {
                   </div>
                 </div>
 
+                {/* Desktop Grid */}
                 <div className="course-grid">
                   {category.courses.map((course, courseIndex) => {
                     const levelStyles = getLevelColor(course.level);
@@ -795,6 +969,93 @@ const CoursesPage = () => {
                       </div>
                     );
                   })}
+                </div>
+
+                {/* Mobile Slider */}
+                <div className="mobile-slider-container">
+                  <div className="mobile-slider">
+                    <div 
+                      className="mobile-slider-track"
+                      style={{
+                        transform: `translateX(-${(currentSlide[categoryKey] || 0) * 100}%)`
+                      }}
+                    >
+                      {category.courses.map((course, courseIndex) => {
+                        const levelStyles = getLevelColor(course.level);
+                        
+                        return (
+                          <div key={courseIndex} className="mobile-slide">
+                            <div className="course-card">
+                              <div className="course-card-body">
+                                <div 
+                                  className="course-icon"
+                                  style={{ backgroundColor: course.iconBg }}
+                                >
+                                  {course.icon}
+                                </div>
+
+                                <div className="course-meta">
+                                  <span 
+                                    className="course-level-badge"
+                                    style={{ 
+                                      backgroundColor: levelStyles.bg, 
+                                      color: levelStyles.color 
+                                    }}
+                                  >
+                                    {course.level}
+                                  </span>
+                                  <span className="course-duration">
+                                    {course.duration}
+                                  </span>
+                                </div>
+                                
+                                <h4 className="course-title">{course.title}</h4>
+                                <p className="course-description">{course.description}</p>
+                                
+                                <button className="course-button">
+                                  Start Learning
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Slider Controls */}
+                  <div className="slider-controls">
+                    <button 
+                      className="slider-button"
+                      onClick={() => handleSlideChange(categoryKey, 'prev')}
+                      aria-label="Previous course"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+
+                    <div className="slider-indicators">
+                      {category.courses.map((_, index) => (
+                        <div
+                          key={index}
+                          className={`slider-indicator ${
+                            (currentSlide[categoryKey] || 0) === index ? 'active' : ''
+                          }`}
+                          onClick={() => setCurrentSlide(prev => ({
+                            ...prev,
+                            [categoryKey]: index
+                          }))}
+                        />
+                      ))}
+                    </div>
+
+                    <button 
+                      className="slider-button"
+                      onClick={() => handleSlideChange(categoryKey, 'next')}
+                      aria-label="Next course"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
