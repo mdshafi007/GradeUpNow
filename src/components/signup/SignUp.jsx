@@ -15,15 +15,16 @@ const SignUp = () => {
   const [serverError, setServerError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [justSignedUp, setJustSignedUp] = useState(false);
   const navigate = useNavigate();
   const { user, signup } = useUser();
 
-  // Redirect if already logged in
+  // Redirect if already logged in (but not if they just signed up)
   React.useEffect(() => {
-    if (user) {
+    if (user && !justSignedUp) {
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user, navigate, justSignedUp]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -86,10 +87,11 @@ const SignUp = () => {
 
     try {
       // Use Firebase Authentication
+      setJustSignedUp(true);
       await signup(formData.email.trim(), formData.password, formData.fullName.trim());
       
-      // Redirect to login page after successful registration
-      navigate('/login');
+      // Redirect to profile setup for new users
+      navigate('/profile-setup');
     } catch (error) {
       // Handle Firebase auth errors
       let errorMessage = 'Registration failed';
@@ -537,7 +539,7 @@ const SignUp = () => {
               fontSize: '0.875rem',
               fontWeight: '600',
               color: '#ffffff',
-              backgroundColor: isLoading ? '#9ca3af' : '#3b82f6',
+              backgroundColor: isLoading ? '#9ca3af' : '#f97316',
               border: 'none',
               borderRadius: '8px',
               cursor: isLoading ? 'not-allowed' : 'pointer',
@@ -550,12 +552,12 @@ const SignUp = () => {
             }}
             onMouseEnter={(e) => {
               if (!isLoading) {
-                e.target.style.backgroundColor = '#2563eb';
+                e.target.style.backgroundColor = '#ea580c';
               }
             }}
             onMouseLeave={(e) => {
               if (!isLoading) {
-                e.target.style.backgroundColor = '#3b82f6';
+                e.target.style.backgroundColor = '#f97316';
               }
             }}
           >

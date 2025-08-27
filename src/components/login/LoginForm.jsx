@@ -68,8 +68,8 @@ const LoginForm = () => {
       // Use Firebase Authentication
       await login(formData.email.trim(), formData.password);
       
-      // Redirect to home page (Firebase auth state change will handle user context)
-      navigate('/');
+      // Redirect will be handled by the Profile component based on setup status
+      navigate('/profile');
     } catch (error) {
       // Handle Firebase auth errors
       let errorMessage = 'Login failed';
@@ -357,7 +357,7 @@ const LoginForm = () => {
               fontSize: '0.875rem',
               fontWeight: '600',
               color: '#ffffff',
-              backgroundColor: isLoading ? '#9ca3af' : '#3b82f6',
+              backgroundColor: isLoading ? '#9ca3af' : '#f97316',
               border: 'none',
               borderRadius: '8px',
               cursor: isLoading ? 'not-allowed' : 'pointer',
@@ -370,12 +370,12 @@ const LoginForm = () => {
             }}
             onMouseEnter={(e) => {
               if (!isLoading) {
-                e.target.style.backgroundColor = '#2563eb';
+                e.target.style.backgroundColor = '#ea580c';
               }
             }}
             onMouseLeave={(e) => {
               if (!isLoading) {
-                e.target.style.backgroundColor = '#3b82f6';
+                e.target.style.backgroundColor = '#f97316';
               }
             }}
           >

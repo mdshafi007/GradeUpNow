@@ -168,7 +168,7 @@ const Navbar = () => {
                         textAlign: "center",
                       }}
                     >
-                      {user.displayName || "User"}
+                      {user.displayName || (user.email ? user.email.split('@')[0] : "User")}
                     </span>
                   </div>
                 </div>

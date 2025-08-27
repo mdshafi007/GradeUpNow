@@ -54,6 +54,14 @@ export const UserProvider = ({ children }) => {
         displayName: fullName
       });
 
+      // Force refresh the user state to include the updated displayName
+      setUser({
+        uid: userCredential.user.uid,
+        email: userCredential.user.email,
+        displayName: fullName,
+        photoURL: userCredential.user.photoURL
+      });
+
       return userCredential.user;
     } catch (error) {
       throw error;
