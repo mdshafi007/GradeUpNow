@@ -85,10 +85,14 @@ const ProfileSetupClean = () => {
       }
     }
     setCurrentStep(prev => prev + 1);
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const prevStep = () => {
     setCurrentStep(prev => prev - 1);
+    // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSubmit = async () => {
@@ -111,7 +115,12 @@ const ProfileSetupClean = () => {
       
       await setDoc(doc(db, 'users', user.uid), userData);
       toast.success('Profile setup completed!');
-      navigate('/profile');
+      // Scroll to top before navigation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Small delay to allow scroll to complete
+      setTimeout(() => {
+        navigate('/profile');
+      }, 300);
     } catch (error) {
       console.error('Error saving profile:', error);
       toast.error('Failed to save profile. Please try again.');
@@ -156,15 +165,15 @@ const ProfileSetupClean = () => {
     <div style={{
       minHeight: '100vh',
       backgroundColor: '#f9fafb',
-      paddingTop: '5rem',
+      paddingTop: '4rem',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif'
     }}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem 1.5rem' }}>
+      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '1rem' }}>
         
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <h1 style={{ 
-            fontSize: '1.875rem', 
+            fontSize: window.innerWidth <= 768 ? '1.5rem' : '1.875rem', 
             fontWeight: '700', 
             color: '#111827', 
             margin: '0 0 0.5rem 0' 
@@ -173,7 +182,7 @@ const ProfileSetupClean = () => {
           </h1>
           <p style={{ 
             color: '#6b7280', 
-            fontSize: '1rem',
+            fontSize: window.innerWidth <= 768 ? '0.875rem' : '1rem',
             margin: 0
           }}>
             Tell us about yourself to get personalized recommendations
@@ -181,7 +190,7 @@ const ProfileSetupClean = () => {
         </div>
 
         {/* Progress */}
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
@@ -223,7 +232,7 @@ const ProfileSetupClean = () => {
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '8px',
-          padding: '2rem',
+          padding: '1.5rem',
           border: '1px solid #e5e7eb',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
         }}>
@@ -266,7 +275,7 @@ const ProfileSetupClean = () => {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '1fr 1fr', gap: '1rem' }}>
                   <div>
                     <label style={{
                       display: 'block',
@@ -326,7 +335,7 @@ const ProfileSetupClean = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '1fr 1fr', gap: '1rem' }}>
                   <div>
                     <label style={{
                       display: 'block',
@@ -562,7 +571,7 @@ const ProfileSetupClean = () => {
                 </div>
 
                 {/* Learning Style & Skill Level */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '1fr 1fr', gap: '1rem' }}>
                   <div>
                     <label style={{
                       display: 'block',

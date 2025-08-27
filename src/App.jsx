@@ -14,6 +14,8 @@ import CoursePage from "./components/Card/CoursePage";
 import CTutorial from "./components/tutorials/CTutorial";
 import Profile from "./components/profile/ProfileClean";
 import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
+import Notifications from "./components/Notifications/Notifications";
+import ScrollToTop from "./components/ScrollToTop";
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ToastContainer } from 'react-toastify';
@@ -35,6 +37,7 @@ function App() {
       <UserProvider>
         <Router>
           <div className="App">
+            <ScrollToTop />
             <ToastContainer
               position="top-right"
               autoClose={3000}
@@ -53,6 +56,7 @@ function App() {
               <Route path="/notes" element={<Notes />} />
               <Route path="/courses" element={<CoursePage />} />
               <Route path="/courses/c-programming" element={<CTutorial />} />
+              <Route path="/notifications" element={<Notifications />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />

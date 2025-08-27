@@ -241,36 +241,38 @@ const ProfileProfessional = () => {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      paddingTop: '5rem',
+      paddingTop: '4rem',
       backgroundColor: '#f9fafb',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1.5rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem' }}>
         
         {/* Header */}
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '8px',
-          padding: '2rem',
-          marginBottom: '2rem',
+          padding: '1.5rem',
+          marginBottom: '1.5rem',
           border: '1px solid #e5e7eb',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
         }}>
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '1.5rem', 
-            marginBottom: '1.5rem'
+            gap: '1rem', 
+            marginBottom: '1rem',
+            flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
+            textAlign: window.innerWidth <= 768 ? 'center' : 'left'
           }}>
             <div style={{
-              width: '80px',
-              height: '80px',
+              width: window.innerWidth <= 768 ? '64px' : '80px',
+              height: window.innerWidth <= 768 ? '64px' : '80px',
               borderRadius: '50%',
               backgroundColor: '#f97316',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.75rem',
+              fontSize: window.innerWidth <= 768 ? '1.5rem' : '1.75rem',
               fontWeight: '600',
               color: '#ffffff'
             }}>
@@ -279,7 +281,7 @@ const ProfileProfessional = () => {
             
             <div>
               <h1 style={{ 
-                fontSize: '2rem', 
+                fontSize: window.innerWidth <= 768 ? '1.5rem' : '2rem', 
                 fontWeight: '700', 
                 margin: '0 0 0.5rem 0',
                 color: '#111827'
@@ -287,14 +289,14 @@ const ProfileProfessional = () => {
                 {getDisplayName()}
               </h1>
               <p style={{
-                fontSize: '1rem',
+                fontSize: window.innerWidth <= 768 ? '0.875rem' : '1rem',
                 color: '#6b7280',
                 margin: '0 0 0.5rem 0'
               }}>
                 {profileData.currentStudy} • {profileData.department}
               </p>
               <p style={{
-                fontSize: '0.875rem',
+                fontSize: '0.75rem',
                 color: '#9ca3af',
                 margin: 0
               }}>
@@ -307,15 +309,15 @@ const ProfileProfessional = () => {
         {/* Content Grid */}
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-          gap: '1.5rem'
+          gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))', 
+          gap: '1rem'
         }}>
           
           {/* Academic Information */}
           <div style={{
             backgroundColor: '#ffffff',
             borderRadius: '8px',
-            padding: '1.5rem',
+            padding: '1.25rem',
             border: '1px solid #e5e7eb',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
           }}>
@@ -445,7 +447,7 @@ const ProfileProfessional = () => {
             <div style={{
               backgroundColor: '#ffffff',
               borderRadius: '8px',
-              padding: '1.5rem',
+              padding: '1.25rem',
               border: '1px solid #e5e7eb',
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
             }}>
@@ -557,10 +559,10 @@ const ProfileProfessional = () => {
             <div style={{
               backgroundColor: '#ffffff',
               borderRadius: '8px',
-              padding: '1.5rem',
+              padding: '1.25rem',
               border: '1px solid #e5e7eb',
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-              gridColumn: 'span 2'
+              gridColumn: window.innerWidth <= 768 ? '1' : 'span 2'
             }}>
               <h3 style={{ 
                 fontSize: '1.125rem', 
@@ -573,7 +575,7 @@ const ProfileProfessional = () => {
               
               <div style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))', 
                 gap: '1rem' 
               }}>
                 {profileData.learningStyle && (
@@ -654,8 +656,8 @@ const ProfileProfessional = () => {
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '8px',
-          padding: '1.5rem',
-          marginTop: '1.5rem',
+          padding: '1.25rem',
+          marginTop: '1rem',
           border: '1px solid #e5e7eb',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
           textAlign: 'center'
@@ -664,7 +666,8 @@ const ProfileProfessional = () => {
             display: 'flex', 
             justifyContent: 'center', 
             gap: '0.75rem', 
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            flexDirection: window.innerWidth <= 480 ? 'column' : 'row'
           }}>
             <button
               onClick={() => navigate('/profile-setup')}
