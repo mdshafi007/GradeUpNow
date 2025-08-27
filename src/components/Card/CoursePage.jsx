@@ -207,7 +207,7 @@ const CoursesPage = () => {
           /* Global Styles */
           .courses-page-container {
             background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f0f9ff 100%);
-            padding-top: 2rem; /* Added spacing below navbar */
+            padding-top: 5rem; /* Increased spacing below fixed navbar */
           }
 
           /* Hero Section Styles */
@@ -731,7 +731,7 @@ const CoursesPage = () => {
           /* Responsive Design */
           @media (max-width: 768px) {
             .courses-page-container {
-              padding-top: 1rem; /* Reduced spacing for mobile */
+              padding-top: 4.5rem; /* Adequate spacing for mobile fixed navbar */
             }
             
             .hero-section { 

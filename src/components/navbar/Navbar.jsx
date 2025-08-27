@@ -141,31 +141,36 @@ const Navbar = () => {
                     e.currentTarget.style.backgroundColor = "#F3F4F6";
                   }}
                 >
-                  <span
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      borderRadius: "50%",
-                      backgroundColor: "#FF7700",
-                      color: "#ffffff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1rem",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
-                  </span>
-                  <span
-                    className="user-name"
-                    style={{
-                      fontWeight: "500",
-                      color: "#111827",
-                    }}
-                  >
-                    {user.displayName || user.email}
-                  </span>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <span
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                        backgroundColor: "#FF7700",
+                        color: "#ffffff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "1rem",
+                        fontWeight: "600",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      {user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
+                    </span>
+                    <span
+                      className="user-name"
+                      style={{
+                        fontWeight: "500",
+                        color: "#111827",
+                        fontSize: "0.875rem",
+                        textAlign: "center",
+                      }}
+                    >
+                      {user.displayName || "User"}
+                    </span>
+                  </div>
                 </div>
                 {isDropdownOpen && (
                   <div
