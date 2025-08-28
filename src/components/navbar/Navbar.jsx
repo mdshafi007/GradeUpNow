@@ -50,6 +50,7 @@ const Navbar = () => {
         backgroundColor: "#ffffff",
         boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
         padding: "0.75rem 0",
+        minHeight: "60px",
       }}
     >
       <div className="container">
@@ -133,6 +134,8 @@ const Navbar = () => {
                     cursor: "pointer",
                     transition: "all 0.2s ease",
                     backgroundColor: "#F3F4F6",
+                    height: "44px",
+                    minWidth: "44px",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "#E5E7EB";
@@ -141,7 +144,7 @@ const Navbar = () => {
                     e.currentTarget.style.backgroundColor = "#F3F4F6";
                   }}
                 >
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <span
                       style={{
                         width: "32px",
@@ -152,20 +155,23 @@ const Navbar = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: "1rem",
+                        fontSize: "0.875rem",
                         fontWeight: "600",
-                        marginBottom: "4px",
+                        flexShrink: 0,
                       }}
                     >
                       {user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
                     </span>
                     <span
-                      className="user-name"
+                      className="user-name d-none d-md-block"
                       style={{
                         fontWeight: "500",
                         color: "#111827",
                         fontSize: "0.875rem",
-                        textAlign: "center",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "100px",
                       }}
                     >
                       {user.displayName || (user.email ? user.email.split('@')[0] : "User")}
