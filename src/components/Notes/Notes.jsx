@@ -16,7 +16,8 @@ const Notes = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem'
+        padding: '2rem',
+        paddingTop: 'max(6rem, calc(60px + 2rem))' // Account for navbar height + padding
       }}>
         <div style={{
           textAlign: 'center',
@@ -48,6 +49,7 @@ const Notes = () => {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem',
+        paddingTop: 'max(6rem, calc(60px + 2rem))', // Account for navbar height + padding
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
       }}>
         {/* Icon */}

@@ -162,6 +162,7 @@ const SignUp = () => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '1rem',
+      paddingTop: 'max(5rem, calc(60px + 1rem))', // Account for navbar height + padding
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
     }}>
       
