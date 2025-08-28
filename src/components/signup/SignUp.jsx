@@ -1,6 +1,6 @@
 // SignUp.jsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 
 const SignUp = () => {
@@ -17,14 +17,19 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [justSignedUp, setJustSignedUp] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, signup } = useUser();
+
+  // Get redirect URL from query params
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirect') || '/';
 
   // Redirect if already logged in (but not if they just signed up)
   React.useEffect(() => {
     if (user && !justSignedUp) {
-      navigate('/');
+      navigate(redirectTo);
     }
-  }, [user, navigate, justSignedUp]);
+  }, [user, navigate, justSignedUp, redirectTo]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -90,8 +95,13 @@ const SignUp = () => {
       setJustSignedUp(true);
       await signup(formData.email.trim(), formData.password, formData.fullName.trim());
       
-      // Redirect to profile setup for new users
-      navigate('/profile-setup');
+      // Redirect based on where user came from
+      if (redirectTo === '/notes') {
+        navigate('/notes');
+      } else {
+        // Redirect to profile setup for new users
+        navigate('/profile-setup');
+      }
     } catch (error) {
       // Handle Firebase auth errors
       let errorMessage = 'Registration failed';

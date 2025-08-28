@@ -1,6 +1,6 @@
 // LoginForm.jsx
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from '../../context/UserContext';
 
 const LoginForm = () => {
@@ -14,14 +14,19 @@ const LoginForm = () => {
   const [serverError, setServerError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, login } = useUser();
+
+  // Get redirect URL from query params
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirect') || '/';
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(redirectTo);
     }
-  }, [user, navigate]);
+  }, [user, navigate, redirectTo]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -68,8 +73,12 @@ const LoginForm = () => {
       // Use Firebase Authentication
       await login(formData.email.trim(), formData.password);
       
-      // Redirect will be handled by the Profile component based on setup status
-      navigate('/profile');
+      // Redirect to the specified page or profile by default
+      if (redirectTo === '/notes') {
+        navigate('/notes');
+      } else {
+        navigate('/profile');
+      }
     } catch (error) {
       // Handle Firebase auth errors
       let errorMessage = 'Login failed';
