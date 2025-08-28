@@ -1,74 +1,124 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { collection, doc, getDocs, setDoc, deleteDoc, updateDoc, query, where, orderBy } from "firebase/firestore";
+import { db } from "../../firebase/config";
+import { useUser } from "../../context/UserContext";
 import Note from "./Note";
 import Createnotes from "./Createnotes";
 
 const Notescomp = () => {
+  const { user } = useUser();
   const titleEditRef = useRef(null);
   const [inputText, setInputText] = useState("");
   const [inputTitle, setInputTitle] = useState("");
-  const [notes, setNotes] = useState(() => {
-    const savedNotes = localStorage.getItem("notes");
-    return savedNotes ? JSON.parse(savedNotes) : [];
-  });
-  const [categories, setCategories] = useState(() => {
-    const savedCategories = localStorage.getItem("categories");
-    return savedCategories
-      ? JSON.parse(savedCategories)
-      : [{ id: "all", name: "All Notes", icon: "📝", isDefault: true }];
-  });
+  const [notes, setNotes] = useState([]);
+  const [categories, setCategories] = useState([
+    { id: "all", name: "All Notes", icon: "📝", isDefault: true }
+  ]);
   const [editToggle, setEditToggle] = useState(null);
   const [expandedNote, setExpandedNote] = useState(null);
   const [showCreateNote, setShowCreateNote] = useState(false);
   const [viewingNoteId, setViewingNoteId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(() => {
-    return localStorage.getItem("selectedCategory") || "all";
-  });
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Save categories to localStorage
+  // Load notes and categories from Firestore
   useEffect(() => {
-    localStorage.setItem("categories", JSON.stringify(categories));
-  }, [categories]);
+    const loadUserData = async () => {
+      if (!user?.uid) return;
 
-  // Save notes to localStorage
-  useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  }, [notes]);
+      setIsLoading(true);
+      try {
+        // Load notes
+        const notesQuery = query(
+          collection(db, 'notes'),
+          where('userId', '==', user.uid),
+          orderBy('createdAt', 'desc')
+        );
+        const notesSnapshot = await getDocs(notesQuery);
+        const userNotes = notesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setNotes(userNotes);
 
-  // Persist selected category
-  useEffect(() => {
-    localStorage.setItem("selectedCategory", selectedCategory);
-  }, [selectedCategory]);
+        // Load categories
+        const categoriesQuery = query(
+          collection(db, 'categories'),
+          where('userId', '==', user.uid)
+        );
+        const categoriesSnapshot = await getDocs(categoriesQuery);
+        const userCategories = categoriesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Always include the default "All Notes" category
+        const allCategories = [
+          { id: "all", name: "All Notes", icon: "📝", isDefault: true },
+          ...userCategories
+        ];
+        setCategories(allCategories);
 
-  const addNewCategory = () => {
-    if (newCategoryName.trim()) {
-      const newCategory = {
-        id: uuid(),
-        name: newCategoryName.trim(),
-        icon: "📁",
-        isDefault: false,
-      };
-      setCategories([...categories, newCategory]);
-      setNewCategoryName("");
-      setIsAddingCategory(false);
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadUserData();
+  }, [user?.uid]);
+
+  const addNewCategory = async () => {
+    if (newCategoryName.trim() && user?.uid) {
+      try {
+        const newCategory = {
+          id: uuid(),
+          name: newCategoryName.trim(),
+          icon: "📁",
+          isDefault: false,
+          userId: user.uid,
+          createdAt: new Date().toISOString()
+        };
+        
+        // Save to Firestore
+        await setDoc(doc(db, 'categories', newCategory.id), newCategory);
+        
+        // Update local state
+        setCategories([...categories, newCategory]);
+        setNewCategoryName("");
+        setIsAddingCategory(false);
+      } catch (error) {
+        console.error('Error adding category:', error);
+      }
     }
   };
 
-  const deleteCategory = (categoryId) => {
-    setNotes(
-      notes.map((note) =>
-        note.category === categoryId ? { ...note, category: "all" } : note
-      )
-    );
-    setCategories(categories.filter((cat) => cat.id !== categoryId));
-    if (selectedCategory === categoryId) {
-      setSelectedCategory("all");
+  const deleteCategory = async (categoryId) => {
+    if (!user?.uid) return;
+    
+    try {
+      // Update notes that use this category to use "all" instead
+      const notesToUpdate = notes.filter(note => note.category === categoryId);
+      for (const note of notesToUpdate) {
+        await updateDoc(doc(db, 'notes', note.id), { category: "all" });
+      }
+      
+      // Delete the category from Firestore
+      await deleteDoc(doc(db, 'categories', categoryId));
+      
+      // Update local state
+      setNotes(
+        notes.map((note) =>
+          note.category === categoryId ? { ...note, category: "all" } : note
+        )
+      );
+      setCategories(categories.filter((cat) => cat.id !== categoryId));
+      if (selectedCategory === categoryId) {
+        setSelectedCategory("all");
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
     }
-    // Close options if open
   };
 
   const editHandler = (id, text) => {
@@ -78,43 +128,71 @@ const Notescomp = () => {
     setInputTitle(note?.title || "");
   };
 
-  const saveHandler = () => {
+  const saveHandler = async () => {
+    if (!user?.uid) return;
+    
     const now = new Date().toISOString();
 
-    if (editToggle) {
-      setNotes(
-        notes.map((note) =>
-          note.id === editToggle
-            ? { ...note, title: inputTitle, text: inputText, updatedAt: now }
-            : note
-        )
-      );
-    } else {
-      setNotes((prevNotes) => [
-        ...prevNotes,
-        {
+    try {
+      if (editToggle) {
+        // Update existing note
+        const updatedNote = {
+          title: inputTitle,
+          text: inputText,
+          updatedAt: now
+        };
+        
+        await updateDoc(doc(db, 'notes', editToggle), updatedNote);
+        
+        setNotes(
+          notes.map((note) =>
+            note.id === editToggle
+              ? { ...note, ...updatedNote }
+              : note
+          )
+        );
+      } else {
+        // Create new note
+        const newNote = {
           id: uuid(),
           title: inputTitle,
           text: inputText,
           createdAt: now,
           updatedAt: now,
           category: selectedCategory,
-        },
-      ]);
+          userId: user.uid
+        };
+        
+        await setDoc(doc(db, 'notes', newNote.id), newNote);
+        
+        setNotes((prevNotes) => [newNote, ...prevNotes]);
+      }
+      
+      setInputText("");
+      setInputTitle("");
+      setEditToggle(null);
+      setShowCreateNote(false);
+    } catch (error) {
+      console.error('Error saving note:', error);
     }
-    setInputText("");
-    setInputTitle("");
-    setEditToggle(null);
-    setShowCreateNote(false);
   };
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     const confirmed = window.confirm("Delete this note?");
     if (!confirmed) return;
-    const newNotes = notes.filter((n) => n.id !== id);
-    setNotes(newNotes);
-    if (expandedNote === id) {
-      setExpandedNote(null);
+    
+    try {
+      // Delete from Firestore
+      await deleteDoc(doc(db, 'notes', id));
+      
+      // Update local state
+      const newNotes = notes.filter((n) => n.id !== id);
+      setNotes(newNotes);
+      if (expandedNote === id) {
+        setExpandedNote(null);
+      }
+    } catch (error) {
+      console.error('Error deleting note:', error);
     }
   };
 
@@ -204,6 +282,36 @@ const Notescomp = () => {
     el.focus();
     placeCaretAtEnd(el);
   }, [showCreateNote, editToggle, inputTitle]);
+
+  // Show loading state while fetching data
+  if (isLoading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#f9fafb',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          color: '#64748b'
+        }}>
+          <div style={{
+            width: '40px',
+            height: '40px',
+            border: '3px solid #f97316',
+            borderTop: '3px solid transparent',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }}></div>
+          Loading your notes...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
