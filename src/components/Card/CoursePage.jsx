@@ -1,10 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import OnlineLearning from "./undraw_online-learning_tgmv.svg";
 
 const CoursesPage = () => {
   const [currentSlide, setCurrentSlide] = useState({});
   const sliderRefs = useRef({});
+  const navigate = useNavigate();
+
+  // Helper function to convert course title to URL-friendly ID
+  const getCourseId = (title) => {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  };
+
+  // Function to handle course navigation with scroll position saving
+  const handleCourseClick = (courseId) => {
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    console.log('Saving scroll position before navigation:', currentScrollY);
+    
+    navigate(`/course/${courseId}`, {
+      state: { 
+        fromCoursesScrollPosition: currentScrollY 
+      }
+    });
+  };
 
   const courseCategories = {
     programmingLanguages: {
@@ -18,33 +37,25 @@ const CoursesPage = () => {
           icon: "C",
           iconBg: "#000000",
           title: "C Programming",
-          description: "Build strong programming foundations with system-level concepts",
-          level: "Beginner",
-          duration: "6 weeks"
+          description: "Build strong programming foundations with system-level concepts"
         },
         {
           icon: "C++",
           iconBg: "#044F88",
           title: "C++ Programming",
-          description: "Advanced object-oriented programming concepts and data structures",
-          level: "Intermediate",
-          duration: "8 weeks"
+          description: "Advanced object-oriented programming concepts and data structures"
         },
         {
           icon: "Py",
           iconBg: "#3776AB",
           title: "Python Programming",
-          description: "Modern programming essentials for automation and development",
-          level: "Beginner",
-          duration: "7 weeks"
+          description: "Modern programming essentials for automation and development"
         },
         {
           icon: "Ja",
           iconBg: "#E32C2C",
           title: "Java Programming",
-          description: "Enterprise-grade development with robust application design",
-          level: "Intermediate",
-          duration: "10 weeks"
+          description: "Enterprise-grade development with robust application design"
         },
       ],
     },
@@ -59,33 +70,25 @@ const CoursesPage = () => {
           icon: "HTML",
           iconBg: "#E34F26",
           title: "HTML Fundamentals",
-          description: "Core web markup language and semantic structure principles",
-          level: "Beginner",
-          duration: "3 weeks"
+          description: "Core web markup language and semantic structure principles"
         },
         {
           icon: "CSS",
           iconBg: "#1572B6",
           title: "CSS & Styling",
-          description: "Modern web styling with flexbox, grid, and responsive design",
-          level: "Beginner",
-          duration: "5 weeks"
+          description: "Modern web styling with flexbox, grid, and responsive design"
         },
         {
           icon: "JS",
           iconBg: "#F7DF1E",
           title: "JavaScript",
-          description: "Dynamic web applications with modern ES6+ features",
-          level: "Intermediate",
-          duration: "8 weeks"
+          description: "Dynamic web applications with modern ES6+ features"
         },
         {
           icon: "⚛️",
           iconBg: "#61DAFB",
           title: "React Development",
-          description: "Interactive user interface development with hooks and state",
-          level: "Advanced",
-          duration: "9 weeks"
+          description: "Interactive user interface development with hooks and state"
         },
       ],
     },
@@ -100,77 +103,52 @@ const CoursesPage = () => {
           icon: "🌐",
           iconBg: "#0284C7",
           title: "Computer Networks",
-          description: "Network architecture, protocols, and distributed systems",
-          level: "Intermediate",
-          duration: "8 weeks"
+          description: "Network architecture, protocols, and distributed systems"
         },
         {
           icon: "DB",
           iconBg: "#0891B2",
           title: "Database Systems",
-          description: "Relational databases, SQL, and data modeling principles",
-          level: "Intermediate",
-          duration: "7 weeks"
+          description: "Relational databases, SQL, and data modeling principles"
         },
         {
           icon: "CD",
           iconBg: "#6366F1",
           title: "Compiler Design",
-          description: "Language processing, parsing, and code generation concepts",
-          level: "Advanced",
-          duration: "10 weeks"
+          description: "Language processing, parsing, and code generation concepts"
         },
         {
           icon: "OS",
           iconBg: "#8B5CF6",
           title: "Operating Systems",
-          description: "System design, process management, and memory allocation",
-          level: "Advanced",
-          duration: "9 weeks"
+          description: "System design, process management, and memory allocation"
         },
         {
           icon: "AL",
           iconBg: "#EC4899",
           title: "Algorithms",
-          description: "Efficient problem-solving strategies and complexity analysis",
-          level: "Intermediate",
-          duration: "8 weeks"
+          description: "Efficient problem-solving strategies and complexity analysis"
         },
         {
           icon: "DS",
           iconBg: "#F43F5E",
           title: "Data Structures",
-          description: "Efficient data organization and manipulation techniques",
-          level: "Intermediate",
-          duration: "6 weeks"
+          description: "Efficient data organization and manipulation techniques"
         },
         {
           icon: "AI",
           iconBg: "#10B981",
           title: "AI & Machine Learning",
-          description: "Intelligent systems design and machine learning fundamentals",
-          level: "Advanced",
-          duration: "12 weeks"
+          description: "Intelligent systems design and machine learning fundamentals"
         },
         {
           icon: "🔒",
           iconBg: "#6B7280",
           title: "Cryptography",
-          description: "Security fundamentals and encryption algorithm principles",
-          level: "Advanced",
-          duration: "8 weeks"
+          description: "Security fundamentals and encryption algorithm principles"
         },
       ],
     },
-  };
-
-  const getLevelColor = (level) => {
-    switch (level) {
-      case 'Beginner': return { bg: '#DCFCE7', color: '#166534' };
-      case 'Intermediate': return { bg: '#FEF3C7', color: '#92400E' };
-      case 'Advanced': return { bg: '#FEE2E2', color: '#991B1B' };
-      default: return { bg: '#F3F4F6', color: '#374151' };
-    }
   };
 
   const handleSlideChange = (categoryKey, direction) => {
@@ -932,39 +910,33 @@ const CoursesPage = () => {
                 {/* Desktop Grid */}
                 <div className="course-grid">
                   {category.courses.map((course, courseIndex) => {
-                    const levelStyles = getLevelColor(course.level);
+                    const courseId = getCourseId(course.title);
                     
                     return (
-                      <div key={courseIndex} className="course-card">
-                        <div className="course-card-body">
-                          <div 
-                            className="course-icon"
-                            style={{ backgroundColor: course.iconBg }}
-                          >
-                            {course.icon}
-                          </div>
-
-                          <div className="course-meta">
-                            <span 
-                              className="course-level-badge"
-                              style={{ 
-                                backgroundColor: levelStyles.bg, 
-                                color: levelStyles.color 
-                              }}
+                      <div 
+                        key={courseIndex} 
+                        onClick={() => handleCourseClick(courseId)}
+                        style={{ 
+                          textDecoration: 'none',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <div className="course-card">
+                          <div className="course-card-body">
+                            <div 
+                              className="course-icon"
+                              style={{ backgroundColor: course.iconBg }}
                             >
-                              {course.level}
-                            </span>
-                            <span className="course-duration">
-                              {course.duration}
-                            </span>
+                              {course.icon}
+                            </div>
+                            
+                            <h4 className="course-title">{course.title}</h4>
+                            <p className="course-description">{course.description}</p>
+                            
+                            <button className="course-button">
+                              Start Learning
+                            </button>
                           </div>
-                          
-                          <h4 className="course-title">{course.title}</h4>
-                          <p className="course-description">{course.description}</p>
-                          
-                          <button className="course-button">
-                            Start Learning
-                          </button>
                         </div>
                       </div>
                     );
@@ -981,33 +953,25 @@ const CoursesPage = () => {
                       }}
                     >
                       {category.courses.map((course, courseIndex) => {
-                        const levelStyles = getLevelColor(course.level);
+                        const courseId = getCourseId(course.title);
                         
                         return (
                           <div key={courseIndex} className="mobile-slide">
-                            <div className="course-card">
-                              <div className="course-card-body">
-                                <div 
-                                  className="course-icon"
-                                  style={{ backgroundColor: course.iconBg }}
-                                >
-                                  {course.icon}
-                                </div>
-
-                                <div className="course-meta">
-                                  <span 
-                                    className="course-level-badge"
-                                    style={{ 
-                                      backgroundColor: levelStyles.bg, 
-                                      color: levelStyles.color 
-                                    }}
+                            <div 
+                              onClick={() => handleCourseClick(courseId)}
+                              style={{ 
+                                textDecoration: 'none',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              <div className="course-card">
+                                <div className="course-card-body">
+                                  <div 
+                                    className="course-icon"
+                                    style={{ backgroundColor: course.iconBg }}
                                   >
-                                    {course.level}
-                                  </span>
-                                  <span className="course-duration">
-                                    {course.duration}
-                                  </span>
-                                </div>
+                                    {course.icon}
+                                  </div>
                                 
                                 <h4 className="course-title">{course.title}</h4>
                                 <p className="course-description">{course.description}</p>
@@ -1016,6 +980,7 @@ const CoursesPage = () => {
                                   Start Learning
                                 </button>
                               </div>
+                            </div>
                             </div>
                           </div>
                         );

@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+/* Force instant scrolling globally */
+html {
+  scroll-behavior: auto !important;
+}
+
 a {
   text-decoration: none;
 }
