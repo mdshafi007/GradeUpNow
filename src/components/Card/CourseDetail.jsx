@@ -157,13 +157,6 @@ const CourseDetail = () => {
 
   const navigationOptions = [
     { 
-      id: 'roadmap', 
-      label: 'Roadmap', 
-      icon: '🗺️',
-      description: 'Step-by-step learning path',
-      route: `/course/${courseId}/roadmap`
-    },
-    { 
       id: 'tutorial', 
       label: 'Tutorial', 
       icon: '📚',
@@ -277,7 +270,7 @@ const CourseDetail = () => {
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(3, 1fr)',
+            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(2, 1fr)',
             gap: '1.5rem'
           }}>
             {navigationOptions.map((option) => (

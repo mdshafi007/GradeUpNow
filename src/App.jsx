@@ -12,7 +12,6 @@ import LoginForm from "./components/login/LoginForm";
 import SignUp from "./components/signup/SignUp";
 import CoursePage from "./components/Card/CoursePage";
 import CourseDetail from "./components/Card/CourseDetail";
-import CourseRoadmap from "./components/Card/CourseRoadmap";
 import CourseTutorial from "./components/Card/CourseTutorial";
 import CourseNotes from "./components/Card/CourseNotes";
 import CTutorial from "./components/tutorials/CTutorial";
@@ -60,7 +59,6 @@ function App() {
               <Route path="/notes" element={<Notes />} />
               <Route path="/courses" element={<CoursePage />} />
               <Route path="/course/:courseId" element={<CourseDetail />} />
-              <Route path="/course/:courseId/roadmap" element={<CourseRoadmap />} />
               <Route path="/course/:courseId/tutorial" element={<CourseTutorial />} />
               <Route path="/course/:courseId/notes" element={<CourseNotes />} />
               <Route path="/courses/c-programming" element={<CTutorial />} />
