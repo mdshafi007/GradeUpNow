@@ -20,6 +20,7 @@ import Profile from "./components/profile/ProfileClean";
 import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
 import Notifications from "./components/Notifications/Notifications";
 import ScrollToTop from "./components/ScrollToTop";
+import AIChatSidebar from "./components/AIChat/AIChatSidebar";
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ToastContainer } from 'react-toastify';
@@ -70,6 +71,7 @@ function App() {
               <Route path="/profile-setup" element={<ProfileSetupSimple />} />
             </Routes>
             <Footer />
+            <AIChatSidebar />
           </div>
         </Router>
       </UserProvider>
