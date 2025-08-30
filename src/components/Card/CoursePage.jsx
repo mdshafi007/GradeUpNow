@@ -136,12 +136,6 @@ const CoursesPage = () => {
           description: "Efficient data organization and manipulation techniques"
         },
         {
-          icon: "AI",
-          iconBg: "#10B981",
-          title: "AI & Machine Learning",
-          description: "Intelligent systems design and machine learning fundamentals"
-        },
-        {
           icon: "🔒",
           iconBg: "#6B7280",
           title: "Cryptography",

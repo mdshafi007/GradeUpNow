@@ -1,13 +1,13 @@
 import React from 'react';
-import { Brain, BookText, Bell, BookOpen } from 'lucide-react';
+import { BookText, Bell, BookOpen, Code } from 'lucide-react';
 import './WhyGradeUpNow.css';
 
 const WhyGradeUpNow = () => {
     const features = [
         {
-            icon: <Brain className="feature-icon" />,
-            title: "AI Learning Assistant",
-            description: "Get instant answers to your questions with our advanced AI assistant, tailored to your learning style and pace.",
+            icon: <Code className="feature-icon" />,
+            title: "Interactive Tutorials",
+            description: "Learn programming through hands-on tutorials and practical examples designed for B.Tech students.",
             gradient: "gradient-purple"
         },
         {

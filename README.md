@@ -16,13 +16,7 @@ GradeUpNow offers everything a B.Tech student needs— coding tutorials, compute
 
 - Notifications: Get notified about relevant internship and job opportunities.
 
-- **AI-Powered Features (Planned)**:
-
-  - Real-Time Doubt Solving: AI-powered chatbot for answering student queries in real-time.
-
-   - AI-Generated Summaries: Topic summaries generated using AI for quick revision.
-
-   - Course Recommendations: AI-driven suggestions for relevant courses based on user input.
+- Interactive Learning: Hands-on tutorials with practical examples and clear explanations.
 
 
 ## Tech Stack
@@ -32,8 +26,6 @@ GradeUpNow offers everything a B.Tech student needs— coding tutorials, compute
 **Backend:** Node.js, Express.js
 
 **Database:** MongoDB
-
-**AI Integration:** OpenAI GPT-4 for real-time doubt answering (planned)
 
 
 ## Contributing
