@@ -11,6 +11,7 @@ import {
   Copy
 } from 'lucide-react';
 import './Tutorials.css';
+import AIChatSidebar from '../AIChat/AIChatSidebar';
 
 const CourseTutorialViewer = () => {
   const { courseId } = useParams();
@@ -553,6 +554,9 @@ int main() {
             </div>
           </div>
         </main>
+
+        {/* AI Chat Sidebar */}
+        <AIChatSidebar />
       </div>
     </div>
   );
