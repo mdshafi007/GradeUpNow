@@ -483,7 +483,21 @@ const CTutorial = () => {
                   color: '#ff8e37'
                 }
               }}>
-                {currentContent.type === 'code' ? (
+                {/* Content description */}
+                <div style={{
+                  whiteSpace: 'normal',
+                  fontSize: '1.125rem',
+                  lineHeight: '1.8',
+                  color: '#2d3748',
+                  letterSpacing: '-0.011em',
+                  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  marginBottom: currentContent.code ? '1.5rem' : '0'
+                }}>
+                  <div dangerouslySetInnerHTML={{ __html: currentContent.content }} />
+                </div>
+
+                {/* Code block if it exists */}
+                {currentContent.code && (
                   <div style={{
                     borderRadius: '8px',
                     overflow: 'hidden',
@@ -504,7 +518,7 @@ const CTutorial = () => {
                     </div>
                     <Highlight
                       theme={themes.vsDark}
-                      code={currentContent.content}
+                      code={currentContent.code}
                       language="c"
                     >
                       {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -548,89 +562,6 @@ const CTutorial = () => {
                         </pre>
                       )}
                     </Highlight>
-                  </div>
-                ) : (
-                  <div style={{
-                    whiteSpace: 'normal',
-                    fontSize: '1.125rem',
-                    lineHeight: '1.8',
-                    color: '#2d3748',
-                    letterSpacing: '-0.011em',
-                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                  }}>
-                    <div dangerouslySetInnerHTML={{ __html: currentContent.content }} style={{
-                      fontSize: '1.125rem',
-                      lineHeight: '1.8',
-                      color: '#2d3748',
-                      letterSpacing: '-0.011em',
-                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                      '& p': {
-                        marginBottom: '1.5em'
-                      },
-                      '& h1, & h2, & h3, & h4, & h5, & h6': {
-                        marginTop: '2em',
-                        marginBottom: '0.8em',
-                        fontWeight: '700',
-                        lineHeight: '1.2',
-                        color: '#1a202c'
-                      },
-                      '& h1': {
-                        fontSize: '2em',
-                        borderBottom: 'none',
-                        paddingBottom: 0,
-                        marginBottom: '0.8em'
-                      },
-                      '& h2': {
-                        fontSize: '1.5em',
-                        borderBottom: 'none',
-                        paddingBottom: 0,
-                        marginBottom: '0.6em'
-                      },
-                      '& h3': {
-                        fontSize: '1.25em'
-                      },
-                      '& ul, & ol': {
-                        marginBottom: '1.5em',
-                        paddingLeft: '1.5em'
-                      },
-                      '& li': {
-                        marginBottom: '0.5em',
-                        lineHeight: '1.6'
-                      },
-                      '& blockquote': {
-                        borderLeft: '4px solid #ff8e37',
-                        paddingLeft: '1em',
-                        marginLeft: 0,
-                        marginRight: 0,
-                        fontStyle: 'italic',
-                        color: '#4a5568'
-                      },
-                      '& a': {
-                        color: '#ff8e37',
-                        textDecoration: 'none',
-                        borderBottom: '1px solid transparent',
-                        transition: 'border-color 0.2s',
-                        '&:hover': {
-                          borderBottomColor: '#ff8e37'
-                        }
-                      },
-                      '& strong': {
-                        fontWeight: '700',
-                        color: '#1a202c'
-                      },
-                      '& em': {
-                        fontStyle: 'italic',
-                        color: '#4a5568'
-                      },
-                      '& code': {
-                        backgroundColor: '#f7fafc',
-                        padding: '0.2em 0.4em',
-                        borderRadius: '3px',
-                        fontSize: '0.9em',
-                        fontFamily: 'JetBrains Mono, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-                        color: '#ff8e37'
-                      }
-                    }}/>
                   </div>
                 )}
               </div>
