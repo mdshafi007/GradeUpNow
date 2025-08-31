@@ -1,33 +1,158 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Book, Code, Check, Circle, CheckCircle, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Book, Code, Check, Circle, CheckCircle, ChevronDown, Menu } from 'lucide-react';
 import courseDataJson from '../../data/c-tutorial-content.json';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useUser } from '../../context/UserContext';
 import AIChatSidebar from '../AIChat/AIChatSidebar';
 import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { toast } from 'react-toastify';
 import '../tutorials/Tutorials.css';
+
+// Mobile styles
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .left-sidebar {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .lesson {
+      min-height: 48px !important;
+      padding: 14px 16px !important;
+      border-bottom: 1px solid #f3f4f6 !important;
+    }
+    
+    .lesson:active {
+      background-color: #e5e7eb !important;
+    }
+    
+    .lesson:last-child {
+      border-bottom: none !important;
+    }
+    
+    pre {
+      font-size: 12px !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    code {
+      word-break: break-all;
+      white-space: pre-wrap;
+    }
+    
+    /* Improve touch targets */
+    button {
+      min-height: 44px;
+    }
+    
+    /* Better content spacing on mobile */
+    .tutorial-content h1,
+    .tutorial-content h2,
+    .tutorial-content h3 {
+      line-height: 1.3 !important;
+      margin-bottom: 0.75em !important;
+    }
+    
+    .tutorial-content p {
+      margin-bottom: 1em !important;
+    }
+    
+    /* Mobile sidebar animations */
+    .mobile-sidebar-enter {
+      transform: translateX(-100%);
+    }
+    
+    .mobile-sidebar-enter-active {
+      transform: translateX(0);
+      transition: transform 0.3s ease-out;
+    }
+    
+    /* Fix for iOS safe areas */
+    .mobile-header {
+      padding-top: env(safe-area-inset-top);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.1;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+`;
+
+// Inject mobile styles
+if (typeof document !== 'undefined') {
+  const existingStyle = document.getElementById('mobile-tutorial-styles');
+  if (!existingStyle) {
+    const style = document.createElement('style');
+    style.id = 'mobile-tutorial-styles';
+    style.textContent = mobileStyles;
+    document.head.appendChild(style);
+  }
+}
 
 const CTutorialSimple = () => {
   const [courseData, setCourseData] = useState(null);
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedContent, setSelectedContent] = useState(0);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userProgress, setUserProgress] = useState({});
   const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [mobileAIChatOpen, setMobileAIChatOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
   const { user } = useUser();
+
+  // Debug: Log mobile state
+  // console.log('Mobile states:', { isMobile, isMobileView, windowWidth: window.innerWidth });
 
   // Handle mobile responsiveness
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setIsMobileView(mobile);
+      if (!mobile) {
+        setIsMobileSidebarOpen(false);
+      }
     };
 
+    handleResize(); // Initial check
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Simple notification system for mobile
+  const showSimpleNotification = useCallback((message) => {
+    setNotificationMessage(message);
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
   }, []);
 
   // Load course data from JSON file
@@ -78,7 +203,7 @@ const CTutorialSimple = () => {
   }, [user]);
 
   // Save progress to Firestore or localStorage
-  const saveProgress = useCallback(async (sectionId, contentIndex) => {
+  const saveProgress = useCallback(async (sectionId, contentIndex, showNotification = false) => {
     const progressKey = `${sectionId}-${contentIndex}`;
     const newProgress = {
       ...userProgress,
@@ -113,28 +238,34 @@ const CTutorialSimple = () => {
           });
         }
         
-        toast.success('Progress saved!');
+        if (showNotification) {
+          showSimpleNotification('Progress saved!');
+        }
       } catch (error) {
         console.error('Error saving progress to Firestore:', error);
-        toast.error('Failed to save progress');
+        if (showNotification) {
+          showSimpleNotification('Failed to save progress');
+        }
         // Fallback to localStorage if Firestore fails
         localStorage.setItem('c-tutorial-progress-demo', JSON.stringify(newProgress));
       }
     } else {
       // Not logged in - save to localStorage only
       localStorage.setItem('c-tutorial-progress-demo', JSON.stringify(newProgress));
-      toast.info('Progress saved locally. Login to sync across devices!');
+      if (showNotification) {
+        showSimpleNotification('Progress saved locally!');
+      }
     }
-  }, [userProgress, user]);
+  }, [userProgress, user, showSimpleNotification]);
 
   // Mark current content as completed
   const markAsCompleted = useCallback(() => {
     if (!user) {
-      toast.info('Please login to save your progress!');
+      showSimpleNotification('Please login to save your progress!');
       return;
     }
     saveProgress(selectedSection, selectedContent);
-  }, [selectedSection, selectedContent, saveProgress, user]);
+  }, [selectedSection, selectedContent, saveProgress, user, showSimpleNotification]);
 
   // Get current section data
   const getCurrentSection = useCallback(() => {
@@ -211,6 +342,31 @@ const CTutorialSimple = () => {
     return () => window.removeEventListener('keydown', handleKeyNavigation);
   }, [handleKeyNavigation]);
 
+  // Mobile navigation handlers
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  const closeMobileSidebar = () => {
+    setIsMobileSidebarOpen(false);
+  };
+
+  const toggleMobileAIChat = () => {
+    setMobileAIChatOpen(!mobileAIChatOpen);
+  };
+
+  const closeMobileAIChat = () => {
+    setMobileAIChatOpen(false);
+  };
+
+  const handleContentSelection = (sectionId, contentIndex) => {
+    setSelectedSection(sectionId);
+    setSelectedContent(contentIndex);
+    if (isMobileView) {
+      closeMobileSidebar();
+    }
+  };
+
   if (loading) {
     return (
       <div style={{
@@ -263,8 +419,117 @@ const CTutorialSimple = () => {
       color: '#1a1a1a',
       minHeight: '100vh',
       display: 'flex',
-      paddingTop: '60px' // Account for fixed navbar
+      paddingTop: '0', // Clean layout without header
+      position: 'relative'
     }}>
+      {/* Mobile Edge Arrow Button */}
+      {isMobileView && (
+        <button
+          onClick={toggleMobileSidebar}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: isMobileSidebarOpen ? '270px' : '-8px',
+            transform: 'translateY(-50%)',
+            width: '40px',
+            height: '40px',
+            backgroundColor: '#2563eb',
+            border: '2px solid #ffffff',
+            borderRadius: '50%',
+            color: '#ffffff',
+            cursor: 'pointer',
+            zIndex: 1001,
+            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '14px',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            opacity: 0.95
+          }}
+          onTouchStart={(e) => {
+            e.target.style.transform = 'translateY(-50%) scale(0.95)';
+            e.target.style.backgroundColor = '#1d4ed8';
+          }}
+          onTouchEnd={(e) => {
+            e.target.style.transform = 'translateY(-50%) scale(1)';
+            e.target.style.backgroundColor = '#2563eb';
+          }}
+        >
+          {isMobileSidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+        </button>
+      )}
+
+      {/* Mobile AI Chat Arrow Button - Right Side */}
+      {isMobileView && (
+        <button
+          onClick={toggleMobileAIChat}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            right: mobileAIChatOpen ? '270px' : '-8px',
+            transform: 'translateY(-50%)',
+            width: '40px',
+            height: '40px',
+            backgroundColor: '#16a34a',
+            border: '2px solid #ffffff',
+            borderRadius: '50%',
+            color: '#ffffff',
+            cursor: 'pointer',
+            zIndex: 1001,
+            boxShadow: '0 4px 12px rgba(22, 163, 74, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '14px',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            opacity: 0.95
+          }}
+          onTouchStart={(e) => {
+            e.target.style.transform = 'translateY(-50%) scale(0.95)';
+            e.target.style.backgroundColor = '#15803d';
+          }}
+          onTouchEnd={(e) => {
+            e.target.style.transform = 'translateY(-50%) scale(1)';
+            e.target.style.backgroundColor = '#16a34a';
+          }}
+        >
+          {mobileAIChatOpen ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+        </button>
+      )}
+
+      {/* Mobile Sidebar Overlay */}
+      {isMobileView && isMobileSidebarOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '60px',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 800
+          }}
+          onClick={closeMobileSidebar}
+        />
+      )}
+
+      {/* Mobile AI Chat Overlay */}
+      {isMobileView && mobileAIChatOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '60px',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 800
+          }}
+          onClick={closeMobileAIChat}
+        />
+      )}
+
       {/* Left Sidebar - Course Syllabus */}
       <aside 
         className={`left-sidebar ${leftSidebarExpanded ? 'expanded' : 'collapsed'}`}
@@ -272,28 +537,27 @@ const CTutorialSimple = () => {
         onMouseLeave={() => !isMobile && setLeftSidebarExpanded(false)}
         style={{ 
           position: 'fixed', 
-          top: '60px', // Start below navbar
-          left: 0, 
-          height: 'calc(100vh - 60px)', // Full height minus navbar
-          zIndex: 100,
-          backgroundColor: '#ffffff',
-          borderRight: '1px solid #e5e7eb',
-          width: leftSidebarExpanded ? '280px' : '60px',
-          transition: 'width 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
+          top: isMobileView ? '60px' : '60px',
+          left: isMobileView ? (isMobileSidebarOpen ? '0' : '-100%') : '0',
+          width: isMobileView ? '280px' : (leftSidebarExpanded ? '280px' : '60px'),
+          height: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
+          backgroundColor: '#f8fafc',
+          borderRight: '1px solid #e2e8f0',
+          transition: isMobileView ? 'left 0.3s ease' : 'width 0.2s ease',
+          zIndex: isMobileView ? 900 : 10,
+          overflowY: 'auto',
+          overflowX: 'hidden'
+        }}>
         <div className="sidebar-header" style={{
           height: '50px',
           display: 'flex',
           alignItems: 'center',
           padding: '0 16px',
           borderBottom: '1px solid #f3f4f6',
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          marginTop: '0'
         }}>
-          {leftSidebarExpanded ? (
+          {(leftSidebarExpanded || isMobileView) ? (
             <div className="syllabus-header" style={{
               display: 'flex',
               alignItems: 'center',
@@ -310,7 +574,7 @@ const CTutorialSimple = () => {
           )}
         </div>
 
-        {leftSidebarExpanded && (
+        {(leftSidebarExpanded || isMobileView) && (
           <div className="sidebar-content" style={{
             flex: 1,
             overflowY: 'auto',
@@ -345,26 +609,24 @@ const CTutorialSimple = () => {
                         <button
                           key={contentIndex}
                           className={`lesson ${isActive ? 'active' : ''}`}
-                          onClick={() => {
-                            setSelectedSection(section.id);
-                            setSelectedContent(contentIndex);
-                          }}
+                          onClick={() => handleContentSelection(section.id, contentIndex)}
                           style={{
                             width: '100%',
-                            padding: '12px 16px',
+                            padding: isMobileView ? '14px 16px' : '12px 16px',
                             border: 'none',
                             background: isActive ? '#eff6ff' : 'transparent',
                             textAlign: 'left',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            fontSize: '14px',
+                            fontSize: isMobileView ? '15px' : '14px',
                             fontWeight: isActive ? '500' : '400',
                             color: isActive ? '#2563eb' : '#374151',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
                             borderRadius: '6px',
-                            margin: '2px 12px'
+                            margin: '2px 12px',
+                            minHeight: isMobileView ? '48px' : '40px'
                           }}
                           onMouseEnter={(e) => {
                             if (!isActive) {
@@ -471,48 +733,50 @@ const CTutorialSimple = () => {
       {/* Main Content Area */}
       <main style={{
         flex: 1,
-        marginLeft: leftSidebarExpanded ? '280px' : '60px',
-        transition: 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
-        padding: '20px',
-        minHeight: 'calc(100vh - 60px)', // Account for navbar
+        marginLeft: isMobileView ? '0' : (leftSidebarExpanded ? '280px' : '60px'),
+        marginTop: isMobileView ? '60px' : '0',
+        transition: isMobileView ? 'none' : 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
+        padding: isMobileView ? '16px' : '20px',
+        minHeight: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
         backgroundColor: '#f8fafc'
       }}>
         {currentSection && currentContent && (
           <article style={{
             backgroundColor: '#ffffff',
-            borderRadius: '12px',
-            padding: '32px',
+            borderRadius: isMobileView ? '8px' : '12px',
+            padding: isMobileView ? '16px' : '32px',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
             border: '1px solid #e5e7eb',
-            maxWidth: '800px',
+            maxWidth: isMobileView ? 'none' : '800px',
             margin: '0 auto'
           }}>
             {/* Content Header */}
             <header style={{
-              marginBottom: '24px',
-              paddingBottom: '16px',
+              marginBottom: isMobileView ? '16px' : '24px',
+              paddingBottom: isMobileView ? '12px' : '16px',
               borderBottom: '1px solid #e5e7eb'
             }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                marginBottom: '12px'
+                gap: isMobileView ? '8px' : '12px',
+                marginBottom: isMobileView ? '8px' : '12px',
+                flexWrap: 'wrap'
               }}>
                 <span style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  fontSize: '14px',
+                  fontSize: isMobileView ? '12px' : '14px',
                   color: '#6b7280',
                   fontWeight: '500'
                 }}>
-                  <Book size={16} />
+                  <Book size={isMobileView ? 14 : 16} />
                   {currentSection.title}
                 </span>
-                <ChevronRight size={16} color="#6b7280" />
+                <ChevronRight size={isMobileView ? 14 : 16} color="#6b7280" />
                 <span style={{
-                  fontSize: '14px',
+                  fontSize: isMobileView ? '12px' : '14px',
                   color: '#ff8e37',
                   fontWeight: '500'
                 }}>
@@ -521,9 +785,10 @@ const CTutorialSimple = () => {
               </div>
               <h2 style={{
                 margin: 0,
-                fontSize: '24px',
+                fontSize: isMobileView ? '20px' : '24px',
                 fontWeight: '600',
-                color: '#1f2937'
+                color: '#1f2937',
+                lineHeight: '1.3'
               }}>{currentContent.title}</h2>
             </header>
 
@@ -565,28 +830,31 @@ const CTutorialSimple = () => {
 
             {/* Content */}
             <div style={{
-              fontSize: '1.125rem',
+              fontSize: isMobileView ? '1rem' : '1.125rem',
               lineHeight: '1.75',
               color: '#374151',
-              marginBottom: '2rem'
+              marginBottom: isMobileView ? '1.5rem' : '2rem'
             }}>
               {/* Content description */}
-              <div style={{
-                whiteSpace: 'normal',
-                fontSize: '1.125rem',
-                lineHeight: '1.8',
-                color: '#2d3748',
-                letterSpacing: '-0.011em',
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                marginBottom: currentContent.code ? '1.5rem' : '0'
-              }}>
+              <div 
+                className="tutorial-content"
+                style={{
+                  whiteSpace: 'normal',
+                  fontSize: isMobileView ? '1rem' : '1.125rem',
+                  lineHeight: '1.8',
+                  color: '#2d3748',
+                  letterSpacing: '-0.011em',
+                  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  marginBottom: currentContent.code ? '1.5rem' : '0'
+                }}
+              >
                 <div dangerouslySetInnerHTML={{ __html: currentContent.content }} />
               </div>
 
               {/* Code block if it exists */}
               {currentContent.code && (
                 <div style={{
-                  borderRadius: '8px',
+                  borderRadius: isMobileView ? '6px' : '8px',
                   overflow: 'hidden',
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                   margin: '1.5em 0'
@@ -594,11 +862,11 @@ const CTutorialSimple = () => {
                   {/* Code block header */}
                   <div style={{
                     backgroundColor: '#1e1e1e',
-                    padding: '8px 16px',
+                    padding: isMobileView ? '6px 12px' : '8px 16px',
                     display: 'flex',
                     alignItems: 'center',
                     borderBottom: '1px solid #333',
-                    fontSize: '12px',
+                    fontSize: isMobileView ? '11px' : '12px',
                     color: '#d4d4d4'
                   }}>
                     <span>C</span>
@@ -612,10 +880,10 @@ const CTutorialSimple = () => {
                       <pre style={{
                         backgroundColor: '#1e1e1e',
                         color: '#d4d4d4',
-                        padding: '16px',
+                        padding: isMobileView ? '12px' : '16px',
                         margin: 0,
                         overflow: 'auto',
-                        fontSize: '14px',
+                        fontSize: isMobileView ? '12px' : '14px',
                         lineHeight: '1.6',
                         fontFamily: 'JetBrains Mono, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
                         ...style
@@ -657,9 +925,11 @@ const CTutorialSimple = () => {
             <nav style={{
               display: 'flex',
               justifyContent: 'space-between',
-              marginTop: '48px',
-              paddingTop: '24px',
-              borderTop: '1px solid #e5e7eb'
+              marginTop: isMobileView ? '32px' : '48px',
+              paddingTop: isMobileView ? '16px' : '24px',
+              borderTop: '1px solid #e5e7eb',
+              gap: isMobileView ? '8px' : '12px',
+              flexWrap: isMobileView ? 'wrap' : 'nowrap'
             }}>
               <button
                 onClick={goToPrevious}
@@ -668,20 +938,21 @@ const CTutorialSimple = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '12px 24px',
+                  padding: isMobileView ? '10px 16px' : '12px 24px',
                   backgroundColor: '#f9fafb',
                   color: '#374151',
                   border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '14px',
+                  borderRadius: isMobileView ? '6px' : '8px',
+                  fontSize: isMobileView ? '13px' : '14px',
                   fontWeight: '500',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  opacity: (selectedContent === 0 && courseData.sections.findIndex(s => s.id === selectedSection) === 0) ? 0.5 : 1
+                  opacity: (selectedContent === 0 && courseData.sections.findIndex(s => s.id === selectedSection) === 0) ? 0.5 : 1,
+                  minWidth: isMobileView ? 'auto' : 'initial'
                 }}
               >
-                <ChevronLeft size={16} />
-                Previous
+                <ChevronLeft size={isMobileView ? 14 : 16} />
+                {isMobileView ? 'Prev' : 'Previous'}
               </button>
 
               <button
@@ -690,18 +961,20 @@ const CTutorialSimple = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '12px 24px',
+                  padding: isMobileView ? '10px 16px' : '12px 24px',
                   backgroundColor: isContentCompleted(selectedSection, selectedContent) ? '#16a34a' : '#ff8e37',
                   color: '#ffffff',
                   border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
+                  borderRadius: isMobileView ? '6px' : '8px',
+                  fontSize: isMobileView ? '13px' : '14px',
                   fontWeight: '500',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  order: isMobileView ? 3 : 2,
+                  width: isMobileView ? '100%' : 'auto'
                 }}
               >
-                <Check size={16} />
+                <Check size={isMobileView ? 14 : 16} />
                 {isContentCompleted(selectedSection, selectedContent) ? 'Completed' : 'Mark Complete'}
               </button>
 
@@ -713,29 +986,61 @@ const CTutorialSimple = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '12px 24px',
-                  backgroundColor: '#ff8e37',
+                  padding: isMobileView ? '10px 16px' : '12px 24px',
+                  backgroundColor: '#2563eb',
                   color: '#ffffff',
                   border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
+                  borderRadius: isMobileView ? '6px' : '8px',
+                  fontSize: isMobileView ? '13px' : '14px',
                   fontWeight: '500',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   opacity: (selectedContent === currentSection.content.length - 1 && 
-                           courseData.sections.findIndex(s => s.id === selectedSection) === courseData.sections.length - 1) ? 0.5 : 1
+                           courseData.sections.findIndex(s => s.id === selectedSection) === courseData.sections.length - 1) ? 0.5 : 1,
+                  minWidth: isMobileView ? 'auto' : 'initial'
                 }}
               >
-                Next
-                <ChevronRight size={16} />
+                {isMobileView ? 'Next' : 'Next'}
+                <ChevronRight size={isMobileView ? 14 : 16} />
               </button>
             </nav>
           </article>
         )}
       </main>
 
-      {/* AI Chat Sidebar */}
-      <AIChatSidebar />
+      {/* AI Chat Sidebar - Show on desktop or when mobile AI chat is open */}
+      {(!isMobileView || mobileAIChatOpen) && (
+        <AIChatSidebar 
+          isMobileView={isMobileView}
+          mobileAIChatOpen={mobileAIChatOpen}
+          closeMobileAIChat={closeMobileAIChat}
+        />
+      )}
+      
+      {/* Simple Notification for Mobile */}
+      {showNotification && (
+        <div style={{
+          position: 'fixed',
+          top: isMobileView ? '80px' : '80px',
+          right: '16px',
+          backgroundColor: '#16a34a',
+          color: 'white',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          zIndex: 9999,
+          fontSize: '14px',
+          fontWeight: '500',
+          maxWidth: '280px',
+          animation: 'slideInRight 0.3s ease-out',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <Check size={16} />
+          {notificationMessage}
+        </div>
+      )}
     </div>
   );
 };

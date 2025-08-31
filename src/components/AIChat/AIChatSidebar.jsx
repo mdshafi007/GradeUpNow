@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { X } from 'lucide-react';
 import './AIChatSidebar.css';
 
-const AIChatSidebar = () => {
+const AIChatSidebar = ({ isMobileView = false, mobileAIChatOpen = false, closeMobileAIChat }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -47,12 +48,18 @@ const AIChatSidebar = () => {
 
   return (
     <aside 
-      className={`right-sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+      className={`right-sidebar ${isExpanded || isMobileView ? 'expanded' : 'collapsed'}`}
+      onMouseEnter={() => !isMobileView && setIsExpanded(true)}
+      onMouseLeave={() => !isMobileView && setIsExpanded(false)}
+      style={isMobileView ? {
+        right: mobileAIChatOpen ? '0' : '-100%',
+        width: '280px',
+        transition: 'right 0.3s ease',
+        zIndex: 900
+      } : {}}
     >
       <div className="sidebar-header">
-        {isExpanded ? (
+        {(isExpanded || isMobileView) ? (
           <div className="ai-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path 
@@ -72,7 +79,7 @@ const AIChatSidebar = () => {
         )}
       </div>
 
-      {isExpanded && (
+      {(isExpanded || isMobileView) && (
         <div className="sidebar-content">
           <div className="chat-messages">
             {messages.map((message) => (

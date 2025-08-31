@@ -1,7 +1,7 @@
 /* Right Sidebar - AI Chat (matching left sidebar styles) */
 .right-sidebar {
   position: fixed;
-  top: 64px; /* Same as tutorials header height */
+  top: 60px; /* Match navbar height */
   right: 0;
   background: #ffffff;
   border-left: 1px solid #e5e7eb;
@@ -10,8 +10,8 @@
   display: flex;
   flex-direction: column;
   will-change: width;
-  height: calc(100vh - 64px);
-  z-index: 999;
+  height: calc(100vh - 60px);
+  z-index: 900;
 }
 
 .right-sidebar.collapsed {
