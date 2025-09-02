@@ -60,17 +60,22 @@
 /* Chat Messages */
 .chat-messages {
   flex: 1;
-  padding: 16px;
+  padding: 0 16px 16px 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
 }
 
 .message {
   display: flex;
   align-items: flex-start;
+  margin: 0 0 12px 0;
+}
+
+.message:first-child {
+  margin-top: 0;
 }
 
 .user-message {

@@ -419,7 +419,7 @@ const CTutorialSimple = () => {
       color: '#1a1a1a',
       minHeight: '100vh',
       display: 'flex',
-      paddingTop: '0', // Clean layout without header
+      paddingTop: '60px', // Add space for navbar
       position: 'relative'
     }}>
       {/* Mobile Edge Arrow Button */}
@@ -533,8 +533,8 @@ const CTutorialSimple = () => {
       {/* Left Sidebar - Course Syllabus */}
       <aside 
         className={`left-sidebar ${leftSidebarExpanded ? 'expanded' : 'collapsed'}`}
-        onMouseEnter={() => !isMobile && setLeftSidebarExpanded(true)}
-        onMouseLeave={() => !isMobile && setLeftSidebarExpanded(false)}
+        onMouseEnter={() => !isMobileView && setLeftSidebarExpanded(true)}
+        onMouseLeave={() => !isMobileView && setLeftSidebarExpanded(false)}
         style={{ 
           position: 'fixed', 
           top: isMobileView ? '60px' : '60px',
@@ -583,12 +583,12 @@ const CTutorialSimple = () => {
             flexDirection: 'column'
           }}>
             {/* Sections as Modules */}
-            <div className="modules-section" style={{ flex: 1, padding: '16px 0' }}>
+            <div className="modules-section" style={{ flex: 1, padding: '0 0 16px 0' }}>
               {courseData.sections.map((section, sectionIndex) => (
                 <div key={section.id} className="module" style={{ marginBottom: '8px' }}>
                   {/* Module Header */}
                   <div style={{
-                    padding: '8px 16px',
+                    padding: sectionIndex === 0 ? '0 16px 8px 16px' : '8px 16px',
                     fontSize: '12px',
                     fontWeight: '600',
                     color: '#6b7280',
