@@ -19,6 +19,7 @@ import CourseTutorialViewer from "./components/tutorials/Tutorials";
 import Profile from "./components/profile/ProfileClean";
 import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
 import Notifications from "./components/Notifications/Notifications";
+import NotFound from "./components/404/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -57,6 +58,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/notes" element={<Notes />} />
               <Route path="/courses" element={<CoursePage />} />
               <Route path="/course/:courseId" element={<CourseDetail />} />
@@ -67,11 +69,15 @@ function App() {
               <Route path="/courses/c-programming" element={<CTutorial />} />
               <Route path="/courses/cprogramming" element={<CTutorial />} />
               <Route path="/c-tutorial" element={<CTutorial />} />
+              <Route path="/tutorial/c-programming" element={<CTutorial />} />
+              <Route path="/tutorial/cprogramming" element={<CTutorial />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile-setup" element={<ProfileSetupSimple />} />
+              {/* Catch-all route for any unmatched URLs - show 404 page */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
           </div>
