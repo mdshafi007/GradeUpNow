@@ -258,15 +258,6 @@ const CTutorialSimple = () => {
     }
   }, [userProgress, user, showSimpleNotification]);
 
-  // Mark current content as completed
-  const markAsCompleted = useCallback(() => {
-    if (!user) {
-      showSimpleNotification('Please login to save your progress!');
-      return;
-    }
-    saveProgress(selectedSection, selectedContent);
-  }, [selectedSection, selectedContent, saveProgress, user, showSimpleNotification]);
-
   // Get current section data
   const getCurrentSection = useCallback(() => {
     if (!courseData || !selectedSection) return null;
@@ -294,7 +285,9 @@ const CTutorialSimple = () => {
     if (!currentSection) return;
 
     // Mark current as completed
-    markAsCompleted();
+    if (user) {
+      saveProgress(selectedSection, selectedContent);
+    }
 
     // Check if there's more content in current section
     if (selectedContent < currentSection.content.length - 1) {
@@ -308,7 +301,7 @@ const CTutorialSimple = () => {
         setSelectedContent(0);
       }
     }
-  }, [courseData, selectedSection, selectedContent, getCurrentSection, markAsCompleted]);
+  }, [courseData, selectedSection, selectedContent, getCurrentSection, user, saveProgress]);
 
   const goToPrevious = useCallback(() => {
     if (!courseData) return;
@@ -419,7 +412,7 @@ const CTutorialSimple = () => {
       color: '#1a1a1a',
       minHeight: '100vh',
       display: 'flex',
-      paddingTop: '60px', // Add space for navbar
+      paddingTop: isMobileView ? '70px' : '60px', // Responsive padding for navbar
       position: 'relative'
     }}>
       {/* Mobile Edge Arrow Button */}
@@ -734,7 +727,7 @@ const CTutorialSimple = () => {
       <main style={{
         flex: 1,
         marginLeft: isMobileView ? '0' : (leftSidebarExpanded ? '280px' : '60px'),
-        marginTop: isMobileView ? '60px' : '0',
+        marginTop: '0',
         transition: isMobileView ? 'none' : 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
         padding: isMobileView ? '16px' : '20px',
         minHeight: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
@@ -955,28 +948,7 @@ const CTutorialSimple = () => {
                 {isMobileView ? 'Prev' : 'Previous'}
               </button>
 
-              <button
-                onClick={markAsCompleted}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: isMobileView ? '10px 16px' : '12px 24px',
-                  backgroundColor: isContentCompleted(selectedSection, selectedContent) ? '#16a34a' : '#ff8e37',
-                  color: '#ffffff',
-                  border: 'none',
-                  borderRadius: isMobileView ? '6px' : '8px',
-                  fontSize: isMobileView ? '13px' : '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  order: isMobileView ? 3 : 2,
-                  width: isMobileView ? '100%' : 'auto'
-                }}
-              >
-                <Check size={isMobileView ? 14 : 16} />
-                {isContentCompleted(selectedSection, selectedContent) ? 'Completed' : 'Mark Complete'}
-              </button>
+
 
               <button
                 onClick={goToNext}
