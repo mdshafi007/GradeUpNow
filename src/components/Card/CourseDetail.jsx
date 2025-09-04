@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import './CourseDetail.css';
 
 const CourseDetail = () => {
   const { courseId } = useParams();
@@ -173,78 +174,30 @@ const CourseDetail = () => {
   ];
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#f8fafc',
-      paddingTop: 'max(6rem, calc(60px + 2rem))',
-      paddingBottom: '2rem'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 1rem'
-      }}>
+    <div className="course-detail-container">
+      <div className="course-detail-content">
         {/* Back Button */}
         <button
           onClick={handleBackToCourses}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: 'transparent',
-            border: 'none',
-            color: '#64748b',
-            cursor: 'pointer',
-            fontSize: '0.875rem',
-            marginBottom: '2rem',
-            padding: '0.5rem 0'
-          }}
+          className="back-button"
         >
           ← Back to Courses
         </button>
 
         {/* Course Header */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '16px',
-          padding: '2rem',
-          marginBottom: '2rem',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-        }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-            marginBottom: '1rem'
-          }}>
-            <div style={{
-              width: '64px',
-              height: '64px',
-              backgroundColor: course.iconBg,
-              color: '#ffffff',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1.5rem',
-              fontWeight: 'bold'
-            }}>
+        <div className="course-header">
+          <div className="course-header-content">
+            <div 
+              className="course-icon"
+              style={{ backgroundColor: course.iconBg }}
+            >
               {course.icon}
             </div>
-            <div>
-              <h1 style={{
-                fontSize: '2rem',
-                fontWeight: '700',
-                color: '#0f172a',
-                margin: '0 0 0.5rem 0'
-              }}>
+            <div className="course-info">
+              <h1 className="course-title">
                 {course.title}
               </h1>
-              <p style={{
-                color: '#64748b',
-                fontSize: '1.125rem',
-                margin: 0
-              }}>
+              <p className="course-description">
                 {course.description}
               </p>
             </div>
@@ -252,80 +205,27 @@ const CourseDetail = () => {
         </div>
 
         {/* Navigation Options */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '12px',
-          padding: '2rem',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-        }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            color: '#0f172a',
-            marginBottom: '1.5rem',
-            textAlign: 'center'
-          }}>
+        <div className="navigation-options">
+          <h2 className="navigation-title">
             Choose Your Learning Path
           </h2>
           
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(2, 1fr)',
-            gap: '1.5rem'
-          }}>
+          <div className="navigation-grid">
             {navigationOptions.map((option) => (
               <button
                 key={option.id}
                 onClick={() => navigate(option.route)}
-                style={{
-                  backgroundColor: '#ffffff',
-                  border: '2px solid #e5e7eb',
-                  borderRadius: '12px',
-                  padding: '2rem 1.5rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  textAlign: 'center',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '1rem'
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.borderColor = '#f97316';
-                  e.target.style.backgroundColor = '#fff7ed';
-                  e.target.style.transform = 'translateY(-4px)';
-                  e.target.style.boxShadow = '0 8px 24px rgba(249, 115, 22, 0.15)';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.borderColor = '#e5e7eb';
-                  e.target.style.backgroundColor = '#ffffff';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
+                className="navigation-card"
               >
-                <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '0.5rem'
-                }}>
+                <div className="navigation-icon">
                   {option.icon}
                 </div>
                 
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: '600',
-                  color: '#0f172a',
-                  margin: 0
-                }}>
+                <h3 className="navigation-label">
                   {option.label}
                 </h3>
                 
-                <p style={{
-                  color: '#64748b',
-                  fontSize: '0.875rem',
-                  margin: 0,
-                  lineHeight: '1.5'
-                }}>
+                <p className="navigation-description">
                   {option.description}
                 </p>
               </button>
