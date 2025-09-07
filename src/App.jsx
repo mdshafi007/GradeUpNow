@@ -62,9 +62,11 @@ function App() {
               <Route path="/notes" element={<Notes />} />
               <Route path="/courses" element={<CoursePage />} />
               <Route path="/course/:courseId" element={<CourseDetail />} />
+              {/* Specific C Programming routes - these must come before the general :courseId/tutorial route */}
               <Route path="/course/c-programming/tutorial" element={<CTutorial />} />
               <Route path="/course/cprogramming/tutorial" element={<CTutorial />} />
-              <Route path="/course/:courseId/tutorial" element={<CourseTutorialViewer />} />
+              {/* General tutorial route for all other courses */}
+              <Route path="/course/:courseId/tutorial" element={<CourseTutorial />} />
               <Route path="/course/:courseId/notes" element={<CourseNotes />} />
               <Route path="/courses/c-programming" element={<CTutorial />} />
               <Route path="/courses/cprogramming" element={<CTutorial />} />

@@ -1,0 +1,92 @@
+/* Mobile Responsive Styles for CourseTutorial */
+@media (max-width: 768px) {
+  .tutorial-container {
+    padding: 0 0.75rem !important;
+    padding-top: calc(60px + 1rem) !important;
+  }
+  
+  .tutorial-header {
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .tutorial-header h1 {
+    font-size: 2rem !important;
+  }
+  
+  .tutorial-content {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .c-tutorial-promotion {
+    padding: 1.5rem !important;
+    margin-top: 1.5rem !important;
+  }
+  
+  .c-tutorial-promotion h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .c-tutorial-btn {
+    padding: 0.625rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .tutorial-container {
+    padding: 0 0.5rem !important;
+  }
+  
+  .tutorial-header {
+    padding: 1rem !important;
+  }
+  
+  .tutorial-header h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  .tutorial-header p {
+    font-size: 1rem !important;
+  }
+  
+  .tutorial-content {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .tutorial-content h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .tutorial-content p {
+    font-size: 1rem !important;
+  }
+  
+  .c-tutorial-promotion {
+    padding: 1rem !important;
+  }
+  
+  .c-tutorial-promotion h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  .c-tutorial-promotion p {
+    font-size: 0.875rem !important;
+  }
+  
+  .status-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .status-icon svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .c-icon {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1rem !important;
+  }
+}

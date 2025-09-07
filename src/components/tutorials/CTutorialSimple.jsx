@@ -120,31 +120,54 @@ const CTutorialSimple = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userProgress, setUserProgress] = useState({});
-  const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false); // Start with false to avoid SSR issues
+  const [isMobile, setIsMobile] = useState(false); // Start with false to avoid SSR issues
   const [mobileAIChatOpen, setMobileAIChatOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const { user } = useUser();
 
-  // Debug: Log mobile state
-  // console.log('Mobile states:', { isMobile, isMobileView, windowWidth: window.innerWidth });
-
-  // Handle mobile responsiveness
+  // Set initial state based on screen size after component mounts
   useEffect(() => {
-    const handleResize = () => {
+    const checkScreenSize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       setIsMobileView(mobile);
-      if (!mobile) {
+      
+      // On initial load: expanded for desktop, collapsed for mobile
+      if (mobile) {
+        setLeftSidebarExpanded(false);
+        setIsMobileSidebarOpen(false);
+      } else {
+        // On desktop, start expanded
+        setLeftSidebarExpanded(true);
         setIsMobileSidebarOpen(false);
       }
     };
 
-    handleResize(); // Initial check
+    // Set initial state
+    checkScreenSize();
+
+    // Add resize listener that only affects mobile state
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setIsMobileView(mobile);
+      if (mobile) {
+        setLeftSidebarExpanded(false); // Force collapse on mobile
+        setIsMobileSidebarOpen(false);
+      } else {
+        setIsMobileSidebarOpen(false);
+      }
+      // Don't change desktop state during resize - let user control it
+    };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Debug: Log mobile state
+  // console.log('Mobile states:', { isMobile, isMobileView, windowWidth: window.innerWidth });
 
   // Simple notification system for mobile
   const showSimpleNotification = useCallback((message) => {
@@ -523,11 +546,44 @@ const CTutorialSimple = () => {
         />
       )}
 
+      {/* Desktop Sidebar Toggle Button */}
+      {!isMobileView && (
+        <button
+          onClick={() => setLeftSidebarExpanded(!leftSidebarExpanded)}
+          style={{
+            position: 'fixed',
+            top: '75px',
+            left: leftSidebarExpanded ? '290px' : '70px',
+            width: '32px',
+            height: '32px',
+            backgroundColor: '#ffffff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            transition: 'all 0.2s ease',
+            color: '#64748b'
+          }}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = '#f8fafc';
+            e.target.style.color = '#1f2937';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = '#ffffff';
+            e.target.style.color = '#64748b';
+          }}
+        >
+          <Menu size={16} />
+        </button>
+      )}
+
       {/* Left Sidebar - Course Syllabus */}
       <aside 
         className={`left-sidebar ${leftSidebarExpanded ? 'expanded' : 'collapsed'}`}
-        onMouseEnter={() => !isMobileView && setLeftSidebarExpanded(true)}
-        onMouseLeave={() => !isMobileView && setLeftSidebarExpanded(false)}
         style={{ 
           position: 'fixed', 
           top: isMobileView ? '60px' : '60px',
@@ -559,11 +615,10 @@ const CTutorialSimple = () => {
               color: '#1f2937',
               fontSize: '14px'
             }}>
-              <Book size={20} />
               <span>Course Syllabus</span>
             </div>
           ) : (
-            <Book size={20} />
+            <div></div>
           )}
         </div>
 

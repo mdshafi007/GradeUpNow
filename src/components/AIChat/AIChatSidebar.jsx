@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import './AIChatSidebar.css';
 
 const AIChatSidebar = ({ isMobileView = false, mobileAIChatOpen = false, closeMobileAIChat }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(!isMobileView); // Start expanded on desktop, collapsed on mobile
   const [messages, setMessages] = useState([
     {
       id: 1,

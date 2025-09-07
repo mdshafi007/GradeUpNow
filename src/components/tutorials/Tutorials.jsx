@@ -18,10 +18,43 @@ const CourseTutorialViewer = () => {
   const navigate = useNavigate();
   
   // State management
-  const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false);
+  const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false); // Start with false to avoid SSR issues
   const [selectedModule, setSelectedModule] = useState(null);
   const [selectedLesson, setSelectedLesson] = useState('intro-c');
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(false); // Start with false to avoid SSR issues
+
+  // Set initial state based on screen size after component mounts
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      
+      // On initial load: expanded for desktop, collapsed for mobile
+      // On resize: only force collapse on mobile, let user control desktop state
+      if (mobile) {
+        setLeftSidebarExpanded(false);
+      } else {
+        // On desktop, start expanded (only on initial load)
+        setLeftSidebarExpanded(true);
+      }
+    };
+
+    // Set initial state
+    checkScreenSize();
+
+    // Add resize listener that only affects mobile state
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setLeftSidebarExpanded(false); // Force collapse on mobile
+      }
+      // Don't change desktop state during resize - let user control it
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Course data mapping - this would come from Firestore
   const courseDataMap = {
@@ -340,18 +373,6 @@ int main() {
   const currentLessonContent = lessonContent[selectedLesson] || lessonContent['intro-c'];
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth <= 768) {
-        setLeftSidebarExpanded(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [courseId]);
-
-  useEffect(() => {
     // In a real app, this would fetch course data from Firestore
     console.log('Loading course data for:', courseId);
     // TODO: Fetch course modules, lessons, and content from Firestore
@@ -374,6 +395,13 @@ int main() {
       {/* Fixed Header */}
       <header className="tutorials-header">
         <div className="header-left">
+          <button 
+            className="menu-toggle-btn"
+            onClick={() => setLeftSidebarExpanded(!leftSidebarExpanded)}
+            aria-label="Toggle course syllabus"
+          >
+            <Menu size={20} />
+          </button>
           <h1 className="brand-name">GradeUpNow</h1>
         </div>
         <div className="header-center">
@@ -400,17 +428,14 @@ int main() {
         {/* Left Sidebar - Course Syllabus */}
         <aside 
           className={`left-sidebar ${leftSidebarExpanded ? 'expanded' : 'collapsed'}`}
-          onMouseEnter={() => !isMobile && setLeftSidebarExpanded(true)}
-          onMouseLeave={() => !isMobile && setLeftSidebarExpanded(false)}
         >
           <div className="sidebar-header">
             {leftSidebarExpanded ? (
               <div className="syllabus-header">
-                <Book size={20} />
                 <span>Course Syllabus</span>
               </div>
             ) : (
-              <Book size={20} />
+              <div></div>
             )}
           </div>
 
@@ -556,7 +581,7 @@ int main() {
         </main>
 
         {/* AI Chat Sidebar */}
-        <AIChatSidebar />
+        <AIChatSidebar isMobileView={isMobile} />
       </div>
     </div>
   );

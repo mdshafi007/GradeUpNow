@@ -10,6 +10,10 @@ const CoursesPage = () => {
 
   // Helper function to convert course title to URL-friendly ID
   const getCourseId = (title) => {
+    // Special handling for C++ to avoid conflicts with C Programming
+    if (title === "C++ Programming") {
+      return "cpp-programming";
+    }
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   };
 
