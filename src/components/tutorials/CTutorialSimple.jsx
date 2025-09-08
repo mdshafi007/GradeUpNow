@@ -427,7 +427,7 @@ const CTutorialSimple = () => {
       color: '#1a1a1a',
       minHeight: '100vh',
       display: 'flex',
-      paddingTop: isMobileView ? '70px' : '60px', // Responsive padding for navbar
+      paddingTop: '60px', // Consistent padding for navbar
       position: 'relative'
     }}>
       {/* Mobile Edge Arrow Button */}
@@ -441,13 +441,13 @@ const CTutorialSimple = () => {
             transform: 'translateY(-50%)',
             width: '40px',
             height: '40px',
-            backgroundColor: '#2563eb',
+            backgroundColor: '#f97316',
             border: '2px solid #ffffff',
             borderRadius: '50%',
             color: '#ffffff',
             cursor: 'pointer',
             zIndex: 1001,
-            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)',
+            boxShadow: '0 4px 12px rgba(249, 115, 22, 0.4)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -457,11 +457,11 @@ const CTutorialSimple = () => {
           }}
           onTouchStart={(e) => {
             e.target.style.transform = 'translateY(-50%) scale(0.95)';
-            e.target.style.backgroundColor = '#1d4ed8';
+            e.target.style.backgroundColor = '#ea580c';
           }}
           onTouchEnd={(e) => {
             e.target.style.transform = 'translateY(-50%) scale(1)';
-            e.target.style.backgroundColor = '#2563eb';
+            e.target.style.backgroundColor = '#f97316';
           }}
         >
           {isMobileSidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
@@ -473,7 +473,7 @@ const CTutorialSimple = () => {
         <div
           style={{
             position: 'fixed',
-            top: '60px',
+            top: '0',
             left: '0',
             right: '0',
             bottom: '0',
@@ -490,29 +490,29 @@ const CTutorialSimple = () => {
           onClick={() => setLeftSidebarExpanded(!leftSidebarExpanded)}
           style={{
             position: 'fixed',
-            top: '75px',
+            top: '90px',
             left: leftSidebarExpanded ? '290px' : '70px',
             width: '32px',
             height: '32px',
-            backgroundColor: '#ffffff',
-            border: '1px solid #e2e8f0',
+            backgroundColor: '#f97316',
+            border: 'none',
             borderRadius: '6px',
             cursor: 'pointer',
             zIndex: 1000,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            boxShadow: '0 2px 4px rgba(249, 115, 22, 0.3)',
             transition: 'all 0.2s ease',
-            color: '#64748b'
+            color: '#ffffff'
           }}
           onMouseOver={(e) => {
-            e.target.style.backgroundColor = '#f8fafc';
-            e.target.style.color = '#1f2937';
+            e.target.style.backgroundColor = '#ea580c';
+            e.target.style.transform = 'scale(1.05)';
           }}
           onMouseOut={(e) => {
-            e.target.style.backgroundColor = '#ffffff';
-            e.target.style.color = '#64748b';
+            e.target.style.backgroundColor = '#f97316';
+            e.target.style.transform = 'scale(1)';
           }}
         >
           <Menu size={16} />
@@ -524,57 +524,33 @@ const CTutorialSimple = () => {
         className={`left-sidebar ${leftSidebarExpanded ? 'expanded' : 'collapsed'}`}
         style={{ 
           position: 'fixed', 
-          top: isMobileView ? '60px' : '60px',
+          top: '0',
           left: isMobileView ? (isMobileSidebarOpen ? '0' : '-100%') : '0',
           width: isMobileView ? '280px' : (leftSidebarExpanded ? '280px' : '60px'),
-          height: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
+          height: '100vh',
           backgroundColor: '#f8fafc',
           borderRight: '1px solid #e2e8f0',
           transition: isMobileView ? 'left 0.3s ease' : 'width 0.2s ease',
           zIndex: isMobileView ? 900 : 10,
           overflowY: 'auto',
-          overflowX: 'hidden'
+          overflowX: 'hidden',
+          paddingTop: '60px'
         }}>
-        <div className="sidebar-header" style={{
-          height: '50px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 16px',
-          borderBottom: '1px solid #f3f4f6',
-          backgroundColor: '#ffffff',
-          marginTop: '0'
-        }}>
-          {(leftSidebarExpanded || isMobileView) ? (
-            <div className="syllabus-header" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontWeight: '600',
-              color: '#1f2937',
-              fontSize: '14px'
-            }}>
-              <span>Course Syllabus</span>
-            </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
-
         {(leftSidebarExpanded || isMobileView) && (
           <div className="sidebar-content" style={{
             flex: 1,
             overflowY: 'auto',
-            padding: 0,
+            padding: '24px 0 0 0',
             display: 'flex',
             flexDirection: 'column'
           }}>
             {/* Sections as Modules */}
-            <div className="modules-section" style={{ flex: 1, padding: '0 0 16px 0' }}>
+            <div className="modules-section" style={{ flex: 1, padding: '0' }}>
               {courseData.sections.map((section, sectionIndex) => (
                 <div key={section.id} className="module" style={{ marginBottom: '8px' }}>
                   {/* Module Header */}
                   <div style={{
-                    padding: sectionIndex === 0 ? '0 16px 8px 16px' : '8px 16px',
+                    padding: '8px 16px',
                     fontSize: '12px',
                     fontWeight: '600',
                     color: '#6b7280',
@@ -582,7 +558,7 @@ const CTutorialSimple = () => {
                     letterSpacing: '0.05em',
                     borderBottom: '1px solid #f3f4f6'
                   }}>
-                    Module {sectionIndex + 1}: {section.title}
+                    {section.title}
                   </div>
                   
                   {/* Module Lessons */}
@@ -724,7 +700,7 @@ const CTutorialSimple = () => {
         marginTop: '0',
         transition: isMobileView ? 'none' : 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1), margin-right 0.3s ease',
         padding: isMobileView ? '16px' : '20px',
-        minHeight: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
+        minHeight: 'calc(100vh - 60px)',
         backgroundColor: '#f8fafc'
       }}>
         {currentSection && currentContent && (
