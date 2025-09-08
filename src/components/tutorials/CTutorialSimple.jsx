@@ -5,6 +5,7 @@ import { Highlight, themes } from 'prism-react-renderer';
 import { useUser } from '../../context/UserContext';
 import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import AiChat from '../AiChat/AiChat';
 import '../tutorials/Tutorials.css';
 
 // Mobile styles
@@ -123,6 +124,7 @@ const CTutorialSimple = () => {
   const [isMobile, setIsMobile] = useState(false); // Start with false to avoid SSR issues
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
+  const [isChatCollapsed, setIsChatCollapsed] = useState(false);
   const { user } = useUser();
 
   // Set initial state based on screen size after component mounts
@@ -718,8 +720,9 @@ const CTutorialSimple = () => {
       <main style={{
         flex: 1,
         marginLeft: isMobileView ? '0' : (leftSidebarExpanded ? '280px' : '60px'),
+        marginRight: isMobileView || isChatCollapsed ? '0' : '400px',
         marginTop: '0',
-        transition: isMobileView ? 'none' : 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
+        transition: isMobileView ? 'none' : 'margin-left 0.6s cubic-bezier(0.23, 1, 0.32, 1), margin-right 0.3s ease',
         padding: isMobileView ? '16px' : '20px',
         minHeight: isMobileView ? 'calc(100vh - 60px)' : 'calc(100vh - 60px)',
         backgroundColor: '#f8fafc'
@@ -731,8 +734,9 @@ const CTutorialSimple = () => {
             padding: isMobileView ? '16px' : '32px',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
             border: '1px solid #e5e7eb',
-            maxWidth: isMobileView ? 'none' : '800px',
-            margin: '0 auto'
+            maxWidth: isMobileView ? 'none' : (isChatCollapsed ? '1000px' : '800px'),
+            margin: '0 auto',
+            transition: 'max-width 0.3s ease'
           }}>
             {/* Content Header */}
             <header style={{
@@ -995,6 +999,12 @@ const CTutorialSimple = () => {
           {notificationMessage}
         </div>
       )}
+
+      {/* AI Chat Component */}
+      <AiChat 
+        isCollapsed={isChatCollapsed}
+        onToggleCollapse={() => setIsChatCollapsed(!isChatCollapsed)}
+      />
     </div>
   );
 };
