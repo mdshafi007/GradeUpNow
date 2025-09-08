@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight, Book, Code, Check, Circle, CheckCircle, Chev
 import courseDataJson from '../../data/c-tutorial-content.json';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useUser } from '../../context/UserContext';
-import AIChatSidebar from '../AIChat/AIChatSidebar';
 import { db } from '../../firebase/config';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import '../tutorials/Tutorials.css';
@@ -122,7 +121,6 @@ const CTutorialSimple = () => {
   const [userProgress, setUserProgress] = useState({});
   const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(false); // Start with false to avoid SSR issues
   const [isMobile, setIsMobile] = useState(false); // Start with false to avoid SSR issues
-  const [mobileAIChatOpen, setMobileAIChatOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const { user } = useUser();
@@ -367,14 +365,6 @@ const CTutorialSimple = () => {
     setIsMobileSidebarOpen(false);
   };
 
-  const toggleMobileAIChat = () => {
-    setMobileAIChatOpen(!mobileAIChatOpen);
-  };
-
-  const closeMobileAIChat = () => {
-    setMobileAIChatOpen(false);
-  };
-
   const handleContentSelection = (sectionId, contentIndex) => {
     setSelectedSection(sectionId);
     setSelectedContent(contentIndex);
@@ -476,44 +466,6 @@ const CTutorialSimple = () => {
         </button>
       )}
 
-      {/* Mobile AI Chat Arrow Button - Right Side */}
-      {isMobileView && (
-        <button
-          onClick={toggleMobileAIChat}
-          style={{
-            position: 'fixed',
-            top: '50%',
-            right: mobileAIChatOpen ? '270px' : '-8px',
-            transform: 'translateY(-50%)',
-            width: '40px',
-            height: '40px',
-            backgroundColor: '#16a34a',
-            border: '2px solid #ffffff',
-            borderRadius: '50%',
-            color: '#ffffff',
-            cursor: 'pointer',
-            zIndex: 1001,
-            boxShadow: '0 4px 12px rgba(22, 163, 74, 0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '14px',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            opacity: 0.95
-          }}
-          onTouchStart={(e) => {
-            e.target.style.transform = 'translateY(-50%) scale(0.95)';
-            e.target.style.backgroundColor = '#15803d';
-          }}
-          onTouchEnd={(e) => {
-            e.target.style.transform = 'translateY(-50%) scale(1)';
-            e.target.style.backgroundColor = '#16a34a';
-          }}
-        >
-          {mobileAIChatOpen ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </button>
-      )}
-
       {/* Mobile Sidebar Overlay */}
       {isMobileView && isMobileSidebarOpen && (
         <div
@@ -527,22 +479,6 @@ const CTutorialSimple = () => {
             zIndex: 800
           }}
           onClick={closeMobileSidebar}
-        />
-      )}
-
-      {/* Mobile AI Chat Overlay */}
-      {isMobileView && mobileAIChatOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '60px',
-            left: '0',
-            right: '0',
-            bottom: '0',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 800
-          }}
-          onClick={closeMobileAIChat}
         />
       )}
 
@@ -1034,15 +970,6 @@ const CTutorialSimple = () => {
           </article>
         )}
       </main>
-
-      {/* AI Chat Sidebar - Show on desktop or when mobile AI chat is open */}
-      {(!isMobileView || mobileAIChatOpen) && (
-        <AIChatSidebar 
-          isMobileView={isMobileView}
-          mobileAIChatOpen={mobileAIChatOpen}
-          closeMobileAIChat={closeMobileAIChat}
-        />
-      )}
       
       {/* Simple Notification for Mobile */}
       {showNotification && (
