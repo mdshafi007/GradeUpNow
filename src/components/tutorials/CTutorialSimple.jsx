@@ -583,7 +583,7 @@ const CTutorialSimple = () => {
                             gap: '12px',
                             fontSize: isMobileView ? '15px' : '14px',
                             fontWeight: isActive ? '500' : '400',
-                            color: isActive ? '#2563eb' : '#374151',
+                            color: isActive ? '#f97316' : '#374151',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
                             borderRadius: '6px',
@@ -655,7 +655,7 @@ const CTutorialSimple = () => {
                 <div style={{
                   fontSize: '24px',
                   fontWeight: '700',
-                  color: '#2563eb',
+                  color: '#f97316',
                   marginBottom: '8px'
                 }}>
                   {Math.round((Object.values(userProgress).filter(p => p?.completed).length / courseData.sections.reduce((total, section) => total + section.content.length, 0)) * 100)}%
@@ -674,7 +674,7 @@ const CTutorialSimple = () => {
                 <div style={{
                   width: `${(Object.values(userProgress).filter(p => p?.completed).length / courseData.sections.reduce((total, section) => total + section.content.length, 0)) * 100}%`,
                   height: '100%',
-                  backgroundColor: '#2563eb',
+                  backgroundColor: '#f97316',
                   borderRadius: '4px',
                   transition: 'width 0.3s ease'
                 }}></div>
@@ -930,7 +930,7 @@ const CTutorialSimple = () => {
                   alignItems: 'center',
                   gap: '8px',
                   padding: isMobileView ? '10px 16px' : '12px 24px',
-                  backgroundColor: '#2563eb',
+                  backgroundColor: '#f97316',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: isMobileView ? '6px' : '8px',

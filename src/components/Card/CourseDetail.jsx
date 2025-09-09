@@ -168,7 +168,7 @@ const CourseDetail = () => {
       id: 'notes', 
       label: 'Notes', 
       icon: '📝',
-      description: 'Study materials and references',
+      description: 'PDFs, materials and study resources',
       route: `/course/${courseId}/notes`
     }
   ];

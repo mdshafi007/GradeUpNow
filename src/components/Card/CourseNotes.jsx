@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import Notes from '../Notes/Notes';
 
 const CourseNotes = () => {
   const { courseId } = useParams();
@@ -70,59 +69,54 @@ const CourseNotes = () => {
           ← Back to Course
         </button>
 
-        {/* Header */}
+        {/* Simple Header */}
+        <div style={{
+          marginBottom: '2rem'
+        }}>
+          <h1 style={{
+            fontSize: '1.875rem',
+            fontWeight: '600',
+            color: '#0f172a',
+            margin: '0',
+            textAlign: 'left'
+          }}>
+            {course?.title || 'Course'}
+          </h1>
+        </div>
+
+        {/* Materials Coming Soon Section */}
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '16px',
-          padding: '2rem',
-          marginBottom: '2rem',
+          padding: '3rem 2rem',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
           textAlign: 'center'
         }}>
           <div style={{
-            width: '80px',
-            height: '80px',
-            backgroundColor: course?.iconBg || '#f97316',
-            color: '#ffffff',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            margin: '0 auto 1.5rem'
+            fontSize: '4rem',
+            marginBottom: '1.5rem'
           }}>
-            📝
+            📚
           </div>
           
-          <h1 style={{
-            fontSize: '2.5rem',
-            fontWeight: '700',
+          <h2 style={{
+            fontSize: '1.875rem',
+            fontWeight: '600',
             color: '#0f172a',
             marginBottom: '1rem'
           }}>
-            {course?.title || 'Course'} Notes
-          </h1>
+            Study Materials Coming Soon
+          </h2>
           
           <p style={{
             color: '#64748b',
             fontSize: '1.125rem',
-            maxWidth: '600px',
-            margin: '0 auto'
+            marginBottom: '2rem',
+            maxWidth: '500px',
+            margin: '0 auto 2rem'
           }}>
-            Create, organize, and manage your learning notes
+            We're working hard to bring you comprehensive study materials, PDFs, reference guides, and downloadable resources for this course.
           </p>
-        </div>
-
-        {/* Notes Component */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '16px',
-          padding: '0',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-          overflow: 'hidden'
-        }}>
-          <Notes courseId={courseId} />
         </div>
       </div>
     </div>
