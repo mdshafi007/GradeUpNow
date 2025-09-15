@@ -49,24 +49,30 @@ const corsOptions = {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
+    // Normalize URLs by removing trailing slashes
+    const normalizeUrl = (url) => url ? url.replace(/\/$/, '') : url;
+    
     const allowedOrigins = [
-      process.env.FRONTEND_URL || 'https://gradeupnow.netlify.app',
-      process.env.CORS_ORIGIN || 'http://localhost:5173',
+      normalizeUrl(process.env.FRONTEND_URL) || 'https://gradeupnow.netlify.app',
+      normalizeUrl(process.env.CORS_ORIGIN) || 'http://localhost:5173',
       'http://localhost:3000',
       'http://localhost:5174',
       'https://gradeupnow.netlify.app',
       'https://gradeupnow.onrender.com'
     ];
     
+    const normalizedOrigin = normalizeUrl(origin);
+    
     console.log('CORS Check - Origin:', origin);
+    console.log('CORS Check - Normalized Origin:', normalizedOrigin);
     console.log('CORS Check - Allowed Origins:', allowedOrigins);
     console.log('CORS Check - FRONTEND_URL env:', process.env.FRONTEND_URL);
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.indexOf(normalizedOrigin) !== -1) {
       console.log('CORS - Origin allowed');
       callback(null, true);
     } else {
-      console.error('CORS - Origin NOT allowed:', origin);
+      console.error('CORS - Origin NOT allowed:', normalizedOrigin);
       callback(new Error('Not allowed by CORS'));
     }
   },
