@@ -53,7 +53,7 @@ const corsOptions = {
       process.env.FRONTEND_URL || process.env.CORS_ORIGIN || 'http://localhost:5173',
       'http://localhost:3000',
       'http://localhost:5174',
-      'https://your-netlify-app.netlify.app' // Will be updated with actual URL
+      'https://gradeupnow.netlify.app' // Production frontend URL
     ];
     
     if (allowedOrigins.indexOf(origin) !== -1) {
