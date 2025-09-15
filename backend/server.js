@@ -50,22 +50,30 @@ const corsOptions = {
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
-      process.env.FRONTEND_URL || process.env.CORS_ORIGIN || 'http://localhost:5173',
+      process.env.FRONTEND_URL || 'https://gradeupnow.netlify.app',
+      process.env.CORS_ORIGIN || 'http://localhost:5173',
       'http://localhost:3000',
       'http://localhost:5174',
-      'https://gradeupnow.netlify.app' // Production frontend URL
+      'https://gradeupnow.netlify.app',
+      'https://gradeupnow.onrender.com'
     ];
     
+    console.log('CORS Check - Origin:', origin);
+    console.log('CORS Check - Allowed Origins:', allowedOrigins);
+    console.log('CORS Check - FRONTEND_URL env:', process.env.FRONTEND_URL);
+    
     if (allowedOrigins.indexOf(origin) !== -1) {
+      console.log('CORS - Origin allowed');
       callback(null, true);
     } else {
+      console.error('CORS - Origin NOT allowed:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 };
 
 app.use(cors(corsOptions));
