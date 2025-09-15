@@ -288,6 +288,11 @@ body {
   outline: none;
   border-bottom: 2px solid transparent;
   transition: border-color var(--transition-speed);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  width: 100%;
+  background: transparent;
 }
 .title-edit:focus {
   border-bottom-color: var(--accent-color);
@@ -296,6 +301,15 @@ body {
   content: attr(data-placeholder);
   color: var(--text-secondary);
   font-style: italic;
+}
+
+/* Editor title section styling */
+.editor-title-section {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 .search-container {
   position: relative;

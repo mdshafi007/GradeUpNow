@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Book, Code, Check, Circle, CheckCircle, ChevronDown, Menu } from 'lucide-react';
+import { toast } from 'react-toastify';
 import courseDataJson from '../../data/c-tutorial-content.json';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useUser } from '../../context/UserContext';
-import { db } from '../../firebase/config';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { progressAPI, handleAPIError } from '../../services/api';
 import AiChat from '../AiChat/AiChat';
 import '../tutorials/Tutorials.css';
 
@@ -192,21 +192,48 @@ const CTutorialSimple = () => {
     }
   }, []);
 
-  // Load user progress from Firestore or localStorage
+  // Load user progress from MongoDB API or localStorage
   useEffect(() => {
     const loadProgress = async () => {
       if (user && user.uid) {
-        // Logged in user - load from Firestore
+        // Logged in user - load from MongoDB
         try {
-          const progressDoc = await getDoc(doc(db, 'userProgress', user.uid));
-          if (progressDoc.exists()) {
-            const data = progressDoc.data();
-            const cTutorialProgress = data.cTutorial || {};
-            setUserProgress(cTutorialProgress);
+          const response = await progressAPI.getProgress();
+          if (response.success && response.data) {
+            // Find C Tutorial course progress
+            const cTutorialCourse = response.data.courseProgress?.find(
+              cp => cp.courseId === 'c-programming-tutorial'
+            );
+            
+            if (cTutorialCourse) {
+              // Convert MongoDB format to component format
+              const componentProgress = {};
+              cTutorialCourse.chaptersCompleted?.forEach(chapter => {
+                if (chapter.chapterId) {
+                  componentProgress[chapter.chapterId] = {
+                    completed: true,
+                    completedAt: chapter.completedAt
+                  };
+                }
+              });
+              setUserProgress(componentProgress);
+            }
           }
         } catch (error) {
-          console.error('Error loading progress from Firestore:', error);
-          toast.error('Failed to load your progress');
+          console.error('Error loading progress from MongoDB:', error);
+          const errorMessage = handleAPIError(error, 'Failed to load your progress');
+          toast.error(errorMessage);
+          
+          // Fallback to localStorage for demo
+          const savedProgress = localStorage.getItem('c-tutorial-progress-demo');
+          if (savedProgress) {
+            try {
+              setUserProgress(JSON.parse(savedProgress));
+            } catch (err) {
+              console.error('Failed to parse saved progress:', err);
+              setUserProgress({});
+            }
+          }
         }
       } else {
         // Not logged in - load from localStorage for demo
@@ -225,7 +252,24 @@ const CTutorialSimple = () => {
     loadProgress();
   }, [user]);
 
-  // Save progress to Firestore or localStorage
+  // Track daily activity
+  const trackDailyActivity = useCallback(async (timeSpent = 5) => {
+    if (!user?.uid) return;
+    
+    try {
+      await progressAPI.updateDailyActivity({
+        minutesStudied: timeSpent,
+        lessonsCompleted: 1,
+        coursesStudied: ['c-programming-tutorial'],
+        topicsStudied: ['C Programming']
+      });
+    } catch (error) {
+      console.error('Error tracking daily activity:', error);
+      // Don't show error to user as this is background tracking
+    }
+  }, [user]);
+
+  // Save progress to MongoDB API or localStorage
   const saveProgress = useCallback(async (sectionId, contentIndex, showNotification = false) => {
     const progressKey = `${sectionId}-${contentIndex}`;
     const newProgress = {
@@ -239,37 +283,51 @@ const CTutorialSimple = () => {
     setUserProgress(newProgress);
 
     if (user && user.uid) {
-      // Logged in user - save to Firestore
+      // Logged in user - save to MongoDB
       try {
-        const userProgressRef = doc(db, 'userProgress', user.uid);
-        const progressDoc = await getDoc(userProgressRef);
+        const currentSection = courseData?.sections?.find(s => s.id === sectionId);
+        const currentContent = currentSection?.content?.[contentIndex];
         
-        if (progressDoc.exists()) {
-          // Update existing document
-          await updateDoc(userProgressRef, {
-            'cTutorial': newProgress,
-            'lastUpdated': new Date().toISOString()
-          });
-        } else {
-          // Create new document
-          await setDoc(userProgressRef, {
-            userId: user.uid,
-            email: user.email,
-            cTutorial: newProgress,
-            createdAt: new Date().toISOString(),
-            lastUpdated: new Date().toISOString()
-          });
+        if (!currentSection || !currentContent) {
+          throw new Error('Invalid section or content index');
         }
+
+        // Add completed chapter to MongoDB
+        await progressAPI.addCompletedChapter('c-programming-tutorial', {
+          chapterId: progressKey,
+          chapterName: currentContent.title,
+          sectionId: sectionId,
+          sectionName: currentSection.title,
+          score: 100, // Assume completion = 100%
+          timeSpent: 5, // Estimate 5 minutes per lesson
+          completedAt: new Date().toISOString()
+        });
+
+        // Update course progress
+        const completedLessons = Object.values(newProgress).filter(p => p?.completed).length;
+        const totalLessons = courseData?.sections?.reduce((total, section) => total + section.content.length, 0) || 1;
+        const overallProgress = Math.round((completedLessons / totalLessons) * 100);
+
+        await progressAPI.updateCourseProgress('c-programming-tutorial', {
+          courseName: 'C Programming Tutorial',
+          overallProgress: overallProgress,
+          status: overallProgress >= 100 ? 'completed' : 'in-progress',
+          timeSpent: completedLessons * 5 // Estimate 5 minutes per lesson
+        });
+
+        // Track daily activity
+        await trackDailyActivity(5);
         
         if (showNotification) {
           showSimpleNotification('Progress saved!');
         }
       } catch (error) {
-        console.error('Error saving progress to Firestore:', error);
+        console.error('Error saving progress to MongoDB:', error);
+        const errorMessage = handleAPIError(error, 'Failed to save progress');
         if (showNotification) {
-          showSimpleNotification('Failed to save progress');
+          showSimpleNotification(errorMessage);
         }
-        // Fallback to localStorage if Firestore fails
+        // Fallback to localStorage if MongoDB fails
         localStorage.setItem('c-tutorial-progress-demo', JSON.stringify(newProgress));
       }
     } else {
@@ -279,7 +337,7 @@ const CTutorialSimple = () => {
         showSimpleNotification('Progress saved locally!');
       }
     }
-  }, [userProgress, user, showSimpleNotification]);
+  }, [userProgress, user, showSimpleNotification, courseData, trackDailyActivity]);
 
   // Get current section data
   const getCurrentSection = useCallback(() => {
@@ -324,7 +382,7 @@ const CTutorialSimple = () => {
         setSelectedContent(0);
       }
     }
-  }, [courseData, selectedSection, selectedContent, getCurrentSection, user, saveProgress]);
+  }, [courseData, selectedSection, selectedContent, getCurrentSection, user, saveProgress, trackDailyActivity]);
 
   const goToPrevious = useCallback(() => {
     if (!courseData) return;

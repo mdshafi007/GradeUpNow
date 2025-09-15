@@ -7,10 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "cd backend && npm start",
+    "backend:dev": "cd backend && npm run dev",
+    "start:all": "concurrently \"npm run backend:dev\" \"npm run dev\"",
+    "install:all": "npm install && cd backend && npm install"
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
+    "axios": "^1.12.0",
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
     "firebase": "^10.14.1",
@@ -32,6 +37,7 @@
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",

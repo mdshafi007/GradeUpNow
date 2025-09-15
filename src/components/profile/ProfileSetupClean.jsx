@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import { userAPI, handleAPIError } from '../../services/api';
 
 const ProfileSetupClean = () => {
   const { user, loading } = useUser();
@@ -38,14 +37,49 @@ const ProfileSetupClean = () => {
     skillLevel: ''
   });
 
+  // Load existing profile data if available
   useEffect(() => {
-    if (user?.displayName) {
-      setFormData(prev => ({
-        ...prev,
-        fullName: user.displayName
-      }));
+    const loadExistingProfile = async () => {
+      if (user) {
+        try {
+          const response = await userAPI.getProfile();
+          if (response.success && response.data) {
+            const profile = response.data;
+            setFormData(prev => ({
+              ...prev,
+              fullName: profile.fullName || user.displayName || '',
+              currentStudy: profile.currentStudy || '',
+              department: profile.department || '',
+              branch: profile.branch || '',
+              graduationYear: profile.graduationYear || '',
+              collegeName: profile.collegeName || '',
+              semester: profile.semester || '',
+              interests: profile.learningGoals || [],
+              programmingLanguages: profile.programmingLanguages || [],
+              careerGoals: profile.learningGoals || [],
+              learningStyle: profile.learningStyle || '',
+              skillLevel: profile.skillLevel || '',
+              primaryInterest: profile.primaryInterest || ''
+            }));
+            setCurrentStep(profile.setupStep || 1);
+          }
+        } catch (error) {
+          // If profile doesn't exist yet, that's fine - use defaults
+          console.log('No existing profile found, starting fresh');
+          if (user.displayName) {
+            setFormData(prev => ({
+              ...prev,
+              fullName: user.displayName
+            }));
+          }
+        }
+      }
+    };
+
+    if (!loading && user) {
+      loadExistingProfile();
     }
-  }, [user?.displayName]);
+  }, [user, loading]);
 
   // Options for dropdowns and chips
   const studyOptions = ['B.Tech', 'M.Tech', 'B.Sc', 'M.Sc', 'MBA', 'BCA', 'MCA', 'B.Com', 'M.Com', 'Other'];
@@ -76,7 +110,7 @@ const ProfileSetupClean = () => {
     }));
   };
 
-  const nextStep = () => {
+  const nextStep = async () => {
     if (currentStep === 1) {
       // Validate step 1
       if (!formData.fullName || !formData.currentStudy || !formData.department || !formData.graduationYear || !formData.collegeName) {
@@ -84,15 +118,33 @@ const ProfileSetupClean = () => {
         return;
       }
     }
-    setCurrentStep(prev => prev + 1);
-    // Scroll to top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Save current step progress to MongoDB
+    try {
+      await userAPI.updateSetupStep(currentStep + 1, false);
+      setCurrentStep(prev => prev + 1);
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Error updating setup step:', error);
+      // Continue anyway, but log the error
+      setCurrentStep(prev => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
-  const prevStep = () => {
-    setCurrentStep(prev => prev - 1);
-    // Scroll to top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const prevStep = async () => {
+    try {
+      await userAPI.updateSetupStep(currentStep - 1, false);
+      setCurrentStep(prev => prev - 1);
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Error updating setup step:', error);
+      // Continue anyway, but log the error
+      setCurrentStep(prev => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleSubmit = async () => {
@@ -103,27 +155,42 @@ const ProfileSetupClean = () => {
 
     setIsLoading(true);
     try {
+      // Prepare user data for MongoDB
       const userData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: formData.fullName.trim(),
-        profileSetupComplete: true,
-        ...formData,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        fullName: formData.fullName.trim(),
+        currentStudy: formData.currentStudy,
+        department: formData.department,
+        branch: formData.branch,
+        graduationYear: formData.graduationYear,
+        collegeName: formData.collegeName,
+        semester: formData.semester,
+        primaryInterest: formData.interests[0] || '',
+        programmingLanguages: formData.programmingLanguages,
+        learningGoals: [...formData.interests, ...formData.careerGoals],
+        learningStyle: formData.learningStyle,
+        skillLevel: formData.skillLevel,
+        profileCompleted: true,
+        setupStep: 4
       };
       
-      await setDoc(doc(db, 'users', user.uid), userData);
-      toast.success('Profile setup completed!');
-      // Scroll to top before navigation
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Small delay to allow scroll to complete
-      setTimeout(() => {
-        navigate('/profile');
-      }, 300);
+      // Save to MongoDB via API
+      const response = await userAPI.createOrUpdateProfile(userData);
+      
+      if (response.success) {
+        toast.success('Profile setup completed!');
+        // Scroll to top before navigation
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Small delay to allow scroll to complete
+        setTimeout(() => {
+          navigate('/profile');
+        }, 300);
+      } else {
+        throw new Error(response.message || 'Failed to save profile');
+      }
     } catch (error) {
       console.error('Error saving profile:', error);
-      toast.error('Failed to save profile. Please try again.');
+      const errorMessage = handleAPIError(error, 'Failed to save profile. Please try again.');
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

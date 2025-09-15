@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { collection, doc, getDocs, setDoc, deleteDoc, updateDoc, query, where, orderBy } from "firebase/firestore";
-import { db } from "../../firebase/config";
 import { useUser } from "../../context/UserContext";
 import Note from "./Note";
 import Createnotes from "./Createnotes";
+import { notesAPI, handleAPIError } from "../../services/api";
+import { toast } from 'react-toastify';
 
 const Notescomp = () => {
   const { user } = useUser();
@@ -26,98 +26,93 @@ const Notescomp = () => {
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load notes and categories from Firestore
+  // Load notes from MongoDB
   useEffect(() => {
-    const loadUserData = async () => {
+    const loadUserNotes = async () => {
       if (!user?.uid) return;
 
       setIsLoading(true);
       try {
-        // Load notes
-        const notesQuery = query(
-          collection(db, 'notes'),
-          where('userId', '==', user.uid),
-          orderBy('createdAt', 'desc')
-        );
-        const notesSnapshot = await getDocs(notesQuery);
-        const userNotes = notesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setNotes(userNotes);
-
-        // Load categories
-        const categoriesQuery = query(
-          collection(db, 'categories'),
-          where('userId', '==', user.uid)
-        );
-        const categoriesSnapshot = await getDocs(categoriesQuery);
-        const userCategories = categoriesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        // Load notes from MongoDB API
+        const response = await notesAPI.getNotes({
+          sortBy: 'updatedAt',
+          sortOrder: 'desc'
+        });
         
-        // Always include the default "All Notes" category
-        const allCategories = [
-          { id: "all", name: "All Notes", icon: "📝", isDefault: true },
-          ...userCategories
-        ];
-        setCategories(allCategories);
-
+        if (response.success) {
+          // Map MongoDB notes to frontend format
+          const mappedNotes = response.data.notes.map(note => ({
+            ...note,
+            id: note._id, // Map MongoDB _id to id
+            text: note.content, // Map MongoDB content to text
+          }));
+          setNotes(mappedNotes);
+          
+          // Extract unique categories from notes
+          const noteCategories = [...new Set(mappedNotes.map(note => note.category))];
+          const dynamicCategories = noteCategories.map(cat => ({
+            id: cat,
+            name: cat.charAt(0).toUpperCase() + cat.slice(1),
+            icon: getCategoryIcon(cat),
+            isDefault: false
+          }));
+          
+          const allCategories = [
+            { id: "all", name: "All Notes", icon: "📝", isDefault: true },
+            ...dynamicCategories
+          ];
+          setCategories(allCategories);
+        } else {
+          console.error('Failed to load notes:', response.message);
+          toast.error('Failed to load notes');
+        }
       } catch (error) {
-        console.error('Error loading user data:', error);
+        console.error('Error loading notes:', error);
+        const errorMessage = handleAPIError(error, 'Failed to load notes');
+        toast.error(errorMessage);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadUserData();
+    loadUserNotes();
   }, [user?.uid]);
 
+  // Helper function to get category icons
+  const getCategoryIcon = (category) => {
+    const icons = {
+      personal: "👤",
+      academic: "🎓",
+      programming: "💻",
+      research: "🔬",
+      project: "📋",
+      other: "📁"
+    };
+    return icons[category] || "📁";
+  };
+
   const addNewCategory = async () => {
-    if (newCategoryName.trim() && user?.uid) {
-      try {
-        const newCategory = {
-          id: uuid(),
-          name: newCategoryName.trim(),
-          icon: "📁",
-          isDefault: false,
-          userId: user.uid,
-          createdAt: new Date().toISOString()
-        };
-        
-        // Save to Firestore
-        await setDoc(doc(db, 'categories', newCategory.id), newCategory);
-        
-        // Update local state
-        setCategories([...categories, newCategory]);
-        setNewCategoryName("");
-        setIsAddingCategory(false);
-      } catch (error) {
-        console.error('Error adding category:', error);
-      }
+    if (newCategoryName.trim()) {
+      const newCategory = {
+        id: newCategoryName.toLowerCase().replace(/\s+/g, '-'),
+        name: newCategoryName.trim(),
+        icon: "📁",
+        isDefault: false
+      };
+      
+      // Update local state (categories are now managed through note categories)
+      setCategories([...categories, newCategory]);
+      setNewCategoryName("");
+      setIsAddingCategory(false);
     }
   };
 
   const deleteCategory = async (categoryId) => {
-    if (!user?.uid) return;
-    
-    try {
-      // Update notes that use this category to use "all" instead
-      const notesToUpdate = notes.filter(note => note.category === categoryId);
-      for (const note of notesToUpdate) {
-        await updateDoc(doc(db, 'notes', note.id), { category: "all" });
-      }
-      
-      // Delete the category from Firestore
-      await deleteDoc(doc(db, 'categories', categoryId));
-      
-      // Update local state
-      setNotes(
-        notes.map((note) =>
-          note.category === categoryId ? { ...note, category: "all" } : note
-        )
-      );
-      setCategories(categories.filter((cat) => cat.id !== categoryId));
-      if (selectedCategory === categoryId) {
-        setSelectedCategory("all");
-      }
-    } catch (error) {
-      console.error('Error deleting category:', error);
+    // For now, just remove from local state
+    // In a full implementation, you might want to reassign notes to "other" category
+    setCategories(categories.filter(cat => cat.id !== categoryId));
+    if (selectedCategory === categoryId) {
+      setSelectedCategory("all");
     }
   };
 
@@ -130,50 +125,76 @@ const Notescomp = () => {
 
   const saveHandler = async () => {
     if (!user?.uid) return;
-    
-    const now = new Date().toISOString();
 
     try {
       if (editToggle) {
         // Update existing note
+        const hasHtmlContent = /<[^>]+>/.test(inputText);
         const updatedNote = {
           title: inputTitle,
-          text: inputText,
-          updatedAt: now
+          content: inputText,
+          format: hasHtmlContent ? 'html' : 'plain',
         };
         
-        await updateDoc(doc(db, 'notes', editToggle), updatedNote);
+        const response = await notesAPI.updateNote(editToggle, updatedNote);
         
-        setNotes(
-          notes.map((note) =>
-            note.id === editToggle
-              ? { ...note, ...updatedNote }
-              : note
-          )
-        );
+        if (response.success) {
+          // Map the updated note response to frontend format
+          const updatedNote = {
+            ...response.data,
+            id: response.data._id,
+            text: response.data.content,
+          };
+          
+          setNotes(
+            notes.map((note) =>
+              note.id === editToggle
+                ? updatedNote
+                : note
+            )
+          );
+          toast.success('Note updated successfully');
+        } else {
+          throw new Error(response.message || 'Failed to update note');
+        }
       } else {
         // Create new note
+        const hasHtmlContent = /<[^>]+>/.test(inputText);
         const newNote = {
-          id: uuid(),
           title: inputTitle,
-          text: inputText,
-          createdAt: now,
-          updatedAt: now,
-          category: selectedCategory,
-          userId: user.uid
+          content: inputText,
+          category: selectedCategory === 'all' ? 'personal' : selectedCategory,
+          priority: 'medium',
+          format: hasHtmlContent ? 'html' : 'plain',
+          tags: []
         };
         
-        await setDoc(doc(db, 'notes', newNote.id), newNote);
+        const response = await notesAPI.createNote(newNote);
         
-        setNotes((prevNotes) => [newNote, ...prevNotes]);
+        if (response.success) {
+          // Map the new note response to frontend format
+          const newNote = {
+            ...response.data,
+            id: response.data._id,
+            text: response.data.content,
+          };
+          
+          setNotes((prevNotes) => [newNote, ...prevNotes]);
+          toast.success('Note created successfully');
+        } else {
+          throw new Error(response.message || 'Failed to create note');
+        }
       }
-      
+
+      // Reset form
       setInputText("");
       setInputTitle("");
       setEditToggle(null);
       setShowCreateNote(false);
     } catch (error) {
       console.error('Error saving note:', error);
+      const errorMessage = handleAPIError(error, 'Failed to save note');
+      toast.error(errorMessage);
     }
   };
 
@@ -182,17 +203,23 @@ const Notescomp = () => {
     if (!confirmed) return;
     
     try {
-      // Delete from Firestore
-      await deleteDoc(doc(db, 'notes', id));
+      const response = await notesAPI.deleteNote(id);
       
-      // Update local state
-      const newNotes = notes.filter((n) => n.id !== id);
-      setNotes(newNotes);
-      if (expandedNote === id) {
-        setExpandedNote(null);
+      if (response.success) {
+        // Update local state using the frontend ID format
+        const newNotes = notes.filter((n) => n.id !== id);
+        setNotes(newNotes);
+        if (expandedNote === id) {
+          setExpandedNote(null);
+        }
+        toast.success('Note deleted successfully');
+      } else {
+        throw new Error(response.message || 'Failed to delete note');
       }
     } catch (error) {
       console.error('Error deleting note:', error);
+      const errorMessage = handleAPIError(error, 'Failed to delete note');
+      toast.error(errorMessage);
     }
   };
 
@@ -216,7 +243,7 @@ const Notescomp = () => {
       (note) =>
         (selectedCategory === "all" || note.category === selectedCategory) &&
         ((note.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-          note.text.toLowerCase().includes(searchQuery.toLowerCase()))
+          (note.content || "").toLowerCase().includes(searchQuery.toLowerCase()))
     )
     .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
@@ -274,14 +301,40 @@ const Notescomp = () => {
     if (!el) return;
     
     // Set the content only if it's different to avoid cursor jumping
-    if (el.innerText !== (inputTitle || "")) {
-      el.innerText = inputTitle || "";
-    }
+    const currentTitle = el.innerText || "";
+    const targetTitle = inputTitle || "";
     
-    // Focus and place caret at end
-    el.focus();
-    placeCaretAtEnd(el);
-  }, [showCreateNote, editToggle, inputTitle]);
+    if (currentTitle !== targetTitle) {
+      // Store cursor position before updating
+      const isActive = document.activeElement === el;
+      let savedRange = null;
+      
+      if (isActive) {
+        const selection = window.getSelection();
+        if (selection.rangeCount) {
+          savedRange = selection.getRangeAt(0).cloneRange();
+        }
+      }
+      
+      el.innerText = targetTitle;
+      
+      // Restore focus and cursor position
+      if (isActive) {
+        el.focus();
+        if (savedRange && el.contains(savedRange.commonAncestorContainer)) {
+          try {
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(savedRange);
+          } catch (e) {
+            placeCaretAtEnd(el);
+          }
+        } else {
+          placeCaretAtEnd(el);
+        }
+      }
+    }
+  }, [showCreateNote, editToggle]); // Remove inputTitle dependency to prevent cursor jumping on every keystroke
 
   // Show loading state while fetching data
   if (isLoading) {
@@ -388,6 +441,13 @@ const Notescomp = () => {
         {isEditing ? (
           <>
             <div className="notes-header">
+              <div className="title-group">
+                <h1 className="title" style={{ fontSize: '1.5rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                  {editToggle ? 'Edit Note' : 'New Note'}
+                </h1>
+              </div>
+            </div>
+            <div className="editor-title-section" style={{ marginBottom: '1rem' }}>
               <div
                 className="title title-edit"
                 contentEditable
@@ -398,26 +458,42 @@ const Notescomp = () => {
                 onInput={(e) => {
                   const el = e.target;
                   if (!el) return;
-                  setInputTitle(el.innerText);
+                  
+                  // Immediate state update without DOM manipulation
+                  const text = el.innerText || "";
+                  setInputTitle(text);
                 }}
                 onKeyDown={(e) => {
-                  // Prevent any default behavior that might interfere
                   if (e.key === 'Enter') {
                     e.preventDefault();
                     e.target.blur();
+                    return;
                   }
-                  // Prevent any other keys from causing issues
-                  e.stopPropagation();
+                  if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.target.blur();
+                    return;
+                  }
                 }}
                 onFocus={(e) => {
-                  // Ensure cursor is at the end when focusing
-                  setTimeout(() => placeCaretAtEnd(e.target), 0);
+                  // Only adjust cursor if there's no existing selection
+                  setTimeout(() => {
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) {
+                      placeCaretAtEnd(e.target);
+                    }
+                  }, 0);
                 }}
-                onBlur={() => {
-                  const el = titleEditRef.current;
+                onBlur={(e) => {
+                  // Clean up title on blur
+                  const el = e.target;
                   if (!el) return;
-                  const text = (el.innerText || "").replace(/\s+$/g, "");
-                  setInputTitle(text);
+                  
+                  const cleanTitle = (el.innerText || "").trim().replace(/\s+/g, ' ');
+                  if (el.innerText !== cleanTitle) {
+                    el.innerText = cleanTitle;
+                  }
+                  setInputTitle(cleanTitle);
                 }}
                 suppressContentEditableWarning={true}
               />
@@ -444,24 +520,43 @@ const Notescomp = () => {
             {(() => {
               const note = notes.find((n) => n.id === viewingNoteId);
               if (!note) return null;
-              const escapeHtml = (unsafe) =>
-                unsafe
+              const escapeHtml = (unsafe) => {
+                if (!unsafe || typeof unsafe !== 'string') return '';
+                return unsafe
                   .replaceAll(/&/g, "&amp;")
                   .replaceAll(/</g, "&lt;")
                   .replaceAll(/>/g, "&gt;")
                   .replaceAll(/\"/g, "&quot;")
                   .replaceAll(/'/g, "&#039;");
+              };
               const renderMarkdown = (raw) => {
+                if (!raw || typeof raw !== 'string') return '';
+                
                 const isHtml = /<[^>]+>/.test(raw || "");
                 if (isHtml) {
-                  // If content contains HTML, sanitize it to prevent XSS and ensure proper rendering
+                  // Enhanced HTML sanitization for production
                   const tempDiv = document.createElement('div');
                   tempDiv.innerHTML = raw;
-                  // Remove any script tags for security
-                  const scripts = tempDiv.querySelectorAll('script');
-                  scripts.forEach(script => script.remove());
+                  
+                  // Remove potentially dangerous elements and attributes
+                  const dangerousElements = tempDiv.querySelectorAll('script, iframe, object, embed, form, input, button, link, style');
+                  dangerousElements.forEach(el => el.remove());
+                  
+                  // Remove dangerous attributes
+                  const allElements = tempDiv.querySelectorAll('*');
+                  allElements.forEach(el => {
+                    const attrs = Array.from(el.attributes);
+                    attrs.forEach(attr => {
+                      if (attr.name.startsWith('on') || attr.name === 'href' || attr.name === 'src') {
+                        el.removeAttribute(attr.name);
+                      }
+                    });
+                  });
+                  
                   return tempDiv.innerHTML;
                 }
+                
+                // Enhanced markdown parsing for plain text
                 const escaped = escapeHtml(raw);
                 let html = escaped.replace(/```([\s\S]*?)```/g, (m, p1) => {
                   return `<pre><code>${p1}</code></pre>`;
@@ -488,7 +583,8 @@ const Notescomp = () => {
                 html = html.replace(/\n/g, '<br/>' );
                 return html;
               };
-              const bodyHtml = renderMarkdown(note.text || "");
+              // Use the correct field name for note content
+              const bodyHtml = renderMarkdown(note.text || note.content || "");
               return (
                 <>
                   <div className="notes-header">
@@ -505,7 +601,7 @@ const Notescomp = () => {
                         onClick={() => {
                           setEditToggle(note.id);
                           setInputTitle(note.title || "");
-                          setInputText(note.text || "");
+                          setInputText(note.text || note.content || "");
                           setViewingNoteId(null);
                         }}
                       >

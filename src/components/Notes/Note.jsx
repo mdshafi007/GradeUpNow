@@ -13,6 +13,7 @@ const Note = ({
   onWikiLinkClick,
 }) => {
   const escapeHtml = (unsafe) => {
+    if (!unsafe || typeof unsafe !== 'string') return '';
     return unsafe
       .replaceAll(/&/g, "&amp;")
       .replaceAll(/</g, "&lt;")
@@ -22,16 +23,33 @@ const Note = ({
   };
 
   const renderMarkdown = (raw) => {
+    if (!raw || typeof raw !== 'string') return '';
+    
     const isHtml = /<[^>]+>/.test(raw || "");
     if (isHtml) {
-      // If content contains HTML, sanitize it to prevent XSS and ensure proper rendering
+      // Enhanced HTML sanitization for production
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = raw;
-      // Remove any script tags for security
-      const scripts = tempDiv.querySelectorAll('script');
-      scripts.forEach(script => script.remove());
+      
+      // Remove potentially dangerous elements and attributes
+      const dangerousElements = tempDiv.querySelectorAll('script, iframe, object, embed, form, input, button, link, style');
+      dangerousElements.forEach(el => el.remove());
+      
+      // Remove dangerous attributes
+      const allElements = tempDiv.querySelectorAll('*');
+      allElements.forEach(el => {
+        const attrs = Array.from(el.attributes);
+        attrs.forEach(attr => {
+          if (attr.name.startsWith('on') || attr.name === 'href' || attr.name === 'src') {
+            el.removeAttribute(attr.name);
+          }
+        });
+      });
+      
       return tempDiv.innerHTML;
     }
+    
+    // Enhanced markdown parsing for plain text
     const escaped = escapeHtml(raw);
     // code blocks ```
     let html = escaped.replace(/```([\s\S]*?)```/g, (m, p1) => {
@@ -69,6 +87,8 @@ const Note = ({
   };
 
   const extractTags = (raw) => {
+    if (!raw || typeof raw !== 'string') return [];
+    
     const tags = new Set();
     const regex = /(^|\s)#([A-Za-z0-9_\-]+)/g;
     let match;
@@ -78,8 +98,10 @@ const Note = ({
     return Array.from(tags);
   };
 
-  const rendered = renderMarkdown(text);
-  const tags = extractTags(text);
+  // Handle field name differences between MongoDB (content) and frontend (text)
+  const noteContent = text || '';
+  const rendered = renderMarkdown(noteContent);
+  const tags = extractTags(noteContent);
 
   const handleClick = (e) => {
     const link = e.target.closest('.wikilink');
@@ -116,7 +138,7 @@ const Note = ({
         <button className="notesave btn me-2" onClick={() => deleteHandler(id)}>
           Delete
         </button>
-        <button className="notesave btn" onClick={() => editHandler(id, text)}>
+        <button className="notesave btn" onClick={() => editHandler(id, noteContent)}>
           Edit
         </button>
       </div>

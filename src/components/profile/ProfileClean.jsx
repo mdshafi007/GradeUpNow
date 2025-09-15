@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import { userAPI } from '../../services/api';
 
 const ProfileProfessional = () => {
   const [profileData, setProfileData] = useState(null);
@@ -19,18 +18,20 @@ const ProfileProfessional = () => {
       }
 
       try {
-        const docRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const data = docSnap.data();
+        // Fetch profile from MongoDB API
+        const response = await userAPI.getProfile();
+        
+        if (response.success && response.data) {
+          const data = response.data;
           setProfileData(data);
           
-          if (!data.profileSetupComplete && window.location.pathname !== '/profile-setup') {
+          // Check if profile setup is complete
+          if (!data.profileCompleted && window.location.pathname !== '/profile-setup') {
             navigate('/profile-setup');
             return;
           }
         } else {
+          // No profile found, redirect to setup
           if (window.location.pathname !== '/profile-setup') {
             navigate('/profile-setup');
             return;
@@ -38,7 +39,11 @@ const ProfileProfessional = () => {
         }
       } catch (error) {
         console.error('Error fetching profile:', error);
-        toast.error('Failed to load profile data');
+        // If profile doesn't exist, redirect to setup
+        if (window.location.pathname !== '/profile-setup') {
+          navigate('/profile-setup');
+          return;
+        }
       } finally {
         setIsLoading(false);
       }
@@ -158,7 +163,7 @@ const ProfileProfessional = () => {
     );
   }
 
-  if (!profileData || !profileData.profileSetupComplete) {
+  if (!profileData || !profileData.profileCompleted) {
     return (
       <div style={{ 
         minHeight: '100vh', 
