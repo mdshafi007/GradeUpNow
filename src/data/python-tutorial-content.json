@@ -1,0 +1,175 @@
+{
+  "title": "Complete Python Programming Course",
+  "description": "Learn Python from beginner to advanced with practical examples, OOP, and projects.",
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction to Python",
+      "description": "Getting started with Python programming",
+      "content": [
+        {
+          "title": "What is Python?",
+          "type": "text",
+          "content": "Python is a high-level, interpreted programming language created by Guido van Rossum in 1991. It is widely used in web development, data science, machine learning, AI, and automation because of its simplicity and large community.",
+          "code": null
+        },
+        {
+          "title": "Your First Python Program",
+          "type": "code",
+          "content": "Let's write the classic 'Hello, World!' program in Python.",
+          "code": "print(\"Hello, World!\")\n\n# Output: Hello, World!"
+        },
+        {
+          "title": "Python Program Structure",
+          "type": "text",
+          "content": "Python does not require explicit main() function or semicolons. Indentation is crucial. Comments are written with #.",
+          "code": null
+        }
+      ]
+    },
+    {
+      "id": "basics",
+      "title": "Python Basics",
+      "description": "Variables, data types, and input/output",
+      "content": [
+        {
+          "title": "Variables and Data Types",
+          "type": "code",
+          "content": "Python variables are dynamically typed.",
+          "code": "age = 25\nheight = 5.9\nname = \"Alice\"\nis_student = True\n\nprint(age, height, name, is_student)"
+        },
+        {
+          "title": "Constants (By Convention)",
+          "type": "code",
+          "content": "Python does not have true constants, but we use uppercase names by convention.",
+          "code": "PI = 3.14159\nMAX_USERS = 100\n\nprint(\"PI:\", PI)\nprint(\"Max Users:\", MAX_USERS)"
+        },
+        {
+          "title": "Input and Output",
+          "type": "code",
+          "content": "Taking user input and displaying output.",
+          "code": "name = input(\"Enter your name: \")\nnumber = int(input(\"Enter a number: \"))\nprint(f\"Hello {name}, your number is {number}\")"
+        }
+      ]
+    },
+    {
+      "id": "control-structures",
+      "title": "Control Structures",
+      "description": "Decision making and loops",
+      "content": [
+        {
+          "title": "If-Else Statements",
+          "type": "code",
+          "content": "Using if-else in Python.",
+          "code": "score = int(input(\"Enter score: \"))\n\nif score >= 90:\n    print(\"Grade A\")\nelif score >= 75:\n    print(\"Grade B\")\nelif score >= 50:\n    print(\"Grade C\")\nelse:\n    print(\"Fail\")"
+        },
+        {
+          "title": "Loops",
+          "type": "code",
+          "content": "For and while loops in Python.",
+          "code": "# For loop\nfor i in range(1, 6):\n    print(i, end=\" \")\n\n# While loop\nj = 1\nwhile j <= 3:\n    print(\"\\nWhile:\", j)\n    j += 1"
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "description": "Reusable code blocks in Python",
+      "content": [
+        {
+          "title": "Defining Functions",
+          "type": "code",
+          "content": "Python function with return statement.",
+          "code": "def add(a, b):\n    return a + b\n\nprint(\"Sum:\", add(5, 3))"
+        },
+        {
+          "title": "Default Arguments",
+          "type": "code",
+          "content": "Function with default parameter values.",
+          "code": "def greet(name=\"Guest\"):\n    print(\"Hello\", name)\n\ngreet(\"Alice\")\ngreet()"
+        },
+        {
+          "title": "Recursion",
+          "type": "code",
+          "content": "Factorial using recursion.",
+          "code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\nprint(\"Factorial of 5:\", factorial(5))"
+        }
+      ]
+    },
+    {
+      "id": "oop",
+      "title": "Object-Oriented Programming",
+      "description": "Classes, objects, and OOP concepts in Python",
+      "content": [
+        {
+          "title": "Classes and Objects",
+          "type": "code",
+          "content": "Defining a simple class in Python.",
+          "code": "class Student:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def display(self):\n        print(self.name, \"(\", self.age, \")\")\n\ns1 = Student(\"Alice\", 20)\ns1.display()"
+        },
+        {
+          "title": "Inheritance",
+          "type": "code",
+          "content": "Demonstrating inheritance in Python.",
+          "code": "class Animal:\n    def speak(self):\n        print(\"Animal sound\")\n\nclass Dog(Animal):\n    def speak(self):\n        print(\"Woof!\")\n\nDog().speak()"
+        },
+        {
+          "title": "Polymorphism",
+          "type": "code",
+          "content": "Polymorphism with method overriding.",
+          "code": "class Shape:\n    def draw(self):\n        print(\"Drawing Shape\")\n\nclass Circle(Shape):\n    def draw(self):\n        print(\"Drawing Circle\")\n\nshape = Circle()\nshape.draw()"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "Advanced Topics",
+      "description": "Modules, exceptions, and file handling",
+      "content": [
+        {
+          "title": "Modules",
+          "type": "code",
+          "content": "Using Python modules.",
+          "code": "import math\nprint(\"Square root of 16:\", math.sqrt(16))"
+        },
+        {
+          "title": "Exception Handling",
+          "type": "code",
+          "content": "Try-except block for handling errors.",
+          "code": "try:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print(\"Division by zero is not allowed\")"
+        },
+        {
+          "title": "File Handling",
+          "type": "code",
+          "content": "Reading and writing files in Python.",
+          "code": "# Writing to a file\nwith open(\"example.txt\", \"w\") as f:\n    f.write(\"Hello, Python!\")\n\n# Reading from a file\nwith open(\"example.txt\", \"r\") as f:\n    print(f.read())"
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "Mini Projects",
+      "description": "Practical projects to apply Python knowledge",
+      "content": [
+        {
+          "title": "Simple Calculator",
+          "type": "code",
+          "content": "A text-based calculator program.",
+          "code": "def calculator():\n    a = float(input(\"Enter first number: \"))\n    b = float(input(\"Enter second number: \"))\n    op = input(\"Enter operator (+,-,*,/): \")\n\n    if op == '+':\n        print(\"Result:\", a + b)\n    elif op == '-':\n        print(\"Result:\", a - b)\n    elif op == '*':\n        print(\"Result:\", a * b)\n    elif op == '/':\n        if b != 0:\n            print(\"Result:\", a / b)\n        else:\n            print(\"Error: Division by zero\")\n    else:\n        print(\"Invalid operator\")\n\ncalculator()"
+        },
+        {
+          "title": "Student Management System",
+          "type": "code",
+          "content": "Basic student record management using lists.",
+          "code": "students = []\n\ndef add_student(name, age):\n    students.append({\"name\": name, \"age\": age})\n\ndef display_students():\n    for s in students:\n        print(s[\"name\"], \"(\", s[\"age\"], \")\")\n\nadd_student(\"Alice\", 20)\nadd_student(\"Bob\", 22)\ndisplay_students()"
+        },
+        {
+          "title": "To-Do List App",
+          "type": "code",
+          "content": "Simple to-do list program.",
+          "code": "tasks = []\n\ndef add_task(task):\n    tasks.append(task)\n\ndef show_tasks():\n    for i, t in enumerate(tasks, 1):\n        print(i, t)\n\nadd_task(\"Study Python\")\nadd_task(\"Do Homework\")\nshow_tasks()"
+        }
+      ]
+    }
+  ]
+}

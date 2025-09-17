@@ -15,6 +15,9 @@ import CourseDetail from "./components/Card/CourseDetail";
 import CourseTutorial from "./components/Card/CourseTutorial";
 import CourseNotes from "./components/Card/CourseNotes";
 import CTutorial from "./components/tutorials/CTutorialSimple";
+import CPPTutorial from "./components/tutorials/CPPTutorial";
+import PythonTutorial from "./components/tutorials/PythonTutorial";
+import JavaTutorial from "./components/tutorials/JavaTutorial";
 import CourseTutorialViewer from "./components/tutorials/Tutorials";
 import Profile from "./components/profile/ProfileClean";
 import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
@@ -65,14 +68,53 @@ function App() {
               {/* Specific C Programming routes - these must come before the general :courseId/tutorial route */}
               <Route path="/course/c-programming/tutorial" element={<CTutorial />} />
               <Route path="/course/cprogramming/tutorial" element={<CTutorial />} />
+              
+              {/* Specific C++ Programming routes */}
+              <Route path="/course/cpp-programming/tutorial" element={<CPPTutorial />} />
+              <Route path="/course/c++-programming/tutorial" element={<CPPTutorial />} />
+              <Route path="/course/cplusplus/tutorial" element={<CPPTutorial />} />
+              
+              {/* Specific Python Programming routes */}
+              <Route path="/course/python-programming/tutorial" element={<PythonTutorial />} />
+              <Route path="/course/python/tutorial" element={<PythonTutorial />} />
+              
+              {/* Specific Java Programming routes */}
+              <Route path="/course/java-programming/tutorial" element={<JavaTutorial />} />
+              <Route path="/course/java/tutorial" element={<JavaTutorial />} />
+              
               {/* General tutorial route for all other courses */}
               <Route path="/course/:courseId/tutorial" element={<CourseTutorial />} />
               <Route path="/course/:courseId/notes" element={<CourseNotes />} />
               <Route path="/courses/c-programming" element={<CTutorial />} />
               <Route path="/courses/cprogramming" element={<CTutorial />} />
+              
+              {/* C++ course routes */}
+              <Route path="/courses/cpp-programming" element={<CPPTutorial />} />
+              <Route path="/courses/c++-programming" element={<CPPTutorial />} />
+              <Route path="/courses/cplusplus" element={<CPPTutorial />} />
+              
+              {/* Python course routes */}
+              <Route path="/courses/python-programming" element={<PythonTutorial />} />
+              <Route path="/courses/python" element={<PythonTutorial />} />
+              
+              {/* Java course routes */}
+              <Route path="/courses/java-programming" element={<JavaTutorial />} />
+              <Route path="/courses/java" element={<JavaTutorial />} />
+              
               <Route path="/c-tutorial" element={<CTutorial />} />
+              <Route path="/cpp-tutorial" element={<CPPTutorial />} />
+              <Route path="/c++-tutorial" element={<CPPTutorial />} />
+              <Route path="/python-tutorial" element={<PythonTutorial />} />
+              <Route path="/java-tutorial" element={<JavaTutorial />} />
               <Route path="/tutorial/c-programming" element={<CTutorial />} />
               <Route path="/tutorial/cprogramming" element={<CTutorial />} />
+              <Route path="/tutorial/cpp-programming" element={<CPPTutorial />} />
+              <Route path="/tutorial/c++-programming" element={<CPPTutorial />} />
+              <Route path="/tutorial/cplusplus" element={<CPPTutorial />} />
+              <Route path="/tutorial/python-programming" element={<PythonTutorial />} />
+              <Route path="/tutorial/python" element={<PythonTutorial />} />
+              <Route path="/tutorial/java-programming" element={<JavaTutorial />} />
+              <Route path="/tutorial/java" element={<JavaTutorial />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUp />} />
