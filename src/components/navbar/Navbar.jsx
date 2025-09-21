@@ -95,6 +95,7 @@ const Navbar = () => {
             {[
               { to: "/courses", text: "Courses" },
               { to: "/notes", text: "Notes" },
+              { to: "/practice", text: "Practice" },
               { to: "/notifications", text: "Notifications" },
             ].map((link) => (
               <li className="nav-item" key={link.to}>

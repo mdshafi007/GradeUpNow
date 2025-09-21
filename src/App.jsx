@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./components/navbar/Navbar";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import Featuredtutorials from "./components/toptutorials/Featuredtutorials";
 import WhyGradeUpNow from "./components/services/WhyGradeUpNow";
 import Footer from "./components/Footer/Footer";
@@ -22,6 +22,9 @@ import CourseTutorialViewer from "./components/tutorials/Tutorials";
 import Profile from "./components/profile/ProfileClean";
 import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
 import Notifications from "./components/Notifications/Notifications";
+import Practice from "./components/Practice/Practice";
+import Quiz from "./components/Quiz/Quiz";
+import QuizResult from "./components/Quiz/QuizResult";
 import NotFound from "./components/404/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import { UserProvider } from "./context/UserContext";
@@ -38,6 +41,52 @@ const Home=()=>{
     </>
   )
 }
+
+// Component to conditionally render footer based on route
+const ConditionalFooter = () => {
+  const location = useLocation();
+  
+  // Routes where footer should NOT be displayed (tutorial pages with custom layouts)
+  const noFooterRoutes = [
+    '/course/c-programming/tutorial',
+    '/course/cprogramming/tutorial',
+    '/course/cpp-programming/tutorial',
+    '/course/c++-programming/tutorial',
+    '/course/cplusplus/tutorial',
+    '/course/python-programming/tutorial',
+    '/course/python/tutorial',
+    '/course/java-programming/tutorial',
+    '/course/java/tutorial',
+    '/courses/c-programming',
+    '/courses/cprogramming',
+    '/courses/cpp-programming',
+    '/courses/c++-programming',
+    '/courses/cplusplus',
+    '/courses/python-programming',
+    '/courses/python',
+    '/courses/java-programming',
+    '/courses/java',
+    '/c-tutorial',
+    '/cpp-tutorial',
+    '/c++-tutorial',
+    '/python-tutorial',
+    '/java-tutorial',
+    '/tutorial/c-programming',
+    '/tutorial/cprogramming',
+    '/tutorial/cpp-programming',
+    '/tutorial/c++-programming',
+    '/tutorial/cplusplus',
+    '/tutorial/python-programming',
+    '/tutorial/python',
+    '/tutorial/java-programming',
+    '/tutorial/java'
+  ];
+  
+  // Check if current path should not show footer
+  const shouldHideFooter = noFooterRoutes.includes(location.pathname);
+  
+  return shouldHideFooter ? null : <Footer />;
+};
 
 function App() {
   return (
@@ -116,6 +165,9 @@ function App() {
               <Route path="/tutorial/java-programming" element={<JavaTutorial />} />
               <Route path="/tutorial/java" element={<JavaTutorial />} />
               <Route path="/notifications" element={<Notifications />} />
+              <Route path="/practice" element={<Practice />} />
+              <Route path="/quiz/:quizType" element={<Quiz />} />
+              <Route path="/quiz/:quizType/result/:resultId" element={<QuizResult />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
@@ -123,7 +175,7 @@ function App() {
               {/* Catch-all route for any unmatched URLs - show 404 page */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
+            <ConditionalFooter />
           </div>
         </Router>
       </UserProvider>

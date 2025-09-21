@@ -129,15 +129,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero-illustration-icon {
   position: relative;
   z-index: 10;
-  animation: float 6s ease-in-out infinite;
-  width: 90%;
+  width: 85%;
   height: auto;
-  max-height: 450px;
+  max-height: 400px;
+  max-width: 100%;
   object-fit: contain;
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
 }
@@ -556,7 +557,8 @@
   
   .hero-illustration {
     display: block;
-    height: 300px;
+    height: 250px;
+    overflow: hidden;
   }
   
   .section-title { 

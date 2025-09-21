@@ -25,13 +25,17 @@ const Footer = () => {
             <div className="social-icons">
               <a
                 href="https://www.youtube.com/@GradeUpNow"
-                aria-label="Facebook"
+                aria-label="YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaYoutube />
               </a>
               <a
                 href="https://www.instagram.com/_shafimohammad/?hl=en"
                 aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaInstagram />
               </a>

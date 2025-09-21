@@ -257,9 +257,10 @@ const CoursesPage = () => {
                   src={OnlineLearning}
                   alt="Online Learning Illustration"
                   style={{
-                    width: "90%",
+                    width: "85%",
                     height: "auto",
-                    maxHeight: "450px",
+                    maxHeight: "400px",
+                    maxWidth: "100%",
                     objectFit: "contain",
                     filter: "drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1))",
                   }}
