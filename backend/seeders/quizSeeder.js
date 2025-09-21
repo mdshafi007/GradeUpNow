@@ -1389,7 +1389,7 @@ export const seedDataStructuresQuiz = async () => {
 
     return {
       quiz: savedQuiz,
-      questions: insertedQuestions
+      questions: currentQuestions
     };
 
   } catch (error) {

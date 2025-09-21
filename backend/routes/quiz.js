@@ -5,6 +5,88 @@ import { verifyFirebaseToken } from '../config/firebase.js';
 const router = express.Router();
 
 /**
+ * GET /api/quiz/meta/counts
+ * Get question counts for all quiz categories
+ */
+router.get('/meta/counts', async (req, res) => {
+  try {
+    // Get counts for each category
+    const categories = [
+      'data structures',
+      'operating systems', 
+      'computer networks',
+      'oops',
+      'dbms'
+    ];
+
+    const counts = {};
+    
+    for (const category of categories) {
+      const count = await Question.countDocuments({ category });
+      // Convert database category names to frontend-friendly format
+      const displayCategory = category === 'data structures' ? 'data-structures' :
+                            category === 'operating systems' ? 'operating-systems' :
+                            category === 'computer networks' ? 'computer-networks' :
+                            category;
+      counts[displayCategory] = count;
+    }
+
+    res.json({
+      success: true,
+      data: counts
+    });
+
+  } catch (error) {
+    console.error('Error fetching question counts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch question counts',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+/**
+ * GET /api/quiz/categories
+ * Get all available quiz categories
+ */
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = await Quiz.aggregate([
+      { $match: { isActive: true } },
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: 1 },
+          difficulties: { $addToSet: '$difficulty' },
+          subcategories: { $addToSet: '$subcategory' }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
+
+    res.status(200).json({
+      success: true,
+      categories: categories.map(cat => ({
+        name: cat._id,
+        slug: cat._id.toLowerCase().replace(/\s+/g, '-'),
+        count: cat.count,
+        difficulties: cat.difficulties.filter(Boolean),
+        subcategories: cat.subcategories.filter(Boolean)
+      }))
+    });
+
+  } catch (error) {
+    console.error('Get categories error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch categories',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+/**
  * GET /api/quiz/:category
  * Get quiz by category (e.g., "data-structures")
  */
@@ -339,88 +421,6 @@ router.get('/result/:resultId', verifyFirebaseToken, async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch quiz result',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-});
-
-/**
- * GET /api/quiz/categories
- * Get all available quiz categories
- */
-router.get('/categories', async (req, res) => {
-  try {
-    const categories = await Quiz.aggregate([
-      { $match: { isActive: true } },
-      {
-        $group: {
-          _id: '$category',
-          count: { $sum: 1 },
-          difficulties: { $addToSet: '$difficulty' },
-          subcategories: { $addToSet: '$subcategory' }
-        }
-      },
-      { $sort: { _id: 1 } }
-    ]);
-
-    res.status(200).json({
-      success: true,
-      categories: categories.map(cat => ({
-        name: cat._id,
-        slug: cat._id.toLowerCase().replace(/\s+/g, '-'),
-        count: cat.count,
-        difficulties: cat.difficulties.filter(Boolean),
-        subcategories: cat.subcategories.filter(Boolean)
-      }))
-    });
-
-  } catch (error) {
-    console.error('Get categories error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch categories',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-});
-
-/**
- * GET /api/quiz/meta/counts
- * Get question counts for all quiz categories
- */
-router.get('/meta/counts', async (req, res) => {
-  try {
-    // Get counts for each category
-    const categories = [
-      'data structures',
-      'operating systems', 
-      'computer networks',
-      'oops',
-      'dbms'
-    ];
-
-    const counts = {};
-    
-    for (const category of categories) {
-      const count = await Question.countDocuments({ category });
-      // Convert database category names to frontend-friendly format
-      const displayCategory = category === 'data structures' ? 'data-structures' :
-                            category === 'operating systems' ? 'operating-systems' :
-                            category === 'computer networks' ? 'computer-networks' :
-                            category;
-      counts[displayCategory] = count;
-    }
-
-    res.json({
-      success: true,
-      data: counts
-    });
-
-  } catch (error) {
-    console.error('Error fetching question counts:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch question counts',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
