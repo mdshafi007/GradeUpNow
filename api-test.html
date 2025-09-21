@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>GradeUpNow API Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultsDiv = document.getElementById('results');
+            
+            // Test 1: Basic API health
+            try {
+                const response1 = await fetch('https://gradeupnow.onrender.com/api');
+                resultsDiv.innerHTML += `<p>✅ Basic API: ${response1.status}</p>`;
+            } catch (error) {
+                resultsDiv.innerHTML += `<p>❌ Basic API: ${error.message}</p>`;
+            }
+            
+            // Test 2: Question counts (no auth required)
+            try {
+                const response2 = await fetch('https://gradeupnow.onrender.com/api/quiz/meta/counts');
+                const data = await response2.json();
+                resultsDiv.innerHTML += `<p>✅ Counts API: ${JSON.stringify(data)}</p>`;
+            } catch (error) {
+                resultsDiv.innerHTML += `<p>❌ Counts API: ${error.message}</p>`;
+            }
+            
+            // Test 3: Quiz endpoint (will fail without auth, but should give proper error)
+            try {
+                const response3 = await fetch('https://gradeupnow.onrender.com/api/quiz/data-structures');
+                resultsDiv.innerHTML += `<p>Quiz API Status: ${response3.status} (expected 401/403)</p>`;
+            } catch (error) {
+                resultsDiv.innerHTML += `<p>❌ Quiz API: ${error.message}</p>`;
+            }
+        }
+        
+        testAPI();
+    </script>
+</body>
+</html>

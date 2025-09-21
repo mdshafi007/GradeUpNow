@@ -37,7 +37,7 @@ const Quiz = () => {
       
       const token = await currentUser.getIdToken();
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/quiz/${quizType}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/quiz/${quizType}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -94,7 +94,7 @@ const Quiz = () => {
       
       const token = await currentUser.getIdToken();
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/quiz/submit`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/quiz/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

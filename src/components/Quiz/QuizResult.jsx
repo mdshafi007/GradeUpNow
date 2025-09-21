@@ -33,7 +33,7 @@ const QuizResult = () => {
       
       const token = await currentUser.getIdToken();
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/quiz/result/${resultId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/quiz/result/${resultId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
