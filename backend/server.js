@@ -5,7 +5,6 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import { initializeFirebaseAdmin } from './config/firebase.js';
-import { seedQuizData } from './seeders/quizSeeder.js';
 
 // Import routes
 import userRoutes from './routes/users.js';
@@ -21,14 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-connectDB().then(async () => {
-  // Seed quiz data after database connection
-  try {
-    await seedQuizData();
-  } catch (error) {
-    console.error('Failed to seed quiz data:', error);
-  }
-});
+connectDB();
 
 // Initialize Firebase Admin
 initializeFirebaseAdmin();

@@ -1,0 +1,160 @@
+{
+  "title": "Computer Networks Quiz",
+  "description": "Test your knowledge of computer networking concepts",
+  "category": "computer networks",
+  "difficulty": "medium",
+  "timeLimit": 30,
+  "passingScore": 60,
+  "questions": [
+    {
+      "questionText": "Which layer of the OSI model is responsible for routing?",
+      "options": [
+        "Physical Layer",
+        "Data Link Layer",
+        "Network Layer",
+        "Transport Layer"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Network Layer (Layer 3) is responsible for routing packets between different networks.",
+      "difficulty": "easy",
+      "category": "computer networks",
+      "subcategory": "OSI model",
+      "tags": ["OSI", "routing", "network layer"]
+    },
+    {
+      "questionText": "What is the maximum transmission unit (MTU) for Ethernet?",
+      "options": [
+        "1024 bytes",
+        "1500 bytes",
+        "2048 bytes",
+        "4096 bytes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The standard MTU for Ethernet is 1500 bytes, which is the maximum size of the payload in an Ethernet frame.",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "ethernet",
+      "tags": ["MTU", "ethernet", "frame size"]
+    },
+    {
+      "questionText": "Which protocol is used for reliable data transmission in TCP/IP?",
+      "options": [
+        "UDP",
+        "TCP",
+        "ICMP",
+        "ARP"
+      ],
+      "correctAnswer": 1,
+      "explanation": "TCP (Transmission Control Protocol) provides reliable, ordered delivery of data with error checking and flow control.",
+      "difficulty": "easy",
+      "category": "computer networks",
+      "subcategory": "transport protocols",
+      "tags": ["TCP", "reliable transmission", "transport layer"]
+    },
+    {
+      "questionText": "What is the purpose of ARP (Address Resolution Protocol)?",
+      "options": [
+        "To resolve domain names to IP addresses",
+        "To resolve IP addresses to MAC addresses",
+        "To establish secure connections",
+        "To route packets between networks"
+      ],
+      "correctAnswer": 1,
+      "explanation": "ARP resolves IP addresses to MAC (hardware) addresses for communication within the same network segment.",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "protocols",
+      "tags": ["ARP", "MAC address", "IP address"]
+    },
+    {
+      "questionText": "Which congestion control algorithm is used by TCP?",
+      "options": [
+        "Leaky Bucket",
+        "Token Bucket",
+        "Slow Start",
+        "Round Robin"
+      ],
+      "correctAnswer": 2,
+      "explanation": "TCP uses Slow Start as one of its congestion control algorithms to gradually increase the sending rate.",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "congestion control",
+      "tags": ["TCP", "slow start", "congestion control"]
+    },
+    {
+      "questionText": "What is the default subnet mask for a Class B network?",
+      "options": [
+        "255.0.0.0",
+        "255.255.0.0",
+        "255.255.255.0",
+        "255.255.255.255"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Class B networks use a default subnet mask of 255.255.0.0 (/16), providing 16 bits for the network portion.",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "IP addressing",
+      "tags": ["subnet mask", "Class B", "IP addressing"]
+    },
+    {
+      "questionText": "Which protocol operates at the application layer and is used for web browsing?",
+      "options": [
+        "FTP",
+        "SMTP",
+        "HTTP",
+        "SNMP"
+      ],
+      "correctAnswer": 2,
+      "explanation": "HTTP (HyperText Transfer Protocol) operates at the application layer and is the foundation of web browsing.",
+      "difficulty": "easy",
+      "category": "computer networks",
+      "subcategory": "application protocols",
+      "tags": ["HTTP", "application layer", "web"]
+    },
+    {
+      "questionText": "What is the purpose of DHCP?",
+      "options": [
+        "To encrypt data transmission",
+        "To automatically assign IP addresses",
+        "To resolve domain names",
+        "To manage network routing"
+      ],
+      "correctAnswer": 1,
+      "explanation": "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and other network configuration parameters to devices.",
+      "difficulty": "easy",
+      "category": "computer networks",
+      "subcategory": "protocols",
+      "tags": ["DHCP", "IP assignment", "automatic configuration"]
+    },
+    {
+      "questionText": "Which switching technique has the lowest latency?",
+      "options": [
+        "Circuit Switching",
+        "Packet Switching",
+        "Message Switching",
+        "Virtual Circuit Switching"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Circuit switching has the lowest latency because a dedicated path is established before data transmission begins.",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "switching",
+      "tags": ["circuit switching", "latency", "switching techniques"]
+    },
+    {
+      "questionText": "What is the maximum number of hosts in a /24 network?",
+      "options": [
+        "254",
+        "255",
+        "256",
+        "512"
+      ],
+      "correctAnswer": 0,
+      "explanation": "A /24 network has 8 host bits, allowing 2^8 - 2 = 254 host addresses (excluding network and broadcast addresses).",
+      "difficulty": "medium",
+      "category": "computer networks",
+      "subcategory": "subnetting",
+      "tags": ["CIDR", "subnetting", "host calculation"]
+    }
+  ]
+}

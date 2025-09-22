@@ -1,0 +1,160 @@
+{
+  "title": "Object-Oriented Programming Quiz",
+  "description": "Test your knowledge of object-oriented programming concepts",
+  "category": "oops",
+  "difficulty": "medium",
+  "timeLimit": 30,
+  "passingScore": 60,
+  "questions": [
+    {
+      "questionText": "Which of the following is NOT a pillar of Object-Oriented Programming?",
+      "options": [
+        "Encapsulation",
+        "Inheritance",
+        "Compilation",
+        "Polymorphism"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The four main pillars of OOP are Encapsulation, Inheritance, Polymorphism, and Abstraction. Compilation is not a pillar of OOP.",
+      "difficulty": "easy",
+      "category": "oops",
+      "subcategory": "fundamentals",
+      "tags": ["OOP pillars", "fundamentals"]
+    },
+    {
+      "questionText": "What is method overloading?",
+      "options": [
+        "Defining multiple methods with the same name but different parameters",
+        "Redefining a method in a subclass",
+        "Calling multiple methods simultaneously",
+        "Creating abstract methods"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Method overloading allows multiple methods with the same name but different parameter lists in the same class.",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "polymorphism",
+      "tags": ["method overloading", "polymorphism"]
+    },
+    {
+      "questionText": "What is the difference between method overriding and method overloading?",
+      "options": [
+        "No difference, they are the same",
+        "Overriding changes method signature, overloading doesn't",
+        "Overloading is compile-time polymorphism, overriding is runtime polymorphism",
+        "Overriding is faster than overloading"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Method overloading is resolved at compile-time (static polymorphism), while method overriding is resolved at runtime (dynamic polymorphism).",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "polymorphism",
+      "tags": ["overloading", "overriding", "polymorphism"]
+    },
+    {
+      "questionText": "What is encapsulation in OOP?",
+      "options": [
+        "Creating multiple classes",
+        "Hiding internal implementation details and exposing only necessary methods",
+        "Inheriting from parent classes",
+        "Using interfaces"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Encapsulation is the bundling of data and methods that operate on that data, while hiding internal implementation details from the outside.",
+      "difficulty": "easy",
+      "category": "oops",
+      "subcategory": "encapsulation",
+      "tags": ["encapsulation", "data hiding"]
+    },
+    {
+      "questionText": "Which keyword is used to prevent method overriding in Java?",
+      "options": [
+        "static",
+        "final",
+        "abstract",
+        "private"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The 'final' keyword prevents a method from being overridden in subclasses.",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "inheritance",
+      "tags": ["final keyword", "method overriding", "Java"]
+    },
+    {
+      "questionText": "What is an abstract class?",
+      "options": [
+        "A class that cannot be instantiated directly",
+        "A class with only static methods",
+        "A class with no methods",
+        "A class that inherits from multiple parents"
+      ],
+      "correctAnswer": 0,
+      "explanation": "An abstract class cannot be instantiated directly and typically contains one or more abstract methods that must be implemented by subclasses.",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "abstraction",
+      "tags": ["abstract class", "abstraction"]
+    },
+    {
+      "questionText": "What is the main advantage of inheritance?",
+      "options": [
+        "Faster execution",
+        "Code reusability and establishing IS-A relationships",
+        "Better memory management",
+        "Improved security"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Inheritance promotes code reusability by allowing classes to inherit properties and methods from parent classes, and establishes IS-A relationships.",
+      "difficulty": "easy",
+      "category": "oops",
+      "subcategory": "inheritance",
+      "tags": ["inheritance", "code reusability", "IS-A relationship"]
+    },
+    {
+      "questionText": "What is composition in OOP?",
+      "options": [
+        "A form of inheritance",
+        "A HAS-A relationship where objects contain other objects",
+        "Method overloading",
+        "Creating interfaces"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Composition represents a HAS-A relationship where a class contains objects of other classes as instance variables.",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "relationships",
+      "tags": ["composition", "HAS-A relationship", "object relationships"]
+    },
+    {
+      "questionText": "What is dynamic binding (late binding)?",
+      "options": [
+        "Binding methods at compile time",
+        "Binding methods at runtime based on object type",
+        "Creating dynamic variables",
+        "Automatic memory management"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Dynamic binding (late binding) determines which method to call at runtime based on the actual object type, enabling polymorphism.",
+      "difficulty": "medium",
+      "category": "oops",
+      "subcategory": "polymorphism",
+      "tags": ["dynamic binding", "late binding", "runtime polymorphism"]
+    },
+    {
+      "questionText": "What is the purpose of access modifiers?",
+      "options": [
+        "To improve performance",
+        "To control the visibility and accessibility of class members",
+        "To enable inheritance",
+        "To create static methods"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Access modifiers (public, private, protected) control the visibility and accessibility of class members, implementing encapsulation principles.",
+      "difficulty": "easy",
+      "category": "oops",
+      "subcategory": "encapsulation",
+      "tags": ["access modifiers", "visibility", "encapsulation"]
+    }
+  ]
+}

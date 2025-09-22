@@ -84,7 +84,7 @@ const QuizResult = () => {
             ← Back to Practice
           </button>
           <h1>Quiz Complete!</h1>
-          <p className="quiz-title">{result.quizId?.title || 'Quiz'}</p>
+          <p className="quiz-title">{result.quiz?.title || result.quizId || 'Quiz'}</p>
         </div>
 
         {/* Score Section */}
@@ -108,8 +108,9 @@ const QuizResult = () => {
         <div className="questions-section">
           <h3>Review Answers</h3>
           <div className="questions-list">
-            {result.answers.map((answer, index) => (
-              <div key={answer.questionId._id} className={`question-card ${answer.isCorrect ? 'correct' : 'incorrect'}`}>
+            {result.answers && result.answers.length > 0 ? (
+              result.answers.map((answer, index) => (
+              <div key={answer.questionId || `question-${index}`} className={`question-card ${answer.isCorrect ? 'correct' : 'incorrect'}`}>
                 <div className="question-header">
                   <div className="question-info">
                     <span className="question-number">Q{index + 1}</span>
@@ -119,13 +120,16 @@ const QuizResult = () => {
                   </div>
                 </div>
                 
-                <p className="question-text">{answer.questionId.questionText}</p>
+                <p className="question-text">{answer.question?.questionText || 'Question text not available'}</p>
                 
                 <div className="answer-section">
                   <div className="correct-option">
                     <span className="option-label correct">Correct:</span>
                     <span className="option-value">
-                      {String.fromCharCode(65 + answer.questionId.correctAnswer)}. {answer.questionId.options[answer.questionId.correctAnswer]}
+                      {answer.question?.options && answer.question?.correctAnswer !== undefined ? 
+                        `${String.fromCharCode(65 + answer.question.correctAnswer)}. ${answer.question.options[answer.question.correctAnswer]}` :
+                        'Answer not available'
+                      }
                     </span>
                   </div>
                   
@@ -133,13 +137,19 @@ const QuizResult = () => {
                     <div className="user-option">
                       <span className="option-label wrong">Your choice:</span>
                       <span className="option-value">
-                        {String.fromCharCode(65 + answer.selectedOption)}. {answer.questionId.options[answer.selectedOption]}
+                        {answer.question?.options && answer.selectedOption !== undefined ?
+                          `${String.fromCharCode(65 + answer.selectedOption)}. ${answer.question.options[answer.selectedOption]}` :
+                          'Answer not available'
+                        }
                       </span>
                     </div>
                   )}
                 </div>
               </div>
-            ))}
+            ))
+            ) : (
+              <p className="no-answers">No answers to review.</p>
+            )}
           </div>
         </div>
 

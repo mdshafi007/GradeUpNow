@@ -1,0 +1,160 @@
+{
+  "title": "Database Management Systems Quiz",
+  "description": "Test your knowledge of database concepts and SQL",
+  "category": "dbms",
+  "difficulty": "medium",
+  "timeLimit": 30,
+  "passingScore": 60,
+  "questions": [
+    {
+      "questionText": "What is a primary key in a database?",
+      "options": [
+        "A key that can have duplicate values",
+        "A unique identifier for each record in a table",
+        "A key that can be null",
+        "A foreign key reference"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A primary key uniquely identifies each record in a table and cannot contain null or duplicate values.",
+      "difficulty": "easy",
+      "category": "dbms",
+      "subcategory": "keys",
+      "tags": ["primary key", "database design", "unique identifier"]
+    },
+    {
+      "questionText": "Which normal form eliminates partial dependency?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Second Normal Form (2NF) eliminates partial dependency, where non-key attributes depend on only part of a composite primary key.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "normalization",
+      "tags": ["2NF", "partial dependency", "normalization"]
+    },
+    {
+      "questionText": "What is ACID in database transactions?",
+      "options": [
+        "A type of database",
+        "Properties: Atomicity, Consistency, Isolation, Durability",
+        "A SQL command",
+        "A database optimization technique"
+      ],
+      "correctAnswer": 1,
+      "explanation": "ACID represents four key properties of database transactions: Atomicity, Consistency, Isolation, and Durability.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "transactions",
+      "tags": ["ACID", "transactions", "database properties"]
+    },
+    {
+      "questionText": "Which SQL command is used to remove a table structure?",
+      "options": [
+        "DELETE",
+        "REMOVE",
+        "DROP",
+        "CLEAR"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The DROP command removes the entire table structure and all its data from the database.",
+      "difficulty": "easy",
+      "category": "dbms",
+      "subcategory": "SQL commands",
+      "tags": ["DROP", "SQL", "table structure"]
+    },
+    {
+      "questionText": "What is a deadlock in database systems?",
+      "options": [
+        "A query that takes too long to execute",
+        "Two or more transactions waiting for each other indefinitely",
+        "A corrupted database file",
+        "A full transaction log"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A deadlock occurs when two or more transactions are waiting for each other to release resources, creating a circular dependency.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "concurrency",
+      "tags": ["deadlock", "concurrency", "transactions"]
+    },
+    {
+      "questionText": "Which type of join returns all records from both tables?",
+      "options": [
+        "INNER JOIN",
+        "LEFT JOIN",
+        "RIGHT JOIN",
+        "FULL OUTER JOIN"
+      ],
+      "correctAnswer": 3,
+      "explanation": "FULL OUTER JOIN returns all records from both tables, including unmatched records from both sides.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "joins",
+      "tags": ["FULL OUTER JOIN", "SQL joins", "table operations"]
+    },
+    {
+      "questionText": "What is the purpose of indexing in databases?",
+      "options": [
+        "To encrypt data",
+        "To improve query performance",
+        "To backup data",
+        "To compress data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Indexing creates data structures that improve the speed of data retrieval operations on database tables.",
+      "difficulty": "easy",
+      "category": "dbms",
+      "subcategory": "indexing",
+      "tags": ["indexing", "performance", "query optimization"]
+    },
+    {
+      "questionText": "What is a foreign key?",
+      "options": [
+        "A primary key in another table",
+        "A field that links two tables together",
+        "A unique identifier",
+        "An encrypted key"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A foreign key is a field in one table that refers to the primary key in another table, establishing a link between the tables.",
+      "difficulty": "easy",
+      "category": "dbms",
+      "subcategory": "keys",
+      "tags": ["foreign key", "referential integrity", "table relationships"]
+    },
+    {
+      "questionText": "Which isolation level prevents dirty reads but allows phantom reads?",
+      "options": [
+        "READ UNCOMMITTED",
+        "READ COMMITTED",
+        "REPEATABLE READ",
+        "SERIALIZABLE"
+      ],
+      "correctAnswer": 1,
+      "explanation": "READ COMMITTED isolation level prevents dirty reads but allows non-repeatable reads and phantom reads.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "isolation levels",
+      "tags": ["READ COMMITTED", "isolation levels", "transaction isolation"]
+    },
+    {
+      "questionText": "What is denormalization?",
+      "options": [
+        "The process of organizing data to reduce redundancy",
+        "The process of adding redundancy to improve performance",
+        "Removing all constraints from tables",
+        "Converting data to first normal form"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Denormalization is the process of adding redundancy to a normalized database to improve query performance, often at the cost of storage space.",
+      "difficulty": "medium",
+      "category": "dbms",
+      "subcategory": "design",
+      "tags": ["denormalization", "performance optimization", "database design"]
+    }
+  ]
+}
