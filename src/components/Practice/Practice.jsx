@@ -21,7 +21,7 @@ const Practice = () => {
   useEffect(() => {
     const fetchQuestionCounts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/quiz/meta/counts`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://gradeupnow.onrender.com/api' : 'http://localhost:5000/api')}/quiz/meta/counts`);
         if (response.ok) {
           const data = await response.json();
           if (data.success) {
