@@ -62,10 +62,11 @@ const corsOptions = {
     const normalizeUrl = (url) => url ? url.replace(/\/$/, '') : url;
     
     const allowedOrigins = [
-      normalizeUrl(process.env.FRONTEND_URL) || 'https://gradeupnow.netlify.app',
+      normalizeUrl(process.env.FRONTEND_URL) || 'https://gradeupnow.app',
       normalizeUrl(process.env.CORS_ORIGIN) || 'http://localhost:5173',
       'http://localhost:3000',
       'http://localhost:5174',
+      'https://gradeupnow.app',
       'https://gradeupnow.netlify.app',
       'https://gradeupnow.onrender.com'
     ];
