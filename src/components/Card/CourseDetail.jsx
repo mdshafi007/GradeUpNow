@@ -1,11 +1,29 @@
 import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import './CourseDetail.css';
 
 const CourseDetail = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Dynamic title based on course ID
+  const getCourseTitle = () => {
+    const courseTitles = {
+      'c-programming': 'C Programming Course',
+      'cpp-programming': 'C++ Programming Course', 
+      'python-programming': 'Python Programming Course',
+      'java-programming': 'Java Programming Course',
+      'data-structures': 'Data Structures Course',
+      'operating-systems': 'Operating Systems Course',
+      'computer-networks': 'Computer Networks Course',
+      'dbms': 'Database Management Course'
+    };
+    return courseTitles[courseId] || `${courseId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} Course`;
+  };
+  
+  usePageTitle(getCourseTitle());
 
   // Function to handle back to courses navigation
   const handleBackToCourses = () => {

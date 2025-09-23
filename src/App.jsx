@@ -31,8 +31,10 @@ import { UserProvider } from "./context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import usePageTitle from "./hooks/usePageTitle";
 
 const Home=()=>{
+  usePageTitle("Home - Learn, Practice, Excel");
   return(
     <>
      <HeroSect />

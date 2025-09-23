@@ -2,9 +2,11 @@ import React from "react";
 import { useUser } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import Notescomp from "./Notescomp";
+import usePageTitle from "../../hooks/usePageTitle";
 import "./Notes.css";
 
 const Notes = () => {
+  usePageTitle("My Notes - Study & Organize");
   const { user, loading } = useUser();
 
   // Show loading state while checking authentication

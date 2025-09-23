@@ -3,8 +3,10 @@ import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { userAPI } from '../../services/api';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const ProfileProfessional = () => {
+  usePageTitle("My Profile - Manage Your Account");
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();

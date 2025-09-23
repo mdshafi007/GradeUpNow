@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 import './Practice.css';
 
 const Practice = () => {
+  usePageTitle("Practice - Test Your Skills");
   const [activeTab, setActiveTab] = useState('programming');
   const [questionCounts, setQuestionCounts] = useState({});
   const [isLoading, setIsLoading] = useState(true);

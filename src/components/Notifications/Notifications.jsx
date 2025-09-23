@@ -1,6 +1,8 @@
 import React from 'react';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const Notifications = () => {
+  usePageTitle("Notifications - Stay Updated");
   return (
     <div style={{
       minHeight: '100vh',

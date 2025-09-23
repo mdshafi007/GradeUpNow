@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const SignUp = () => {
+  usePageTitle("Sign Up - Create Your Account");
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',

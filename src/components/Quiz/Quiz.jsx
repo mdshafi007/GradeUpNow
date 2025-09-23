@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import usePageTitle from '../../hooks/usePageTitle';
 import './Quiz.css';
 
 const Quiz = () => {
@@ -17,6 +18,24 @@ const Quiz = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Dynamic title based on quiz type and loaded quiz data
+  const getQuizTitle = () => {
+    if (quiz) {
+      return `${quiz.title} - Quiz`;
+    }
+    // Fallback titles based on quiz type
+    const titleMap = {
+      'data-structures': 'Data Structures Quiz',
+      'computer-networks': 'Computer Networks Quiz',
+      'dbms': 'Database Management Quiz',
+      'operating-systems': 'Operating Systems Quiz',
+      'oops': 'OOP Concepts Quiz'
+    };
+    return titleMap[quizType] || `${quizType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} Quiz`;
+  };
+
+  usePageTitle(getQuizTitle());
 
   useEffect(() => {
     if (!user) {

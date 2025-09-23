@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from '../../context/UserContext';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const LoginForm = () => {
+  usePageTitle("Login - Access Your Account");
   const [formData, setFormData] = useState({
     email: '',
     password: '',

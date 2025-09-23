@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import usePageTitle from '../../hooks/usePageTitle';
 
 const NotFound = () => {
+  usePageTitle("404 - Page Not Found");
   return (
     <div style={{
       minHeight: '100vh',

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import OnlineLearning from "./undraw_online-learning_tgmv.svg";
+import usePageTitle from "../../hooks/usePageTitle";
 import "./CoursePage.css";
 
 // Move courseCategories outside component to prevent recreation on every render
@@ -126,6 +127,7 @@ const courseCategories = {
 };
 
 const CoursesPage = () => {
+  usePageTitle("All Courses - Programming & Computer Science");
   const [currentSlide, setCurrentSlide] = useState({});
   const sliderRefs = useRef({});
   const navigate = useNavigate();

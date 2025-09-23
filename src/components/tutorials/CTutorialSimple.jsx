@@ -6,6 +6,7 @@ import { Highlight, themes } from 'prism-react-renderer';
 import { useUser } from '../../context/UserContext';
 import { progressAPI, handleAPIError } from '../../services/api';
 import AiChat from '../AiChat/AiChat';
+import usePageTitle from '../../hooks/usePageTitle';
 import '../tutorials/Tutorials.css';
 
 // Mobile styles
@@ -112,6 +113,7 @@ if (typeof document !== 'undefined') {
 }
 
 const CTutorialSimple = () => {
+  usePageTitle("C Programming Tutorial - Learn C Programming");
   const [courseData, setCourseData] = useState(null);
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedContent, setSelectedContent] = useState(0);
