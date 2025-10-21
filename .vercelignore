@@ -1,0 +1,26 @@
+# Backend - Not deploying to Vercel
+backend/
+
+# SQL Files
+*.sql
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+test-*.html
+api-test.html
+
+# Environment files (will be set in Vercel dashboard)
+.env
+.env.local
+.env.production
+
+# Development
+node_modules/
+.git/
+.vscode/
+
+# Build output (will be generated)
+dist/
