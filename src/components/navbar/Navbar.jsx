@@ -228,6 +228,8 @@ const Navbar = () => {
                           }}
                           onClick={() => {
                             setIsProfileOpen(false);
+                            setIsMenuOpen(false);
+                            document.body.classList.remove('menu-open');
                             navigate('/profile');
                           }}
                         >

@@ -822,32 +822,458 @@ const Profile = () => {
           
           /* Responsive */
           @media (max-width: 768px) {
-            .profile-hero {
-              padding: 24px;
+            .profile-container {
+              padding: 68px 0 30px 0;
             }
             
-            .profile-name {
-              font-size: 1.5rem;
+            .profile-wrapper {
+              max-width: 100%;
+              padding: 0 10px !important;
+            }
+            
+            .profile-hero {
+              padding: 12px 12px;
+              margin-bottom: 12px;
+              border-radius: 10px;
+              box-shadow: 0 3px 10px rgba(255, 119, 0, 0.12);
+            }
+            
+            .profile-hero::before {
+              width: 100px;
+              height: 100px;
+              opacity: 0.5;
+            }
+            
+            .profile-hero-content .d-flex {
+              flex-direction: row !important;
+              align-items: center !important;
+              gap: 0;
+              flex-wrap: wrap;
+            }
+            
+            .profile-hero-content .d-flex > .d-flex:first-child {
+              width: 100%;
+              margin-bottom: 10px;
+            }
+            
+            .profile-hero-content .d-flex > .edit-profile-btn {
+              width: 100%;
             }
             
             .profile-avatar-large {
-              width: 64px;
-              height: 64px;
-              font-size: 28px;
+              width: 44px;
+              height: 44px;
+              font-size: 18px;
+              margin-right: 10px;
+              border-width: 2px;
+              border-radius: 10px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            }
+            
+            .profile-name {
+              font-size: 0.95rem;
+              margin-bottom: 2px;
+              letter-spacing: -0.2px;
+              font-weight: 700;
+              line-height: 1.3;
+            }
+            
+            .profile-email {
+              font-size: 0.72rem;
+              opacity: 0.92;
+              line-height: 1.3;
+              word-break: break-all;
+            }
+            
+            .edit-profile-btn {
+              width: 100%;
+              justify-content: center !important;
+              padding: 8px 16px;
+              font-size: 0.75rem;
+              border-radius: 8px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              font-weight: 600;
             }
             
             .stats-grid {
               grid-template-columns: repeat(2, 1fr);
-              gap: 12px;
+              gap: 8px;
+              margin-bottom: 14px;
             }
             
-            .academic-grid,
-            .info-grid {
-              grid-template-columns: 1fr;
+            .stat-card {
+              padding: 12px 10px;
+              border-radius: 8px;
+            }
+            
+            .stat-icon {
+              font-size: 20px;
+              margin-bottom: 6px;
+            }
+            
+            .stat-label {
+              font-size: 0.6rem;
+              margin-bottom: 3px;
+            }
+            
+            .stat-value {
+              font-size: 1.1rem;
+            }
+            
+            .stat-value.dark {
+              font-size: 0.85rem;
+            }
+            
+            .content-grid {
+              padding: 0;
+            }
+            
+            .content-grid .row {
+              margin: 0;
+            }
+            
+            .content-grid .col-md-6 {
+              padding: 0;
+              margin-bottom: 10px;
             }
             
             .section-card {
-              padding: 20px;
+              padding: 14px;
+              border-radius: 8px;
+            }
+            
+            .section-header {
+              margin-bottom: 10px;
+            }
+            
+            .section-icon {
+              font-size: 18px;
+            }
+            
+            .section-title {
+              font-size: 0.9rem;
+            }
+            
+            .section-subtitle {
+              font-size: 0.65rem;
+            }
+            
+            .academic-grid,
+            .info-grid,
+            .info-grid-vertical {
+              grid-template-columns: 1fr;
+              gap: 10px;
+            }
+            
+            .info-label,
+            .academic-label {
+              font-size: 0.7rem;
+            }
+            
+            .info-value,
+            .academic-value,
+            .college-value {
+              font-size: 0.85rem;
+            }
+            
+            .tags-container {
+              gap: 5px;
+            }
+            
+            .skill-tag,
+            .interest-tag {
+              padding: 5px 10px;
+              font-size: 0.7rem;
+              border-radius: 6px;
+              border-width: 1.5px;
+            }
+            
+            .form-control-modern {
+              padding: 9px 11px;
+              font-size: 0.8rem;
+              border-radius: 7px;
+            }
+            
+            .form-label-modern {
+              font-size: 0.7rem;
+              margin-bottom: 5px;
+            }
+            
+            .action-buttons {
+              flex-direction: column;
+              gap: 8px;
+              padding-top: 14px;
+              margin-top: 14px;
+            }
+            
+            .save-button,
+            .cancel-button {
+              width: 100%;
+              padding: 11px 18px;
+              font-size: 0.85rem;
+              border-radius: 7px;
+            }
+            
+            .empty-state {
+              padding: 20px 10px;
+            }
+            
+            .empty-state-icon {
+              font-size: 24px;
+              margin-bottom: 6px;
+            }
+            
+            .empty-state-text {
+              font-size: 0.75rem;
+            }
+            
+            .streak-days {
+              gap: 3px;
+            }
+            
+            .streak-day {
+              width: 26px;
+              height: 26px;
+              font-size: 0.65rem;
+            }
+          }
+          
+          /* Extra small mobile devices */
+          @media (max-width: 480px) {
+            .profile-container {
+              padding: 65px 0 25px 0;
+            }
+            
+            .profile-wrapper {
+              padding: 0 8px !important;
+            }
+            
+            .profile-hero {
+              padding: 11px 11px;
+              margin-bottom: 11px;
+              border-radius: 9px;
+            }
+            
+            .profile-hero::before {
+              width: 90px;
+              height: 90px;
+            }
+            
+            .profile-avatar-large {
+              width: 42px;
+              height: 42px;
+              font-size: 17px;
+              margin-right: 9px;
+              border-radius: 9px;
+            }
+            
+            .profile-name {
+              font-size: 0.9rem;
+              line-height: 1.25;
+            }
+            
+            .profile-email {
+              font-size: 0.7rem;
+              line-height: 1.25;
+            }
+            
+            .edit-profile-btn {
+              padding: 7px 14px;
+              font-size: 0.72rem;
+              border-radius: 7px;
+            }
+            
+            .stats-grid {
+              gap: 7px;
+              margin-bottom: 12px;
+            }
+            
+            .stat-card {
+              padding: 10px 8px;
+            }
+            
+            .stat-icon {
+              font-size: 18px;
+              margin-bottom: 5px;
+            }
+            
+            .stat-label {
+              font-size: 0.55rem;
+            }
+            
+            .stat-value {
+              font-size: 1rem;
+            }
+            
+            .stat-value.dark {
+              font-size: 0.8rem;
+            }
+            
+            .content-grid .col-md-6 {
+              margin-bottom: 8px;
+            }
+            
+            .section-card {
+              padding: 12px;
+            }
+            
+            .section-header {
+              margin-bottom: 8px;
+            }
+            
+            .section-title {
+              font-size: 0.85rem;
+            }
+            
+            .section-icon {
+              font-size: 16px;
+            }
+            
+            .section-subtitle {
+              font-size: 0.6rem;
+            }
+            
+            .info-label,
+            .academic-label {
+              font-size: 0.65rem;
+            }
+            
+            .info-value,
+            .academic-value {
+              font-size: 0.8rem;
+            }
+            
+            .academic-grid,
+            .info-grid,
+            .info-grid-vertical {
+              gap: 8px;
+            }
+            
+            .skill-tag,
+            .interest-tag {
+              padding: 4px 9px;
+              font-size: 0.65rem;
+            }
+            
+            .form-control-modern {
+              padding: 8px 10px;
+              font-size: 0.75rem;
+            }
+            
+            .form-label-modern {
+              font-size: 0.65rem;
+            }
+            
+            .save-button,
+            .cancel-button {
+              padding: 10px 16px;
+              font-size: 0.8rem;
+            }
+            
+            .empty-state {
+              padding: 16px 8px;
+            }
+            
+            .empty-state-icon {
+              font-size: 22px;
+            }
+            
+            .empty-state-text {
+              font-size: 0.7rem;
+            }
+          }
+          
+          /* Very small devices */
+          @media (max-width: 360px) {
+            .profile-container {
+              padding: 63px 0 20px 0;
+            }
+            
+            .profile-wrapper {
+              padding: 0 6px !important;
+            }
+            
+            .profile-hero {
+              padding: 10px 10px;
+              border-radius: 8px;
+            }
+            
+            .profile-hero::before {
+              width: 80px;
+              height: 80px;
+            }
+            
+            .profile-avatar-large {
+              width: 40px;
+              height: 40px;
+              font-size: 16px;
+              margin-right: 8px;
+              border-radius: 9px;
+            }
+            
+            .profile-name {
+              font-size: 0.85rem;
+              line-height: 1.2;
+            }
+            
+            .profile-email {
+              font-size: 0.68rem;
+              line-height: 1.2;
+            }
+            
+            .edit-profile-btn {
+              padding: 7px 13px;
+              font-size: 0.7rem;
+              border-radius: 7px;
+            }
+            
+            .stat-card {
+              padding: 8px 6px;
+            }
+            
+            .stat-icon {
+              font-size: 16px;
+              margin-bottom: 4px;
+            }
+            
+            .stat-label {
+              font-size: 0.5rem;
+            }
+            
+            .stat-value {
+              font-size: 0.95rem;
+            }
+            
+            .stat-value.dark {
+              font-size: 0.75rem;
+            }
+            
+            .section-card {
+              padding: 10px;
+            }
+            
+            .section-title {
+              font-size: 0.8rem;
+            }
+            
+            .section-icon {
+              font-size: 15px;
+            }
+            
+            .info-label,
+            .academic-label {
+              font-size: 0.6rem;
+            }
+            
+            .info-value,
+            .academic-value {
+              font-size: 0.75rem;
+            }
+            
+            .skill-tag,
+            .interest-tag {
+              padding: 4px 8px;
+              font-size: 0.6rem;
             }
           }
         `
