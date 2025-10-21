@@ -195,6 +195,41 @@ const SignUp = () => {
             color: #495057 !important;
             box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25) !important;
           }
+          
+          /* Mobile optimizations */
+          @media (max-width: 768px) {
+            .signup-header-title {
+              font-size: 1.5rem !important;
+            }
+            .signup-header-subtitle {
+              font-size: 0.875rem !important;
+            }
+            .signup-card-body {
+              padding: 2rem 1.5rem !important;
+            }
+            .signup-form-label {
+              font-size: 0.875rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            .signup-form-control {
+              padding: 0.625rem 0.75rem !important;
+              font-size: 0.875rem !important;
+            }
+            .signup-btn {
+              padding: 0.625rem 1rem !important;
+              font-size: 0.875rem !important;
+            }
+            .signup-google-btn {
+              padding: 0.625rem 1rem !important;
+              font-size: 0.875rem !important;
+            }
+            .signup-divider {
+              margin: 0.75rem 0 !important;
+            }
+            .signup-signin-text {
+              font-size: 0.8125rem !important;
+            }
+          }
         `}
       </style>
       <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ backgroundColor: '#f8f9fa' }}>
@@ -202,13 +237,13 @@ const SignUp = () => {
         <div className="row justify-content-center">
           <div className="col-md-5 col-lg-4">
             <div className="card shadow-sm border-0 rounded-3">
-              <div className="card-body p-5">
+              <div className="card-body p-5 signup-card-body">
                 {/* Header */}
                 <div className="text-center mb-4">
-                  <h2 className="fw-bold mb-3" style={{ fontSize: '1.75rem', color: '#212529' }}>
+                  <h2 className="fw-bold mb-3 signup-header-title" style={{ fontSize: '1.75rem', color: '#212529' }}>
                     Create account
                   </h2>
-                  <p className="text-muted mb-0">
+                  <p className="text-muted mb-0 signup-header-subtitle">
                     Get started with your learning journey
                   </p>
                 </div>
@@ -217,7 +252,7 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                   {/* Full Name Field */}
                   <div className="mb-3">
-                    <label htmlFor="name" className="form-label fw-medium text-dark">
+                    <label htmlFor="name" className="form-label fw-medium text-dark signup-form-label">
                       Full name
                     </label>
                     <input
@@ -226,7 +261,7 @@ const SignUp = () => {
                       type="text"
                       autoComplete="name"
                       required
-                      className="form-control py-3"
+                      className="form-control py-3 signup-form-control"
                       placeholder="Enter your full name"
                       value={formData.name}
                       onChange={handleChange}
@@ -240,7 +275,7 @@ const SignUp = () => {
 
                   {/* Email Address Field */}
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label fw-medium text-dark">
+                    <label htmlFor="email" className="form-label fw-medium text-dark signup-form-label">
                       Email address
                     </label>
                     <input
@@ -249,7 +284,7 @@ const SignUp = () => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="form-control py-3"
+                      className="form-control py-3 signup-form-control"
                       placeholder="Enter your email"
                       value={formData.email}
                       onChange={handleChange}
@@ -263,7 +298,7 @@ const SignUp = () => {
 
                   {/* Password Field */}
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label fw-medium text-dark">
+                    <label htmlFor="password" className="form-label fw-medium text-dark signup-form-label">
                       Password
                     </label>
                     <div className="position-relative">
@@ -273,7 +308,7 @@ const SignUp = () => {
                         type={showPassword ? 'text' : 'password'}
                         autoComplete="new-password"
                         required
-                        className="form-control py-3 pe-5"
+                        className="form-control py-3 pe-5 signup-form-control"
                         placeholder="Create a strong password"
                         value={formData.password}
                         onChange={handleChange}
@@ -296,7 +331,7 @@ const SignUp = () => {
 
                   {/* Confirm Password Field */}
                   <div className="mb-4">
-                    <label htmlFor="confirmPassword" className="form-label fw-medium text-dark">
+                    <label htmlFor="confirmPassword" className="form-label fw-medium text-dark signup-form-label">
                       Confirm password
                     </label>
                     <div className="position-relative">
@@ -306,7 +341,7 @@ const SignUp = () => {
                         type={showConfirmPassword ? 'text' : 'password'}
                         autoComplete="new-password"
                         required
-                        className="form-control py-3 pe-5"
+                        className="form-control py-3 pe-5 signup-form-control"
                         placeholder="Confirm your password"
                         value={formData.confirmPassword}
                         onChange={handleChange}
@@ -331,7 +366,7 @@ const SignUp = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn w-100 py-3 mb-3"
+                    className="btn w-100 py-3 mb-3 signup-btn"
                     style={{
                       backgroundColor: '#FF7700',
                       borderColor: '#FF7700',
@@ -351,7 +386,7 @@ const SignUp = () => {
                   </button>
 
                   {/* Divider */}
-                  <div className="text-center mb-3">
+                  <div className="text-center mb-3 signup-divider">
                     <small className="text-muted">Or continue with</small>
                   </div>
 
@@ -360,7 +395,7 @@ const SignUp = () => {
                     type="button"
                     onClick={handleGoogleSignIn}
                     disabled={loading}
-                    className="btn btn-outline-secondary google-btn w-100 py-3 mb-3 d-flex align-items-center justify-content-center"
+                    className="btn btn-outline-secondary google-btn w-100 py-3 mb-3 d-flex align-items-center justify-content-center signup-google-btn"
                     style={{
                       borderRadius: '8px',
                       borderColor: '#dee2e6',
@@ -390,7 +425,7 @@ const SignUp = () => {
                   </button>
 
                   {/* Sign In Link */}
-                  <p className="text-center small text-muted mb-0">
+                  <p className="text-center small text-muted mb-0 signup-signin-text">
                     Already have an account?{' '}
                     <Link
                       to="/login"

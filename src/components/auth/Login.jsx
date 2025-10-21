@@ -63,6 +63,45 @@ const Login = () => {
             color: #495057 !important;
             box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25) !important;
           }
+          
+          /* Mobile optimizations */
+          @media (max-width: 768px) {
+            .login-header-title {
+              font-size: 1.5rem !important;
+            }
+            .login-header-subtitle {
+              font-size: 0.875rem !important;
+            }
+            .login-card-body {
+              padding: 2rem 1.5rem !important;
+            }
+            .login-form-label {
+              font-size: 0.875rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            .login-form-control {
+              padding: 0.625rem 0.75rem !important;
+              font-size: 0.875rem !important;
+            }
+            .login-remember-label,
+            .login-forgot-link {
+              font-size: 0.8125rem !important;
+            }
+            .login-btn {
+              padding: 0.625rem 1rem !important;
+              font-size: 0.875rem !important;
+            }
+            .login-google-btn {
+              padding: 0.625rem 1rem !important;
+              font-size: 0.875rem !important;
+            }
+            .login-divider {
+              margin: 0.75rem 0 !important;
+            }
+            .login-signup-text {
+              font-size: 0.8125rem !important;
+            }
+          }
         `}
       </style>
       <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ backgroundColor: '#f8f9fa' }}>
@@ -70,13 +109,13 @@ const Login = () => {
         <div className="row justify-content-center">
           <div className="col-md-5 col-lg-4">
             <div className="card shadow-sm border-0 rounded-3">
-              <div className="card-body p-5">
+              <div className="card-body p-5 login-card-body">
                 {/* Header */}
                 <div className="text-center mb-4">
-                  <h2 className="fw-bold mb-3" style={{ fontSize: '1.75rem', color: '#212529' }}>
+                  <h2 className="fw-bold mb-3 login-header-title" style={{ fontSize: '1.75rem', color: '#212529' }}>
                     Welcome back
                   </h2>
-                  <p className="text-muted mb-0">
+                  <p className="text-muted mb-0 login-header-subtitle">
                     Sign in to your account to continue
                   </p>
                 </div>
@@ -85,7 +124,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                   {/* Email Field */}
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label fw-medium text-dark">
+                    <label htmlFor="email" className="form-label fw-medium text-dark login-form-label">
                       Email address
                     </label>
                     <input
@@ -94,7 +133,7 @@ const Login = () => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="form-control py-3"
+                      className="form-control py-3 login-form-control"
                       placeholder="Enter your email"
                       value={formData.email}
                       onChange={handleChange}
@@ -108,7 +147,7 @@ const Login = () => {
 
                   {/* Password Field */}
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label fw-medium text-dark">
+                    <label htmlFor="password" className="form-label fw-medium text-dark login-form-label">
                       Password
                     </label>
                     <div className="position-relative">
@@ -118,7 +157,7 @@ const Login = () => {
                         type={showPassword ? 'text' : 'password'}
                         autoComplete="current-password"
                         required
-                        className="form-control py-3 pe-5"
+                        className="form-control py-3 pe-5 login-form-control"
                         placeholder="Enter your password"
                         value={formData.password}
                         onChange={handleChange}
@@ -159,13 +198,13 @@ const Login = () => {
                           border: '1px solid #d1d5db'
                         }}
                       />
-                      <label className="form-check-label text-muted" htmlFor="rememberMe">
+                      <label className="form-check-label text-muted login-remember-label" htmlFor="rememberMe">
                         Remember me
                       </label>
                     </div>
                     <Link
                       to="/forgot-password"
-                      className="text-decoration-none"
+                      className="text-decoration-none login-forgot-link"
                       style={{ 
                         color: '#3b82f6',
                         fontSize: '0.875rem'
@@ -179,7 +218,7 @@ const Login = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn w-100 py-3 mb-3 fw-medium"
+                    className="btn w-100 py-3 mb-3 fw-medium login-btn"
                     style={{
                       backgroundColor: '#FF7700',
                       borderColor: '#FF7700',
@@ -199,7 +238,7 @@ const Login = () => {
                   </button>
 
                   {/* Divider */}
-                  <div className="text-center mb-3">
+                  <div className="text-center mb-3 login-divider">
                     <small className="text-muted">Or</small>
                   </div>
 
@@ -208,7 +247,7 @@ const Login = () => {
                     type="button"
                     onClick={handleGoogleSignIn}
                     disabled={loading}
-                    className="btn btn-outline-secondary google-btn w-100 py-3 mb-4 d-flex align-items-center justify-content-center"
+                    className="btn btn-outline-secondary google-btn w-100 py-3 mb-4 d-flex align-items-center justify-content-center login-google-btn"
                     style={{
                       borderColor: '#e9ecef',
                       borderRadius: '8px',
@@ -239,7 +278,7 @@ const Login = () => {
                   </button>
 
                   {/* Sign Up Link */}
-                  <p className="text-center text-muted mb-0" style={{ fontSize: '0.875rem' }}>
+                  <p className="text-center text-muted mb-0 login-signup-text" style={{ fontSize: '0.875rem' }}>
                     Don't have an account?{' '}
                     <Link
                       to="/signup"
