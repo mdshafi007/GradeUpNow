@@ -54,29 +54,27 @@ const TutorialViewer = () => {
     const loadTutorialData = async () => {
       try {
         setLoading(true);
-        let fileName = '';
+        let tutorialContent = null;
         
         switch(courseId) {
           case 'c-programming':
-            fileName = 'c-tutorial-content.json';
+            tutorialContent = await import('../../data/c-tutorial-content.json');
             break;
           case 'cpp-programming':
           case 'c++-programming':
-            fileName = 'c++-tutorial-content.json';
+            tutorialContent = await import('../../data/c++-tutorial-content.json');
             break;
           case 'java-programming':
-            fileName = 'java-tutorial-content.json';
+            tutorialContent = await import('../../data/java-tutorial-content.json');
             break;
           case 'python-programming':
-            fileName = 'python-tutorial-content.json';
+            tutorialContent = await import('../../data/python-tutorial-content.json');
             break;
           default:
-            fileName = 'c-tutorial-content.json';
+            tutorialContent = await import('../../data/c-tutorial-content.json');
         }
 
-        const response = await fetch(`/src/data/${fileName}`);
-        const data = await response.json();
-        setTutorialData(data);
+        setTutorialData(tutorialContent.default || tutorialContent);
         setLoading(false);
       } catch (error) {
         console.error('Error loading tutorial data:', error);
