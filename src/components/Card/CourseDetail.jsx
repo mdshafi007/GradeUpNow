@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import usePageTitle from '../../hooks/usePageTitle';
 import './CourseDetail.css';
@@ -7,6 +7,11 @@ const CourseDetail = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [courseId]);
   
   // Dynamic title based on course ID
   const getCourseTitle = () => {

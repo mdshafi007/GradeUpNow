@@ -143,98 +143,150 @@
 
 /* Mobile Responsive Styles */
 @media (max-width: 640px) {
+  .course-detail-container {
+    padding-top: 4.5rem;
+    padding-bottom: 1rem;
+  }
+
   .course-detail-content {
-    padding: 0 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .back-button {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0;
   }
 
   .course-header {
-    padding: 1.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
   }
 
   .course-header-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.75rem;
+    flex-direction: row;
+    text-align: left;
+    gap: 0.875rem;
   }
 
   .course-icon {
-    width: 80px;
-    height: 80px;
-    font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    border-radius: 10px;
   }
 
   .course-title {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
   }
 
   .course-description {
-    font-size: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
 
   .navigation-options {
-    padding: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 12px;
   }
 
   .navigation-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 
   .navigation-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.875rem;
   }
 
   .navigation-card {
-    padding: 1.5rem 1rem;
-    gap: 0.75rem;
-    min-height: 140px;
+    padding: 1.25rem 1rem;
+    gap: 0.625rem;
+    min-height: auto;
+    border-radius: 10px;
   }
 
   .navigation-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-bottom: 0;
   }
 
   .navigation-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-bottom: 0;
   }
 
   .navigation-description {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
+  .course-detail-container {
+    padding-top: 4rem;
+  }
+
   .course-detail-content {
-    padding: 0 0.5rem;
+    padding: 0 0.875rem;
+  }
+
+  .back-button {
+    font-size: 0.75rem;
+    margin-bottom: 0.875rem;
   }
 
   .course-header {
-    padding: 1rem;
+    padding: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .course-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.375rem;
   }
 
   .course-title {
-    font-size: 1.5rem;
+    font-size: 1.125rem;
+  }
+
+  .course-description {
+    font-size: 0.75rem;
   }
 
   .navigation-options {
     padding: 1rem;
   }
 
+  .navigation-title {
+    font-size: 1rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .navigation-grid {
+    gap: 0.75rem;
+  }
+
   .navigation-card {
-    padding: 1.25rem 0.75rem;
-    min-height: 120px;
+    padding: 1.125rem 0.875rem;
+    gap: 0.5rem;
   }
 
   .navigation-icon {
-    font-size: 2rem;
+    font-size: 1.875rem;
   }
 
   .navigation-label {
-    font-size: 1rem;
+    font-size: 0.9375rem;
   }
 
   .navigation-description {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.25;
   }
 }

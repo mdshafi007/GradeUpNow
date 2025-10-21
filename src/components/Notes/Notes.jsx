@@ -606,19 +606,6 @@ const Notes = () => {
               )}
             </div>
 
-            {/* Editor Footer */}
-            <div className="editor-footer">
-              <div className="note-meta">
-                {selectedNote && (
-                  <>
-                    <span>Created: {new Date(selectedNote.created_at).toLocaleDateString()}</span>
-                    <span>Updated: {new Date(selectedNote.updated_at).toLocaleDateString()}</span>
-                  </>
-                )}
-              </div>
-              {/* Primary action moved to header to avoid layout issues */}
-              <div className="editor-save"></div>
-            </div>
           </div>
         ) : (
           <div className="notes-list">
@@ -646,10 +633,6 @@ const Notes = () => {
                    selectedCategory ? 'This category is empty' : 
                    'Start by creating your first note'}
                 </p>
-                <button className="btn-create-first" onClick={handleNewNote}>
-                  <Plus size={16} />
-                  Create Note
-                </button>
               </div>
             ) : (
               <div className="notes-grid">
@@ -692,6 +675,47 @@ const Notes = () => {
           </div>
         )}
       </div>
+
+      {/* Mobile Category Modal */}
+      {isCreatingCategory && (
+        <div 
+          className="category-modal-backdrop"
+          onClick={(e) => {
+            if (e.target.className === 'category-modal-backdrop') {
+              setIsCreatingCategory(false);
+              setCategoryForm({ name: '', color: '#FF7700', icon: 'folder', description: '' });
+            }
+          }}
+        >
+          <div className="create-category-form">
+            <input
+              type="text"
+              placeholder="Category name"
+              value={categoryForm.name}
+              onChange={(e) => setCategoryForm(prev => ({ ...prev, name: e.target.value }))}
+              className="category-input"
+              autoFocus
+            />
+            <div className="category-actions">
+              <button 
+                className="btn-save"
+                onClick={handleCreateCategory}
+              >
+                <Save size={14} />
+              </button>
+              <button 
+                className="btn-cancel"
+                onClick={() => {
+                  setIsCreatingCategory(false);
+                  setCategoryForm({ name: '', color: '#FF7700', icon: 'folder', description: '' });
+                }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
