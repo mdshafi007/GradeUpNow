@@ -685,202 +685,457 @@
   .notes-container {
     flex-direction: column;
     height: 100vh;
-    padding-top: 0; /* remove residual gap below navbar */
+    padding-top: 0;
   }
   
+  /* COMPACT MOBILE SIDEBAR - Minimal vertical space */
   .notes-sidebar {
     width: 100%;
     height: auto;
-    max-height: 50vh;
+    max-height: none; /* Allow natural height */
     border-right: none;
     border-bottom: 1px solid #e8eaed;
     position: sticky;
-    top: 0; /* align directly under navbar */
+    top: 0;
     background: #fff;
-    z-index: 2;
+    z-index: 10;
     margin-top: 0;
+    padding-bottom: 8px;
+  }
+  
+  /* Compact search - smaller, cleaner */
+  .search-container {
+    margin: 10px 16px 8px;
+  }
+  
+  .search-input {
+    padding: 10px 10px 10px 36px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: #f8f9fa;
+  }
+  
+  .search-icon {
+    left: 12px;
+  }
+  
+  /* HORIZONTAL SCROLLABLE FILTERS + CATEGORIES */
+  /* Hide "Favorites" and "Pinned" text labels, show only icons */
+  .quick-filters {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    margin: 0 16px 8px;
+    flex-wrap: nowrap;
+  }
+  
+  .quick-filters::-webkit-scrollbar { display: none; }
+  
+  .filter-btn {
+    flex: 0 0 auto;
+    min-width: auto;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    white-space: nowrap;
+    gap: 6px;
+  }
+  
+  /* Categories Section - Horizontal scroll, chip style */
+  .categories-section {
+    padding: 0 16px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .categories-section::-webkit-scrollbar { display: none; }
+  
+  .categories-section .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  
+  .categories-section .section-header h3 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Horizontal category chips container */
+  .categories-section > button,
+  .categories-section > .create-category-form {
+    display: inline-flex !important;
+  }
+  
+  /* Create a wrapper for horizontal scroll */
+  .categories-section {
+    display: block;
+    white-space: nowrap;
+  }
+  
+  .category-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 20px;
+    padding: 8px 12px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    width: auto;
+    font-size: 13px;
+    vertical-align: top;
+  }
+  
+  .category-item svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .category-item .note-count {
+    background: #f1f3f4;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 11px;
+    min-width: 18px;
+  }
+  
+  .category-item.active {
+    background: #FF7700;
+    border-color: #FF7700;
+    color: #fff;
+  }
+  
+  .category-item.active .note-count {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+  
+  /* Main content - maximum space for reading/writing */
+  .notes-main {
+    flex: 1;
+    padding-top: 0;
+    overflow-y: auto;
   }
   
   .notes-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
-  /* Chip-style quick filters */
-  .quick-filters {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-    gap: 8px;
-  }
-  .quick-filters::-webkit-scrollbar { display: none; }
-  .filter-btn {
-    flex: 0 0 auto;
-    border-radius: 999px;
-    padding: 10px 14px;
-  }
   
   .notes-list {
     padding: 16px;
-    padding-bottom: 24px; /* extra space for comfortable scroll */
-  }
-  .notes-main {
-    padding-top: 0; /* prevent extra top space */
+    padding-bottom: 32px;
   }
 
-  /* Sticky list header for better context while scrolling */
+  /* Sticky list header */
   .list-header {
     position: sticky;
-    top: 0; /* stick to top of viewport */
+    top: 0;
     z-index: 1;
     background: #fafafa;
-    padding-top: 8px;
+    padding: 12px 0;
+    margin-bottom: 16px;
   }
   
+  .list-header h2 {
+    font-size: 20px;
+  }
+  
+  .notes-count {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  
+  /* Note cards - optimized for readability */
+  .note-card {
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+  }
+  
+  .note-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  
+  .note-preview {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5f6368;
+  }
+  
+  /* Note Editor - Clean and spacious */
   .note-editor {
-    margin: 16px;
-    border-radius: 10px;
+    margin: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   }
   
   .editor-header {
     padding: 16px;
-    gap: 12px;
+    gap: 10px;
     position: sticky;
-    top: 0; /* stick to very top on mobile */
+    top: 0;
     background: #fff;
-    z-index: 1;
+    z-index: 2;
+    border-bottom: 1px solid #e8eaed;
   }
   
+  .editor-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  
+  .primary-save-btn {
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .title-input,
+  .editor-title h1 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  /* Content area - optimized for study and writing */
   .editor-content {
-    padding: 16px;
-    min-height: 40vh; /* ensure comfortable editing space */
+    padding: 20px 16px;
+    min-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  .content-textarea,
+  .note-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #202124;
   }
   
   .editor-footer {
     padding: 12px 16px;
     gap: 8px;
+    border-top: 1px solid #e8eaed;
   }
-
-  /* Improve tap targets and typography on small screens */
-  .action-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 22px;
-  }
-  .primary-save-btn {
-    padding: 10px 18px;
-    border-radius: 20px;
-    font-size: 14px;
-  }
-  .title-input,
-  .editor-title h1 {
-    font-size: 20px;
-  }
-  .content-textarea,
-  .note-content {
-    font-size: 15px;
-    line-height: 1.7;
-  }
-  .note-card {
-    padding: 16px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  }
-  .note-title {
-    font-size: 15px;
-  }
-  .note-preview {
-    font-size: 13.5px;
-  }
-  .search-input {
-    padding: 12px 12px 12px 40px; /* keep icon spacing */
-    font-size: 14px;
-  }
-
-  /* Categories as horizontal chips */
-  .categories-section {
-    padding-bottom: 12px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    background: #fff;
-  }
-  .categories-section::-webkit-scrollbar { display: none; }
-  .categories-section .section-header {
-    position: sticky;
-    left: 0;
-    background: #fff;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    z-index: 1;
-  }
-  .categories-section .category-item {
-    display: inline-flex;
-    align-items: center;
+  
+  .note-meta {
+    flex-wrap: wrap;
     gap: 8px;
-    border: 1px solid #e8eaed;
-    background: #fff;
-    border-radius: 999px;
-    padding: 8px 12px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    width: auto;
+    font-size: 12px;
   }
-  .categories-section .category-item.active {
-    background: rgba(255,119,0,0.1);
-    border-color: #FF7700;
-    color: #FF7700;
+  
+  /* Empty state */
+  .empty-state {
+    padding: 40px 20px;
+    height: auto;
+  }
+  
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .empty-state h3 {
+    font-size: 18px;
+  }
+  
+  .empty-state p {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .sidebar-header {
-    padding: 16px;
-  }
-  
+  /* Extra compact for small phones */
   .search-container {
-    margin: 12px 16px;
+    margin: 8px 12px 6px;
   }
   
-  .categories-section {
-    padding: 0 16px;
+  .search-input {
+    padding: 8px 8px 8px 32px;
+    font-size: 13px;
+  }
+  
+  .search-icon {
+    left: 10px;
+    width: 14px;
+    height: 14px;
   }
   
   .quick-filters {
-    margin: 0 16px 16px;
+    margin: 0 12px 6px;
+    gap: 6px;
   }
   
   .filter-btn {
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 7px 12px;
   }
-
-  /* Better stacking for header area within editor */
-  .editor-header {
-    flex-direction: column;
-    align-items: stretch;
+  
+  .categories-section {
+    padding: 0 12px 4px;
   }
-  .editor-actions {
-    justify-content: flex-end;
+  
+  .categories-section .section-header h3 {
+    font-size: 10px;
   }
-  .note-meta {
-    flex-wrap: wrap;
+  
+  .category-item {
+    font-size: 12px;
+    padding: 7px 10px;
+    gap: 5px;
+  }
+  
+  .category-item svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .category-item .note-count {
+    font-size: 10px;
+    padding: 1px 5px;
+  }
+  
+  /* List area */
+  .notes-list {
+    padding: 12px;
+    padding-bottom: 28px;
+  }
+  
+  .list-header {
+    padding: 10px 0;
+    margin-bottom: 12px;
+  }
+  
+  .list-header h2 {
+    font-size: 18px;
+  }
+  
+  .notes-count {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .list-actions {
     gap: 8px;
   }
-  .notes-count {
-    font-size: 12px;
-    padding: 4px 10px;
+  
+  .btn-create-first {
+    padding: 8px 16px;
+    font-size: 13px;
   }
-  .list-header h2 {
-    font-size: 20px;
-  }
-
-  /* Tighter spacing for very small screens */
+  
+  /* Note cards */
   .note-card {
     padding: 14px;
     border-radius: 10px;
   }
+  
+  .note-title {
+    font-size: 15px;
+  }
+  
+  .note-preview {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .note-meta {
+    font-size: 11px;
+    gap: 6px;
+  }
+  
+  /* Editor */
+  .note-editor {
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .editor-header {
+    padding: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .editor-actions {
+    justify-content: flex-end;
+    gap: 6px;
+  }
+  
+  .action-btn {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .primary-save-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  
+  .title-input,
+  .editor-title h1 {
+    font-size: 18px;
+  }
+  
   .editor-content {
-    min-height: 36vh;
+    padding: 16px 14px;
+    min-height: 45vh;
+  }
+  
+  .content-textarea,
+  .note-content {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  
+  .editor-footer {
+    padding: 10px 14px;
+  }
+  
+  .note-meta {
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11px;
+  }
+  
+  /* Empty state */
+  .empty-state {
+    padding: 30px 16px;
+  }
+  
+  .empty-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .empty-state h3 {
+    font-size: 16px;
+  }
+  
+  .empty-state p {
+    font-size: 13px;
   }
 }
