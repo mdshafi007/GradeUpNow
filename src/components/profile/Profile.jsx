@@ -281,6 +281,12 @@ const Profile = () => {
             padding: 100px 0 60px 0;
           }
           
+          @media (max-width: 768px) {
+            .profile-container {
+              padding: 70px 0 40px 0;
+            }
+          }
+          
           .profile-wrapper {
             max-width: 1000px;
             margin: 0 auto;
@@ -1327,7 +1333,6 @@ const Profile = () => {
                     <div className="section-header">
                       <span className="section-icon">👤</span>
                       <h3 className="section-title">Basic Information</h3>
-                      {!isEditing && <span className="section-subtitle">Personal details</span>}
                     </div>
                     
                     {isEditing ? (
@@ -1378,7 +1383,6 @@ const Profile = () => {
                     <div className="section-header">
                       <span className="section-icon">🎓</span>
                       <h3 className="section-title">Academic Information</h3>
-                      {!isEditing && <span className="section-subtitle">Your academic details</span>}
                     </div>
                     
                     {isEditing ? (
