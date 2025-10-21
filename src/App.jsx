@@ -46,6 +46,7 @@ import TutorialViewer from "./components/Tutorial_N/TutorialViewer";
 import Practice from "./components/Practice/Practice";
 import PracticeTest from "./components/Practice/PracticeTest";
 import AccentureDetail from "./components/Practice/Companies/AccentureDetail";
+import TCSNQTDetail from "./components/Practice/Companies/TCSNQTDetail";
 
 const Home=()=>{
   usePageTitle("Home - Learn, Practice, Excel");
@@ -125,6 +126,7 @@ function App() {
               <Route path="/practice" element={<Practice />} />
               <Route path="/practice/:topicSlug/test" element={<PracticeTest />} />
               <Route path="/practice/company/accenture" element={<AccentureDetail />} />
+              <Route path="/practice/company/tcs-nqt" element={<TCSNQTDetail />} />
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/course/:courseId" element={<CourseDetail />} />
               

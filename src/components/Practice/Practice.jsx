@@ -100,6 +100,13 @@ const Practice = () => {
       description: "Global professional services company"
     },
     {
+      name: "TCS NQT",
+      logo: "https://images.seeklogo.com/logo-png/45/1/tcs-nqt-logo-png_seeklogo-456114.png",
+      color: "#0F1C3F",
+      description: "Ninja Qualifier Test for TCS recruitment",
+      link: "/practice/company/tcs-nqt"
+    },
+    {
       name: "Infosys",
       logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
       color: "#007CC3",

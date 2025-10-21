@@ -30,9 +30,9 @@ const AccentureDetail = () => {
       duration: "60 mins",
       topics: [
         { text: "3 questions solved using one of:" },
-        { label: "Backend", text: "(Java, Dotnet, Python, C++, C#)" },
+        { label: "Coding", text: "(Java, Python, C++)" },
         { label: "Database", text: "(SQL)" },
-        { label: "Frontend", text: "(HTML, CSS, React.Js, Vue.JS)" }
+        { label: "Frontend", text: "(HTML, CSS, JavaScript)" }
       ]
     },
     {

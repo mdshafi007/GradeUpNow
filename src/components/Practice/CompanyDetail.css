@@ -1,95 +1,115 @@
+/* Company Detail Container */
 .company-detail-container {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #fafafa;
   padding-bottom: 60px;
+  padding-top: 0;
 }
 
 /* Header */
 .company-detail-header {
   background: white;
-  border-bottom: 1px solid #e5e7eb;
   padding: 20px 40px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .back-button {
   background: none;
-  border: none;
-  font-size: 16px;
-  color: #6b7280;
-  cursor: pointer;
-  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
   border-radius: 6px;
+  font-size: 15px;
+  color: #374151;
+  cursor: pointer;
   transition: all 0.2s;
   font-weight: 500;
 }
 
 .back-button:hover {
-  background: #f3f4f6;
-  color: #1f2937;
+  background: #f9fafb;
+  border-color: #ff6b35;
+  color: #ff6b35;
 }
 
-/* Company Info Section */
-.company-info-section {
+/* Company Banner */
+.company-banner {
   background: white;
   padding: 48px 40px;
   text-align: center;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-.company-logo-wrapper {
-  margin-bottom: 32px;
-  display: flex;
-  justify-content: center;
-}
-
-.company-detail-logo {
-  height: 80px;
-  max-width: 280px;
+.company-banner-logo {
+  width: 160px;
+  height: auto;
+  margin-bottom: 24px;
   object-fit: contain;
 }
 
-.company-detail-title {
-  font-size: 36px;
+.company-title {
+  font-size: 32px;
   font-weight: 700;
-  color: #1f2937;
+  color: #1a1a1a;
   margin: 0;
   letter-spacing: -0.5px;
 }
 
-/* Assessment Rounds Section */
-.assessment-rounds-section {
-  max-width: 1400px;
-  margin: 48px auto;
-  padding: 0 40px;
+/* Content */
+.company-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px;
 }
 
-.rounds-table {
+/* Section */
+.assessment-section,
+.syllabus-section,
+.experiences-section {
   background: white;
   border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid #e5e5e5;
+}
+
+.section-heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #ff6b35;
+}
+
+.section-placeholder {
+  font-size: 16px;
+  color: #6b7280;
+  text-align: center;
+  padding: 40px 20px;
+  margin: 0;
+}
+
+/* Assessment Table */
+.assessment-table {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
 }
 
 .table-header {
   display: grid;
-  grid-template-columns: 120px 280px 140px 1fr;
+  grid-template-columns: 100px 240px 120px 1fr;
   background: #f9fafb;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.header-cell {
-  padding: 20px 24px;
+  border-bottom: 2px solid #e5e5e5;
+  font-weight: 600;
   font-size: 15px;
-  font-weight: 700;
-  color: #374151;
-  text-align: left;
+  color: #1a1a1a;
 }
 
 .table-row {
   display: grid;
-  grid-template-columns: 120px 280px 140px 1fr;
-  border-bottom: 1px solid #e5e7eb;
-  transition: background 0.2s;
+  grid-template-columns: 100px 240px 120px 1fr;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .table-row:last-child {
@@ -97,26 +117,31 @@
 }
 
 .table-row:hover {
-  background: #f9fafb;
+  background: #fafafa;
 }
 
 .table-cell {
-  padding: 24px;
-  font-size: 15px;
-  color: #4b5563;
+  padding: 16px;
+  font-size: 14px;
   line-height: 1.6;
+  color: #374151;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  border-right: 1px solid #e5e5e5;
+}
+
+.table-cell:last-child {
+  border-right: none;
 }
 
 .stage-cell {
   font-weight: 600;
-  color: #1f2937;
+  color: #1a1a1a;
 }
 
 .name-cell {
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 500;
+  color: #1a1a1a;
 }
 
 .duration-cell {
@@ -124,322 +149,280 @@
 }
 
 .topics-cell {
-  flex-direction: column;
-  gap: 12px;
+  display: block;
+  padding: 12px 16px;
 }
 
 .topic-item {
-  line-height: 1.6;
-}
-
-.topic-label {
-  font-weight: 600;
-  color: #1f2937;
-  margin-right: 6px;
-}
-
-.topic-description {
-  color: #4b5563;
-}
-
-/* Student Experiences Section */
-.experiences-section {
-  max-width: 1400px;
-  margin: 48px auto 0;
-  padding: 0 40px;
-}
-
-.experiences-heading {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0 0 24px 0;
-  letter-spacing: -0.3px;
-}
-
-.experience-card {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  overflow: hidden;
-}
-
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 32px;
-  background: #f9fafb;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.experience-meta {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.experience-company {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.experience-date {
-  font-size: 14px;
-  color: #6b7280;
-  padding: 4px 12px;
-  background: white;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-}
-
-.linkedin-link {
-  color: #0077b5;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
-  padding: 8px 16px;
-  border-radius: 6px;
-}
-
-.linkedin-link:hover {
-  background: #e7f3ff;
-  color: #005885;
-}
-
-.experience-content {
-  padding: 32px;
-}
-
-.experience-intro {
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.experience-intro p {
-  font-size: 15px;
-  line-height: 1.7;
-  color: #4b5563;
-  margin: 0 0 12px 0;
-}
-
-.experience-intro p:last-child {
-  margin-bottom: 0;
-}
-
-.experience-intro strong {
-  color: #1f2937;
-  font-weight: 600;
-}
-
-.experience-round {
-  margin-bottom: 32px;
-}
-
-.experience-round:last-child {
-  margin-bottom: 0;
-}
-
-.round-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0 0 16px 0;
-  letter-spacing: -0.2px;
-}
-
-.experience-round p {
-  font-size: 15px;
-  line-height: 1.7;
-  color: #4b5563;
-  margin: 0 0 12px 0;
-}
-
-.experience-round ul {
-  margin: 12px 0;
-  padding-left: 24px;
-}
-
-.experience-round li {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #4b5563;
   margin-bottom: 8px;
+  line-height: 1.7;
 }
 
-.experience-round li strong {
-  color: #1f2937;
+.topic-item:last-child {
+  margin-bottom: 0;
+}
+
+.topic-item strong {
+  color: #1a1a1a;
   font-weight: 600;
 }
 
-.round-note {
-  font-style: italic;
-  color: #6b7280 !important;
-  background: #f9fafb;
-  padding: 12px 16px;
-  border-left: 3px solid #ff6b35;
-  border-radius: 4px;
-  margin-top: 16px !important;
-}
+/* Responsive */
+@media (max-width: 1024px) {
+  .company-detail-header,
+  .company-banner {
+    padding: 24px;
+  }
 
-.difficulty-note {
-  background: #f0fdf4;
-  border-left: 3px solid #22c55e;
-  padding: 12px 16px;
-  border-radius: 4px;
-  margin-top: 16px !important;
-}
+  .company-content {
+    padding: 32px 24px;
+  }
 
-.difficulty-note strong {
-  color: #15803d;
-}
+  .assessment-section,
+  .syllabus-section,
+  .experiences-section {
+    padding: 24px;
+  }
 
-
-/* Company Not Found */
-.company-not-found {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.company-not-found h2 {
-  font-size: 32px;
-  color: #1f2937;
-  margin: 0 0 24px 0;
-}
-
-.back-btn {
-  background: #ff6b35;
-  color: white;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.back-btn:hover {
-  background: #e55a2b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
   .table-header,
   .table-row {
-    grid-template-columns: 100px 220px 120px 1fr;
+    grid-template-columns: 80px 200px 100px 1fr;
+    font-size: 13px;
   }
 
-  .header-cell,
   .table-cell {
-    padding: 16px 20px;
-    font-size: 14px;
+    padding: 12px;
+  }
+
+  .company-title {
+    font-size: 26px;
+  }
+
+  .section-heading {
+    font-size: 20px;
   }
 }
 
-@media (max-width: 968px) {
+@media (max-width: 768px) {
+  .company-detail-container {
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+
   .company-detail-header {
     padding: 16px 20px;
   }
 
-  .company-info-section {
-    padding: 40px 20px;
+  .back-button {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 
-  .company-detail-title {
-    font-size: 28px;
+  .company-banner {
+    padding: 32px 20px;
   }
 
-  .company-detail-logo {
-    height: 60px;
+  .company-banner-logo {
+    width: 100px;
+    margin-bottom: 16px;
   }
 
-  .assessment-rounds-section,
+  .company-title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .company-content {
+    padding: 20px 16px;
+  }
+
+  .assessment-section,
+  .syllabus-section,
   .experiences-section {
-    padding: 0 20px;
-    margin: 32px auto;
+    padding: 20px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
   }
 
-  .rounds-table {
-    overflow-x: auto;
+  .section-heading {
+    font-size: 18px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
   }
 
-  .table-header,
-  .table-row {
-    display: flex;
-    flex-direction: column;
-    min-width: 100%;
+  /* Stack table vertically on mobile */
+  .assessment-table {
+    border: none;
   }
 
-  .header-cell {
+  .table-header {
     display: none;
   }
 
+  .table-row {
+    display: block;
+    margin-bottom: 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+  }
+
+  .table-row:last-child {
+    margin-bottom: 0;
+  }
+
   .table-cell {
-    padding: 12px 20px;
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 14px;
+    align-items: flex-start;
+  }
+
+  .table-cell:last-child {
+    border-bottom: none;
+  }
+
+  .stage-cell,
+  .name-cell,
+  .duration-cell {
+    background: white;
+  }
+
+  .stage-cell {
+    font-size: 13px;
   }
 
   .stage-cell::before {
-    content: "Stage: ";
-    font-weight: 700;
+    content: 'Stage: ';
+    font-weight: 400;
     color: #6b7280;
-    margin-right: 8px;
+    margin-right: 4px;
+  }
+
+  .name-cell {
+    font-size: 14px;
   }
 
   .name-cell::before {
-    content: "Assessment: ";
-    font-weight: 700;
+    content: 'Assessment: ';
+    font-weight: 400;
     color: #6b7280;
-    margin-right: 8px;
+    margin-right: 4px;
+  }
+
+  .duration-cell {
+    font-size: 13px;
   }
 
   .duration-cell::before {
-    content: "Duration: ";
-    font-weight: 700;
-    color: #6b7280;
-    margin-right: 8px;
+    content: 'Duration: ';
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-right: 4px;
+  }
+
+  .topics-cell {
+    padding: 14px;
+    background: white;
   }
 
   .topics-cell::before {
-    content: "Key Topics & Details: ";
-    font-weight: 700;
-    color: #6b7280;
+    content: 'Topics & Details:';
     display: block;
-    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .topic-item {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+/* Small Mobile Optimization */
+@media (max-width: 480px) {
+  .company-detail-container {
+    padding-top: 0;
+  }
+
+  .company-detail-header {
+    padding: 12px 16px;
+  }
+
+  .back-button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .company-banner {
+    padding: 24px 16px;
+  }
+
+  .company-banner-logo {
+    width: 85px;
+    margin-bottom: 14px;
+  }
+
+  .company-title {
+    font-size: 18px;
+  }
+
+  .company-content {
+    padding: 16px 12px;
+  }
+
+  .assessment-section,
+  .syllabus-section,
+  .experiences-section {
+    padding: 16px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  .section-heading {
+    font-size: 17px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
   }
 
   .table-row {
-    border-bottom: 3px solid #e5e7eb;
-    padding: 16px 0;
+    margin-bottom: 12px;
+    border-radius: 6px;
   }
 
-  .experiences-heading {
-    font-size: 24px;
+  .table-cell {
+    padding: 10px 12px;
+    font-size: 13px;
   }
 
-  .experience-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-    padding: 20px;
+  .stage-cell,
+  .name-cell,
+  .duration-cell {
+    font-size: 12px;
   }
 
-  .experience-meta {
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
+  .name-cell {
+    font-size: 13px;
   }
 
-  .experience-content {
-    padding: 24px 20px;
+  .topics-cell {
+    padding: 12px;
   }
 
-  .round-title {
-    font-size: 18px;
+  .topics-cell::before {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .topic-item {
+    font-size: 12px;
+    margin-bottom: 8px;
   }
 }
