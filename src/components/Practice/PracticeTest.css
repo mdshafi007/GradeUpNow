@@ -404,57 +404,345 @@
   background: #E85D00;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
   .practice-test-container {
-    padding: 80px 16px 40px;
+    padding: 90px 24px 50px;
   }
 
-  .practice-test-header {
+  .test-title-section,
+  .results-summary,
+  .questions-container,
+  .submit-container {
+    max-width: 100%;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .practice-test-container {
+    padding: 20px 16px 40px;
+  }
+
+  .test-title-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+
+  .back-button {
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-bottom: 14px;
+  }
+
+  .title-row {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
   }
 
   .test-title {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .test-subtitle {
+    font-size: 13px;
+  }
+
+  .topic-note {
+    font-size: 11px;
+    text-align: left;
+  }
+
+  .score-badge {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+
+  /* Results Summary */
+  .results-summary {
+    margin-bottom: 24px;
   }
 
   .results-card {
-    padding: 30px 20px;
-  }
-
-  .score-display {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    padding: 20px 16px;
   }
 
-  .score-circle {
-    width: 120px;
-    height: 120px;
+  .result-text {
+    font-size: 15px;
   }
 
-  .score-number {
-    font-size: 36px;
+  .result-text strong {
+    font-size: 17px;
   }
 
-  .score-percentage {
-    font-size: 48px;
+  .retry-btn {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  /* Questions */
+  .questions-container {
+    gap: 18px;
   }
 
   .question-card {
-    padding: 20px;
+    padding: 18px 16px;
+    border-radius: 6px;
+  }
+
+  .question-header {
+    margin-bottom: 10px;
+  }
+
+  .question-number {
+    font-size: 13px;
+  }
+
+  .result-badge {
+    padding: 5px 12px;
+    font-size: 12px;
   }
 
   .question-text {
-    font-size: 16px;
+    font-size: 15px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .options-list {
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .option-label {
-    padding: 12px;
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .option-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .option-letter {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
   }
 
   .option-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .correct-icon,
+  .wrong-icon {
+    font-size: 20px;
+  }
+
+  .show-answer-btn {
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+
+  .explanation-box {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  .explanation-box strong {
+    font-size: 13px;
+  }
+
+  /* Submit */
+  .submit-container {
+    margin-top: 24px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 13px 30px;
+    font-size: 15px;
+  }
+
+  /* Loading & Empty */
+  .practice-test-loading,
+  .practice-test-empty {
+    min-height: 70vh;
+    padding: 30px 16px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+    margin-bottom: 16px;
+  }
+
+  .practice-test-empty h2 {
+    font-size: 22px;
+  }
+
+  .practice-test-empty p {
+    font-size: 15px;
+  }
+
+  .back-btn {
+    padding: 11px 22px;
+    font-size: 15px;
+  }
+}
+
+/* Small Mobile Optimization */
+@media (max-width: 480px) {
+  .practice-test-container {
+    padding: 16px 12px 32px;
+  }
+
+  .test-title-section {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+  }
+
+  .back-button {
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-bottom: 12px;
+  }
+
+  .test-title {
+    font-size: 18px;
+  }
+
+  .test-subtitle {
+    font-size: 12px;
+  }
+
+  .topic-note {
+    font-size: 10px;
+  }
+
+  .score-badge {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .results-card {
+    padding: 16px 14px;
+  }
+
+  .result-text {
+    font-size: 14px;
+  }
+
+  .result-text strong {
+    font-size: 16px;
+  }
+
+  .retry-btn {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+
+  .questions-container {
+    gap: 16px;
+  }
+
+  .question-card {
+    padding: 16px 14px;
+  }
+
+  .question-number {
+    font-size: 12px;
+  }
+
+  .result-badge {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .question-text {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .options-list {
+    gap: 8px;
+  }
+
+  .option-label {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+
+  .option-label input[type="radio"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .option-letter {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .option-text {
+    font-size: 13px;
+  }
+
+  .correct-icon,
+  .wrong-icon {
+    font-size: 18px;
+  }
+
+  .show-answer-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .explanation-box {
+    font-size: 12px;
+  }
+
+  .explanation-box strong {
+    font-size: 12px;
+  }
+
+  .submit-container {
+    margin-top: 20px;
+  }
+
+  .submit-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .practice-test-loading,
+  .practice-test-empty {
+    min-height: 60vh;
+    padding: 24px 12px;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border-width: 2.5px;
+  }
+
+  .practice-test-empty h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .practice-test-empty p {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .back-btn {
+    padding: 10px 20px;
     font-size: 14px;
   }
 }
