@@ -5,6 +5,7 @@
   background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f0f9ff 100%);
   min-height: 100vh;
   padding-top: 80px; /* Account for fixed navbar */
+  padding-bottom: 60px;
 }
 
 /* Hero Section */
@@ -12,6 +13,7 @@
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   padding: 60px 0 80px 0;
   border-bottom: 1px solid #e2e8f0;
+  margin-top: 0;
 }
 
 .coursepage_hero_content {
@@ -180,11 +182,13 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .coursepage_container {
-    padding-top: 50px;
+    padding-top: 0;
+    padding-bottom: 40px;
   }
   
   .coursepage_hero {
-    padding: 0px 0 30px 0;
+    padding: 32px 16px 40px;
+    margin-top: 0;
   }
   
   .coursepage_hero_content {

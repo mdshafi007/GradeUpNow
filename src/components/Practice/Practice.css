@@ -217,19 +217,22 @@
   }
 
   .practice-tabs-container {
-    padding: 12px 16px 0;
+    padding: 16px 12px 0;
     top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
   }
 
   .practice-tabs {
-    gap: 8px;
+    gap: 10px;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    padding-bottom: 12px;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    justify-content: flex-start;
   }
 
   .practice-tabs::-webkit-scrollbar {
@@ -237,14 +240,26 @@
   }
 
   .practice-tab {
-    padding: 12px 20px;
-    font-size: 14px;
+    padding: 10px 18px;
+    font-size: 13px;
     white-space: nowrap;
     flex-shrink: 0;
+    border-radius: 20px;
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    font-weight: 600;
+    min-width: auto;
+  }
+  
+  .practice-tab-active {
+    background: linear-gradient(135deg, #FF7700 0%, #FF8C1A 100%);
+    color: #ffffff;
+    border: 1px solid #FF7700;
+    box-shadow: 0 2px 8px rgba(255, 119, 0, 0.25);
   }
 
   .practice-tab-icon {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .practice-section-title {
