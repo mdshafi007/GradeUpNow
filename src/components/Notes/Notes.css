@@ -151,7 +151,8 @@
   letter-spacing: 0.5px;
 }
 
-.btn-add-category {
+/* Desktop add category button (in header) */
+.section-header .btn-add-category {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,9 +166,14 @@
   transition: all 0.2s ease;
 }
 
-.btn-add-category:hover {
+.section-header .btn-add-category:hover {
   background: #f8f9fa;
   color: #FF7700;
+}
+
+/* Hide inline add button on desktop */
+.categories-section > .btn-add-category {
+  display: none;
 }
 
 .category-item {
@@ -235,7 +241,7 @@
 }
 
 .category-input:focus {
-  border-color: #1a73e8;
+  border-color: #FF7700;
 }
 
 .category-actions {
@@ -247,12 +253,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex: 1;
 }
 
 .btn-save {
@@ -271,6 +278,41 @@
 
 .btn-cancel:hover {
   background: #d33b2c;
+}
+
+/* Mobile modal overlay for create category */
+.category-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.category-modal-overlay.active {
+  display: flex;
+}
+
+.category-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-modal h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #202124;
 }
 
 /* =====================================================
@@ -745,45 +787,25 @@
   
   /* Categories Section - Horizontal scroll, chip style */
   .categories-section {
-    padding: 0 16px 4px;
+    padding: 0 16px 12px;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     background: #fff;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .categories-section::-webkit-scrollbar { display: none; }
-  
-  .categories-section .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    position: relative;
-  }
-  
-  .categories-section .section-header h3 {
-    font-size: 11px;
-    font-weight: 600;
-    color: #5f6368;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Horizontal category chips container */
-  .categories-section > button,
-  .categories-section > .create-category-form {
-    display: inline-flex !important;
-  }
-  
-  /* Create a wrapper for horizontal scroll */
-  .categories-section {
-    display: block;
     white-space: nowrap;
   }
   
+  .categories-section::-webkit-scrollbar { 
+    display: none; 
+  }
+  
+  /* Hide section header on mobile */
+  .categories-section .section-header {
+    display: none;
+  }
+  
+  /* Horizontal category chips */
   .category-item {
     display: inline-flex !important;
     align-items: center;
@@ -793,15 +815,21 @@
     border-radius: 20px;
     padding: 8px 12px;
     margin-right: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 0;
     width: auto;
     font-size: 13px;
-    vertical-align: top;
+    vertical-align: middle;
+    white-space: nowrap;
   }
   
   .category-item svg {
+    flex-shrink: 0;
     width: 14px;
     height: 14px;
+  }
+  
+  .category-item span:first-of-type {
+    flex: none;
   }
   
   .category-item .note-count {
@@ -810,6 +838,7 @@
     border-radius: 8px;
     font-size: 11px;
     min-width: 18px;
+    text-align: center;
   }
   
   .category-item.active {
@@ -821,6 +850,78 @@
   .category-item.active .note-count {
     background: rgba(255, 255, 255, 0.3);
     color: #fff;
+  }
+  
+  /* Show + button as inline chip on mobile */
+  .categories-section > .btn-add-category {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px dashed #FF7700;
+    background: #fff;
+    color: #FF7700;
+    border-radius: 16px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  
+  .categories-section > .btn-add-category:active {
+    background: rgba(255, 119, 0, 0.1);
+  }
+  
+  /* Show create category form as modal popup on mobile */
+  .create-category-form {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 1001 !important;
+    background: white !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    width: calc(100% - 40px) !important;
+    max-width: 400px !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  
+  /* Modal backdrop */
+  .create-category-form::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+  
+  .create-category-form .category-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .create-category-form .category-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .create-category-form .btn-save,
+  .create-category-form .btn-cancel {
+    flex: 1;
+    height: 44px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
   }
   
   /* Main content - maximum space for reading/writing */
@@ -995,11 +1096,13 @@
   }
   
   .categories-section {
-    padding: 0 12px 4px;
+    padding: 0 12px 10px;
   }
   
-  .categories-section .section-header h3 {
-    font-size: 10px;
+  .categories-section > .btn-add-category {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
   }
   
   .category-item {
@@ -1016,6 +1119,22 @@
   .category-item .note-count {
     font-size: 10px;
     padding: 1px 5px;
+  }
+  
+  .create-category-form {
+    width: calc(100% - 32px) !important;
+    padding: 18px !important;
+  }
+  
+  .create-category-form .category-input {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+  
+  .create-category-form .btn-save,
+  .create-category-form .btn-cancel {
+    height: 42px;
+    font-size: 14px;
   }
   
   /* List area */

@@ -445,6 +445,15 @@ const Notes = () => {
             </button>
           </div>
 
+          {/* Add Category Button (inline for mobile) */}
+          <button 
+            className="btn-add-category"
+            onClick={() => setIsCreatingCategory(true)}
+            title="Add category"
+          >
+            <Plus size={14} />
+          </button>
+
           {/* All Notes */}
           <button 
             className={`category-item ${!selectedCategory ? 'active' : ''}`}
