@@ -3,6 +3,7 @@ import Navbar from "./components/navbar/Navbar";
 import EnhancedCollegeDashboard from './components/College/EnhancedCollegeDashboard';
 import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Analytics } from "@vercel/analytics/react";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import SignUpUltraSimple from "./components/auth/SignUp_ULTRA_SIMPLE";
@@ -99,6 +100,7 @@ function App() {
         <Router>
             <div className="App">
               <ScrollToTop />
+              <Analytics />
               <ToastContainer
                 position="top-right"
                 autoClose={3000}
