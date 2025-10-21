@@ -688,9 +688,10 @@ const Notes = () => {
           }}
         >
           <div className="create-category-form">
+            <h3>Create New Category</h3>
             <input
               type="text"
-              placeholder="Category name"
+              placeholder="Enter category name"
               value={categoryForm.name}
               onChange={(e) => setCategoryForm(prev => ({ ...prev, name: e.target.value }))}
               className="category-input"
@@ -698,19 +699,21 @@ const Notes = () => {
             />
             <div className="category-actions">
               <button 
-                className="btn-save"
-                onClick={handleCreateCategory}
-              >
-                <Save size={14} />
-              </button>
-              <button 
                 className="btn-cancel"
                 onClick={() => {
                   setIsCreatingCategory(false);
                   setCategoryForm({ name: '', color: '#FF7700', icon: 'folder', description: '' });
                 }}
               >
-                <X size={14} />
+                <X size={16} />
+                Cancel
+              </button>
+              <button 
+                className="btn-save"
+                onClick={handleCreateCategory}
+              >
+                <Save size={16} />
+                Save
               </button>
             </div>
           </div>
