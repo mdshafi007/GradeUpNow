@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+backend/.env
+backend/.env.local
+
+# Firebase Admin SDK credentials - NEVER COMMIT THESE!
+backend/config/*-firebase-adminsdk-*.json
+backend/config/gradeupnow-*.json
+
+# Sensitive data files
+backend/reports/
+*.csv
+backend/vignandata.csv

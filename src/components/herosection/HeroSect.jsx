@@ -7,7 +7,7 @@ const HeroSect = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="hero-section">
+    <div className="hero-section landing-hero" style={{ paddingTop: "80px" }}>
       {/* Animated Background Elements */}
       <div className="hero-bg-elements">
         <div className="floating-shape shape-1"></div>
@@ -22,14 +22,13 @@ const HeroSect = () => {
             <div className="badge-container">
               <span className="tech-badge">
                 <span className="pulse"></span>
-                Revolutionary Learning Platform
+                AI-Powered Learning Platform
               </span>
             </div>
 
             <h1 className="hero-headline">
-              <span className="headline-main">Your Complete Guide to</span>
+              <span className="headline-main">Your Complete Guide to </span>
               <span className="gradient-text highlight-text">
-                {" "}
                 B.Tech Success!
               </span>
               <div className="headline-decorator"></div>
@@ -49,15 +48,7 @@ const HeroSect = () => {
                 onClick={() => navigate("/courses")}
               >
                 <span className="btn-text">Start Learning</span>
-                <span className="btn-icon">→</span>
-              </button>
-
-              <button
-                className="btn-explore"
-                onClick={() => navigate("/courses")}
-              >
-                Explore Courses
-                <span className="btn-hover-effect"></span>
+                
               </button>
             </div>
           </div>

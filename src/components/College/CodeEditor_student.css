@@ -1,0 +1,463 @@
+/* CodeEditor_student.css - Professional Code Editor Interface */
+.code-editor-container-student {
+  height: 100%;
+  background: #0d1117;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #21262d;
+}
+
+.editor-panel-student {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0d1117;
+  overflow: hidden;
+}
+
+.results-panel-student {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0d1117;
+  overflow-y: auto;
+}
+
+/* Editor Header */
+.editor-header-student {
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.language-selector-student {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.language-selector-student label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8b949e;
+}
+
+.language-dropdown-student {
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  padding: 8px 16px 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f0f6fc' d='M6 8L0 2h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  min-width: 120px;
+}
+
+.language-dropdown-student:hover {
+  border-color: #f97316;
+}
+
+.language-dropdown-student:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+.editor-actions-student {
+  display: flex;
+  gap: 12px;
+}
+
+.run-button-student {
+  background: #238636;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 110px;
+  justify-content: center;
+}
+
+.run-button-student:hover:not(:disabled) {
+  background: #2ea043;
+}
+
+.run-button-student:disabled {
+  background: #484f58;
+  color: #8b949e;
+  cursor: not-allowed;
+}
+
+.button-spinner-student {
+  width: 14px;
+  height: 14px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin-button-student 1s linear infinite;
+}
+
+@keyframes spin-button-student {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Code Editor Wrapper */
+.editor-wrapper-student {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: #0d1117;
+}
+
+.code-mirror-student {
+  height: 100% !important;
+}
+
+.code-mirror-student .cm-editor {
+  height: 100% !important;
+  background: #0d1117 !important;
+  border: none !important;
+}
+
+.code-mirror-student .cm-content {
+  padding: 16px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-family: Consolas, 'Courier New', monospace !important;
+  min-height: calc(100vh - 200px) !important;
+}
+
+.code-mirror-student .cm-focused {
+  outline: none !important;
+}
+
+.code-mirror-student .cm-scroller {
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #0d1117;
+}
+
+.code-mirror-student .cm-scroller::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-mirror-student .cm-scroller::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.code-mirror-student .cm-scroller::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.code-mirror-student .cm-scroller::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* VS Code-like gutter and line numbers */
+.code-mirror-student .cm-gutters {
+  background: #0d1117 !important;
+  border-right: none !important;
+  color: #6e7681 !important;
+  padding-left: 8px !important;
+}
+
+.code-mirror-student .cm-lineNumbers {
+  background: transparent !important;
+  color: #6e7681 !important;
+  font-family: Consolas, 'Courier New', monospace !important;
+}
+
+.code-mirror-student .cm-lineNumbers .cm-gutterElement {
+  background: transparent !important;
+  border: none !important;
+  color: #6e7681 !important;
+  padding: 0 12px 0 0 !important;
+  text-align: right !important;
+  min-width: 40px !important;
+}
+
+/* VS Code-like selection and cursor */
+.code-mirror-student .cm-selectionBackground {
+  background: #264f78 !important;
+}
+
+.code-mirror-student .cm-cursor {
+  border-left-color: #ffffff !important;
+  border-left-width: 2px !important;
+}
+
+/* VS Code-like bracket matching */
+.code-mirror-student .cm-matchingBracket {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* VS Code-like active line highlighting */
+.code-mirror-student .cm-activeLine {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* VS Code-like indentation guides */
+.code-mirror-student .cm-indent {
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Execution Results */
+.execution-results-student {
+  background: #161b22;
+  border-top: 1px solid #21262d;
+  max-height: 300px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.results-header-student {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid #21262d;
+}
+
+.results-header-student h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f0f6fc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.results-content-student {
+  padding: 16px 20px;
+}
+
+.results-success-student {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.output-section-student {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.output-section-student label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3fb950;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.output-text-student {
+  background: #0d1117;
+  border: 1px solid #238636;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0;
+  font-family: 'Courier New', Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #f0f6fc;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-x: auto;
+}
+
+.stats-section-student {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item-student {
+  background: rgba(46, 160, 67, 0.1);
+  border: 1px solid rgba(46, 160, 67, 0.2);
+  color: #3fb950;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.results-error-student {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error-section-student {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error-section-student label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f85149;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.error-text-student {
+  background: #0d1117;
+  border: 1px solid #da3633;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0;
+  font-family: 'Courier New', Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #f85149;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-x: auto;
+}
+
+/* Editor Footer */
+.editor-footer-student {
+  background: #161b22;
+  border-top: 1px solid #21262d;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer-info-student {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.language-info-student {
+  color: #8b949e;
+  font-size: 12px;
+  font-family: 'Courier New', Monaco, Consolas, monospace;
+}
+
+.footer-actions-student {
+  display: flex;
+  gap: 12px;
+}
+
+.submit-solution-button-student {
+  background: #f97316;
+  color: #0d1117;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submit-solution-button-student:hover:not(:disabled) {
+  background: #79c0ff;
+}
+
+.submit-solution-button-student:disabled {
+  background: #484f58;
+  color: #8b949e;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editor-header-student {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+  
+  .language-selector-student,
+  .editor-actions-student {
+    justify-content: space-between;
+  }
+  
+  .editor-footer-student {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+  
+  .footer-info-student,
+  .footer-actions-student {
+    justify-content: center;
+  }
+  
+  .results-content-student {
+    padding: 12px 16px;
+  }
+  
+  .stats-section-student {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-dropdown-student {
+    min-width: 100px;
+    padding-right: 28px;
+  }
+  
+  .run-button-student {
+    min-width: 90px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .submit-solution-button-student {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Custom scrollbars for results */
+.execution-results-student::-webkit-scrollbar {
+  width: 8px;
+}
+
+.execution-results-student::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+.execution-results-student::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.execution-results-student::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}

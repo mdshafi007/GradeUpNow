@@ -1,58 +1,63 @@
 import React from 'react';
-import { BookText, Bell, BookOpen, Code } from 'lucide-react';
+import { MapPin, Bot, Briefcase, FileText, GraduationCap } from 'lucide-react';
 import './WhyGradeUpNow.css';
 
 const WhyGradeUpNow = () => {
-    const features = [
+    const whyFeatures = [
         {
-            icon: <Code className="feature-icon" />,
-            title: "Interactive Tutorials",
-            description: "Learn programming through hands-on tutorials and practical examples designed for B.Tech students.",
-            gradient: "gradient-purple"
+            icon: <MapPin className="whysection-icon" />,
+            title: "Personalized Roadmaps",
+            description: "Get guided learning paths tailored to your branch, year, skills and goals.",
+            accent: "whysection-accent-blue"
         },
         {
-            icon: <BookText className="feature-icon" />,
-            title: "Digital Notes Platform",
-            description: "Create, organize, and access your notes seamlessly across all devices with our intuitive digital platform.",
-            gradient: "gradient-blue"
+            icon: <Bot className="whysection-icon" />,
+            title: "AI Doubt Assistant",
+            description: "Stuck on a problem? Get instant, AI-powered help for programming and subject-related queries.",
+            accent: "whysection-accent-purple"
         },
         {
-            icon: <Bell className="feature-icon" />,
-            title: "Opportunity Alerts",
-            description: "Never miss important opportunities with real-time notifications for internships, contests, and events.",
-            gradient: "gradient-orange"
+            icon: <Briefcase className="whysection-icon" />,
+            title: "Career & Internship Updates",
+            description: "Stay ahead with real-time alerts on jobs, internships, hackathons, and contests.",
+            accent: "whysection-accent-green"
         },
         {
-            icon: <BookOpen className="feature-icon" />,
-            title: "Clear Learning Content",
-            description: "Master complex topics with our simplified, step-by-step learning modules designed for B.Tech students.",
-            gradient: "gradient-green"
+            icon: <FileText className="whysection-icon" />,
+            title: "Your Digital Notebook",
+            description: "Take notes while learning, save them securely, and access anytime without losing a single page.",
+            accent: "whysection-accent-orange"
+        },
+        {
+            icon: <GraduationCap className="whysection-icon" />,
+            title: "Study Made Simple",
+            description: "Complex topics explained in the simplest way possible — step-by-step, clear, and student-friendly.",
+            accent: "whysection-accent-red"
         }
     ];
 
     return (
-        <section className="why-choose-us">
-            <div className="container">
-                <div className="text-center mb-5">
-                    <h2 className="section-title">Why Choose GradeUpNow?</h2>
+        <section className="whysection">
+            <div className="whysection-container">
+                <div className="whysection-header">
+                    <h2 className="whysection-main-title">Why Choose GradeUpNow?</h2>
+                    <p className="whysection-subtitle">Everything you need to excel in your B.Tech journey</p>
                 </div>
-                
-                <div className="row g-4">
-                    {features.map((feature, index) => (
-                        <div className="col-12 col-md-6 col-lg-3" key={index}>
-                            <div className="feature-card">
-                                <div className={`feature-icon-wrapper ${feature.gradient}`}>
-                                    {feature.icon}
-                                </div>
-                                <div className="feature-content">
-                                    <h3 className="feature-title">{feature.title}</h3>
-                                    <p className="feature-description">{feature.description}</p>
-                                </div>
+                <div className="whysection-grid">
+                    {whyFeatures.map((feature, index) => (
+                        <div className="whysection-card" key={index}>
+                            <div className={`whysection-icon-wrapper ${feature.accent}`}>
+                                {feature.icon}
+                            </div>
+                            <div className="whysection-content">
+                                <h3 className="whysection-title">{feature.title}</h3>
+                                <p className="whysection-description">{feature.description}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+            <div className="whysection-divider"></div>
         </section>
     );
 };

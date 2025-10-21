@@ -1,0 +1,117 @@
+/* Resizable Panels - Student Interface */
+
+.resizable-panels-container-student {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #0d1117;
+  overflow: hidden;
+  position: relative;
+}
+
+.resizable-top-panel-student {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.resizable-bottom-panel-student {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  min-height: 100px;
+  background: #0d1117;
+}
+
+.resizable-splitter-student {
+  height: 8px;
+  background: #21262d;
+  border-top: 1px solid #30363d;
+  border-bottom: 1px solid #30363d;
+  cursor: row-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.resizable-splitter-student:hover {
+  background: #30363d;
+}
+
+.resizable-splitter-student.dragging {
+  background: #30363d;
+}
+
+.splitter-handle-student {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 100%;
+}
+
+.splitter-dots-student {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.splitter-dots-student span {
+  width: 4px;
+  height: 4px;
+  background: #8b949e;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.resizable-splitter-student:hover .splitter-dots-student span,
+.resizable-splitter-student.dragging .splitter-dots-student span {
+  background: #ffffff;
+}
+
+/* Prevent text selection during drag */
+.resizable-panels-container-student * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Re-enable text selection for content areas */
+.resizable-top-panel-student *,
+.resizable-bottom-panel-student * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Disable text selection during dragging */
+body.dragging-splitter * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resizable-splitter-student {
+    height: 12px;
+  }
+  
+  .splitter-handle-student {
+    width: 80px;
+  }
+  
+  .splitter-dots-student span {
+    width: 5px;
+    height: 5px;
+  }
+}

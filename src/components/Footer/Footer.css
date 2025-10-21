@@ -98,9 +98,24 @@
     .terms-links {
         justify-content: flex-start;
         margin-top: 1rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .terms-links li {
+        margin-bottom: 0.5rem;
     }
     
     .footer-bottom .row > div {
         text-align: left !important;
+    }
+    
+    .footer-bottom {
+        padding: 1rem 0;
+    }
+    
+    .footer-bottom p {
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
     }
 }

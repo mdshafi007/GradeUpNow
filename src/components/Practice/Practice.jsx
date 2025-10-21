@@ -1,268 +1,217 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import usePageTitle from '../../hooks/usePageTitle';
-import './Practice.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabase";
+import TopicCard from "./TopicCard";
+import usePageTitle from "../../hooks/usePageTitle";
+import "./Practice.css";
 
 const Practice = () => {
-  usePageTitle("Practice - Test Your Skills");
-  const [activeTab, setActiveTab] = useState('programming');
-  const [questionCounts, setQuestionCounts] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  usePageTitle("Practice - Test Your Skills | GradeUpNow");
   const navigate = useNavigate();
+  
+  const [activeTab, setActiveTab] = useState("company-wise");
+  const [categories, setCategories] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Default fallback counts in case API fails
-  const defaultCounts = {
-    'data-structures': 35,
-    'operating-systems': 25,
-    'computer-networks': 25,
-    'oops': 25,
-    'dbms': 25
-  };
-
-  // Fetch question counts from API
+  // Fetch categories and topics from Supabase
   useEffect(() => {
-    const fetchQuestionCounts = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://gradeupnow.onrender.com/api' : 'http://localhost:5000/api')}/quiz/meta/counts`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setQuestionCounts(data.data);
-          } else {
-            setQuestionCounts(defaultCounts);
-          }
-        } else {
-          setQuestionCounts(defaultCounts);
-        }
-      } catch (error) {
-        console.error('Failed to fetch question counts:', error);
-        setQuestionCounts(defaultCounts);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchQuestionCounts();
+    fetchPracticeData();
   }, []);
 
-  const programmingCards = [
-    {
-      id: 1,
-      title: 'Loops',
-      description: 'For loops, while loops, and iteration patterns',
-      level: 'Easy',
-      questions: 15,
-      color: 'beginner-card'
-    },
-    {
-      id: 2,
-      title: 'Condition Statements',
-      description: 'If-else, switch cases, and logical operators',
-      level: 'Easy',
-      questions: 18,
-      color: 'beginner-card'
-    },
-    {
-      id: 3,
-      title: 'Arrays',
-      description: 'Array manipulation, searching, and sorting',
-      level: 'Medium',
-      questions: 20,
-      color: 'medium-card'
-    },
-    {
-      id: 4,
-      title: 'Functions',
-      description: 'Function creation, parameters, and return values',
-      level: 'Medium',
-      questions: 22,
-      color: 'medium-card'
-    },
-    {
-      id: 5,
-      title: 'Strings',
-      description: 'String operations, manipulation, and parsing',
-      level: 'Medium',
-      questions: 20,
-      color: 'medium-card'
-    }
-  ];
+  const fetchPracticeData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-  const quizCards = [
-    {
-      id: 1,
-      title: 'Data Structures',
-      description: 'Stacks, queues, trees, graphs, and algorithms',
-      level: 'Medium',
-      questions: questionCounts['data-structures'] || defaultCounts['data-structures'],
-      color: 'quiz-basic-card',
-      slug: 'data-structures'
-    },
-    {
-      id: 2,
-      title: 'Operating Systems',
-      description: 'Process management, memory, and file systems',
-      level: 'Medium',
-      questions: questionCounts['operating-systems'] || defaultCounts['operating-systems'],
-      color: 'quiz-database-card',
-      slug: 'operating-systems'
-    },
-    {
-      id: 3,
-      title: 'Computer Networks',
-      description: 'Protocols, TCP/IP, OSI model, and networking',
-      level: 'Medium',
-      questions: questionCounts['computer-networks'] || defaultCounts['computer-networks'],
-      color: 'quiz-os-card',
-      slug: 'computer-networks'
-    },
-    {
-      id: 4,
-      title: 'OOPS',
-      description: 'Object-oriented programming principles',
-      level: 'Easy',
-      questions: questionCounts['oops'] || defaultCounts['oops'],
-      color: 'quiz-basic-card',
-      slug: 'oops'
-    },
-    {
-      id: 5,
-      title: 'DBMS',
-      description: 'Database management systems and SQL',
-      level: 'Medium',
-      questions: questionCounts['dbms'] || defaultCounts['dbms'],
-      color: 'quiz-database-card',
-      slug: 'dbms'
-    }
-  ];
+      // Fetch categories first
+      const { data: categoriesData, error: categoriesError } = await supabase
+        .from("practice_categories")
+        .select("*")
+        .order("order_index");
 
-  const handleCardClick = (card) => {
-    // Navigate to quiz if it has a slug (for quizzes), otherwise show coming soon
-    if (card.slug && activeTab === 'quizzes') {
-      navigate(`/quiz/${card.slug}`);
-    } else {
-      console.log('Card clicked:', card.title);
-      // TODO: Implement programming tests
+      if (categoriesError) {
+        console.error("❌ Categories error:", categoriesError);
+        setError(`Categories Error: ${categoriesError.message}`);
+        throw categoriesError;
+      }
+
+      // Fetch all active topics
+      const { data: topicsData, error: topicsError } = await supabase
+        .from("practice_topics")
+        .select("*")
+        .eq("is_active", true)
+        .order("order_index");
+
+      if (topicsError) {
+        console.error("❌ Topics error:", topicsError);
+        setError(`Topics Error: ${topicsError.message}`);
+        throw topicsError;
+      }
+
+      // Create a category map for quick lookup
+      const categoryMap = {};
+      categoriesData?.forEach(cat => {
+        categoryMap[cat.id] = cat;
+      });
+
+      // Add category info to each topic
+      const enrichedTopics = topicsData?.map(topic => ({
+        ...topic,
+        practice_categories: categoryMap[topic.category_id]
+      })) || [];
+
+      setCategories(categoriesData || []);
+      setTopics(enrichedTopics);
+    } catch (error) {
+      console.error("❌ Error fetching practice data:", error);
+      setError(error.message || "Failed to load practice data");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const renderCards = (cards) => {
-    return (
-      <div className="practice-grid">
-        {cards.map((card) => (
-          <div
-            key={card.id}
-            className={`practice-card ${card.color}`}
-            onClick={() => handleCardClick(card)}
-          >
-            <div className="practice-card-header">
-              <h3 className="practice-card-title">{card.title}</h3>
-              <span className={`practice-level-badge level-${card.level.toLowerCase()}`}>
-                {card.level}
-              </span>
-            </div>
-            
-            <p className="practice-card-description">{card.description}</p>
-            
-            <div className="practice-card-stats">
-              <div className="practice-stat">
-                <span className="practice-stat-label">Questions:</span>
-                <span className="practice-stat-value">
-                  {isLoading ? '...' : card.questions}
-                </span>
-              </div>
-            </div>
-            
-            <button className="practice-card-button">
-              Start Practice
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
-        ))}
-      </div>
-    );
+  // Filter topics based on active tab
+  const getFilteredTopics = () => {
+    return topics.filter((topic) => {
+      const categorySlug = topic.practice_categories?.slug;
+      return categorySlug === activeTab;
+    });
   };
+
+  const handleTopicClick = (topic) => {
+    // Create URL-friendly slug from title
+    const slug = topic.title.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/practice/${slug}/test`, { state: { topic } });
+  };
+
+  const handleCompanyClick = (companyName) => {
+    // Navigate to company detail page
+    const slug = companyName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/practice/company/${slug}`);
+  };
+
+  const companies = [
+    {
+      name: "Accenture",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg",
+      color: "#A100FF",
+      description: "Global professional services company"
+    },
+    {
+      name: "Infosys",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
+      color: "#007CC3",
+      description: "IT services and consulting company"
+    },
+    {
+      name: "TCS",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Tata_Consultancy_Services_old_logo.svg",
+      color: "#0F1C3F",
+      description: "IT services, consulting & business solutions"
+    },
+    {
+      name: "Cognizant",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Logo_Cognizant.png",
+      color: "#0033A1",
+      description: "American multinational IT company"
+    }
+  ];
 
   return (
     <div className="practice-container">
-      {/* Background Elements */}
-      <div className="practice-bg-elements">
-        <div className="floating-shape shape-1"></div>
-        <div className="floating-shape shape-2"></div>
-        <div className="floating-shape shape-3"></div>
-      </div>
-
-      <div className="practice-content">
-        {/* Header */}
-        <div className="practice-header">
-          <div className="practice-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 12l2 2 4-4"/>
-              <circle cx="12" cy="12" r="10"/>
-            </svg>
-            Test Your Skills
-          </div>
-          <h1 className="practice-title">Practice Tests</h1>
-          <p className="practice-subtitle">
-            Improve your skills with our comprehensive practice tests and challenges
+      {/* Hero Section */}
+      <div className="practice-hero">
+        <div className="practice-hero-content">
+          <h1 className="practice-hero-title">Practice & Test Your Skills</h1>
+          <p className="practice-hero-description">
+            Improve your skills with our comprehensive practice tests and coding challenges — from programming fundamentals to core CS subjects.
           </p>
         </div>
+      </div>
 
-        {/* Tabs */}
-        <div className="practice-tabs-container">
-          <div className="practice-tabs">
-            <button
-              className={`practice-tab ${activeTab === 'programming' ? 'active' : ''}`}
-              onClick={() => setActiveTab('programming')}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="16,18 22,12 16,6"/>
-                <polyline points="8,6 2,12 8,18"/>
-              </svg>
-              Programming
-            </button>
-            <button
-              className={`practice-tab ${activeTab === 'quizzes' ? 'active' : ''}`}
-              onClick={() => setActiveTab('quizzes')}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-              Quizzes
-            </button>
+      {/* Tabs Section */}
+      <div className="practice-tabs-container">
+        <div className="practice-tabs">
+          <button
+            className={`practice-tab ${
+              activeTab === "company-wise" ? "practice-tab-active" : ""
+            }`}
+            onClick={() => setActiveTab("company-wise")}
+          >
+            <span className="practice-tab-icon">🏢</span>
+            <span className="practice-tab-text">Company-wise</span>
+          </button>
+
+          <button
+            className={`practice-tab ${
+              activeTab === "practice-tests" ? "practice-tab-active" : ""
+            }`}
+            onClick={() => setActiveTab("practice-tests")}
+          >
+            <span className="practice-tab-icon">📝</span>
+            <span className="practice-tab-text">MCQs</span>
+          </button>
+
+          <button
+            className={`practice-tab ${
+              activeTab === "programming" ? "practice-tab-active" : ""
+            }`}
+            onClick={() => setActiveTab("programming")}
+          >
+            <span className="practice-tab-icon">💻</span>
+            <span className="practice-tab-text">Programming</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="practice-content">
+        {loading ? (
+          <div className="practice-loading">
+            <div className="practice-spinner"></div>
+            <p>Loading practice topics...</p>
           </div>
-        </div>
-
-        {/* Content */}
-        <div className="practice-tab-content">
-          {activeTab === 'programming' && (
-            <div className="practice-section">
-              <div className="practice-section-header">
-                <h2 className="practice-section-title">Programming Tests</h2>
-                <p className="practice-section-description">
-                  Test your programming skills with coding challenges of different difficulty levels.
-                </p>
+        ) : (
+          <>
+            {activeTab === "company-wise" ? (
+              <div className="company-wise-content">
+                <div className="companies-grid">
+                  {companies.map((company) => (
+                    <div
+                      key={company.name}
+                      className="company-card"
+                      onClick={() => handleCompanyClick(company.name)}
+                    >
+                      <img
+                        src={company.logo}
+                        alt={`${company.name} logo`}
+                        className="company-logo"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-              {renderCards(programmingCards)}
-            </div>
-          )}
-
-          {activeTab === 'quizzes' && (
-            <div className="practice-section">
-              <div className="practice-section-header">
-                <h2 className="practice-section-title">Knowledge Quizzes</h2>
-                <p className="practice-section-description">
-                  Assess your theoretical knowledge with our comprehensive quizzes.
-                </p>
+            ) : (
+              <div className="practice-topics-grid">
+                {getFilteredTopics().length > 0 ? (
+                  getFilteredTopics().map((topic) => (
+                    <TopicCard
+                      key={topic.id}
+                      topic={topic}
+                      onClick={() => handleTopicClick(topic)}
+                    />
+                  ))
+                ) : (
+                  <div className="practice-empty">
+                    <p>No topics available yet. Check back soon!</p>
+                  </div>
+                )}
               </div>
-              {renderCards(quizCards)}
-            </div>
-          )}
-        </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-College Login Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Multi-College Login System Test</h1>
+    
+    <div class="test-section">
+        <h2>College Detection Test</h2>
+        <p>Test the college detection logic:</p>
+        <button onclick="testCollegeDetection()">Test College Detection</button>
+        <div id="detection-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Email Generation Test</h2>
+        <p>Test email generation for different colleges:</p>
+        <button onclick="testEmailGeneration()">Test Email Generation</button>
+        <div id="email-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>MIT Login Test</h2>
+        <p>Test MIT student login (roll: MIT020):</p>
+        <input type="text" id="rollNumber" placeholder="Enter roll number" value="MIT020">
+        <input type="password" id="password" placeholder="Enter password" value="MIT@MIT020">
+        <button onclick="testLogin()">Test Login</button>
+        <div id="login-results"></div>
+    </div>
+
+    <script>
+        // College detection function (copied from frontend)
+        function detectCollegeFromRollNumber(rollNumber) {
+            const roll = rollNumber.toUpperCase();
+            
+            // MIT patterns
+            if (roll.startsWith('MIT')) return 'mit';
+            // VIT patterns  
+            if (roll.startsWith('VIT')) return 'vit';
+            // IIT patterns
+            if (roll.startsWith('IIT')) return 'iit';
+            // Vignan patterns
+            if (roll.startsWith('221FA') || roll.startsWith('VIGNAN')) return 'vignan';
+            
+            // Default fallback
+            return 'vignan';
+        }
+
+        // Domain mapping function (copied from frontend)
+        function getCollegeDomain(collegeCode) {
+            const domainMap = {
+                'mit': 'manipal.edu',
+                'vit': 'vit.ac.in', 
+                'iit': 'iitd.ac.in',
+                'vignan': 'vignan.edu'
+            };
+            return domainMap[collegeCode] || 'vignan.edu';
+        }
+
+        function testCollegeDetection() {
+            const testCases = [
+                'MIT020',
+                'MIT2023001', 
+                'VIT001',
+                'VIT2024ABC',
+                'IIT123',
+                '221FA04272',
+                'VIGNAN001',
+                'UNKNOWN123'
+            ];
+
+            let results = '<h3>College Detection Results:</h3>';
+            testCases.forEach(roll => {
+                const college = detectCollegeFromRollNumber(roll);
+                results += `<div class="test-result success">
+                    <strong>${roll}</strong> → <strong>${college.toUpperCase()}</strong>
+                </div>`;
+            });
+
+            document.getElementById('detection-results').innerHTML = results;
+        }
+
+        function testEmailGeneration() {
+            const testCases = [
+                { roll: 'MIT020', college: 'mit' },
+                { roll: 'VIT001', college: 'vit' },
+                { roll: 'IIT123', college: 'iit' },
+                { roll: '221FA04272', college: 'vignan' }
+            ];
+
+            let results = '<h3>Email Generation Results:</h3>';
+            testCases.forEach(({ roll, college }) => {
+                const domain = getCollegeDomain(college);
+                const email = `${roll}@${domain}`;
+                results += `<div class="test-result success">
+                    <strong>${roll}</strong> (${college.toUpperCase()}) → <strong>${email}</strong>
+                </div>`;
+            });
+
+            document.getElementById('email-results').innerHTML = results;
+        }
+
+        async function testLogin() {
+            const rollNumber = document.getElementById('rollNumber').value;
+            const password = document.getElementById('password').value;
+            
+            if (!rollNumber || !password) {
+                document.getElementById('login-results').innerHTML = 
+                    '<div class="test-result error">Please enter both roll number and password</div>';
+                return;
+            }
+
+            // Detect college and generate email
+            const collegeCode = detectCollegeFromRollNumber(rollNumber);
+            const domain = getCollegeDomain(collegeCode);
+            const email = `${rollNumber}@${domain}`;
+
+            document.getElementById('login-results').innerHTML = 
+                '<div class="test-result">Testing login... Please check browser console for results</div>';
+
+            try {
+                // Test the login API
+                const response = await fetch('http://localhost:5000/api/college/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        rollNumber,
+                        password,
+                        collegeCode
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Login API Response:', data);
+
+                if (data.success) {
+                    document.getElementById('login-results').innerHTML = `
+                        <div class="test-result success">
+                            <h4>✅ Login Successful!</h4>
+                            <p><strong>Student:</strong> ${data.student.name}</p>
+                            <p><strong>College:</strong> ${data.student.collegeCode.toUpperCase()}</p>
+                            <p><strong>Email:</strong> ${data.student.email}</p>
+                            <p><strong>Department:</strong> ${data.student.department}</p>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('login-results').innerHTML = `
+                        <div class="test-result error">
+                            <h4>❌ Login Failed</h4>
+                            <p><strong>Error:</strong> ${data.message}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Login test error:', error);
+                document.getElementById('login-results').innerHTML = `
+                    <div class="test-result error">
+                        <h4>❌ Connection Error</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Make sure the backend server is running on port 5000</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

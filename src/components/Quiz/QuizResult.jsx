@@ -67,8 +67,8 @@ const QuizResult = () => {
         <div className="error-card">
           <h2>Unable to load results</h2>
           <p>{error || 'Result not found'}</p>
-          <button onClick={() => navigate('/practice')} className="btn-primary">
-            Back to Practice
+          <button onClick={() => navigate('/courses')} className="btn-primary">
+            Back to Courses
           </button>
         </div>
       </div>
@@ -80,8 +80,8 @@ const QuizResult = () => {
       <div className="result-card">
         {/* Header */}
         <div className="result-header">
-          <button onClick={() => navigate('/practice')} className="back-btn">
-            ← Back to Practice
+          <button onClick={() => navigate('/courses')} className="back-btn">
+            ← Back to Courses
           </button>
           <h1>Quiz Complete!</h1>
           <p className="quiz-title">{result.quiz?.title || result.quizId || 'Quiz'}</p>
@@ -156,10 +156,10 @@ const QuizResult = () => {
         {/* Action Buttons */}
         <div className="action-buttons">
           <button 
-            onClick={() => navigate('/practice')}
+            onClick={() => navigate('/courses')}
             className="btn-secondary"
           >
-            Practice More
+            Back to Courses
           </button>
           <button 
             onClick={() => navigate(`/quiz/${quizType}`)}

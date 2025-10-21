@@ -1,0 +1,180 @@
+/* Horizontal Resizable Panels - Student Interface */
+
+.horizontal-resizable-container-student {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  background: #0d1117;
+  overflow: hidden;
+  position: relative;
+}
+
+.horizontal-left-panel-student {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 300px;
+  background: #0d1117;
+}
+
+.horizontal-right-panel-student {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 400px;
+  background: #0d1117;
+}
+
+.horizontal-splitter-student {
+  width: 8px;
+  background: #21262d;
+  border-left: 1px solid #30363d;
+  border-right: 1px solid #30363d;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.horizontal-splitter-student:hover {
+  background: #30363d;
+}
+
+.horizontal-splitter-student.dragging {
+  background: #30363d;
+}
+
+.horizontal-splitter-handle-student {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+}
+
+.horizontal-splitter-dots-student {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.horizontal-splitter-dots-student span {
+  width: 3px;
+  height: 3px;
+  background: #6e7681;
+  border-radius: 50%;
+  display: block;
+}
+
+.horizontal-splitter-student:hover .horizontal-splitter-dots-student span {
+  background: #8b949e;
+}
+
+.horizontal-splitter-student.dragging .horizontal-splitter-dots-student span {
+  background: #8b949e;
+}
+
+/* Prevent text selection during drag */
+.horizontal-splitter-student {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in panels */
+.horizontal-left-panel-student *,
+.horizontal-right-panel-student * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Disable text selection during dragging */
+body.dragging-horizontal-splitter * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .horizontal-left-panel-student {
+    min-width: 250px;
+  }
+  
+  .horizontal-right-panel-student {
+    min-width: 350px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Switch to vertical layout on smaller screens */
+  .horizontal-resizable-container-student {
+    flex-direction: column;
+  }
+  
+  .horizontal-left-panel-student {
+    width: 100% !important;
+    height: 40%;
+    min-width: unset;
+    min-height: 200px;
+  }
+  
+  .horizontal-right-panel-student {
+    width: 100% !important;
+    height: 60%;
+    min-width: unset;
+    min-height: 300px;
+  }
+  
+  .horizontal-splitter-student {
+    width: 100%;
+    height: 8px;
+    cursor: row-resize;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #30363d;
+    border-bottom: 1px solid #30363d;
+  }
+  
+  .horizontal-splitter-handle-student {
+    width: 60px;
+    height: 100%;
+  }
+  
+  .horizontal-splitter-dots-student {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .horizontal-splitter-student {
+    height: 12px;
+  }
+  
+  .horizontal-splitter-handle-student {
+    width: 80px;
+  }
+  
+  .horizontal-splitter-dots-student span {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .horizontal-left-panel-student {
+    min-height: 150px;
+  }
+  
+  .horizontal-right-panel-student {
+    min-height: 250px;
+  }
+}

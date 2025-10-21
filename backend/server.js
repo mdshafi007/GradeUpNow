@@ -7,10 +7,12 @@ import connectDB from './config/database.js';
 import { initializeFirebaseAdmin } from './config/firebase.js';
 
 // Import routes
-import userRoutes from './routes/users.js';
-import noteRoutes from './routes/notes.js';
-import progressRoutes from './routes/progress.js';
-import quizRoutes from './routes/quiz.js';
+import adminRoutes from './routes/admin.js';
+import collegeRoutes from './routes/college.js';
+import lmsQuizRoutes from './routes/lmsQuiz.js';
+import studentQuizRoutes from './routes/studentQuiz.js';
+import studentCodingTestRoutes from './routes/studentCodingAPI.js';
+import codingTestRoutes from './routes/codingTest_lms.js';
 
 // Load environment variables
 dotenv.config();
@@ -81,7 +83,7 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'rollnumber', 'collegecode']
 };
 
 app.use(cors(corsOptions));
@@ -108,11 +110,26 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Debug endpoint for analytics troubleshooting  
+app.get('/api/debug/analytics/:quizId', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Analytics debug endpoint working',
+    quizId: req.params.quizId,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+    note: 'If this works, check /api/admin/quiz/:quizId/analytics endpoint',
+    expectedEndpoint: `/api/admin/quiz/${req.params.quizId}/analytics`
+  });
+});
+
 // API routes
-app.use('/api/users', userRoutes);
-app.use('/api/notes', noteRoutes);
-app.use('/api/progress', progressRoutes);
-app.use('/api/quiz', quizRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/college', collegeRoutes);
+app.use('/api/admin/quiz', lmsQuizRoutes);
+app.use('/api/admin/coding-test', codingTestRoutes);
+app.use('/api/student', studentQuizRoutes);
+app.use('/api/student', studentCodingTestRoutes);
 
 // API documentation endpoint
 app.get('/api', (req, res) => {
@@ -121,33 +138,20 @@ app.get('/api', (req, res) => {
     message: 'GradeUpNow API',
     version: '1.0.0',
     endpoints: {
-      users: {
-        'GET /api/users/profile': 'Get user profile',
-        'POST /api/users/profile': 'Create/update user profile',
-        'PATCH /api/users/profile': 'Update profile fields',
-        'PATCH /api/users/profile/setup-step': 'Update profile setup step',
-        'DELETE /api/users/profile': 'Delete user profile',
-        'GET /api/users/profile/stats': 'Get profile statistics'
+      admin: {
+        'POST /api/admin/login': 'Admin login',
+        'GET /api/admin/dashboard': 'Admin dashboard data',
+        'GET /api/admin/students': 'Get students list',
+        'POST /api/admin/students': 'Create student',
+        'POST /api/admin/students/bulk': 'Create students in bulk'
       },
-      notes: {
-        'GET /api/notes': 'Get user notes with filters',
-        'GET /api/notes/search': 'Search notes',
-        'GET /api/notes/:id': 'Get specific note',
-        'POST /api/notes': 'Create new note',
-        'PUT /api/notes/:id': 'Update note',
-        'PATCH /api/notes/:id': 'Partially update note',
-        'DELETE /api/notes/:id': 'Delete note',
-        'GET /api/notes/stats/overview': 'Get note statistics'
+      college: {
+        'POST /api/college/login': 'College portal login',
+        'GET /api/college/assessments': 'Get college assessments'
       },
-      progress: {
-        'GET /api/progress': 'Get user progress',
-        'POST /api/progress/course/:courseId': 'Update course progress',
-        'POST /api/progress/course/:courseId/chapter': 'Add completed chapter',
-        'POST /api/progress/course/:courseId/quiz': 'Add quiz score',
-        'POST /api/progress/daily-activity': 'Update daily activity',
-        'POST /api/progress/achievements': 'Add achievement',
-        'GET /api/progress/analytics': 'Get progress analytics',
-        'GET /api/progress/course/:courseId': 'Get course-specific progress'
+      quiz: {
+        'GET /api/quiz/:type': 'Get quiz questions',
+        'POST /api/quiz/submit': 'Submit quiz answers'
       }
     },
     authentication: 'Bearer token required (Firebase ID token)',

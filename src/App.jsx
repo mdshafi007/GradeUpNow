@@ -1,187 +1,223 @@
 import React from "react";
 import Navbar from "./components/navbar/Navbar";
+import EnhancedCollegeDashboard from './components/College/EnhancedCollegeDashboard';
 import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
-import Featuredtutorials from "./components/toptutorials/Featuredtutorials";
+import { AuthProvider } from "./contexts/AuthContext";
+import Login from "./components/auth/Login";
+import SignUp from "./components/auth/SignUp";
+import SignUpUltraSimple from "./components/auth/SignUp_ULTRA_SIMPLE";
 import WhyGradeUpNow from "./components/services/WhyGradeUpNow";
 import Footer from "./components/Footer/Footer";
 import HeroSect from "./components/herosection/HeroSect";
-import Notes from "./components/Notes/Notes";
-import Notescomp from "./components/Notes/Notescomp";
-import Card from "./components/Card/CoursePage";
-import LoginForm from "./components/login/LoginForm";
-import SignUp from "./components/signup/SignUp";
 import CoursePage from "./components/Card/CoursePage";
+import CoursesPage from "./components/Courses/CoursesPageNew";
 import CourseDetail from "./components/Card/CourseDetail";
-import CourseTutorial from "./components/Card/CourseTutorial";
 import CourseNotes from "./components/Card/CourseNotes";
-import CTutorial from "./components/tutorials/CTutorialSimple";
-import CPPTutorial from "./components/tutorials/CPPTutorial";
-import PythonTutorial from "./components/tutorials/PythonTutorial";
-import JavaTutorial from "./components/tutorials/JavaTutorial";
-import CourseTutorialViewer from "./components/tutorials/Tutorials";
-import Profile from "./components/profile/ProfileClean";
-import ProfileSetupSimple from "./components/profile/ProfileSetupClean";
+
+
 import Notifications from "./components/Notifications/Notifications";
-import Practice from "./components/Practice/Practice";
-import Quiz from "./components/Quiz/Quiz";
-import QuizResult from "./components/Quiz/QuizResult";
 import NotFound from "./components/404/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
-import { UserProvider } from "./context/UserContext";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { AdminProvider } from "./context/AdminContext";
+import { CollegeUserProvider } from "./context/CollegeUserContext";
+import AdminLogin from "./components/admin/AdminLogin";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminStudent from "./components/admin/AdminStudent";
+import BulkStudentCreator from "./components/Admin/BulkStudentCreator";
+import AssessmentsDashboard_lms from "./components/admin/AssessmentsDashboard_lms";
+import QuizCreation_lms from "./components/admin/QuizCreation_lms";
+import QuizManagement_lms from "./components/admin/QuizManagement_lms";
+import QuizAnalytics from "./components/admin/QuizAnalytics";
+import CodingTestCreation_lms from "./components/admin/CodingTestCreation_lms";
+import CodingTestManagement_lms from "./components/admin/CodingTestManagement_lms";
+import CodingTestAnalytics_lms from "./components/admin/CodingTestAnalytics_lms";
+import CollegeLogin from "./components/College/CollegeLogin";
+import CollegeDashboard from "./components/College/CollegeDashboardNew";
+import QuizTaking_student from "./components/College/QuizTaking_student";
+import CodingTestInterface_student from "./components/College/CodingTestInterface_student";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import usePageTitle from "./hooks/usePageTitle";
+import Profile from "./components/profile/Profile";
+import Notes from "./components/Notes/Notes";
+import TutorialViewer from "./components/Tutorial_N/TutorialViewer";
+import Practice from "./components/Practice/Practice";
+import PracticeTest from "./components/Practice/PracticeTest";
+import AccentureDetail from "./components/Practice/Companies/AccentureDetail";
 
 const Home=()=>{
   usePageTitle("Home - Learn, Practice, Excel");
   return(
     <>
      <HeroSect />
-     <Featuredtutorials />
      <WhyGradeUpNow />
     </>
   )
 }
 
+// Component to conditionally render navbar based on route
+const ConditionalNavbar = () => {
+  const location = useLocation();
+  
+  // Routes where navbar should NOT be displayed (admin routes)
+  const noNavbarRoutes = [
+    '/admin/login',
+    '/admin/dashboard',
+    '/admin/reports',
+    '/admin/settings'
+  ];
+  
+  // Check if current path should not show navbar (admin, college, and tutorial routes)
+  const shouldHideNavbar = noNavbarRoutes.some(route => location.pathname.startsWith(route.split('/')[1] === 'admin' ? '/admin' : route)) || 
+                          location.pathname.startsWith('/college-') ||
+                          location.pathname.includes('/tutorial');
+  
+  return shouldHideNavbar ? null : <Navbar />;
+};
+
 // Component to conditionally render footer based on route
 const ConditionalFooter = () => {
   const location = useLocation();
   
-  // Routes where footer should NOT be displayed (tutorial pages with custom layouts)
-  const noFooterRoutes = [
-    '/course/c-programming/tutorial',
-    '/course/cprogramming/tutorial',
-    '/course/cpp-programming/tutorial',
-    '/course/c++-programming/tutorial',
-    '/course/cplusplus/tutorial',
-    '/course/python-programming/tutorial',
-    '/course/python/tutorial',
-    '/course/java-programming/tutorial',
-    '/course/java/tutorial',
-    '/courses/c-programming',
-    '/courses/cprogramming',
-    '/courses/cpp-programming',
-    '/courses/c++-programming',
-    '/courses/cplusplus',
-    '/courses/python-programming',
-    '/courses/python',
-    '/courses/java-programming',
-    '/courses/java',
-    '/c-tutorial',
-    '/cpp-tutorial',
-    '/c++-tutorial',
-    '/python-tutorial',
-    '/java-tutorial',
-    '/tutorial/c-programming',
-    '/tutorial/cprogramming',
-    '/tutorial/cpp-programming',
-    '/tutorial/c++-programming',
-    '/tutorial/cplusplus',
-    '/tutorial/python-programming',
-    '/tutorial/python',
-    '/tutorial/java-programming',
-    '/tutorial/java'
-  ];
+  // Routes where footer should NOT be displayed (admin routes and tutorial pages)
+  const noFooterRoutes = [];
   
-  // Check if current path should not show footer
-  const shouldHideFooter = noFooterRoutes.includes(location.pathname);
+  // Check if current path should not show footer (including admin, college, and tutorial routes)
+  const shouldHideFooter = noFooterRoutes.includes(location.pathname) || 
+                          location.pathname.startsWith('/admin') || 
+                          location.pathname.startsWith('/college-') ||
+                          location.pathname.includes('/tutorial');
   
   return shouldHideFooter ? null : <Footer />;
 };
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="your-client-id">
-      <UserProvider>
+    <ErrorBoundary>
+      <AuthProvider>
         <Router>
-          <div className="App">
-            <ScrollToTop />
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-            <Navbar />
-            <Routes>
+            <div className="App">
+              <ScrollToTop />
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+              <ConditionalNavbar />
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/courses" element={<CoursePage />} />
-              <Route path="/course/:courseId" element={<CourseDetail />} />
-              {/* Specific C Programming routes - these must come before the general :courseId/tutorial route */}
-              <Route path="/course/c-programming/tutorial" element={<CTutorial />} />
-              <Route path="/course/cprogramming/tutorial" element={<CTutorial />} />
-              
-              {/* Specific C++ Programming routes */}
-              <Route path="/course/cpp-programming/tutorial" element={<CPPTutorial />} />
-              <Route path="/course/c++-programming/tutorial" element={<CPPTutorial />} />
-              <Route path="/course/cplusplus/tutorial" element={<CPPTutorial />} />
-              
-              {/* Specific Python Programming routes */}
-              <Route path="/course/python-programming/tutorial" element={<PythonTutorial />} />
-              <Route path="/course/python/tutorial" element={<PythonTutorial />} />
-              
-              {/* Specific Java Programming routes */}
-              <Route path="/course/java-programming/tutorial" element={<JavaTutorial />} />
-              <Route path="/course/java/tutorial" element={<JavaTutorial />} />
-              
-              {/* General tutorial route for all other courses */}
-              <Route path="/course/:courseId/tutorial" element={<CourseTutorial />} />
-              <Route path="/course/:courseId/notes" element={<CourseNotes />} />
-              <Route path="/courses/c-programming" element={<CTutorial />} />
-              <Route path="/courses/cprogramming" element={<CTutorial />} />
-              
-              {/* C++ course routes */}
-              <Route path="/courses/cpp-programming" element={<CPPTutorial />} />
-              <Route path="/courses/c++-programming" element={<CPPTutorial />} />
-              <Route path="/courses/cplusplus" element={<CPPTutorial />} />
-              
-              {/* Python course routes */}
-              <Route path="/courses/python-programming" element={<PythonTutorial />} />
-              <Route path="/courses/python" element={<PythonTutorial />} />
-              
-              {/* Java course routes */}
-              <Route path="/courses/java-programming" element={<JavaTutorial />} />
-              <Route path="/courses/java" element={<JavaTutorial />} />
-              
-              <Route path="/c-tutorial" element={<CTutorial />} />
-              <Route path="/cpp-tutorial" element={<CPPTutorial />} />
-              <Route path="/c++-tutorial" element={<CPPTutorial />} />
-              <Route path="/python-tutorial" element={<PythonTutorial />} />
-              <Route path="/java-tutorial" element={<JavaTutorial />} />
-              <Route path="/tutorial/c-programming" element={<CTutorial />} />
-              <Route path="/tutorial/cprogramming" element={<CTutorial />} />
-              <Route path="/tutorial/cpp-programming" element={<CPPTutorial />} />
-              <Route path="/tutorial/c++-programming" element={<CPPTutorial />} />
-              <Route path="/tutorial/cplusplus" element={<CPPTutorial />} />
-              <Route path="/tutorial/python-programming" element={<PythonTutorial />} />
-              <Route path="/tutorial/python" element={<PythonTutorial />} />
-              <Route path="/tutorial/java-programming" element={<JavaTutorial />} />
-              <Route path="/tutorial/java" element={<JavaTutorial />} />
-              <Route path="/notifications" element={<Notifications />} />
-              <Route path="/practice" element={<Practice />} />
-              <Route path="/quiz/:quizType" element={<Quiz />} />
-              <Route path="/quiz/:quizType/result/:resultId" element={<QuizResult />} />
-              <Route path="/login" element={<LoginForm />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/signup-test" element={<SignUpUltraSimple />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/profile-setup" element={<ProfileSetupSimple />} />
+              <Route path="/notes" element={<Notes />} />
+              <Route path="/practice" element={<Practice />} />
+              <Route path="/practice/:topicSlug/test" element={<PracticeTest />} />
+              <Route path="/practice/company/accenture" element={<AccentureDetail />} />
+              <Route path="/courses" element={<CoursesPage />} />
+              <Route path="/course/:courseId" element={<CourseDetail />} />
+              
+              {/* Admin Routes - Isolated with AdminProvider */}
+              <Route path="/admin/login" element={
+                <AdminProvider>
+                  <AdminLogin />
+                </AdminProvider>
+              } />
+              <Route path="/admin/dashboard" element={
+                <AdminProvider>
+                  <AdminDashboard />
+                </AdminProvider>
+              } />
+              <Route path="/admin/students" element={
+                <AdminProvider>
+                  <AdminStudent />
+                </AdminProvider>
+              } />
+              <Route path="/admin/bulk-create" element={
+                <AdminProvider>
+                  <BulkStudentCreator />
+                </AdminProvider>
+              } />
+              <Route path="/admin/assessments" element={
+                <AdminProvider>
+                  <AssessmentsDashboard_lms />
+                </AdminProvider>
+              } />
+              <Route path="/admin/quiz/create" element={
+                <AdminProvider>
+                  <QuizCreation_lms />
+                </AdminProvider>
+              } />
+              <Route path="/admin/quiz/manage" element={
+                <AdminProvider>
+                  <QuizManagement_lms />
+                </AdminProvider>
+              } />
+              <Route path="/admin/quiz/:quizId/analytics" element={
+                <AdminProvider>
+                  <QuizAnalytics />
+                </AdminProvider>
+              } />
+              <Route path="/admin/coding-test/create" element={
+                <AdminProvider>
+                  <CodingTestCreation_lms />
+                </AdminProvider>
+              } />
+              <Route path="/admin/coding-test/manage" element={
+                <AdminProvider>
+                  <CodingTestManagement_lms />
+                </AdminProvider>
+              } />
+              <Route path="/admin/coding-test/:testId/analytics" element={
+                <AdminProvider>
+                  <CodingTestAnalytics_lms />
+                </AdminProvider>
+              } />
+
+              
+              {/* College Portal Routes - Separate Context */}
+              <Route path="/college-portal" element={
+                <CollegeUserProvider>
+                  <CollegeLogin />
+                </CollegeUserProvider>
+              } />
+              <Route path="/college-dashboard" element={
+                <CollegeUserProvider>
+                  <CollegeDashboard />
+                </CollegeUserProvider>
+              } />
+              <Route path="/college-dashboard/assessment/:quizId" element={
+                <CollegeUserProvider>
+                  <QuizTaking_student />
+                </CollegeUserProvider>
+              } />
+              <Route path="/college-dashboard/coding-test/:testId" element={
+                <CollegeUserProvider>
+                  <CodingTestInterface_student />
+                </CollegeUserProvider>
+              } />
+              
+              <Route path="/course/:courseId/notes" element={<CourseNotes />} />
+              <Route path="/course/:courseId/tutorial" element={<TutorialViewer />} />
+
+              <Route path="/notifications" element={<Notifications />} />
               {/* Catch-all route for any unmatched URLs - show 404 page */}
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ConditionalFooter />
           </div>
         </Router>
-      </UserProvider>
-    </GoogleOAuthProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -1,0 +1,475 @@
+/* Clean & Compact Assessment Cards - Optimized for Real Exams */
+
+.assessments-student {
+  padding: 0;
+  max-width: 100%;
+}
+
+/* Loading & Error States */
+.assessments-loading,
+.assessments-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #f3f4f6;
+  border-top: 2px solid #f97316;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.assessments-error h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.5rem 0;
+}
+
+.assessments-error p {
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+}
+
+.retry-btn {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.retry-btn:hover {
+  background: #ea580c;
+}
+
+/* Header */
+.assessments-header {
+  margin-bottom: 1.5rem;
+}
+
+.assessments-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.assessments-header p {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Filter Tabs - Practice Page Style */
+.assessment-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+  justify-content: center;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 12px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.assessment-tab {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assessment-tab:hover {
+  color: #f97316;
+}
+
+.assessment-tab.active {
+  background: #f97316;
+  color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid - Practice Page Layout */
+.assessment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Cards - Exact Practice Page Style */
+.assessment-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.assessment-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.subject-tag {
+  background: #fbbf24;
+  color: #92400e;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  min-width: 80px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.status-badge.available {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.status-badge.upcoming {
+  background: #f59e0b;
+  color: white;
+}
+
+.status-badge.expired {
+  background: #ef4444;
+  color: white;
+}
+
+.status-badge.completed {
+  background: #3b82f6;
+  color: white;
+}
+
+.status-badge.progress {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* Card Content */
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+.card-description {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0;
+  margin: 16px 0;
+  font-size: 14px;
+  color: #6b7280;
+  justify-content: space-between;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-schedule {
+  margin: 16px 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.schedule-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.schedule-row:last-child {
+  margin-bottom: 0;
+}
+
+.schedule-row strong {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Card Content Wrapper */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* Card Actions */
+.card-actions {
+  margin-top: 16px;
+}
+
+.start-assessment-btn {
+  width: 100%;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.start-assessment-btn:hover:not(:disabled) {
+  background: #15803d;
+}
+
+.start-assessment-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.start-assessment-btn.completed-btn {
+  background: #059669;
+  cursor: default;
+}
+
+.start-assessment-btn.completed-btn:hover {
+  background: #047857;
+}
+
+.completion-info {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.score-indicator {
+  font-size: 12px;
+  font-weight: 600;
+  color: #059669;
+}
+
+.completion-date {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+}
+
+.empty-state h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+/* Assessment Type Filters */
+.assessment-type-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.assessment-type-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assessment-type-tab:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.assessment-type-tab.active {
+  background: #f97316;
+  color: white;
+  border-color: #f97316;
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Coding Test Specific Styles */
+.coding-card {
+  border-left: 4px solid #8b5cf6;
+}
+
+.coding-tag {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.coding-btn {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.coding-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  transform: translateY(-1px);
+}
+
+/* Quiz Specific Styles */
+.quiz-card {
+  border-left: 4px solid #f97316;
+}
+
+.quiz-tag {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+}
+
+.quiz-btn {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.quiz-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+  transform: translateY(-1px);
+}
+
+/* Difficulty Badges */
+.difficulty-badge {
+  margin: 8px 0;
+}
+
+.difficulty {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficulty.easy {
+  background: #22c55e;
+  color: white;
+}
+
+.difficulty.medium {
+  background: #f59e0b;
+  color: white;
+}
+
+.difficulty.hard {
+  background: #ef4444;
+  color: white;
+}
+
+/* Enhanced Meta Items */
+.card-meta .meta-item:last-child {
+  margin-left: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .assessment-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .assessment-card {
+    padding: 12px;
+  }
+  
+  .card-title {
+    font-size: 15px;
+  }
+  
+  .assessment-filters,
+  .assessment-type-filters {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .assessment-tab,
+  .assessment-type-tab {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .tab-icon {
+    font-size: 14px;
+  }
+}

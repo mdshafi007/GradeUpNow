@@ -1,0 +1,445 @@
+.company-detail-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding-bottom: 60px;
+}
+
+/* Header */
+.company-detail-header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px 40px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.back-button:hover {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+/* Company Info Section */
+.company-info-section {
+  background: white;
+  padding: 48px 40px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.company-logo-wrapper {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.company-detail-logo {
+  height: 80px;
+  max-width: 280px;
+  object-fit: contain;
+}
+
+.company-detail-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Assessment Rounds Section */
+.assessment-rounds-section {
+  max-width: 1400px;
+  margin: 48px auto;
+  padding: 0 40px;
+}
+
+.rounds-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 120px 280px 140px 1fr;
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.header-cell {
+  padding: 20px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #374151;
+  text-align: left;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 120px 280px 140px 1fr;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background: #f9fafb;
+}
+
+.table-cell {
+  padding: 24px;
+  font-size: 15px;
+  color: #4b5563;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+}
+
+.stage-cell {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.name-cell {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.duration-cell {
+  color: #6b7280;
+}
+
+.topics-cell {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-item {
+  line-height: 1.6;
+}
+
+.topic-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin-right: 6px;
+}
+
+.topic-description {
+  color: #4b5563;
+}
+
+/* Student Experiences Section */
+.experiences-section {
+  max-width: 1400px;
+  margin: 48px auto 0;
+  padding: 0 40px;
+}
+
+.experiences-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
+}
+
+.experience-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.experience-meta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.experience-company {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.experience-date {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 4px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.linkedin-link {
+  color: #0077b5;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.linkedin-link:hover {
+  background: #e7f3ff;
+  color: #005885;
+}
+
+.experience-content {
+  padding: 32px;
+}
+
+.experience-intro {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.experience-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin: 0 0 12px 0;
+}
+
+.experience-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.experience-intro strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.experience-round {
+  margin-bottom: 32px;
+}
+
+.experience-round:last-child {
+  margin-bottom: 0;
+}
+
+.round-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.2px;
+}
+
+.experience-round p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin: 0 0 12px 0;
+}
+
+.experience-round ul {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.experience-round li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #4b5563;
+  margin-bottom: 8px;
+}
+
+.experience-round li strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.round-note {
+  font-style: italic;
+  color: #6b7280 !important;
+  background: #f9fafb;
+  padding: 12px 16px;
+  border-left: 3px solid #ff6b35;
+  border-radius: 4px;
+  margin-top: 16px !important;
+}
+
+.difficulty-note {
+  background: #f0fdf4;
+  border-left: 3px solid #22c55e;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-top: 16px !important;
+}
+
+.difficulty-note strong {
+  color: #15803d;
+}
+
+
+/* Company Not Found */
+.company-not-found {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.company-not-found h2 {
+  font-size: 32px;
+  color: #1f2937;
+  margin: 0 0 24px 0;
+}
+
+.back-btn {
+  background: #ff6b35;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #e55a2b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 100px 220px 120px 1fr;
+  }
+
+  .header-cell,
+  .table-cell {
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 968px) {
+  .company-detail-header {
+    padding: 16px 20px;
+  }
+
+  .company-info-section {
+    padding: 40px 20px;
+  }
+
+  .company-detail-title {
+    font-size: 28px;
+  }
+
+  .company-detail-logo {
+    height: 60px;
+  }
+
+  .assessment-rounds-section,
+  .experiences-section {
+    padding: 0 20px;
+    margin: 32px auto;
+  }
+
+  .rounds-table {
+    overflow-x: auto;
+  }
+
+  .table-header,
+  .table-row {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+  }
+
+  .header-cell {
+    display: none;
+  }
+
+  .table-cell {
+    padding: 12px 20px;
+  }
+
+  .stage-cell::before {
+    content: "Stage: ";
+    font-weight: 700;
+    color: #6b7280;
+    margin-right: 8px;
+  }
+
+  .name-cell::before {
+    content: "Assessment: ";
+    font-weight: 700;
+    color: #6b7280;
+    margin-right: 8px;
+  }
+
+  .duration-cell::before {
+    content: "Duration: ";
+    font-weight: 700;
+    color: #6b7280;
+    margin-right: 8px;
+  }
+
+  .topics-cell::before {
+    content: "Key Topics & Details: ";
+    font-weight: 700;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .table-row {
+    border-bottom: 3px solid #e5e7eb;
+    padding: 16px 0;
+  }
+
+  .experiences-heading {
+    font-size: 24px;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .experience-meta {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .experience-content {
+    padding: 24px 20px;
+  }
+
+  .round-title {
+    font-size: 18px;
+  }
+}

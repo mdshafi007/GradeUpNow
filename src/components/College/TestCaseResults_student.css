@@ -1,0 +1,337 @@
+/* Test Case Results Modal - Student Interface */
+
+.test-case-results-overlay-student {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.test-case-results-modal-student {
+  background: #0d1117;
+  border-radius: 12px;
+  border: 1px solid #21262d;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  color: #f0f6fc;
+}
+
+.results-header-student {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #21262d;
+  background: #161b22;
+  border-radius: 12px 12px 0 0;
+}
+
+.results-header-student h3 {
+  margin: 0;
+  color: #f0f6fc;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-button-student {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.close-button-student:hover {
+  background: #21262d;
+  color: #f0f6fc;
+}
+
+.results-summary-student {
+  padding: 20px 24px;
+  border-bottom: 1px solid #21262d;
+  background: #0d1117;
+}
+
+.overall-status-student {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.overall-status-student.all_passed {
+  background: rgba(46, 160, 67, 0.15);
+  border: 1px solid rgba(46, 160, 67, 0.3);
+  color: #2ea043;
+}
+
+.overall-status-student.partial_passed {
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  color: #f97316;
+}
+
+.overall-status-student.all_failed {
+  background: rgba(248, 81, 73, 0.15);
+  border: 1px solid rgba(248, 81, 73, 0.3);
+  color: #f85149;
+}
+
+.overall-status-student.error {
+  background: rgba(218, 54, 51, 0.15);
+  border: 1px solid rgba(218, 54, 51, 0.3);
+  color: #da3633;
+}
+
+.status-icon-student {
+  font-size: 18px;
+}
+
+.status-text-student {
+  font-size: 14px;
+}
+
+.execution-stats-student {
+  display: flex;
+  gap: 20px;
+  color: #8b949e;
+  font-size: 12px;
+}
+
+.test-cases-container-student {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+  background: #0d1117;
+}
+
+.test-case-item-student {
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.test-case-item-student.passed {
+  border-color: rgba(46, 160, 67, 0.3);
+}
+
+.test-case-item-student.failed {
+  border-color: rgba(248, 81, 73, 0.3);
+}
+
+.test-case-header-student {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+
+.test-case-number-student {
+  font-weight: 600;
+  color: #f0f6fc;
+  font-size: 14px;
+}
+
+.status-indicator-student {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.status-indicator-student.passed {
+  background: #2ea043;
+  color: #ffffff;
+}
+
+.status-indicator-student.failed {
+  background: #f85149;
+  color: #ffffff;
+}
+
+.hidden-badge-student,
+.sample-badge-student {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hidden-badge-student {
+  background: rgba(158, 106, 106, 0.15);
+  color: #9e6a6a;
+  border: 1px solid rgba(158, 106, 106, 0.3);
+}
+
+.sample-badge-student {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.test-case-details-student {
+  padding: 16px;
+  background: #0d1117;
+}
+
+.input-output-row-student {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.input-section-student,
+.expected-section-student,
+.actual-section-student {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-section-student label,
+.expected-section-student label,
+.actual-section-student label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8b949e;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-block-student {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #f0f6fc;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.code-block-student.passed {
+  border-color: rgba(46, 160, 67, 0.3);
+  background: rgba(46, 160, 67, 0.05);
+}
+
+.code-block-student.failed {
+  border-color: rgba(248, 81, 73, 0.3);
+  background: rgba(248, 81, 73, 0.05);
+}
+
+.hidden-test-case-student {
+  padding: 16px;
+  background: #0d1117;
+  text-align: center;
+  color: #8b949e;
+  font-style: italic;
+}
+
+.error-section-student {
+  margin-top: 12px;
+}
+
+.error-section-student label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f85149;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.error-text-student {
+  background: rgba(248, 81, 73, 0.1);
+  border: 1px solid rgba(248, 81, 73, 0.3);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #f85149;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.results-footer-student {
+  padding: 16px 24px;
+  border-top: 1px solid #21262d;
+  background: #161b22;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-modal-button-student {
+  background: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #30363d;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-modal-button-student:hover {
+  background: #30363d;
+  border-color: #8b949e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .test-case-results-overlay-student {
+    padding: 10px;
+  }
+
+  .test-case-results-modal-student {
+    max-height: 95vh;
+  }
+
+  .input-output-row-student {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .results-header-student,
+  .results-summary-student,
+  .test-cases-container-student,
+  .results-footer-student {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

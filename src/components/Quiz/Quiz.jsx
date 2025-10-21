@@ -157,8 +157,8 @@ const Quiz = () => {
       <div className="quiz-error">
         <h2>Error Loading Quiz</h2>
         <p>{error}</p>
-        <button onClick={() => navigate('/practice')} className="back-button">
-          Back to Practice
+        <button onClick={() => navigate('/courses')} className="back-button">
+          Back to Courses
         </button>
       </div>
     );
@@ -169,8 +169,8 @@ const Quiz = () => {
       <div className="quiz-error">
         <h2>No Questions Available</h2>
         <p>This quiz doesn't have any questions yet.</p>
-        <button onClick={() => navigate('/practice')} className="back-button">
-          Back to Practice
+        <button onClick={() => navigate('/courses')} className="back-button">
+          Back to Courses
         </button>
       </div>
     );
@@ -186,13 +186,13 @@ const Quiz = () => {
       <div className="quiz-header">
         <div className="quiz-header-content">
           <button 
-            onClick={() => navigate('/practice')} 
+            onClick={() => navigate('/courses')} 
             className="quiz-back-button"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
-            Back to Practice
+            Back to Courses
           </button>
           <div className="quiz-title">
             <h1>{quiz.title}</h1>

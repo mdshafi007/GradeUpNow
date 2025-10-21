@@ -5,126 +5,57 @@ import OnlineLearning from "./undraw_online-learning_tgmv.svg";
 import usePageTitle from "../../hooks/usePageTitle";
 import "./CoursePage.css";
 
-// Move courseCategories outside component to prevent recreation on every render
-const courseCategories = {
-  programmingLanguages: {
-    icon: "💻",
-    iconBg: "#FFF3E0",
-    iconColor: "#FF7700",
-    title: "Programming Languages",
-    description: "Master core programming concepts with hands-on practice",
-    courses: [
-      {
-        icon: "C",
-        iconBg: "#000000",
-        title: "C Programming",
-        description: "Build strong programming foundations with system-level concepts"
-      },
-      {
-        icon: "C++",
-        iconBg: "#044F88",
-        title: "C++ Programming",
-        description: "Advanced object-oriented programming concepts and data structures"
-      },
-      {
-        icon: "Py",
-        iconBg: "#3776AB",
-        title: "Python Programming",
-        description: "Modern programming essentials for automation and development"
-      },
-      {
-        icon: "Ja",
-        iconBg: "#E32C2C",
-        title: "Java Programming",
-        description: "Enterprise-grade development with robust application design"
-      },
-    ],
+// Clean course data matching reference design
+const courses = [
+  {
+    icon: "📁",
+    iconColor: "#4F46E5",
+    title: "C Programming",
+    subtitle: "Fast, Easy And Powerful Programming Language For Desktop & Other Devices.",
+    rating: 4.8,
+    action: "Download API"
   },
-  webDevelopment: {
-    icon: "🌐",
-    iconBg: "#E0F7FF",
-    iconColor: "#0284C7",
-    title: "Web Development",
-    description: "Build modern and responsive web applications",
-    courses: [
-      {
-        icon: "HTML",
-        iconBg: "#E34F26",
-        title: "HTML Fundamentals",
-        description: "Core web markup language and semantic structure principles"
-      },
-      {
-        icon: "CSS",
-        iconBg: "#1572B6",
-        title: "CSS & Styling",
-        description: "Modern web styling with flexbox, grid, and responsive design"
-      },
-      {
-        icon: "JS",
-        iconBg: "#F7DF1E",
-        title: "JavaScript",
-        description: "Dynamic web applications with modern ES6+ features"
-      },
-      {
-        icon: "⚛️",
-        iconBg: "#61DAFB",
-        title: "React Development",
-        description: "Interactive user interface development with hooks and state"
-      },
-    ],
+  {
+    icon: "🌙",
+    iconColor: "#F59E0B",
+    title: "C++ Programming", 
+    subtitle: "Object-Oriented Programming Language Used To Build High-Performance Apps.",
+    rating: 4.7,
+    action: "Download API"
   },
-  computerScience: {
-    icon: "🧠",
-    iconBg: "#F0F9FF",
-    iconColor: "#3B82F6",
-    title: "Computer Science",
-    description: "Core computer science concepts and fundamentals",
-    courses: [
-      {
-        icon: "🌐",
-        iconBg: "#0284C7",
-        title: "Computer Networks",
-        description: "Network architecture, protocols, and distributed systems"
-      },
-      {
-        icon: "DB",
-        iconBg: "#0891B2",
-        title: "Database Systems",
-        description: "Relational databases, SQL, and data modeling principles"
-      },
-      {
-        icon: "CD",
-        iconBg: "#6366F1",
-        title: "Compiler Design",
-        description: "Language processing, parsing, and code generation concepts"
-      },
-      {
-        icon: "OS",
-        iconBg: "#8B5CF6",
-        title: "Operating Systems",
-        description: "System design, process management, and memory allocation"
-      },
-      {
-        icon: "AL",
-        iconBg: "#EC4899",
-        title: "Algorithms",
-        description: "Efficient problem-solving strategies and complexity analysis"
-      },
-      {
-        icon: "DS",
-        iconBg: "#F43F5E",
-        title: "Data Structures",
-        description: "Efficient data organization and manipulation techniques"
-      },
-      {
-        icon: "🔒",
-        iconBg: "#6B7280",
-        title: "Cryptography",
-        description: "Security fundamentals and encryption algorithm principles"
-      },
-    ],
+  {
+    icon: "📊",
+    iconColor: "#8B5CF6",
+    title: "Python Programming",
+    subtitle: "Modern Programming Language For AI, Web Development, And Automation.",
+    rating: 4.9,
+    action: "Download API"
   },
-};
+  {
+    icon: "☕",
+    iconColor: "#EF4444",
+    title: "Java Programming",
+    subtitle: "Enterprise-Grade Language For Building Scalable Enterprise Applications.",
+    rating: 4.6,
+    action: "Download API"
+  },
+  {
+    icon: "🗂️",
+    iconColor: "#10B981",
+    title: "Data Structures",
+    subtitle: "Organize And Store Data Efficiently For Fast Access And Manipulation.",
+    rating: 4.5,
+    action: "Download API"
+  },
+  {
+    icon: "�",
+    iconColor: "#8B5CF6",
+    title: "Algorithms",
+    subtitle: "Problem-Solving Techniques And Optimization Strategies For Programming.",
+    rating: 4.4,
+    action: "Download API"
+  }
+];
 
 const CoursesPage = () => {
   usePageTitle("All Courses - Programming & Computer Science");
@@ -186,39 +117,31 @@ const CoursesPage = () => {
     return Object.entries(courseCategories);
   }, []);
 
-  // Memoized course card component to prevent unnecessary re-renders
+  // Course card matching reference design exactly
   const CourseCard = useCallback(({ course, onClick }) => (
-    <div 
-      onClick={onClick}
-      style={{ 
-        textDecoration: 'none',
-        cursor: 'pointer'
-      }}
-    >
-      <div className="course-card">
-        <div className="course-card-body">
-          <div 
-            className="course-icon"
-            style={{ backgroundColor: course.iconBg }}
-          >
-            {course.icon}
-          </div>
-          
-          <h4 className="course-title">{course.title}</h4>
-          <p className="course-description">{course.description}</p>
-          
-          <button className="course-button">
-            Start Learning
-          </button>
+    <div className="course-card" onClick={onClick}>
+      <div className="course-header">
+        <div className="course-icon" style={{ color: course.iconColor }}>
+          {course.icon}
         </div>
+        <div className="course-rating">
+          ★ {course.rating}
+        </div>
+      </div>
+      
+      <div className="course-content">
+        <h3 className="course-title">{course.title}</h3>
+        <p className="course-subtitle">{course.subtitle}</p>
+      </div>
+      
+      <div className="course-footer">
+        <span className="course-action">{course.action}</span>
+        <button className="course-btn">Get</button>
       </div>
     </div>
   ), []);
 
-  useEffect(() => {
-    // Initialize current slide for each category using memoized value
-    setCurrentSlide(initialSlides);
-  }, [initialSlides]);
+
 
   return (
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
@@ -243,15 +166,6 @@ const CoursesPage = () => {
                   Master core programming concepts through structured learning paths and hands-on practice. 
                   Learn the way that actually works.
                 </p>
-                
-                <div className="hero-buttons">
-                  <button className="hero-cta-primary">
-                    Start Learning
-                  </button>
-                  <button className="hero-cta-secondary">
-                    View Curriculum
-                  </button>
-                </div>
               </div>
               
               <div className="hero-illustration">
@@ -280,123 +194,25 @@ const CoursesPage = () => {
           {/* Section Header */}
           <div className="section-header">
             <h2 className="section-title">
-              Our Learning Paths
-              <div className="section-title-underline"></div>
+              Our Courses
+              <div className="title-underline"></div>
             </h2>
-            <p className="section-subtitle">
-              Structured learning paths designed for your success, from beginner to advanced levels
-            </p>
           </div>
 
-          {/* Categories */}
-          {courseCategoriesEntries.map(([categoryKey, category], categoryIndex) => (
-            <div key={categoryKey} className="category-section">
-              <div className="category-container">
-                <div 
-                  className="category-background"
-                  style={{
-                    background: categoryIndex % 2 === 0 
-                      ? "linear-gradient(135deg, #FF7700, #FF9A3D)" 
-                      : "linear-gradient(135deg, #3B82F6, #0284C7)"
-                  }}
-                ></div>
-                
-                <div className="category-header">
-                  <div 
-                    className="category-icon-container"
-                    style={{ backgroundColor: category.iconBg }}
-                  >
-                    <span 
-                      className="category-icon"
-                      style={{ color: category.iconColor }}
-                    >
-                      {category.icon}
-                    </span>
-                  </div>
-                  
-                  <div className="category-info">
-                    <h3>{category.title}</h3>
-                    <p>{category.description}</p>
-                    <div className="category-accent-line"></div>
-                  </div>
-                </div>
-
-                {/* Desktop Grid */}
-                <div className="course-grid">
-                  {category.courses.map((course, courseIndex) => {
-                    const courseId = getCourseId(course.title);
-                    
-                    return (
-                      <CourseCard
-                        key={courseIndex}
-                        course={course}
-                        onClick={() => handleCourseClick(courseId)}
-                      />
-                    );
-                  })}
-                </div>
-
-                {/* Mobile Slider */}
-                <div className="mobile-slider-container">
-                  <div className="mobile-slider">
-                    <div 
-                      className="mobile-slider-track"
-                      style={{
-                        transform: `translateX(-${(currentSlide[categoryKey] || 0) * 100}%)`
-                      }}
-                    >
-                      {category.courses.map((course, courseIndex) => {
-                        const courseId = getCourseId(course.title);
-                        
-                        return (
-                          <div key={courseIndex} className="mobile-slide">
-                            <CourseCard
-                              course={course}
-                              onClick={() => handleCourseClick(courseId)}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Slider Controls */}
-                  <div className="slider-controls">
-                    <button 
-                      className="slider-button"
-                      onClick={() => handleSlideChange(categoryKey, 'prev')}
-                      aria-label="Previous course"
-                    >
-                      <ChevronLeft size={20} />
-                    </button>
-
-                    <div className="slider-indicators">
-                      {category.courses.map((_, index) => (
-                        <div
-                          key={index}
-                          className={`slider-indicator ${
-                            (currentSlide[categoryKey] || 0) === index ? 'active' : ''
-                          }`}
-                          onClick={() => setCurrentSlide(prev => ({
-                            ...prev,
-                            [categoryKey]: index
-                          }))}
-                        />
-                      ))}
-                    </div>
-
-                    <button 
-                      className="slider-button"
-                      onClick={() => handleSlideChange(categoryKey, 'next')}
-                      aria-label="Next course"
-                    >
-                      <ChevronRight size={20} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          {/* Courses Grid */}
+          <div className="courses-grid">
+            {courses.map((course, index) => {
+              const courseId = getCourseId(course.title);
+              
+              return (
+                <CourseCard
+                  key={index}
+                  course={course}
+                  onClick={() => handleCourseClick(courseId)}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

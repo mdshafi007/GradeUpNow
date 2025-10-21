@@ -106,6 +106,26 @@ const Footer = () => {
                 <li>
                   <Link to="/terms-of-use">Terms of Use</Link>
                 </li>
+                <li>
+                  <a 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open('/college-portal', '_blank', 'width=1200,height=800');
+                    }}
+                    style={{ 
+                      color: '#ff6b35', 
+                      textDecoration: 'none', 
+                      fontWeight: 'bold',
+                      backgroundColor: '#fff3f0',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      border: '1px solid #ff6b35'
+                    }}
+                  >
+                    🎓 Switch to College
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
