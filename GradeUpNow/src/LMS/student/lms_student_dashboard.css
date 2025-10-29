@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.student-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Sidebar */
+.student-sidebar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-college {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.sidebar-nav {
+  padding: 1.5rem 1rem;
+  flex: 1;
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+}
+
+.nav-item:hover {
+  background: #f8f9fa;
+  color: #1a1a1a;
+}
+
+.nav-item.active {
+  background: #fff4f0;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.nav-item svg {
+  font-size: 1.1rem;
+}
+
+/* Main Content Area */
+.student-main-content {
+  margin-left: 280px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Top Header */
+.student-top-header {
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left .college-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.header-left .college-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.header-left .powered-by {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.header-left .brand {
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FF6B35;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #f8f9fa;
+  color: #1a1a1a;
+}
+
+.icon-btn svg {
+  font-size: 1.1rem;
+}
+
+.logout-btn:hover {
+  color: #dc2626;
+}
+
+/* Content Area */
+.student-content {
+  flex: 1;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+/* Dark Mode */
+.student-dashboard.dark-mode {
+  background: #1a1a1a;
+}
+
+.student-dashboard.dark-mode .student-sidebar,
+.student-dashboard.dark-mode .student-top-header {
+  background: #262626;
+  border-color: #333;
+}
+
+.student-dashboard.dark-mode .sidebar-header h2,
+.student-dashboard.dark-mode .user-name,
+.student-dashboard.dark-mode .nav-item {
+  color: #e5e5e5;
+}
+
+.student-dashboard.dark-mode .nav-item:hover {
+  background: #333;
+}
+
+.student-dashboard.dark-mode .nav-item.active {
+  background: #3a2418;
+}
+
+.student-dashboard.dark-mode .student-content {
+  background: #1a1a1a;
+}
+
+.student-dashboard.dark-mode .icon-btn {
+  color: #999;
+}
+
+.student-dashboard.dark-mode .icon-btn:hover {
+  background: #333;
+  color: #e5e5e5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .student-sidebar {
+    width: 70px;
+  }
+
+  .sidebar-header h2,
+  .sidebar-college,
+  .nav-label,
+  .nav-item span {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .student-main-content {
+    margin-left: 70px;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .student-top-header {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,232 @@
+/* WhySection - Professional & Sleek Design */
+.whysection {
+  background: #ffffff;
+  padding: 5rem 0 2rem 0;
+  position: relative;
+}
+
+.whysection-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.whysection-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.whysection-main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.whysection-subtitle {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+.whysection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.whysection-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.whysection-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-color) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.whysection-card:hover {
+  transform: translateY(-4px);
+  border-color: #e2e8f0;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.whysection-card:hover::before {
+  opacity: 1;
+}
+
+.whysection-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.whysection-icon {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.5;
+}
+
+.whysection-accent-blue {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+}
+
+.whysection-accent-purple {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  color: #7c3aed;
+}
+
+.whysection-accent-green {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #16a34a;
+}
+
+.whysection-accent-orange {
+  background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+  color: #ea580c;
+}
+
+.whysection-accent-red {
+  background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+  color: #dc2626;
+}
+
+.whysection-card:hover .whysection-icon-wrapper {
+  transform: scale(1.05);
+}
+
+.whysection-content {
+  flex: 1;
+}
+
+.whysection-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.whysection-description {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.whysection-divider {
+  margin-top: 3rem;
+  margin-bottom: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, #e5e7eb 20%, #d1d5db 50%, #e5e7eb 80%, transparent 100%);
+  position: relative;
+}
+
+.whysection-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(135deg, #ff7700, #ff5500);
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .whysection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .whysection {
+    padding: 4rem 0;
+  }
+  
+  .whysection-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .whysection {
+    padding: 3rem 0 1.5rem 0;
+  }
+  
+  .whysection-container {
+    padding: 0 1rem;
+  }
+  
+  .whysection-header {
+    margin-bottom: 2rem;
+  }
+  
+  .whysection-main-title {
+    font-size: 2rem;
+  }
+  
+  .whysection-subtitle {
+    font-size: 1rem;
+  }
+  
+  .whysection-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .whysection-card {
+    padding: 1.5rem;
+  }
+  
+  .whysection-title {
+    font-size: 1.125rem;
+  }
+  
+  .whysection-description {
+    font-size: 0.9rem;
+  }
+  
+  .whysection-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+  
+  .whysection-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .whysection-card {
+    padding: 1.25rem;
+  }
+  
+  .whysection-container {
+    padding: 0 0.75rem;
+  }
+}

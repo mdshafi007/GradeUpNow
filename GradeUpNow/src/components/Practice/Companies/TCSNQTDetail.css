@@ -1,0 +1,499 @@
+/* TCS Detail Container */
+.tcs-detail-container {
+  min-height: 100vh;
+  background: #fafafa;
+  padding-bottom: 60px;
+  padding-top: 0;
+}
+
+/* Header */
+.tcs-detail-header {
+  background: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tcs-back-button {
+  background: none;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.tcs-back-button:hover {
+  background: #f9fafb;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+/* TCS Banner */
+.tcs-banner {
+  background: white;
+  padding: 48px 40px;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tcs-banner-logo {
+  width: 160px;
+  height: auto;
+  margin-bottom: 24px;
+  object-fit: contain;
+}
+
+.tcs-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Content */
+.tcs-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px;
+}
+
+/* Section */
+.tcs-assessment-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid #e5e5e5;
+}
+
+.tcs-section-heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #ff6b35;
+}
+
+/* TCS Table Styles */
+.tcs-rounds-table {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tcs-table-header {
+  display: grid;
+  grid-template-columns: 120px 240px 1fr;
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e5e5;
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.tcs-table-row {
+  display: grid;
+  grid-template-columns: 120px 240px 1fr;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tcs-table-row:last-child {
+  border-bottom: none;
+}
+
+.tcs-table-row:hover {
+  background: #fafafa;
+}
+
+.tcs-table-cell {
+  padding: 28px 24px;  /* Increased vertical padding from 20px to 28px */
+  font-size: 15px;
+  line-height: 1.8;    /* Increased line height from 1.6 to 1.8 */
+  color: #374151;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #e5e5e5;
+  min-height: 80px;    /* Added minimum height */
+}
+
+.tcs-table-cell:last-child {
+  border-right: none;
+}
+
+.tcs-stage-cell {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 16px;     /* Slightly larger font for stage */
+}
+
+.tcs-name-cell {
+  font-weight: 500;
+  color: #1a1a1a;
+  font-size: 16px;     /* Slightly larger font for name */
+}
+
+.tcs-topics-cell {
+  display: block;
+  padding: 28px 24px;  /* Increased padding to match other cells */
+  min-height: 80px;    /* Added minimum height */
+}
+
+.tcs-topic-item {
+  margin-bottom: 12px;    /* Increased margin between items */
+  line-height: 1.8;       /* Increased line height */
+  font-size: 15px;        /* Consistent font size */
+}
+
+.tcs-topic-item:last-child {
+  margin-bottom: 0;
+}
+
+.tcs-topic-label {
+  display: block;
+  color: #1a1a1a;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+/* Experiences Section */
+.tcs-experiences-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid #e5e5e5;
+}
+
+.tcs-experience-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tcs-experience-header {
+  margin-bottom: 20px;
+}
+
+.tcs-experience-author h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+}
+
+.tcs-experience-author p {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0 0 8px 0;
+}
+
+.tcs-experience-date {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tcs-experience-content {
+  margin-bottom: 20px;
+}
+
+.tcs-experience-content p {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.tcs-experience-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tcs-hashtag {
+  background: #f3f4f6;
+  color: #2563eb;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .tcs-rounds-table {
+    border: none;
+  }
+
+  .tcs-table-header {
+    display: none;
+  }
+
+  .tcs-table-row {
+    display: block;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .tcs-table-cell {
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 20px;
+    min-height: auto;
+  }
+
+  .tcs-stage-cell {
+    background: #f9fafb;
+  }
+
+  .tcs-stage-cell::before {
+    content: 'Stage: ';
+    font-weight: 400;
+    color: #6b7280;
+    margin-right: 8px;
+  }
+
+  .tcs-name-cell::before {
+    content: 'Assessment: ';
+    font-weight: 400;
+    color: #6b7280;
+    margin-right: 8px;
+  }
+
+  .tcs-topics-cell {
+    padding: 20px;
+    background: white;
+  }
+
+  .tcs-topics-cell::before {
+    content: 'Topics & Details:';
+    display: block;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .tcs-experience-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .tcs-experience-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tcs-detail-header {
+    padding: 16px;
+  }
+
+  .tcs-banner {
+    padding: 24px 16px;
+  }
+
+  .tcs-content {
+    padding: 16px;
+  }
+
+  .tcs-assessment-section,
+  .tcs-experiences-section {
+    padding: 20px 16px;
+  }
+
+  .tcs-table-cell {
+    padding: 14px 16px;
+  }
+
+  .tcs-experience-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .tcs-detail-header,
+  .tcs-banner {
+    padding: 24px;
+  }
+
+  .tcs-content {
+    padding: 32px 24px;
+  }
+
+  .tcs-assessment-section {
+    padding: 24px;
+  }
+
+  .tcs-title {
+    font-size: 26px;
+  }
+
+  .tcs-section-heading {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tcs-detail-container {
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+
+  .tcs-detail-header {
+    padding: 16px 20px;
+  }
+
+  .tcs-back-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .tcs-banner {
+    padding: 32px 20px;
+  }
+
+  .tcs-banner-logo {
+    width: 100px;
+    margin-bottom: 16px;
+  }
+
+  .tcs-title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .tcs-content {
+    padding: 20px 16px;
+  }
+
+  .tcs-assessment-section {
+    padding: 20px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .tcs-section-heading {
+    font-size: 18px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  /* Stack table vertically on mobile */
+  .tcs-rounds-table {
+    border: none;
+  }
+
+  .tcs-table-header {
+    display: none;
+  }
+
+  .tcs-table-row {
+    display: block;
+    margin-bottom: 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+  }
+
+  .tcs-table-cell {
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 14px;
+  }
+
+  .tcs-stage-cell::before {
+    content: 'Stage: ';
+    font-weight: 400;
+    color: #6b7280;
+    margin-right: 4px;
+  }
+
+  .tcs-name-cell::before {
+    content: 'Assessment: ';
+    font-weight: 400;
+    color: #6b7280;
+    margin-right: 4px;
+  }
+
+  .tcs-topics-cell {
+    padding: 14px;
+    background: white;
+  }
+
+  .tcs-topics-cell::before {
+    content: 'Topics & Details:';
+    display: block;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tcs-detail-header {
+    padding: 12px 16px;
+  }
+
+  .tcs-back-button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .tcs-banner {
+    padding: 24px 16px;
+  }
+
+  .tcs-banner-logo {
+    width: 85px;
+    margin-bottom: 14px;
+  }
+
+  .tcs-title {
+    font-size: 18px;
+  }
+
+  .tcs-content {
+    padding: 16px 12px;
+  }
+
+  .tcs-assessment-section {
+    padding: 16px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  .tcs-section-heading {
+    font-size: 17px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  .tcs-table-row {
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+
+  .tcs-table-cell {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,586 @@
+{
+  "category": "MCQs",
+  "title": "DBMS Practice Questions",
+  "topics": [
+    {
+      "id": "introduction-to-dbms",
+      "title": "Introduction to DBMS",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "question": "What is a Database?",
+          "options": {
+            "A": "Collection of programs",
+            "B": "Collection of data",
+            "C": "Collection of hardware components",
+            "D": "None of these"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 2,
+          "question": "A DBMS is used to:",
+          "options": {
+            "A": "Store data only",
+            "B": "Store and manage data efficiently",
+            "C": "Only retrieve data",
+            "D": "None of the above"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 3,
+          "question": "Which of the following is not a function of DBMS?",
+          "options": {
+            "A": "Data storage management",
+            "B": "Data manipulation",
+            "C": "Data redundancy",
+            "D": "Data retrieval"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 4,
+          "question": "The full form of DBMS is:",
+          "options": {
+            "A": "Data Base Management System",
+            "B": "Data Base Maintenance System",
+            "C": "Data Backup Management System",
+            "D": "None of the above"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 5,
+          "question": "Which of the following is an example of DBMS?",
+          "options": {
+            "A": "Windows",
+            "B": "MySQL",
+            "C": "C++",
+            "D": "Oracle VM"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 6,
+          "question": "The main purpose of a Database Management System is to:",
+          "options": {
+            "A": "Store data permanently",
+            "B": "Reduce data redundancy and inconsistency",
+            "C": "Increase redundancy",
+            "D": "Slow down data access"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 7,
+          "question": "The term \"data independence\" refers to:",
+          "options": {
+            "A": "Ability to modify schema without affecting application programs",
+            "B": "Ability to store data without redundancy",
+            "C": "Independence between user and hardware",
+            "D": "None of the above"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 8,
+          "question": "Which component of DBMS controls data access and ensures security?",
+          "options": {
+            "A": "Query processor",
+            "B": "Storage manager",
+            "C": "Transaction manager",
+            "D": "Authorization control"
+          },
+          "correctAnswer": "D"
+        },
+        {
+          "questionNumber": 9,
+          "question": "Metadata means:",
+          "options": {
+            "A": "Data about data",
+            "B": "Data inside data",
+            "C": "Raw data",
+            "D": "None of these"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 10,
+          "question": "Which of the following is not an advantage of DBMS?",
+          "options": {
+            "A": "Data redundancy control",
+            "B": "Data inconsistency",
+            "C": "Data sharing",
+            "D": "Data security"
+          },
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": "database-models",
+      "title": "Database Models",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "question": "Which data model organizes data in the form of tables?",
+          "options": {
+            "A": "Hierarchical Model",
+            "B": "Network Model",
+            "C": "Relational Model",
+            "D": "Object-Oriented Model"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 2,
+          "question": "In a hierarchical model, data is represented using a:",
+          "options": {
+            "A": "Tree structure",
+            "B": "Graph",
+            "C": "Table",
+            "D": "List"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 3,
+          "question": "Which of the following models supports many-to-many relationships?",
+          "options": {
+            "A": "Hierarchical Model",
+            "B": "Network Model",
+            "C": "Relational Model",
+            "D": "File-Based Model"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 4,
+          "question": "The relational model was proposed by:",
+          "options": {
+            "A": "Bill Inmon",
+            "B": "E. F. Codd",
+            "C": "Charles Bachman",
+            "D": "Edgar Hoover"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 5,
+          "question": "In a relational model, a row is called a:",
+          "options": {
+            "A": "Attribute",
+            "B": "Tuple",
+            "C": "Domain",
+            "D": "Relation"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 6,
+          "question": "In a relational database, a column is known as a/an:",
+          "options": {
+            "A": "Attribute",
+            "B": "Tuple",
+            "C": "Record",
+            "D": "Entity"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 7,
+          "question": "Which model represents data as a collection of entities and relationships?",
+          "options": {
+            "A": "Hierarchical Model",
+            "B": "Network Model",
+            "C": "ER Model",
+            "D": "Relational Model"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 8,
+          "question": "Which data model uses pointers to establish relationships between records?",
+          "options": {
+            "A": "Network Model",
+            "B": "Hierarchical Model",
+            "C": "Relational Model",
+            "D": "Object Model"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 9,
+          "question": "In the object-oriented data model, data and its relationships are stored as:",
+          "options": {
+            "A": "Tables",
+            "B": "Objects",
+            "C": "Trees",
+            "D": "Lists"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 10,
+          "question": "Which of the following models is best suited for handling complex data types like multimedia?",
+          "options": {
+            "A": "Relational Model",
+            "B": "Object-Oriented Model",
+            "C": "Hierarchical Model",
+            "D": "Network Model"
+          },
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": "er-model",
+      "title": "Entity-Relationship (ER) Model",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "question": "The ER model was proposed by:",
+          "options": {
+            "A": "E. F. Codd",
+            "B": "Peter Chen",
+            "C": "Bill Inmon",
+            "D": "Charles Bachman"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 2,
+          "question": "In an ER diagram, a rectangle represents a:",
+          "options": {
+            "A": "Attribute",
+            "B": "Entity",
+            "C": "Relationship",
+            "D": "Primary key"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 3,
+          "question": "In an ER diagram, a diamond represents a:",
+          "options": {
+            "A": "Attribute",
+            "B": "Relationship",
+            "C": "Entity",
+            "D": "Derived Attribute"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 4,
+          "question": "In an ER diagram, an oval represents a/an:",
+          "options": {
+            "A": "Attribute",
+            "B": "Entity",
+            "C": "Relationship",
+            "D": "Key"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 5,
+          "question": "A weak entity is represented by:",
+          "options": {
+            "A": "Double rectangle",
+            "B": "Single rectangle",
+            "C": "Ellipse",
+            "D": "Diamond"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 6,
+          "question": "The attribute which uniquely identifies each entity instance is known as:",
+          "options": {
+            "A": "Foreign Key",
+            "B": "Primary Key",
+            "C": "Derived Attribute",
+            "D": "Composite Key"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 7,
+          "question": "The relationship type that connects exactly two entities is called:",
+          "options": {
+            "A": "Unary relationship",
+            "B": "Binary relationship",
+            "C": "Ternary relationship",
+            "D": "Many-to-many relationship"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 8,
+          "question": "The total participation of an entity in a relationship is represented by:",
+          "options": {
+            "A": "Single line",
+            "B": "Double line",
+            "C": "Dashed line",
+            "D": "Dotted line"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 9,
+          "question": "The attribute which can be divided into smaller parts is called:",
+          "options": {
+            "A": "Simple Attribute",
+            "B": "Composite Attribute",
+            "C": "Derived Attribute",
+            "D": "Multivalued Attribute"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 10,
+          "question": "Which of the following is true about a weak entity?",
+          "options": {
+            "A": "It has a primary key",
+            "B": "It depends on a strong entity",
+            "C": "It is independent of other entities",
+            "D": "It has its own unique key"
+          },
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": "relational-model",
+      "title": "Relational Model",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "question": "In the relational model, data is organized in the form of:",
+          "options": {
+            "A": "Graphs",
+            "B": "Tables",
+            "C": "Trees",
+            "D": "Networks"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 2,
+          "question": "Each row in a table is called a:",
+          "options": {
+            "A": "Attribute",
+            "B": "Tuple",
+            "C": "Field",
+            "D": "Domain"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 3,
+          "question": "Each column in a table is called a:",
+          "options": {
+            "A": "Attribute",
+            "B": "Tuple",
+            "C": "Relation",
+            "D": "Key"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 4,
+          "question": "The number of attributes in a relation is known as its:",
+          "options": {
+            "A": "Cardinality",
+            "B": "Degree",
+            "C": "Order",
+            "D": "Domain"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 5,
+          "question": "The number of tuples in a relation is known as its:",
+          "options": {
+            "A": "Degree",
+            "B": "Cardinality",
+            "C": "Domain",
+            "D": "Schema"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 6,
+          "question": "A relational database consists of a collection of:",
+          "options": {
+            "A": "Fields",
+            "B": "Records",
+            "C": "Tables",
+            "D": "Keys"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 7,
+          "question": "Which key uniquely identifies a record in a relation?",
+          "options": {
+            "A": "Foreign Key",
+            "B": "Primary Key",
+            "C": "Candidate Key",
+            "D": "Alternate Key"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 8,
+          "question": "Which key is a primary key in another table?",
+          "options": {
+            "A": "Foreign Key",
+            "B": "Alternate Key",
+            "C": "Super Key",
+            "D": "Candidate Key"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 9,
+          "question": "A super key is:",
+          "options": {
+            "A": "A key that uniquely identifies tuples",
+            "B": "A minimal key",
+            "C": "A subset of candidate keys",
+            "D": "A non-unique key"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 10,
+          "question": "A relation schema is:",
+          "options": {
+            "A": "A set of tuples",
+            "B": "The structure that defines relation name and attributes",
+            "C": "The actual data in the table",
+            "D": "The foreign key"
+          },
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": "keys-and-constraints",
+      "title": "Keys and Constraints",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "question": "Which key uniquely identifies each record in a table?",
+          "options": {
+            "A": "Foreign Key",
+            "B": "Primary Key",
+            "C": "Super Key",
+            "D": "Composite Key"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 2,
+          "question": "Which key is a minimal super key?",
+          "options": {
+            "A": "Alternate Key",
+            "B": "Candidate Key",
+            "C": "Foreign Key",
+            "D": "Composite Key"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 3,
+          "question": "A primary key can be:",
+          "options": {
+            "A": "Single attribute only",
+            "B": "Combination of attributes",
+            "C": "Both A and B",
+            "D": "None of these"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 4,
+          "question": "A foreign key is used to:",
+          "options": {
+            "A": "Identify records uniquely",
+            "B": "Link two tables",
+            "C": "Delete duplicate records",
+            "D": "None of these"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 5,
+          "question": "The foreign key in one table refers to the _______ key in another table.",
+          "options": {
+            "A": "Alternate",
+            "B": "Candidate",
+            "C": "Primary",
+            "D": "Super"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 6,
+          "question": "Which constraint ensures that no two rows have the same primary key value?",
+          "options": {
+            "A": "NOT NULL",
+            "B": "UNIQUE",
+            "C": "CHECK",
+            "D": "DEFAULT"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 7,
+          "question": "Which constraint ensures that a column cannot have NULL values?",
+          "options": {
+            "A": "UNIQUE",
+            "B": "DEFAULT",
+            "C": "NOT NULL",
+            "D": "FOREIGN KEY"
+          },
+          "correctAnswer": "C"
+        },
+        {
+          "questionNumber": 8,
+          "question": "A CHECK constraint is used to:",
+          "options": {
+            "A": "Restrict the range of values in a column",
+            "B": "Set a default value",
+            "C": "Create relationships",
+            "D": "Make data unique"
+          },
+          "correctAnswer": "A"
+        },
+        {
+          "questionNumber": 9,
+          "question": "Which constraint automatically provides a default value for a column when no value is specified?",
+          "options": {
+            "A": "UNIQUE",
+            "B": "DEFAULT",
+            "C": "CHECK",
+            "D": "PRIMARY KEY"
+          },
+          "correctAnswer": "B"
+        },
+        {
+          "questionNumber": 10,
+          "question": "The combination of two or more attributes to uniquely identify records is called a:",
+          "options": {
+            "A": "Composite Key",
+            "B": "Super Key",
+            "C": "Foreign Key",
+            "D": "Alternate Key"
+          },
+          "correctAnswer": "A"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,710 @@
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  padding: 8rem 0 6rem;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Animated Background Elements */
+.hero-bg-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 119, 0, 0.1),
+    rgba(255, 85, 0, 0.1)
+  );
+  animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  top: -200px;
+  right: -200px;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  left: -150px;
+  animation-delay: -5s;
+}
+
+.shape-3 {
+  width: 200px;
+  height: 200px;
+  top: 40%;
+  right: 15%;
+  animation-delay: -10s;
+}
+
+.tech-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+      rgba(255, 119, 0, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 119, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Badge Styling */
+.badge-container {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 119, 0, 0.1);
+  border-radius: 100px;
+  color: #ff7700;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #ff7700;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+/* Headline Styling */
+.hero-headline {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.headline-main {
+  color: #1a1a1a;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-text {
+  font-size: 4rem;
+  background: linear-gradient(120deg, #ff7700, #ff5500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  position: relative;
+}
+
+.headline-decorator {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff7700, transparent);
+  margin: 1.5rem auto;
+  border-radius: 2px;
+}
+
+/* Description Styling */
+.hero-description {
+  font-size: 1.25rem;
+  color: #4a4a4a;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.highlight-subtext {
+  display: block;
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* Button Styling */
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.btn-start {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(45deg, #ff7700, #ff5500);
+  border: none;
+  border-radius: 100px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Add this */
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 119, 0, 0.2);
+}
+
+.btn-explore {
+  padding: 1rem 2.5rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 100px;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-explore:hover {
+  border-color: #ff7700;
+  color: #ff7700;
+  transform: translateY(-2px);
+}
+
+.btn-text {
+  display: inline-block;
+  text-align: center; /* Add this */
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stats Section */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: linear-gradient(120deg, #ff7700, #ff5500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, #e0e0e0, transparent);
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 119, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 119, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 119, 0, 0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem 3rem;
+  }
+
+  /* Landing page specific hero styling */
+  .landing-hero.hero-section {
+    padding: 1rem 1rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 100px;
+  }
+
+  .landing-hero .hero-inner {
+    padding: 0 0.5rem;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .landing-hero .badge-container {
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .landing-hero .tech-badge {
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(255, 119, 0, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.1);
+    display: inline-block;
+  }
+
+  .landing-hero .hero-headline {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .landing-hero .headline-main {
+    font-size: 2rem;
+    display: inline;
+    margin-bottom: 0;
+    color: #1a1a1a;
+  }
+
+  .landing-hero .highlight-text {
+    font-size: 2rem;
+    display: inline;
+    margin-top: 0;
+    line-height: 1.2;
+  }
+
+  .landing-hero .headline-decorator {
+    width: 80px;
+    height: 3px;
+    margin: 1.5rem auto;
+  }
+
+  .landing-hero .hero-description {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .landing-hero .highlight-subtext {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #777;
+    display: block;
+  }
+
+  .landing-hero .hero-actions {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+    align-items: center;
+  }
+
+  .landing-hero .btn-start,
+  .landing-hero .btn-explore {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    min-height: 52px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .landing-hero .btn-start {
+    box-shadow: 0 6px 20px rgba(255, 119, 0, 0.25);
+    margin-bottom: 0;
+  }
+
+  .landing-hero .btn-explore {
+    display: none; /* Hide second button to match the reference image */
+  }
+
+  .landing-hero .btn-start:hover,
+  .landing-hero .btn-start:active {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(255, 119, 0, 0.3);
+  }
+
+  .landing-hero .hero-stats {
+    display: none; /* Hide stats section to match the reference image */
+  }
+}
+
+/* Add new breakpoint for medium tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-section {
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-headline {
+    font-size: 3rem;
+  }
+
+  .highlight-text {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.15rem;
+    padding: 0 2rem;
+  }
+
+  .hero-actions {
+    gap: 1rem;
+  }
+}
+
+/* Landscape phone optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  .hero-inner {
+    max-width: 700px;
+  }
+
+  .hero-headline {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .headline-main {
+    font-size: 1.6rem;
+  }
+
+  .highlight-text {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-start,
+  .btn-explore {
+    width: auto;
+    padding: 0.8rem 1.8rem;
+    font-size: 0.95rem;
+    max-width: 200px;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Tablet portrait improvements */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero-section {
+    padding: 5rem 2rem 4rem;
+  }
+
+  .hero-headline {
+    font-size: 2.8rem;
+  }
+
+  .highlight-text {
+    font-size: 3.2rem;
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+    max-width: 550px;
+  }
+
+  .btn-start,
+  .btn-explore {
+    padding: 1rem 2.2rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* Styles for small mobile devices */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 1.5rem 0.75rem 2rem;
+  }
+
+  .hero-headline {
+    font-size: 1.9rem;
+  }
+
+  .headline-main {
+    font-size: 1.7rem;
+  }
+
+  .highlight-text {
+    font-size: 2.1rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .highlight-subtext {
+    font-size: 0.95rem;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .btn-start,
+  .btn-explore {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    max-width: 280px;
+  }
+}
+
+/* Styles for very small devices */
+@media (max-width: 360px) {
+  .hero-section {
+    padding: 1.5rem 0.5rem 2rem;
+  }
+
+  .hero-headline {
+    font-size: 1.7rem;
+  }
+
+  .headline-main {
+    font-size: 1.5rem;
+  }
+
+  .highlight-text {
+    font-size: 1.9rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    padding: 0;
+  }
+
+  .highlight-subtext {
+    font-size: 0.9rem;
+  }
+
+  .tech-badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .btn-start,
+  .btn-explore {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    max-width: 260px;
+    min-height: 48px;
+  }
+
+  .headline-decorator {
+    width: 60px;
+    height: 2px;
+  }
+}
+
+/* Background elements responsiveness */
+@media (max-width: 768px) {
+  .floating-shape {
+    opacity: 0.4;
+  }
+
+  .shape-1 {
+    width: 180px;
+    height: 180px;
+    top: -90px;
+    right: -90px;
+  }
+
+  .shape-2 {
+    width: 120px;
+    height: 120px;
+    bottom: -60px;
+    left: -60px;
+  }
+
+  .shape-3 {
+    width: 80px;
+    height: 80px;
+    top: 25%;
+    right: 5%;
+  }
+
+  .tech-grid {
+    background-size: 25px 25px;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-shape {
+    opacity: 0.3;
+  }
+
+  .shape-1 {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -60px;
+  }
+
+  .shape-2 {
+    width: 80px;
+    height: 80px;
+    bottom: -40px;
+    left: -40px;
+  }
+
+  .shape-3 {
+    width: 60px;
+    height: 60px;
+    top: 20%;
+    right: 5%;
+  }
+
+  .tech-grid {
+    background-size: 20px 20px;
+    opacity: 0.6;
+  }
+}
+
+/* Improved touch targets and interactions for mobile */
+@media (max-width: 768px) {
+  .btn-start,
+  .btn-explore {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .btn-start:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+  }
+
+  .btn-explore:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+  }
+
+  /* Prevent text selection on mobile */
+  .hero-headline,
+  .hero-description,
+  .tech-badge {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Smooth scrolling for mobile */
+  .hero-section {
+    scroll-behavior: smooth;
+  }
+}
+
+/* High DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .tech-badge {
+    border: 0.5px solid rgba(255, 119, 0, 0.3);
+  }
+  
+  .headline-decorator {
+    height: 3px;
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 768px) {
+  .btn-start:focus,
+  .btn-explore:focus {
+    outline: 2px solid #ff7700;
+    outline-offset: 2px;
+  }
+
+  /* Larger tap targets for better accessibility */
+  .btn-start,
+  .btn-explore {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+

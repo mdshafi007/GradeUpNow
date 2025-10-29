@@ -1,0 +1,373 @@
+/* Coding Editor Container */
+.lms-coding-editor {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Header */
+.lms-coding-header {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lms-coding-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lms-coding-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.lms-coding-header p {
+  margin: 0.25rem 0 0 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.lms-save-test-btn {
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.lms-save-test-btn:hover:not(:disabled) {
+  background-color: #e55a2b;
+}
+
+.lms-save-test-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Main Content */
+.lms-coding-content {
+  display: flex;
+  min-height: calc(100vh - 100px);
+}
+
+/* Problems Sidebar */
+.lms-problems-sidebar {
+  width: 280px;
+  background-color: white;
+  border-right: 1px solid #e9ecef;
+  padding: 1.5rem;
+}
+
+.lms-problems-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.lms-problems-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.lms-add-problem-btn {
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.lms-add-problem-btn:hover {
+  background-color: #e55a2b;
+}
+
+.lms-problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lms-problem-item {
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #495057;
+  font-weight: 500;
+}
+
+.lms-problem-item:hover {
+  background-color: #e9ecef;
+}
+
+.lms-problem-item.active {
+  background-color: #fff4f0;
+  color: #ff6b35;
+  border: 2px solid #ff6b35;
+}
+
+/* Problem Editor */
+.lms-problem-editor {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1000px;
+}
+
+.lms-problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.lms-problem-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.lms-difficulty-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  color: #495057;
+}
+
+.lms-difficulty-select:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+/* Form Groups */
+.lms-form-group {
+  margin-bottom: 2rem;
+}
+
+.lms-form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #212529;
+  font-size: 0.9375rem;
+}
+
+.lms-form-group input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s;
+}
+
+.lms-form-group input[type="text"]:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.lms-form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.lms-form-group textarea:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.lms-form-group .field-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Test Cases Section */
+.lms-test-cases-section {
+  margin-top: 2rem;
+}
+
+.lms-test-cases-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.lms-test-cases-header h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.lms-add-testcase-btn {
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.lms-add-testcase-btn:hover {
+  background-color: #e55a2b;
+}
+
+/* Test Case Card */
+.lms-test-case-card {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.lms-test-case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.lms-test-case-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.lms-delete-tc-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.lms-delete-tc-btn:hover {
+  color: #bb2d3b;
+}
+
+.lms-test-case-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lms-test-case-col label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.lms-test-case-col textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: 'Courier New', monospace;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.lms-test-case-col textarea:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+.lms-hidden-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.lms-hidden-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #ff6b35;
+}
+
+.lms-hidden-checkbox label {
+  font-size: 0.875rem;
+  color: #6c757d;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Delete Problem Button */
+.lms-delete-problem-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  transition: background-color 0.2s;
+}
+
+.lms-delete-problem-btn:hover {
+  background-color: #bb2d3b;
+}
+
+/* Loading State */
+.lms-coding-editor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}

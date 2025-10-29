@@ -1,0 +1,225 @@
+{
+  "title": "Complete C Programming Course",
+  "description": "Master C programming from basics to advanced concepts with hands-on examples and practical projects.",
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction to C",
+      "description": "Learn the basics of C programming language",
+      "content": [
+        {
+          "title": "History of C",
+          "type": "text",
+          "content": "C was developed by Dennis Ritchie at Bell Labs in 1972. It's a powerful, efficient programming language that has influenced many modern languages. C is widely used for system programming, embedded systems, and performance-critical applications.",
+          "code": null
+        },
+        {
+          "title": "Your First C Program",
+          "type": "code",
+          "content": "Let's start with the classic 'Hello, World!' program. This simple program demonstrates the basic structure of a C program.",
+          "code": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n\n/* Output: Hello, World! */"
+        },
+        {
+          "title": "C Program Structure",
+          "type": "text",
+          "content": "Every C program has a main() function, which is the entry point. The #include directive includes header files. printf() is used to display output. The return 0 indicates successful program execution.",
+          "code": null
+        }
+      ]
+    },
+    {
+      "id": "basics",
+      "title": "C Language Basics",
+      "description": "Variables, data types, and basic operations",
+      "content": [
+        {
+          "title": "Variables and Data Types",
+          "type": "code",
+          "content": "Variables store data in memory. C has several built-in data types for different kinds of data.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int age = 25;           // Integer\n    float height = 5.8;     // Floating point\n    char grade = 'A';       // Character\n    double pi = 3.14159;    // Double precision\n    \n    printf(\"Age: %d\\n\", age);\n    printf(\"Height: %.1f\\n\", height);\n    printf(\"Grade: %c\\n\", grade);\n    printf(\"Pi: %.5f\\n\", pi);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Constants and Literals",
+          "type": "code",
+          "content": "Constants are fixed values that don't change during program execution.",
+          "code": "#include <stdio.h>\n#define PI 3.14159\n\nint main() {\n    const int MAX_SIZE = 100;\n    \n    printf(\"PI value: %.5f\\n\", PI);\n    printf(\"Maximum size: %d\\n\", MAX_SIZE);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Operators",
+          "type": "code",
+          "content": "C provides various operators for arithmetic, comparison, logical operations, and more.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int a = 10, b = 5;\n    \n    // Arithmetic operators\n    printf(\"Addition: %d + %d = %d\\n\", a, b, a + b);\n    printf(\"Subtraction: %d - %d = %d\\n\", a, b, a - b);\n    printf(\"Multiplication: %d * %d = %d\\n\", a, b, a * b);\n    printf(\"Division: %d / %d = %d\\n\", a, b, a / b);\n    printf(\"Modulus: %d %% %d = %d\\n\", a, b, a % b);\n    \n    // Comparison operators\n    printf(\"Is %d > %d? %s\\n\", a, b, (a > b) ? \"Yes\" : \"No\");\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Input and Output",
+          "type": "code",
+          "content": "Use scanf() for input and printf() for output in C programs.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int number;\n    char name[50];\n    \n    printf(\"Enter your name: \");\n    scanf(\"%s\", name);\n    \n    printf(\"Enter a number: \");\n    scanf(\"%d\", &number);\n    \n    printf(\"Hello %s! Your number is %d\\n\", name, number);\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "control-structures",
+      "title": "Control Structures",
+      "description": "Decision making and loops in C",
+      "content": [
+        {
+          "title": "If-Else Statements",
+          "type": "code",
+          "content": "Make decisions in your programs using if-else statements.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int score;\n    \n    printf(\"Enter your score: \");\n    scanf(\"%d\", &score);\n    \n    if (score >= 90) {\n        printf(\"Grade: A\\n\");\n    } else if (score >= 80) {\n        printf(\"Grade: B\\n\");\n    } else if (score >= 70) {\n        printf(\"Grade: C\\n\");\n    } else if (score >= 60) {\n        printf(\"Grade: D\\n\");\n    } else {\n        printf(\"Grade: F\\n\");\n    }\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Switch Statement",
+          "type": "code",
+          "content": "Switch statements provide an efficient way to handle multiple conditions.",
+          "code": "#include <stdio.h>\n\nint main() {\n    char operator;\n    double num1, num2;\n    \n    printf(\"Enter operator (+, -, *, /): \");\n    scanf(\"%c\", &operator);\n    \n    printf(\"Enter two numbers: \");\n    scanf(\"%lf %lf\", &num1, &num2);\n    \n    switch (operator) {\n        case '+':\n            printf(\"%.2f + %.2f = %.2f\\n\", num1, num2, num1 + num2);\n            break;\n        case '-':\n            printf(\"%.2f - %.2f = %.2f\\n\", num1, num2, num1 - num2);\n            break;\n        case '*':\n            printf(\"%.2f * %.2f = %.2f\\n\", num1, num2, num1 * num2);\n            break;\n        case '/':\n            if (num2 != 0)\n                printf(\"%.2f / %.2f = %.2f\\n\", num1, num2, num1 / num2);\n            else\n                printf(\"Error: Division by zero!\\n\");\n            break;\n        default:\n            printf(\"Error: Invalid operator!\\n\");\n    }\n    \n    return 0;\n}"
+        },
+        {
+          "title": "For Loops",
+          "type": "code",
+          "content": "For loops are perfect when you know how many times you want to repeat something.",
+          "code": "#include <stdio.h>\n\nint main() {\n    // Print numbers 1 to 10\n    printf(\"Numbers 1 to 10:\\n\");\n    for (int i = 1; i <= 10; i++) {\n        printf(\"%d \", i);\n    }\n    printf(\"\\n\\n\");\n    \n    // Calculate factorial\n    int n = 5;\n    int factorial = 1;\n    \n    for (int i = 1; i <= n; i++) {\n        factorial *= i;\n    }\n    \n    printf(\"Factorial of %d is %d\\n\", n, factorial);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "While and Do-While Loops",
+          "type": "code",
+          "content": "While loops continue as long as a condition is true. Do-while loops execute at least once.",
+          "code": "#include <stdio.h>\n\nint main() {\n    // While loop example\n    int count = 1;\n    printf(\"While loop - counting to 5:\\n\");\n    while (count <= 5) {\n        printf(\"%d \", count);\n        count++;\n    }\n    printf(\"\\n\\n\");\n    \n    // Do-while loop example\n    int choice;\n    do {\n        printf(\"Menu:\\n\");\n        printf(\"1. Option 1\\n\");\n        printf(\"2. Option 2\\n\");\n        printf(\"0. Exit\\n\");\n        printf(\"Enter choice: \");\n        scanf(\"%d\", &choice);\n        \n        if (choice != 0) {\n            printf(\"You selected option %d\\n\\n\");\n        }\n    } while (choice != 0);\n    \n    printf(\"Goodbye!\\n\");\n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "description": "Creating reusable code blocks",
+      "content": [
+        {
+          "title": "Function Basics",
+          "type": "code",
+          "content": "Functions help organize code into reusable blocks. They can take parameters and return values.",
+          "code": "#include <stdio.h>\n\n// Function declaration\nint add(int a, int b);\nfloat calculateArea(float radius);\nvoid greetUser(char name[]);\n\nint main() {\n    int sum = add(5, 3);\n    printf(\"Sum: %d\\n\", sum);\n    \n    float area = calculateArea(2.5);\n    printf(\"Area of circle: %.2f\\n\", area);\n    \n    greetUser(\"Alice\");\n    \n    return 0;\n}\n\n// Function definitions\nint add(int a, int b) {\n    return a + b;\n}\n\nfloat calculateArea(float radius) {\n    return 3.14159 * radius * radius;\n}\n\nvoid greetUser(char name[]) {\n    printf(\"Hello, %s!\\n\", name);\n}"
+        },
+        {
+          "title": "Recursion",
+          "type": "code",
+          "content": "A recursive function calls itself. It's useful for problems that can be broken down into smaller similar problems.",
+          "code": "#include <stdio.h>\n\n// Recursive function to calculate factorial\nint factorial(int n) {\n    if (n <= 1) {\n        return 1;  // Base case\n    }\n    return n * factorial(n - 1);  // Recursive call\n}\n\n// Recursive function to calculate Fibonacci\nint fibonacci(int n) {\n    if (n <= 1) {\n        return n;\n    }\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}\n\nint main() {\n    int num = 5;\n    printf(\"Factorial of %d: %d\\n\", num, factorial(num));\n    \n    printf(\"Fibonacci sequence (first 10 numbers):\\n\");\n    for (int i = 0; i < 10; i++) {\n        printf(\"%d \", fibonacci(i));\n    }\n    printf(\"\\n\");\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Scope and Storage Classes",
+          "type": "code",
+          "content": "Variables have different scopes and storage classes that affect their lifetime and visibility.",
+          "code": "#include <stdio.h>\n\n// Global variable\nint globalVar = 100;\n\nvoid demonstrateStatic() {\n    static int staticVar = 0;  // Static variable\n    int localVar = 0;          // Local variable\n    \n    staticVar++;\n    localVar++;\n    \n    printf(\"Static: %d, Local: %d\\n\", staticVar, localVar);\n}\n\nint main() {\n    printf(\"Global variable: %d\\n\", globalVar);\n    \n    printf(\"Calling function multiple times:\\n\");\n    for (int i = 0; i < 3; i++) {\n        demonstrateStatic();\n    }\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "arrays-strings",
+      "title": "Arrays and Strings",
+      "description": "Working with collections of data",
+      "content": [
+        {
+          "title": "Arrays",
+          "type": "code",
+          "content": "Arrays store multiple values of the same type in contiguous memory locations.",
+          "code": "#include <stdio.h>\n\nint main() {\n    // Array declaration and initialization\n    int numbers[5] = {10, 20, 30, 40, 50};\n    \n    // Access array elements\n    printf(\"Array elements:\\n\");\n    for (int i = 0; i < 5; i++) {\n        printf(\"numbers[%d] = %d\\n\", i, numbers[i]);\n    }\n    \n    // Calculate sum of array elements\n    int sum = 0;\n    for (int i = 0; i < 5; i++) {\n        sum += numbers[i];\n    }\n    \n    printf(\"Sum of array elements: %d\\n\", sum);\n    printf(\"Average: %.2f\\n\", (float)sum / 5);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Multidimensional Arrays",
+          "type": "code",
+          "content": "Arrays can have multiple dimensions, like matrices in mathematics.",
+          "code": "#include <stdio.h>\n\nint main() {\n    // 2D array (matrix)\n    int matrix[3][3] = {\n        {1, 2, 3},\n        {4, 5, 6},\n        {7, 8, 9}\n    };\n    \n    printf(\"3x3 Matrix:\\n\");\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 3; j++) {\n            printf(\"%d \", matrix[i][j]);\n        }\n        printf(\"\\n\");\n    }\n    \n    // Calculate sum of diagonal elements\n    int diagonalSum = 0;\n    for (int i = 0; i < 3; i++) {\n        diagonalSum += matrix[i][i];\n    }\n    \n    printf(\"Sum of diagonal elements: %d\\n\", diagonalSum);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Strings",
+          "type": "code",
+          "content": "Strings in C are arrays of characters terminated by a null character ('\\0').",
+          "code": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char str1[50] = \"Hello\";\n    char str2[] = \"World\";\n    char str3[100];\n    \n    printf(\"String 1: %s\\n\", str1);\n    printf(\"String 2: %s\\n\", str2);\n    \n    // String concatenation\n    strcpy(str3, str1);\n    strcat(str3, \" \");\n    strcat(str3, str2);\n    printf(\"Concatenated: %s\\n\", str3);\n    \n    // String length\n    printf(\"Length of str3: %lu\\n\", strlen(str3));\n    \n    // String comparison\n    if (strcmp(str1, str2) == 0) {\n        printf(\"Strings are equal\\n\");\n    } else {\n        printf(\"Strings are different\\n\");\n    }\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "pointers",
+      "title": "Pointers",
+      "description": "Understanding memory addresses and pointer arithmetic",
+      "content": [
+        {
+          "title": "Introduction to Pointers",
+          "type": "code",
+          "content": "Pointers store memory addresses of variables. They provide powerful ways to work with memory.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int num = 42;\n    int *ptr = &num;  // Pointer to int\n    \n    printf(\"Value of num: %d\\n\", num);\n    printf(\"Address of num: %p\\n\", &num);\n    printf(\"Value of ptr: %p\\n\", ptr);\n    printf(\"Value pointed by ptr: %d\\n\", *ptr);\n    \n    // Modify value through pointer\n    *ptr = 100;\n    printf(\"\\nAfter modification through pointer:\\n\");\n    printf(\"Value of num: %d\\n\", num);\n    printf(\"Value pointed by ptr: %d\\n\", *ptr);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Pointer Arithmetic",
+          "type": "code",
+          "content": "Pointers can be incremented, decremented, and used to navigate through arrays.",
+          "code": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {10, 20, 30, 40, 50};\n    int *ptr = arr;  // Points to first element\n    \n    printf(\"Array elements using pointer arithmetic:\\n\");\n    for (int i = 0; i < 5; i++) {\n        printf(\"Element %d: %d (Address: %p)\\n\", i, *(ptr + i), ptr + i);\n    }\n    \n    printf(\"\\nTraversing array using pointer increment:\\n\");\n    ptr = arr;  // Reset pointer\n    for (int i = 0; i < 5; i++) {\n        printf(\"%d \", *ptr);\n        ptr++;  // Move to next element\n    }\n    printf(\"\\n\");\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Dynamic Memory Allocation",
+          "type": "code",
+          "content": "Allocate memory at runtime using malloc(), calloc(), realloc(), and free().",
+          "code": "#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    int n;\n    printf(\"Enter number of elements: \");\n    scanf(\"%d\", &n);\n    \n    // Allocate memory for n integers\n    int *ptr = (int*)malloc(n * sizeof(int));\n    \n    if (ptr == NULL) {\n        printf(\"Memory allocation failed!\\n\");\n        return 1;\n    }\n    \n    // Input values\n    printf(\"Enter %d integers:\\n\", n);\n    for (int i = 0; i < n; i++) {\n        scanf(\"%d\", ptr + i);\n    }\n    \n    // Display values\n    printf(\"You entered: \");\n    for (int i = 0; i < n; i++) {\n        printf(\"%d \", *(ptr + i));\n    }\n    printf(\"\\n\");\n    \n    // Free allocated memory\n    free(ptr);\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "structures",
+      "title": "Structures and Unions",
+      "description": "Creating custom data types",
+      "content": [
+        {
+          "title": "Structures",
+          "type": "code",
+          "content": "Structures allow you to group related data of different types together.",
+          "code": "#include <stdio.h>\n#include <string.h>\n\n// Define a structure\nstruct Student {\n    int id;\n    char name[50];\n    float gpa;\n};\n\nint main() {\n    // Create structure variables\n    struct Student student1;\n    struct Student student2 = {102, \"Bob\", 3.7};\n    \n    // Initialize student1\n    student1.id = 101;\n    strcpy(student1.name, \"Alice\");\n    student1.gpa = 3.9;\n    \n    // Display student information\n    printf(\"Student 1:\\n\");\n    printf(\"ID: %d\\n\", student1.id);\n    printf(\"Name: %s\\n\", student1.name);\n    printf(\"GPA: %.2f\\n\\n\", student1.gpa);\n    \n    printf(\"Student 2:\\n\");\n    printf(\"ID: %d\\n\", student2.id);\n    printf(\"Name: %s\\n\", student2.name);\n    printf(\"GPA: %.2f\\n\", student2.gpa);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Unions and Enums",
+          "type": "code",
+          "content": "Unions share memory among members. Enums create named constants.",
+          "code": "#include <stdio.h>\n\n// Union definition\nunion Data {\n    int integer;\n    float decimal;\n    char character;\n};\n\n// Enum definition\nenum Weekday {\n    MONDAY = 1,\n    TUESDAY,\n    WEDNESDAY,\n    THURSDAY,\n    FRIDAY,\n    SATURDAY,\n    SUNDAY\n};\n\nint main() {\n    // Union example\n    union Data data;\n    \n    data.integer = 42;\n    printf(\"Integer: %d\\n\", data.integer);\n    \n    data.decimal = 3.14;\n    printf(\"Decimal: %.2f\\n\", data.decimal);\n    printf(\"Integer now: %d (corrupted)\\n\\n\", data.integer);\n    \n    // Enum example\n    enum Weekday today = FRIDAY;\n    printf(\"Today is day %d of the week\\n\", today);\n    \n    if (today == FRIDAY) {\n        printf(\"TGIF! Weekend is coming!\\n\");\n    }\n    \n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "file-handling",
+      "title": "File Handling",
+      "description": "Reading from and writing to files",
+      "content": [
+        {
+          "title": "File Input/Output Basics",
+          "type": "code",
+          "content": "C provides functions to work with files for persistent data storage.",
+          "code": "#include <stdio.h>\n\nint main() {\n    FILE *file;\n    char text[100];\n    \n    // Writing to a file\n    file = fopen(\"example.txt\", \"w\");\n    if (file == NULL) {\n        printf(\"Error opening file for writing!\\n\");\n        return 1;\n    }\n    \n    fprintf(file, \"Hello, File!\\n\");\n    fprintf(file, \"This is line 2.\\n\");\n    fprintf(file, \"Number: %d\\n\", 42);\n    fclose(file);\n    \n    printf(\"Data written to file.\\n\");\n    \n    // Reading from the file\n    file = fopen(\"example.txt\", \"r\");\n    if (file == NULL) {\n        printf(\"Error opening file for reading!\\n\");\n        return 1;\n    }\n    \n    printf(\"\\nReading from file:\\n\");\n    while (fgets(text, sizeof(text), file) != NULL) {\n        printf(\"%s\", text);\n    }\n    \n    fclose(file);\n    return 0;\n}"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "Advanced Topics",
+      "description": "Preprocessor, command-line arguments, and more",
+      "content": [
+        {
+          "title": "Preprocessor Directives",
+          "type": "code",
+          "content": "The preprocessor processes directives before compilation. Learn about macros, conditional compilation, and more.",
+          "code": "#include <stdio.h>\n\n#define PI 3.14159\n#define SQUARE(x) ((x) * (x))\n#define MAX(a, b) ((a) > (b) ? (a) : (b))\n\n#ifdef DEBUG\n    #define LOG(msg) printf(\"DEBUG: %s\\n\", msg)\n#else\n    #define LOG(msg)\n#endif\n\nint main() {\n    printf(\"PI value: %.5f\\n\", PI);\n    \n    int num = 5;\n    printf(\"Square of %d: %d\\n\", num, SQUARE(num));\n    \n    int a = 10, b = 20;\n    printf(\"Maximum of %d and %d: %d\\n\", a, b, MAX(a, b));\n    \n    LOG(\"This is a debug message\");\n    \n    printf(\"Compiled on: %s at %s\\n\", __DATE__, __TIME__);\n    printf(\"File: %s, Line: %d\\n\", __FILE__, __LINE__);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Command-Line Arguments",
+          "type": "code",
+          "content": "Programs can receive arguments from the command line through argc and argv parameters.",
+          "code": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(int argc, char *argv[]) {\n    printf(\"Program name: %s\\n\", argv[0]);\n    printf(\"Number of arguments: %d\\n\", argc);\n    \n    if (argc < 2) {\n        printf(\"Usage: %s <numbers>\\n\", argv[0]);\n        printf(\"Example: %s 10 20 30\\n\", argv[0]);\n        return 1;\n    }\n    \n    printf(\"\\nArguments provided:\\n\");\n    for (int i = 1; i < argc; i++) {\n        printf(\"Argument %d: %s\\n\", i, argv[i]);\n    }\n    \n    // Calculate sum of numeric arguments\n    int sum = 0;\n    printf(\"\\nCalculating sum of numeric arguments:\\n\");\n    for (int i = 1; i < argc; i++) {\n        int num = atoi(argv[i]);  // Convert string to integer\n        printf(\"%s -> %d\\n\", argv[i], num);\n        sum += num;\n    }\n    \n    printf(\"Sum: %d\\n\", sum);\n    \n    return 0;\n}"
+        },
+        {
+          "title": "Function Pointers",
+          "type": "code",
+          "content": "Function pointers allow you to store and call functions dynamically.",
+          "code": "#include <stdio.h>\n\n// Function prototypes\nint add(int a, int b);\nint subtract(int a, int b);\nint multiply(int a, int b);\nvoid executeOperation(int (*operation)(int, int), int x, int y, char* name);\n\nint main() {\n    // Declare function pointer\n    int (*calculator)(int, int);\n    \n    int a = 10, b = 5;\n    \n    // Point to different functions\n    calculator = add;\n    printf(\"Addition: %d + %d = %d\\n\", a, b, calculator(a, b));\n    \n    calculator = subtract;\n    printf(\"Subtraction: %d - %d = %d\\n\", a, b, calculator(a, b));\n    \n    calculator = multiply;\n    printf(\"Multiplication: %d * %d = %d\\n\", a, b, calculator(a, b));\n    \n    // Array of function pointers\n    int (*operations[])(int, int) = {add, subtract, multiply};\n    char* names[] = {\"Addition\", \"Subtraction\", \"Multiplication\"};\n    \n    printf(\"\\nUsing function pointer array:\\n\");\n    for (int i = 0; i < 3; i++) {\n        executeOperation(operations[i], a, b, names[i]);\n    }\n    \n    return 0;\n}\n\nint add(int a, int b) { return a + b; }\nint subtract(int a, int b) { return a - b; }\nint multiply(int a, int b) { return a * b; }\n\nvoid executeOperation(int (*operation)(int, int), int x, int y, char* name) {\n    printf(\"%s: %d\\n\", name, operation(x, y));\n}"
+        }
+      ]
+    }
+  ]
+}

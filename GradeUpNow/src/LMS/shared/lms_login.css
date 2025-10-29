@@ -1,0 +1,297 @@
+/* Login Container - Light Gray Background */
+.lms-login-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Dark Mode Toggle Button */
+.lms-dark-mode-toggle {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #6c757d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.lms-dark-mode-toggle:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.05);
+}
+
+/* Login Card - White Centered Card */
+.lms-login-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Header Section */
+.lms-login-header {
+  text-align: center;
+  padding: 2.5rem 2rem 1.5rem;
+}
+
+.lms-login-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #212529;
+  margin: 0 0 0.5rem 0;
+}
+
+.lms-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Login Body */
+.lms-login-body {
+  padding: 0 2rem 2rem;
+}
+
+.lms-login-body h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 0.5rem 0;
+}
+
+.lms-role-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0 0 1.5rem 0;
+}
+
+/* User Type Toggle */
+.lms-user-type-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8f9fa;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.lms-toggle-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lms-toggle-btn.active {
+  background: white;
+  color: #212529;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.lms-toggle-btn:hover:not(.active) {
+  color: #495057;
+}
+
+/* Error Message */
+.lms-error-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffecb5;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Form Groups */
+.lms-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.lms-form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.lms-form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #212529;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.lms-form-group input:focus {
+  outline: none;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.lms-form-group input::placeholder {
+  color: #adb5bd;
+}
+
+/* Submit Button - Orange */
+.lms-submit-btn {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.lms-submit-btn:hover:not(:disabled) {
+  background-color: #ff5722;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  transform: translateY(-1px);
+}
+
+.lms-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.lms-login-footer {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.lms-login-footer p {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.lms-brand {
+  color: #ff6b35;
+  font-weight: 600;
+}
+
+/* Dark Mode Styles */
+.lms-login-container.dark-mode {
+  background-color: #1a1a1a;
+}
+
+.lms-login-container.dark-mode .lms-login-card {
+  background: #2d2d2d;
+}
+
+.lms-login-container.dark-mode .lms-dark-mode-toggle {
+  background: #3d3d3d;
+  color: #f8f9fa;
+}
+
+.lms-login-container.dark-mode .lms-login-header h1,
+.lms-login-container.dark-mode .lms-login-body h2 {
+  color: #f8f9fa;
+}
+
+.lms-login-container.dark-mode .lms-subtitle,
+.lms-login-container.dark-mode .lms-role-text {
+  color: #adb5bd;
+}
+
+.lms-login-container.dark-mode .lms-user-type-toggle {
+  background-color: #3d3d3d;
+}
+
+.lms-login-container.dark-mode .lms-toggle-btn {
+  color: #adb5bd;
+}
+
+.lms-login-container.dark-mode .lms-toggle-btn.active {
+  background: #4d4d4d;
+  color: #f8f9fa;
+}
+
+.lms-login-container.dark-mode .lms-form-group label {
+  color: #f8f9fa;
+}
+
+.lms-login-container.dark-mode .lms-form-group input {
+  background-color: #3d3d3d;
+  border-color: #4d4d4d;
+  color: #f8f9fa;
+}
+
+.lms-login-container.dark-mode .lms-form-group input::placeholder {
+  color: #6c757d;
+}
+
+.lms-login-container.dark-mode .lms-login-footer {
+  background-color: #252525;
+  border-top-color: #3d3d3d;
+}
+
+.lms-login-container.dark-mode .lms-login-footer p {
+  color: #adb5bd;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .lms-login-container {
+    padding: 1rem;
+  }
+
+  .lms-login-card {
+    max-width: 100%;
+  }
+
+  .lms-login-header {
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .lms-login-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .lms-login-footer {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .lms-dark-mode-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}

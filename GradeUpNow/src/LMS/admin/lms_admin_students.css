@@ -1,0 +1,374 @@
+/* Page Header */
+.lms-page-header {
+  margin-bottom: 2rem;
+}
+
+.lms-page-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+  margin: 0 0 0.5rem 0;
+}
+
+.lms-page-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Students Card */
+.lms-students-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.lms-card-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lms-card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.lms-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Search Box */
+.lms-search-box {
+  position: relative;
+  width: 280px;
+}
+
+.lms-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.lms-search-box input {
+  width: 100%;
+  padding: 0.625rem 1rem 0.625rem 2.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #212529;
+  transition: all 0.2s ease;
+}
+
+.lms-search-box input:focus {
+  outline: none;
+  border-color: #adb5bd;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.lms-search-box input::placeholder {
+  color: #adb5bd;
+}
+
+/* Add Button - Orange */
+.lms-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lms-add-btn:hover {
+  background-color: #ff5722;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+/* Table Container */
+.lms-table-container {
+  overflow-x: auto;
+}
+
+.lms-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lms-table thead {
+  background-color: #fafbfc;
+}
+
+.lms-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.lms-table tbody tr {
+  border-bottom: 1px solid #f1f3f5;
+  transition: background-color 0.2s ease;
+}
+
+.lms-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.lms-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.lms-table td {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.lms-reg-no {
+  font-weight: 500;
+  color: #212529;
+}
+
+.lms-name {
+  font-weight: 500;
+  color: #212529;
+}
+
+/* Action Buttons */
+.lms-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lms-action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.lms-view-btn:hover {
+  background-color: #e7f3ff;
+  color: #0066cc;
+}
+
+.lms-edit-btn:hover {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.lms-delete-btn:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* No Data */
+.lms-no-data {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.lms-no-data p {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Loading */
+.lms-students-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+/* Modal Overlay */
+.lms-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.lms-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.lms-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.lms-modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.lms-modal-header button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.lms-modal-header button:hover {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.lms-modal-body {
+  padding: 2rem;
+}
+
+/* Dark Mode */
+.lms-admin-layout.dark-mode .lms-page-header h1,
+.lms-admin-layout.dark-mode .lms-card-header h2 {
+  color: #f8f9fa;
+}
+
+.lms-admin-layout.dark-mode .lms-page-subtitle {
+  color: #adb5bd;
+}
+
+.lms-admin-layout.dark-mode .lms-students-card {
+  background: #252525;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.lms-admin-layout.dark-mode .lms-card-header {
+  border-bottom-color: #3d3d3d;
+}
+
+.lms-admin-layout.dark-mode .lms-search-box input {
+  background-color: #2d2d2d;
+  border-color: #3d3d3d;
+  color: #f8f9fa;
+}
+
+.lms-admin-layout.dark-mode .lms-search-box input::placeholder {
+  color: #6c757d;
+}
+
+.lms-admin-layout.dark-mode .lms-table thead {
+  background-color: #2d2d2d;
+}
+
+.lms-admin-layout.dark-mode .lms-table th {
+  color: #adb5bd;
+  border-bottom-color: #3d3d3d;
+}
+
+.lms-admin-layout.dark-mode .lms-table tbody tr {
+  border-bottom-color: #3d3d3d;
+}
+
+.lms-admin-layout.dark-mode .lms-table tbody tr:hover {
+  background-color: #2d2d2d;
+}
+
+.lms-admin-layout.dark-mode .lms-table td,
+.lms-admin-layout.dark-mode .lms-reg-no,
+.lms-admin-layout.dark-mode .lms-name {
+  color: #f8f9fa;
+}
+
+.lms-admin-layout.dark-mode .lms-action-btn {
+  color: #adb5bd;
+}
+
+.lms-admin-layout.dark-mode .lms-modal {
+  background: #252525;
+}
+
+.lms-admin-layout.dark-mode .lms-modal-header {
+  border-bottom-color: #3d3d3d;
+}
+
+.lms-admin-layout.dark-mode .lms-modal-header h3 {
+  color: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lms-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lms-card-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .lms-search-box {
+    width: 100%;
+  }
+
+  .lms-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .lms-table {
+    font-size: 0.875rem;
+  }
+
+  .lms-table th,
+  .lms-table td {
+    padding: 0.75rem 1rem;
+  }
+}

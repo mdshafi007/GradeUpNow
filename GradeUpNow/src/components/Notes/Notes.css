@@ -1,0 +1,1369 @@
+/* GradeUpNow Notes Component - Clean & Perfect Design */
+/* Inspired by Google/Apple design principles */
+
+.notes-container {
+  display: flex;
+  min-height: 100vh;
+  background: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  padding-top: 72px; /* Offset fixed navbar height */
+}
+
+/* =====================================================
+   SIDEBAR STYLES - Clean & Minimal
+   ===================================================== */
+
+.notes-sidebar {
+  width: 280px;
+  background: #ffffff;
+  border-right: 1px solid #e8eaed;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: sticky;
+  top: 72px; /* stick below navbar */
+  z-index: 1;
+}
+
+.sidebar-header {
+  display: none; /* Removed My Notes title and + button area */
+}
+
+.sidebar-header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.btn-new-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #FF7700;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(255,119,0,0.2);
+}
+
+.btn-new-note:hover {
+  background: #E85D00;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(255,119,0,0.25);
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  margin: 16px 20px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5f6368;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #dadce0;
+  border-radius: 24px;
+  font-size: 14px;
+  background: #f8f9fa;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #FF7700;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.15);
+}
+
+.search-input::placeholder {
+  color: #5f6368;
+}
+
+/* Quick Filters */
+.quick-filters {
+  display: flex;
+  gap: 8px;
+  margin: 0 20px 20px;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid #dadce0;
+  background: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5f6368;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: #FF7700;
+  color: #FF7700;
+  background: #f8f9fa;
+}
+
+.filter-btn.active {
+  background: #FF7700;
+  color: white;
+  border-color: #FF7700;
+}
+
+/* Categories Section */
+.categories-section {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-header h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #5f6368;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Desktop add category button (in header) */
+.section-header .btn-add-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  color: #5f6368;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.section-header .btn-add-category:hover {
+  background: #f8f9fa;
+  color: #FF7700;
+}
+
+/* Hide inline add button on desktop */
+.categories-section > .btn-add-category {
+  display: none;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 2px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.category-item:hover {
+  background: #f8f9fa;
+}
+
+.category-item.active {
+  background: rgba(255,119,0,0.12);
+  color: #FF7700;
+  font-weight: 500;
+}
+
+.category-item span:first-of-type {
+  flex: 1;
+  font-size: 14px;
+}
+
+.note-count {
+  background: #f1f3f4;
+  color: #5f6368;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 20px;
+  text-align: center;
+}
+
+.category-item.active .note-count {
+  background: #FF7700;
+  color: white;
+}
+
+/* Create Category Form */
+.create-category-form {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.category-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  outline: none;
+}
+
+.category-input:focus {
+  border-color: #FF7700;
+}
+
+.category-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-save, .btn-cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.btn-save {
+  background: #34a853;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #2d8f47;
+}
+
+.btn-cancel {
+  background: #ea4335;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #d33b2c;
+}
+
+/* Mobile modal overlay for create category */
+.category-modal-backdrop {
+  display: none; /* Hidden by default on desktop */
+}
+
+.category-modal-overlay.active {
+  display: flex;
+}
+
+.category-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-modal h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #202124;
+}
+
+/* =====================================================
+   MAIN CONTENT STYLES - Clean & Perfect
+   ===================================================== */
+
+.notes-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+/* Notes List */
+.notes-list {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  margin-top: 0;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.list-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-header h2 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #202124;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.notes-count {
+  background: #f1f3f4;
+  color: #5f6368;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Notes Grid */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.note-card {
+  background: white;
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.note-card:hover {
+  border-color: #FF7700;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255,119,0,0.15);
+}
+
+.note-card.selected {
+  border-color: #FF7700;
+  background: #f8f9fa;
+}
+
+.note-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.note-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.note-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.badge {
+  color: #FF7700;
+}
+
+.badge.pinned {
+  color: #ea4335;
+}
+
+.badge.action-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  background: #fff;
+  color: #5f6368;
+  cursor: pointer;
+}
+
+.badge.action-star.active {
+  background: #FF7700;
+  color: #fff;
+  border-color: #FF7700;
+}
+
+.note-preview {
+  color: #5f6368;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.note-category {
+  background: #f1f3f4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  text-align: center;
+}
+
+.empty-icon {
+  color: #dadce0;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #5f6368;
+  margin: 0 0 8px 0;
+}
+
+.empty-state p {
+  color: #5f6368;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Hide extra create button in empty state */
+.empty-state .btn-create-first {
+  display: none;
+}
+
+.btn-create-first {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #FF7700;
+  color: white;
+  border: none;
+  border-radius: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.btn-create-first:hover {
+  background: #E85D00;
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   NOTE EDITOR STYLES - Clean & Perfect
+   ===================================================== */
+
+.note-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  margin: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid #e8eaed;
+  background: #ffffff;
+}
+
+.editor-title {
+  flex: 1;
+}
+
+.editor-title h1 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #202124;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.title-input {
+  width: 100%;
+  font-size: 24px;
+  font-weight: 400;
+  color: #202124;
+  border: none;
+  background: transparent;
+  outline: none;
+  letter-spacing: -0.01em;
+}
+
+.title-input::placeholder {
+  color: #5f6368;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dadce0;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #5f6368;
+}
+
+.action-btn:hover {
+  border-color: #FF7700;
+  color: #FF7700;
+  background: #f8f9fa;
+}
+
+.action-btn.active {
+  background: #FF7700;
+  color: white;
+  border-color: #FF7700;
+}
+
+.action-btn.danger:hover {
+  background: #ea4335;
+  color: white;
+  border-color: #ea4335;
+}
+
+.editor-content {
+  flex: 1;
+  padding: 24px;
+  padding-bottom: 32px; /* Extra padding at bottom since no footer */
+}
+
+.content-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #202124;
+  resize: none;
+  font-family: inherit;
+}
+
+.content-textarea::placeholder {
+  color: #5f6368;
+}
+
+.content-display {
+  height: 100%;
+}
+
+.note-content {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #202124;
+  white-space: pre-wrap;
+  margin: 0;
+  font-family: inherit;
+}
+
+.empty-content {
+  color: #5f6368;
+  font-style: italic;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.btn-save-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.btn-save-note:hover {
+  background: #1557b0;
+  transform: translateY(-1px);
+}
+
+/* Compact primary action on header */
+.primary-save-btn {
+  padding: 8px 16px;
+  background: #FF7700;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.primary-save-btn:hover { background: #E85D00; }
+
+/* Category Selector in Editor */
+.editor-category-selector {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fa;
+}
+
+.editor-category-selector label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #5f6368;
+  min-width: 80px;
+}
+
+.category-select {
+  flex: 1;
+  max-width: 300px;
+  padding: 8px 12px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #202124;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.category-select:hover {
+  border-color: #FF7700;
+}
+
+.category-select:focus {
+  border-color: #FF7700;
+  box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.15);
+}
+
+/* Loading State */
+.notes-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #5f6368;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #e8eaed;
+  border-top: 2px solid #FF7700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .notes-container {
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 0;
+  }
+  
+  /* COMPACT MOBILE SIDEBAR - Minimal vertical space */
+  .notes-sidebar {
+    width: 100%;
+    height: auto;
+    max-height: none; /* Allow natural height */
+    border-right: none;
+    border-bottom: 1px solid #e8eaed;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    margin-top: 0;
+    padding-bottom: 8px;
+  }
+  
+  /* Compact search - smaller, cleaner */
+  .search-container {
+    margin: 10px 16px 8px;
+  }
+  
+  .search-input {
+    padding: 10px 10px 10px 36px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: #f8f9fa;
+  }
+  
+  .search-icon {
+    left: 12px;
+  }
+  
+  /* HORIZONTAL SCROLLABLE FILTERS + CATEGORIES */
+  /* Hide "Favorites" and "Pinned" text labels, show only icons */
+  .quick-filters {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    margin: 0 16px 8px;
+    flex-wrap: nowrap;
+  }
+  
+  .quick-filters::-webkit-scrollbar { display: none; }
+  
+  .filter-btn {
+    flex: 0 0 auto;
+    min-width: auto;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    white-space: nowrap;
+    gap: 6px;
+  }
+  
+  /* Categories Section - Horizontal scroll, chip style */
+  .categories-section {
+    padding: 0 16px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: #fff;
+    white-space: nowrap;
+  }
+  
+  .categories-section::-webkit-scrollbar { 
+    display: none; 
+  }
+  
+  /* Hide section header on mobile */
+  .categories-section .section-header {
+    display: none;
+  }
+  
+  /* Horizontal category chips */
+  .category-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 20px;
+    padding: 8px 12px;
+    margin-right: 8px;
+    margin-bottom: 0;
+    width: auto;
+    font-size: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  
+  .category-item svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .category-item span:first-of-type {
+    flex: none;
+  }
+  
+  .category-item .note-count {
+    background: #f1f3f4;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 11px;
+    min-width: 18px;
+    text-align: center;
+  }
+  
+  .category-item.active {
+    background: #FF7700;
+    border-color: #FF7700;
+    color: #fff;
+  }
+  
+  .category-item.active .note-count {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+  
+  /* Show + button as inline chip on mobile */
+  .categories-section > .btn-add-category {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px dashed #FF7700;
+    background: #fff;
+    color: #FF7700;
+    border-radius: 16px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  
+  .categories-section > .btn-add-category:active {
+    background: rgba(255, 119, 0, 0.1);
+  }
+  
+  /* Hide create category form inline on mobile - will show as proper modal */
+  .categories-section .create-category-form {
+    display: none !important;
+  }
+  
+  /* Show mobile category modal on mobile screens only */
+  .category-modal-backdrop {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Show create category form as modal popup on mobile */
+  .category-modal-backdrop .create-category-form {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 1001 !important;
+    background: white !important;
+    border-radius: 20px !important;
+    padding: 24px !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4) !important;
+    margin: 0 !important;
+    display: block !important;
+    animation: slideUp 0.3s ease;
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .category-modal-backdrop .create-category-form h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #202124;
+    text-align: center;
+  }
+  
+  .category-modal-backdrop .create-category-form .category-input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+  
+  .category-modal-backdrop .create-category-form .category-input:focus {
+    border-color: #FF7700;
+  }
+  
+  .category-modal-backdrop .create-category-form .category-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-save,
+  .category-modal-backdrop .create-category-form .btn-cancel {
+    flex: 1;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-save {
+    background: #34a853;
+    color: white;
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-save:active {
+    background: #2d8f47;
+    transform: scale(0.98);
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-cancel {
+    background: #ea4335;
+    color: white;
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-cancel:active {
+    background: #d33b2c;
+    transform: scale(0.98);
+  }
+  
+  /* Main content - maximum space for reading/writing */
+  .notes-main {
+    flex: 1;
+    padding-top: 0;
+    overflow-y: auto;
+  }
+  
+  .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .notes-list {
+    padding: 16px;
+    padding-bottom: 32px;
+  }
+
+  /* Sticky list header */
+  .list-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #fafafa;
+    padding: 12px 0;
+    margin-bottom: 16px;
+  }
+  
+  .list-header h2 {
+    font-size: 20px;
+  }
+  
+  .notes-count {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  
+  /* Note cards - optimized for readability */
+  .note-card {
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+  }
+  
+  .note-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  
+  .note-preview {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5f6368;
+  }
+  
+  /* Note Editor - Clean and spacious */
+  .note-editor {
+    margin: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  }
+  
+  .editor-header {
+    padding: 16px;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 2;
+    border-bottom: 1px solid #e8eaed;
+  }
+  
+  .editor-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  
+  .primary-save-btn {
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .title-input,
+  .editor-title h1 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  /* Content area - optimized for study and writing */
+  .editor-content {
+    padding: 20px 16px;
+    padding-bottom: 40px; /* Extra padding since no footer */
+    min-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  .content-textarea,
+  .note-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #202124;
+  }
+  
+  /* Category selector on mobile */
+  .editor-category-selector {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .editor-category-selector label {
+    min-width: auto;
+    font-size: 13px;
+  }
+  
+  .category-select {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  /* Empty state */
+  .empty-state {
+    padding: 40px 20px;
+    height: auto;
+  }
+  
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .empty-state h3 {
+    font-size: 18px;
+  }
+  
+  .empty-state p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra compact for small phones */
+  .search-container {
+    margin: 8px 12px 6px;
+  }
+  
+  .search-input {
+    padding: 8px 8px 8px 32px;
+    font-size: 13px;
+  }
+  
+  .search-icon {
+    left: 10px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .quick-filters {
+    margin: 0 12px 6px;
+    gap: 6px;
+  }
+  
+  .filter-btn {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+  
+  .categories-section {
+    padding: 0 12px 10px;
+  }
+  
+  .categories-section > .btn-add-category {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  
+  .category-item {
+    font-size: 12px;
+    padding: 7px 10px;
+    gap: 5px;
+  }
+  
+  .category-item svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .category-item .note-count {
+    font-size: 10px;
+    padding: 1px 5px;
+  }
+  
+  .category-modal-backdrop .create-category-form {
+    width: calc(100% - 16px) !important;
+    max-width: 360px !important;
+    padding: 20px !important;
+    border-radius: 16px !important;
+  }
+  
+  .category-modal-backdrop .create-category-form h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .category-modal-backdrop .create-category-form .category-input {
+    padding: 12px 14px;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .category-modal-backdrop .create-category-form .btn-save,
+  .category-modal-backdrop .create-category-form .btn-cancel {
+    height: 44px;
+    font-size: 14px;
+  }
+  
+  /* List area */
+  .notes-list {
+    padding: 12px;
+    padding-bottom: 28px;
+  }
+  
+  .list-header {
+    padding: 10px 0;
+    margin-bottom: 12px;
+  }
+  
+  .list-header h2 {
+    font-size: 18px;
+  }
+  
+  .notes-count {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .list-actions {
+    gap: 8px;
+  }
+  
+  .btn-create-first {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  /* Note cards */
+  .note-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  
+  .note-title {
+    font-size: 15px;
+  }
+  
+  .note-preview {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .note-meta {
+    font-size: 11px;
+    gap: 6px;
+  }
+  
+  /* Editor */
+  .note-editor {
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .editor-header {
+    padding: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .editor-actions {
+    justify-content: flex-end;
+    gap: 6px;
+  }
+  
+  .action-btn {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .primary-save-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  
+  .title-input,
+  .editor-title h1 {
+    font-size: 18px;
+  }
+  
+  .editor-content {
+    padding: 16px 14px;
+    padding-bottom: 36px;
+    min-height: 45vh;
+  }
+  
+  .content-textarea,
+  .note-content {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  
+  /* Category selector on smaller phones */
+  .editor-category-selector {
+    padding: 10px 14px;
+  }
+  
+  .editor-category-selector label {
+    font-size: 12px;
+  }
+  
+  .category-select {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+  
+  /* Empty state */
+  .empty-state {
+    padding: 30px 16px;
+  }
+  
+  .empty-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .empty-state h3 {
+    font-size: 16px;
+  }
+  
+  .empty-state p {
+    font-size: 13px;
+  }
+}

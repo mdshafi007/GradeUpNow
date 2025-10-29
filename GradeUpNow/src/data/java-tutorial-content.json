@@ -1,0 +1,187 @@
+{
+  "title": "Complete Java Programming Course",
+  "description": "Learn Java from basics to advanced with OOP, collections, and projects.",
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction to Java",
+      "description": "Getting started with Java programming",
+      "content": [
+        {
+          "title": "What is Java?",
+          "type": "text",
+          "content": "Java is a high-level, object-oriented programming language developed by Sun Microsystems (now owned by Oracle). It is platform-independent due to the Java Virtual Machine (JVM). Java is widely used in Android development, enterprise applications, and backend systems.",
+          "code": null
+        },
+        {
+          "title": "Your First Java Program",
+          "type": "code",
+          "content": "Classic 'Hello, World!' program in Java.",
+          "code": "class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n\n// Output: Hello, World!"
+        },
+        {
+          "title": "Java Program Structure",
+          "type": "text",
+          "content": "Every Java program starts with a class. The main() method is the entry point. System.out.println is used for output. Java is case-sensitive and strongly typed.",
+          "code": null
+        }
+      ]
+    },
+    {
+      "id": "basics",
+      "title": "Java Basics",
+      "description": "Variables, data types, and input/output",
+      "content": [
+        {
+          "title": "Variables and Data Types",
+          "type": "code",
+          "content": "Java supports primitive and reference data types.",
+          "code": "class DataTypesDemo {\n    public static void main(String[] args) {\n        int age = 25;\n        float height = 5.9f;\n        char grade = 'A';\n        double pi = 3.14159;\n        boolean isStudent = true;\n\n        System.out.println(\"Age: \" + age);\n        System.out.println(\"Height: \" + height);\n        System.out.println(\"Grade: \" + grade);\n        System.out.println(\"Pi: \" + pi);\n        System.out.println(\"Is Student? \" + isStudent);\n    }\n}"
+        },
+        {
+          "title": "Constants",
+          "type": "code",
+          "content": "Use 'final' keyword for constants in Java.",
+          "code": "class ConstantDemo {\n    public static void main(String[] args) {\n        final double PI = 3.14159;\n        System.out.println(\"PI: \" + PI);\n    }\n}"
+        },
+        {
+          "title": "Input and Output",
+          "type": "code",
+          "content": "Using Scanner class for input.",
+          "code": "import java.util.Scanner;\n\nclass InputDemo {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.print(\"Enter your name: \");\n        String name = sc.nextLine();\n        System.out.print(\"Enter a number: \");\n        int number = sc.nextInt();\n        System.out.println(\"Hello \" + name + \"! Your number is \" + number);\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "control-structures",
+      "title": "Control Structures",
+      "description": "Decision making and loops",
+      "content": [
+        {
+          "title": "If-Else Statements",
+          "type": "code",
+          "content": "Decision making in Java.",
+          "code": "import java.util.*;\nclass IfElseDemo {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int score = sc.nextInt();\n\n        if(score >= 90) System.out.println(\"Grade A\");\n        else if(score >= 75) System.out.println(\"Grade B\");\n        else if(score >= 50) System.out.println(\"Grade C\");\n        else System.out.println(\"Fail\");\n    }\n}"
+        },
+        {
+          "title": "Switch Statement",
+          "type": "code",
+          "content": "Multiple choice using switch.",
+          "code": "class SwitchDemo {\n    public static void main(String[] args) {\n        int day = 2;\n        switch(day) {\n            case 1: System.out.println(\"Monday\"); break;\n            case 2: System.out.println(\"Tuesday\"); break;\n            default: System.out.println(\"Invalid day\");\n        }\n    }\n}"
+        },
+        {
+          "title": "Loops",
+          "type": "code",
+          "content": "For, while, and do-while loops in Java.",
+          "code": "class LoopsDemo {\n    public static void main(String[] args) {\n        // For loop\n        for(int i=1; i<=5; i++) System.out.print(i + \" \");\n\n        // While loop\n        int j=1;\n        while(j<=3) { System.out.println(\"\\nWhile: \" + j); j++; }\n\n        // Do-while loop\n        int k=1;\n        do { System.out.println(\"Do-While: \" + k); k++; } while(k<=2);\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "title": "Methods",
+      "description": "Reusable methods in Java",
+      "content": [
+        {
+          "title": "Defining Methods",
+          "type": "code",
+          "content": "Methods with parameters and return values.",
+          "code": "class MethodsDemo {\n    static int add(int a, int b) { return a+b; }\n    static void greet(String name) { System.out.println(\"Hello, \" + name); }\n\n    public static void main(String[] args) {\n        System.out.println(\"Sum: \" + add(5,3));\n        greet(\"Alice\");\n    }\n}"
+        },
+        {
+          "title": "Method Overloading",
+          "type": "code",
+          "content": "Multiple methods with same name but different parameters.",
+          "code": "class OverloadingDemo {\n    static int add(int a, int b) { return a+b; }\n    static double add(double a, double b) { return a+b; }\n\n    public static void main(String[] args) {\n        System.out.println(add(3,4));\n        System.out.println(add(2.5,3.7));\n    }\n}"
+        },
+        {
+          "title": "Recursion",
+          "type": "code",
+          "content": "Factorial using recursion.",
+          "code": "class RecursionDemo {\n    static int factorial(int n) {\n        if(n<=1) return 1;\n        return n * factorial(n-1);\n    }\n\n    public static void main(String[] args) {\n        System.out.println(\"Factorial of 5: \" + factorial(5));\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "oop",
+      "title": "Object-Oriented Programming",
+      "description": "Classes, objects, and OOP concepts in Java",
+      "content": [
+        {
+          "title": "Classes and Objects",
+          "type": "code",
+          "content": "Defining classes in Java.",
+          "code": "class Student {\n    String name;\n    int age;\n    void display() { System.out.println(name + \" (\" + age + \")\"); }\n}\n\nclass Main {\n    public static void main(String[] args) {\n        Student s1 = new Student();\n        s1.name = \"Alice\";\n        s1.age = 20;\n        s1.display();\n    }\n}"
+        },
+        {
+          "title": "Constructors",
+          "type": "code",
+          "content": "Special methods for initialization.",
+          "code": "class Car {\n    String model;\n    Car(String m) { model = m; System.out.println(model + \" created\"); }\n}\n\nclass Main {\n    public static void main(String[] args) {\n        Car c = new Car(\"Tesla\");\n    }\n}"
+        },
+        {
+          "title": "Inheritance",
+          "type": "code",
+          "content": "Inheritance in Java.",
+          "code": "class Animal {\n    void speak() { System.out.println(\"Animal sound\"); }\n}\nclass Dog extends Animal {\n    void speak() { System.out.println(\"Woof!\"); }\n}\n\nclass Main {\n    public static void main(String[] args) {\n        Dog d = new Dog();\n        d.speak();\n    }\n}"
+        },
+        {
+          "title": "Polymorphism",
+          "type": "code",
+          "content": "Runtime polymorphism with method overriding.",
+          "code": "class Shape {\n    void draw() { System.out.println(\"Drawing Shape\"); }\n}\nclass Circle extends Shape {\n    void draw() { System.out.println(\"Drawing Circle\"); }\n}\n\nclass Main {\n    public static void main(String[] args) {\n        Shape s = new Circle();\n        s.draw();\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "Advanced Topics",
+      "description": "Collections, exceptions, and file handling",
+      "content": [
+        {
+          "title": "Arrays and Collections",
+          "type": "code",
+          "content": "Working with arrays and ArrayList.",
+          "code": "import java.util.*;\n\nclass ArrayListDemo {\n    public static void main(String[] args) {\n        ArrayList<Integer> list = new ArrayList<>();\n        list.add(1);\n        list.add(2);\n        list.add(3);\n        for(int x : list) System.out.print(x + \" \");\n    }\n}"
+        },
+        {
+          "title": "Exception Handling",
+          "type": "code",
+          "content": "Try-catch block for handling exceptions.",
+          "code": "class ExceptionDemo {\n    public static void main(String[] args) {\n        try {\n            int x = 10/0;\n        } catch(Exception e) {\n            System.out.println(\"Error: \" + e.getMessage());\n        }\n    }\n}"
+        },
+        {
+          "title": "File Handling",
+          "type": "code",
+          "content": "Reading and writing files in Java.",
+          "code": "import java.io.*;\n\nclass FileDemo {\n    public static void main(String[] args) throws IOException {\n        FileWriter fw = new FileWriter(\"example.txt\");\n        fw.write(\"Hello, Java!\");\n        fw.close();\n\n        BufferedReader br = new BufferedReader(new FileReader(\"example.txt\"));\n        System.out.println(br.readLine());\n        br.close();\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "Mini Projects",
+      "description": "Hands-on projects in Java",
+      "content": [
+        {
+          "title": "Simple Calculator",
+          "type": "code",
+          "content": "A text-based calculator program.",
+          "code": "import java.util.*;\nclass Calculator {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        double a = sc.nextDouble();\n        double b = sc.nextDouble();\n        char op = sc.next().charAt(0);\n\n        switch(op) {\n            case '+': System.out.println(a+b); break;\n            case '-': System.out.println(a-b); break;\n            case '*': System.out.println(a*b); break;\n            case '/': System.out.println(b!=0 ? a/b : \"Error\"); break;\n            default: System.out.println(\"Invalid operator\");\n        }\n    }\n}"
+        },
+        {
+          "title": "Student Management System",
+          "type": "code",
+          "content": "Basic student record system using ArrayList.",
+          "code": "import java.util.*;\nclass Student {\n    String name; int age;\n    Student(String n, int a) { name=n; age=a; }\n}\nclass Main {\n    public static void main(String[] args) {\n        ArrayList<Student> students = new ArrayList<>();\n        students.add(new Student(\"Alice\",20));\n        students.add(new Student(\"Bob\",22));\n        for(Student s : students) System.out.println(s.name + \" (\" + s.age + \")\");\n    }\n}"
+        },
+        {
+          "title": "To-Do List App",
+          "type": "code",
+          "content": "Simple console-based to-do list app.",
+          "code": "import java.util.*;\nclass TodoApp {\n    public static void main(String[] args) {\n        ArrayList<String> tasks = new ArrayList<>();\n        tasks.add(\"Study Java\");\n        tasks.add(\"Do Homework\");\n        for(int i=0; i<tasks.size(); i++)\n            System.out.println((i+1)+\". \"+tasks.get(i));\n    }\n}"
+        }
+      ]
+    }
+  ]
+}

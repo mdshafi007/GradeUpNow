@@ -1,0 +1,244 @@
+/* Topic Card - Clean & Minimalist */
+.topic-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.topic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(255, 119, 0, 0.12);
+  border-color: #FFE5CC;
+}
+
+/* Header - Clean Icon Display */
+.topic-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topic-card-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 600;
+  flex-shrink: 0;
+  background: #FFF5EB;
+  color: #FF7700;
+}
+
+.topic-card-difficulty {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Content - Clear Typography */
+.topic-card-content {
+  flex: 1;
+}
+
+.topic-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.2px;
+}
+
+.topic-card-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Footer - Clean Button Design */
+.topic-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid #f5f5f5;
+  gap: 12px;
+}
+
+.topic-card-questions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #999;
+}
+
+.topic-card-questions-icon {
+  font-size: 15px;
+}
+
+.topic-card-questions-text {
+  font-weight: 500;
+}
+
+.topic-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #FF7700;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.topic-card-btn:hover {
+  background: #E85D00;
+  transform: translateX(2px);
+  box-shadow: 0 4px 12px rgba(255, 119, 0, 0.25);
+}
+
+.topic-card-btn-arrow {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.topic-card:hover .topic-card-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 1024px) {
+  .topic-card {
+    padding: 24px;
+    gap: 18px;
+  }
+
+  .topic-card-title {
+    font-size: 19px;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 768px) {
+  .topic-card {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 10px;
+  }
+
+  .topic-card-header {
+    gap: 12px;
+  }
+
+  .topic-card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 8px;
+  }
+
+  .topic-card-difficulty {
+    padding: 5px 12px;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+  }
+
+  .topic-card-title {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .topic-card-description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .topic-card-footer {
+    padding-top: 16px;
+    gap: 12px;
+  }
+
+  .topic-card-questions {
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .topic-card-questions-icon {
+    font-size: 14px;
+  }
+
+  .topic-card-btn {
+    padding: 10px 18px;
+    font-size: 13px;
+    gap: 6px;
+    border-radius: 7px;
+  }
+
+  .topic-card-btn-arrow {
+    font-size: 15px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .topic-card {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .topic-card-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .topic-card-difficulty {
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+
+  .topic-card-title {
+    font-size: 16px;
+  }
+
+  .topic-card-description {
+    font-size: 12px;
+  }
+
+  .topic-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 14px;
+  }
+
+  .topic-card-questions {
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .topic-card-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 18px;
+  }
+}

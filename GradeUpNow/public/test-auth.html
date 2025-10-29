@@ -1,0 +1,164 @@
+<!-- TEST YOUR AUTHENTICATION -->
+<!-- Open this file in your browser at localhost:5173/test-auth.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .status {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logged-in { border-left: 4px solid #10b981; }
+        .logged-out { border-left: 4px solid #ef4444; }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #FF7A00;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin: 5px;
+        }
+        button:hover { background: #E66D00; }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 Authentication Test</h1>
+    <div id="status" class="status">
+        <h2>Checking authentication...</h2>
+    </div>
+    
+    <button onclick="checkAuth()">🔄 Refresh Status</button>
+    <button onclick="testProgressAPI()">🧪 Test Progress API</button>
+    
+    <div id="details"></div>
+
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+        
+        // Get your env variables
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'YOUR_SUPABASE_URL'
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_KEY'
+        
+        const supabase = createClient(supabaseUrl, supabaseKey)
+        
+        window.supabase = supabase
+        window.checkAuth = checkAuth
+        window.testProgressAPI = testProgressAPI
+        
+        async function checkAuth() {
+            const status = document.getElementById('status')
+            const details = document.getElementById('details')
+            
+            try {
+                // Get session
+                const { data: { session }, error } = await supabase.auth.getSession()
+                
+                if (error) {
+                    status.className = 'status logged-out'
+                    status.innerHTML = `
+                        <h2>❌ Error</h2>
+                        <p>${error.message}</p>
+                    `
+                    return
+                }
+                
+                if (session) {
+                    status.className = 'status logged-in'
+                    status.innerHTML = `
+                        <h2>✅ Logged In!</h2>
+                        <p><strong>Email:</strong> ${session.user.email}</p>
+                        <p><strong>User ID:</strong> ${session.user.id}</p>
+                        <p><strong>Provider:</strong> ${session.user.app_metadata.provider}</p>
+                    `
+                    
+                    details.innerHTML = `
+                        <h3>Session Details:</h3>
+                        <pre>${JSON.stringify(session, null, 2)}</pre>
+                    `
+                } else {
+                    status.className = 'status logged-out'
+                    status.innerHTML = `
+                        <h2>❌ Not Logged In</h2>
+                        <p>No active session found.</p>
+                        <p>Please log in through your app first.</p>
+                    `
+                    details.innerHTML = ''
+                }
+            } catch (err) {
+                status.className = 'status logged-out'
+                status.innerHTML = `
+                    <h2>❌ Error</h2>
+                    <p>${err.message}</p>
+                `
+            }
+        }
+        
+        async function testProgressAPI() {
+            const details = document.getElementById('details')
+            details.innerHTML = '<h3>Testing API...</h3>'
+            
+            try {
+                const { data: { user } } = await supabase.auth.getUser()
+                
+                if (!user) {
+                    details.innerHTML += '<p>❌ Not logged in - cannot test API</p>'
+                    return
+                }
+                
+                // Test reading from course_progress
+                const { data, error } = await supabase
+                    .from('course_progress')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .limit(5)
+                
+                if (error) {
+                    details.innerHTML += `
+                        <h3>❌ API Test Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Code:</strong> ${error.code}</p>
+                        <p><strong>Hint:</strong> ${error.hint}</p>
+                        <pre>${JSON.stringify(error, null, 2)}</pre>
+                    `
+                } else {
+                    details.innerHTML += `
+                        <h3>✅ API Test Success!</h3>
+                        <p>Found ${data.length} course progress records</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `
+                }
+            } catch (err) {
+                details.innerHTML += `
+                    <h3>❌ Error</h3>
+                    <pre>${err.message}</pre>
+                `
+            }
+        }
+        
+        // Auto-check on load
+        checkAuth()
+    </script>
+</body>
+</html>
