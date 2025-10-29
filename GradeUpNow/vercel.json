@@ -40,18 +40,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.gradeupnow.app"
-        }
-      ],
-      "destination": "https://gradeupnow.app/:path*",
-      "permanent": true
-    }
   ]
 }
