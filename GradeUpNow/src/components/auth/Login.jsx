@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContextNew'
+import { useTheme } from '../../contexts/ThemeContext'
 import { supabase } from '../../lib/supabase'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 
@@ -12,6 +13,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const { signIn, signInWithGoogle } = useAuth()
+  const { theme } = useTheme()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -81,6 +83,11 @@ const Login = () => {
     <>
       <style>
         {`
+          .login-form-control::placeholder {
+            color: ${theme === 'dark' ? '#ffffff' : '#6c757d'} !important;
+            opacity: 1 !important;
+          }
+          
           .google-btn:hover {
             background-color: #f8f9fa !important;
             border-color: #dee2e6 !important;
@@ -133,18 +140,32 @@ const Login = () => {
           }
         `}
       </style>
-      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ backgroundColor: '#f8f9fa' }}>
+      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ 
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#f8f9fa',
+        transition: 'background-color 0.3s ease'
+      }}>
         <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-5 col-lg-4">
-            <div className="card shadow-sm border-0 rounded-3">
+            <div className="card shadow-sm border-0 rounded-3" style={{
+              backgroundColor: theme === 'dark' ? '#262626' : '#ffffff',
+              border: theme === 'dark' ? '1px solid #404040' : 'none',
+              transition: 'all 0.3s ease'
+            }}>
               <div className="card-body p-5 login-card-body">
                 {/* Header */}
                 <div className="text-center mb-4">
-                  <h2 className="fw-bold mb-3 login-header-title" style={{ fontSize: '1.75rem', color: '#212529' }}>
+                  <h2 className="fw-bold mb-3 login-header-title" style={{ 
+                    fontSize: '1.75rem', 
+                    color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Welcome back
                   </h2>
-                  <p className="text-muted mb-0 login-header-subtitle">
+                  <p className="mb-0 login-header-subtitle" style={{
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Sign in to your account to continue
                   </p>
                 </div>
@@ -153,7 +174,10 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                   {/* Email Field */}
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label fw-medium text-dark login-form-label">
+                    <label htmlFor="email" className="form-label fw-medium login-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Email address
                     </label>
                     <input
@@ -167,16 +191,22 @@ const Login = () => {
                       value={formData.email}
                       onChange={handleChange}
                       style={{
-                        border: '1px solid #e9ecef',
+                        border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                         borderRadius: '8px',
-                        fontSize: '0.95rem'
+                        fontSize: '0.95rem',
+                        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                        color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                        transition: 'all 0.3s ease'
                       }}
                     />
                   </div>
 
                   {/* Password Field */}
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label fw-medium text-dark login-form-label">
+                    <label htmlFor="password" className="form-label fw-medium login-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Password
                     </label>
                     <div className="position-relative">
@@ -191,9 +221,12 @@ const Login = () => {
                         value={formData.password}
                         onChange={handleChange}
                         style={{
-                          border: '1px solid #e9ecef',
+                          border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                           borderRadius: '8px',
-                          fontSize: '0.95rem'
+                          fontSize: '0.95rem',
+                          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                          color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                          transition: 'all 0.3s ease'
                         }}
                       />
                       <button
@@ -203,13 +236,14 @@ const Login = () => {
                         style={{ 
                           border: 'none',
                           background: 'none',
-                          padding: '0.375rem'
+                          padding: '0.375rem',
+                          color: theme === 'dark' ? '#94a3b8' : '#6c757d'
                         }}
                       >
                         {showPassword ? (
-                          <EyeOff size={18} className="text-muted" />
+                          <EyeOff size={18} />
                         ) : (
-                          <Eye size={18} className="text-muted" />
+                          <Eye size={18} />
                         )}
                       </button>
                     </div>
@@ -224,10 +258,14 @@ const Login = () => {
                         id="rememberMe"
                         style={{
                           borderRadius: '4px',
-                          border: '1px solid #d1d5db'
+                          border: theme === 'dark' ? '1px solid #404040' : '1px solid #d1d5db',
+                          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
                         }}
                       />
-                      <label className="form-check-label text-muted login-remember-label" htmlFor="rememberMe">
+                      <label className="form-check-label login-remember-label" htmlFor="rememberMe" style={{
+                        color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                        transition: 'color 0.3s ease'
+                      }}>
                         Remember me
                       </label>
                     </div>
@@ -235,7 +273,7 @@ const Login = () => {
                       to="/forgot-password"
                       className="text-decoration-none login-forgot-link"
                       style={{ 
-                        color: '#3b82f6',
+                        color: theme === 'dark' ? '#60a5fa' : '#3b82f6',
                         fontSize: '0.875rem'
                       }}
                     >
@@ -268,7 +306,10 @@ const Login = () => {
 
                   {/* Divider */}
                   <div className="text-center mb-3 login-divider">
-                    <small className="text-muted">Or</small>
+                    <small style={{
+                      color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                      transition: 'color 0.3s ease'
+                    }}>Or</small>
                   </div>
 
                   {/* Google Sign In Button */}
@@ -278,11 +319,12 @@ const Login = () => {
                     disabled={loading}
                     className="btn btn-outline-secondary google-btn w-100 py-3 mb-4 d-flex align-items-center justify-content-center login-google-btn"
                     style={{
-                      borderColor: '#e9ecef',
+                      borderColor: theme === 'dark' ? '#404040' : '#e9ecef',
                       borderRadius: '8px',
                       fontSize: '0.95rem',
-                      backgroundColor: 'white',
-                      color: '#495057'
+                      backgroundColor: theme === 'dark' ? '#1a1a1a' : 'white',
+                      color: theme === 'dark' ? '#f1f5f9' : '#495057',
+                      transition: 'all 0.3s ease'
                     }}
                   >
                     <svg className="me-2" width="18" height="18" viewBox="0 0 24 24">
@@ -307,12 +349,16 @@ const Login = () => {
                   </button>
 
                   {/* Sign Up Link */}
-                  <p className="text-center text-muted mb-0 login-signup-text" style={{ fontSize: '0.875rem' }}>
+                  <p className="text-center mb-0 login-signup-text" style={{ 
+                    fontSize: '0.875rem',
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Don't have an account?{' '}
                     <Link
                       to="/signup"
                       className="text-decoration-none fw-medium"
-                      style={{ color: '#3b82f6' }}
+                      style={{ color: theme === 'dark' ? '#60a5fa' : '#3b82f6' }}
                     >
                       Sign up
                     </Link>

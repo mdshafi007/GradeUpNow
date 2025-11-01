@@ -13,10 +13,21 @@
   height: 100%;
 }
 
+.dark .topic-card {
+  background: #262626;
+  border-color: #404040;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .topic-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(255, 119, 0, 0.12);
   border-color: #FFE5CC;
+}
+
+.dark .topic-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 119, 0, 0.25);
+  border-color: #FF7700;
 }
 
 /* Header - Clean Icon Display */
@@ -62,11 +73,19 @@
   letter-spacing: -0.2px;
 }
 
+.dark .topic-card-title {
+  color: #e8e8e8;
+}
+
 .topic-card-description {
   font-size: 14px;
   color: #666;
   line-height: 1.7;
   margin: 0;
+}
+
+.dark .topic-card-description {
+  color: #b8b8b8;
 }
 
 /* Footer - Clean Button Design */
@@ -79,12 +98,20 @@
   gap: 12px;
 }
 
+.dark .topic-card-footer {
+  border-top-color: #404040;
+}
+
 .topic-card-questions {
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 13px;
   color: #999;
+}
+
+.dark .topic-card-questions {
+  color: #888;
 }
 
 .topic-card-questions-icon {

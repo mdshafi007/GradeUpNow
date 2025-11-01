@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TopicCard from "./TopicCard";
 import usePageTitle from "../../hooks/usePageTitle";
+import { useTheme } from "../../contexts/ThemeContext";
 import "./Practice.css";
 
 const Practice = () => {
   usePageTitle("Practice - Test Your Skills | GradeUpNow");
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -112,7 +114,7 @@ const Practice = () => {
   ];
 
   return (
-    <div className="practice-container">
+    <div className={`practice-container ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Hero Section */}
       <div className="practice-hero">
         <div className="practice-hero-content">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 import { supabase } from '../../lib/supabase'
 import { Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react'
 import { toast } from 'react-toastify'
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const { theme } = useTheme()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -149,18 +151,34 @@ const SignUp = () => {
 
   if (success) {
     return (
-      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5">
+      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#f8f9fa',
+        transition: 'background-color 0.3s ease'
+      }}>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-4">
-              <div className="card shadow-sm border-0">
+              <div className="card shadow-sm border-0" style={{
+                backgroundColor: theme === 'dark' ? '#262626' : '#ffffff',
+                border: theme === 'dark' ? '1px solid #404040' : 'none',
+                transition: 'all 0.3s ease'
+              }}>
                 <div className="card-body p-4 text-center">
                   <CheckCircle size={64} className="text-success mb-3" />
-                  <h2 className="fw-semibold mb-3">Check your email!</h2>
-                  <p className="text-muted mb-3">
+                  <h2 className="fw-semibold mb-3" style={{
+                    color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                    transition: 'color 0.3s ease'
+                  }}>Check your email!</h2>
+                  <p className="mb-3" style={{
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     We've sent a confirmation link to <strong>{formData.email}</strong>
                   </p>
-                  <p className="small text-muted mb-4">
+                  <p className="small mb-4" style={{
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Click the link in your email to complete your registration.
                   </p>
                   <div className="d-grid gap-2">
@@ -173,7 +191,11 @@ const SignUp = () => {
                     </button>
                     <Link
                       to="/login"
-                      className="btn btn-link text-muted small"
+                      className="btn btn-link small"
+                      style={{
+                        color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                        transition: 'color 0.3s ease'
+                      }}
                     >
                       Already confirmed? Sign in
                     </Link>
@@ -191,6 +213,11 @@ const SignUp = () => {
     <>
       <style>
         {`
+          .signup-form-control::placeholder {
+            color: ${theme === 'dark' ? '#ffffff' : '#6c757d'} !important;
+            opacity: 1 !important;
+          }
+          
           .google-btn:hover {
             background-color: #f8f9fa !important;
             border-color: #dee2e6 !important;
@@ -239,18 +266,32 @@ const SignUp = () => {
           }
         `}
       </style>
-      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ backgroundColor: '#f8f9fa' }}>
+      <div className="d-flex align-items-center justify-content-center min-vh-100 py-5" style={{ 
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#f8f9fa',
+        transition: 'background-color 0.3s ease'
+      }}>
         <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-5 col-lg-4">
-            <div className="card shadow-sm border-0 rounded-3">
+            <div className="card shadow-sm border-0 rounded-3" style={{
+              backgroundColor: theme === 'dark' ? '#262626' : '#ffffff',
+              border: theme === 'dark' ? '1px solid #404040' : 'none',
+              transition: 'all 0.3s ease'
+            }}>
               <div className="card-body p-5 signup-card-body">
                 {/* Header */}
                 <div className="text-center mb-4">
-                  <h2 className="fw-bold mb-3 signup-header-title" style={{ fontSize: '1.75rem', color: '#212529' }}>
+                  <h2 className="fw-bold mb-3 signup-header-title" style={{ 
+                    fontSize: '1.75rem', 
+                    color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Create account
                   </h2>
-                  <p className="text-muted mb-0 signup-header-subtitle">
+                  <p className="mb-0 signup-header-subtitle" style={{
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Get started with your learning journey
                   </p>
                 </div>
@@ -259,7 +300,10 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                   {/* Full Name Field */}
                   <div className="mb-3">
-                    <label htmlFor="name" className="form-label fw-medium text-dark signup-form-label">
+                    <label htmlFor="name" className="form-label fw-medium signup-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Full name
                     </label>
                     <input
@@ -273,16 +317,22 @@ const SignUp = () => {
                       value={formData.name}
                       onChange={handleChange}
                       style={{
-                        border: '1px solid #e9ecef',
+                        border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                         borderRadius: '8px',
-                        fontSize: '0.95rem'
+                        fontSize: '0.95rem',
+                        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                        color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                        transition: 'all 0.3s ease'
                       }}
                     />
                   </div>
 
                   {/* Email Address Field */}
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label fw-medium text-dark signup-form-label">
+                    <label htmlFor="email" className="form-label fw-medium signup-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Email address
                     </label>
                     <input
@@ -296,16 +346,22 @@ const SignUp = () => {
                       value={formData.email}
                       onChange={handleChange}
                       style={{
-                        border: '1px solid #e9ecef',
+                        border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                         borderRadius: '8px',
-                        fontSize: '0.95rem'
+                        fontSize: '0.95rem',
+                        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                        color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                        transition: 'all 0.3s ease'
                       }}
                     />
                   </div>
 
                   {/* Password Field */}
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label fw-medium text-dark signup-form-label">
+                    <label htmlFor="password" className="form-label fw-medium signup-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Password
                     </label>
                     <div className="position-relative">
@@ -320,16 +376,23 @@ const SignUp = () => {
                         value={formData.password}
                         onChange={handleChange}
                         style={{
-                          border: '1px solid #e9ecef',
+                          border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                           borderRadius: '8px',
-                          fontSize: '0.95rem'
+                          fontSize: '0.95rem',
+                          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                          color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                          transition: 'all 0.3s ease'
                         }}
                       />
                       <button
                         type="button"
-                        className="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted"
+                        className="btn btn-link position-absolute end-0 top-50 translate-middle-y"
                         onClick={() => setShowPassword(!showPassword)}
-                        style={{ textDecoration: 'none', padding: '0.5rem 1rem' }}
+                        style={{ 
+                          textDecoration: 'none', 
+                          padding: '0.5rem 1rem',
+                          color: theme === 'dark' ? '#94a3b8' : '#6c757d'
+                        }}
                       >
                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
@@ -338,7 +401,10 @@ const SignUp = () => {
 
                   {/* Confirm Password Field */}
                   <div className="mb-4">
-                    <label htmlFor="confirmPassword" className="form-label fw-medium text-dark signup-form-label">
+                    <label htmlFor="confirmPassword" className="form-label fw-medium signup-form-label" style={{
+                      color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                      transition: 'color 0.3s ease'
+                    }}>
                       Confirm password
                     </label>
                     <div className="position-relative">
@@ -353,16 +419,23 @@ const SignUp = () => {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         style={{
-                          border: '1px solid #e9ecef',
+                          border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                           borderRadius: '8px',
-                          fontSize: '0.95rem'
+                          fontSize: '0.95rem',
+                          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+                          color: theme === 'dark' ? '#f1f5f9' : '#212529',
+                          transition: 'all 0.3s ease'
                         }}
                       />
                       <button
                         type="button"
-                        className="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted"
+                        className="btn btn-link position-absolute end-0 top-50 translate-middle-y"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        style={{ textDecoration: 'none', padding: '0.5rem 1rem' }}
+                        style={{ 
+                          textDecoration: 'none', 
+                          padding: '0.5rem 1rem',
+                          color: theme === 'dark' ? '#94a3b8' : '#6c757d'
+                        }}
                       >
                         {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
@@ -394,7 +467,10 @@ const SignUp = () => {
 
                   {/* Divider */}
                   <div className="text-center mb-3 signup-divider">
-                    <small className="text-muted">Or continue with</small>
+                    <small style={{
+                      color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                      transition: 'color 0.3s ease'
+                    }}>Or continue with</small>
                   </div>
 
                   {/* Google Sign In */}
@@ -405,9 +481,10 @@ const SignUp = () => {
                     className="btn btn-outline-secondary google-btn w-100 py-3 mb-3 d-flex align-items-center justify-content-center signup-google-btn"
                     style={{
                       borderRadius: '8px',
-                      borderColor: '#dee2e6',
-                      backgroundColor: 'white',
-                      color: '#495057'
+                      borderColor: theme === 'dark' ? '#404040' : '#dee2e6',
+                      backgroundColor: theme === 'dark' ? '#1a1a1a' : 'white',
+                      color: theme === 'dark' ? '#f1f5f9' : '#495057',
+                      transition: 'all 0.3s ease'
                     }}
                   >
                     <svg className="me-2" width="20" height="20" viewBox="0 0 24 24">
@@ -432,7 +509,10 @@ const SignUp = () => {
                   </button>
 
                   {/* Sign In Link */}
-                  <p className="text-center small text-muted mb-0 signup-signin-text">
+                  <p className="text-center small mb-0 signup-signin-text" style={{
+                    color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                    transition: 'color 0.3s ease'
+                  }}>
                     Already have an account?{' '}
                     <Link
                       to="/login"

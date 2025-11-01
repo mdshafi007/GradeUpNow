@@ -4,6 +4,11 @@
   background: #ffffff;
   padding-bottom: 60px;
   padding-top: 0;
+  transition: background-color 0.3s ease;
+}
+
+.practice-container.dark {
+  background: #1a1a1a;
 }
 
 /* Hero Section - Exact Match with Courses Page */
@@ -11,7 +16,13 @@
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   padding: 60px 0 80px 0;
   border-bottom: 1px solid #e2e8f0;
-  margin-top: 80px;
+  margin-top: 60px;
+  transition: all 0.3s ease;
+}
+
+.dark .practice-hero {
+  background: linear-gradient(135deg, #262626 0%, #1a1a1a 100%);
+  border-bottom-color: #404040;
 }
 
 .practice-hero-content {
@@ -38,6 +49,10 @@
   letter-spacing: -0.02em;
 }
 
+.dark .practice-hero-title {
+  color: #e8e8e8;
+}
+
 .practice-hero-description {
   font-size: 1.25rem;
   color: #475569;
@@ -47,14 +62,26 @@
   font-weight: 400;
 }
 
+.dark .practice-hero-description {
+  color: #b8b8b8;
+}
+
 /* Tabs Section - Clean & Professional */
 .practice-tabs-container {
   background: #ffffff;
-  padding: 20px 20px 0;
+  padding: 40px 20px;
   position: sticky;
-  top: 0;
+  top: 60px;
   z-index: 100;
   margin-bottom: 60px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .practice-tabs-container {
+  background: #262626;
 }
 
 .practice-tabs {
@@ -80,16 +107,30 @@
   transition: all 0.3s ease;
 }
 
+.dark .practice-tab {
+  background: #404040;
+  color: #b8b8b8;
+}
+
 .practice-tab:hover {
   color: #FF7700;
   background: #FFF5EB;
   transform: translateY(-2px);
 }
 
+.dark .practice-tab:hover {
+  background: #555555;
+}
+
 .practice-tab-active {
   color: #FF7700;
   background: #FFF5EB;
   border: 2px solid #FFE5CC;
+}
+
+.dark .practice-tab-active {
+  background: rgba(255, 119, 0, 0.2);
+  border: 2px solid #FF7700;
 }
 
 .practice-tab-icon {
@@ -121,6 +162,10 @@
   letter-spacing: -0.3px;
 }
 
+.dark .practice-section-title {
+  color: #e8e8e8;
+}
+
 .practice-section-description {
   font-size: 15px;
   color: #666;
@@ -128,6 +173,10 @@
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+}
+
+.dark .practice-section-description {
+  color: #b8b8b8;
 }
 
 /* Topics Grid - Clean Layout */
@@ -145,6 +194,10 @@
   color: #999;
 }
 
+.dark .practice-loading {
+  color: #666;
+}
+
 .practice-spinner {
   width: 40px;
   height: 40px;
@@ -153,6 +206,11 @@
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin: 0 auto 16px;
+}
+
+.dark .practice-spinner {
+  border-color: #404040;
+  border-top-color: #FF7700;
 }
 
 @keyframes spin {
@@ -165,6 +223,10 @@
   padding: 80px 20px;
   color: #999;
   font-size: 15px;
+}
+
+.dark .practice-empty {
+  color: #666;
 }
 
 /* Responsive Design - Tablet */
@@ -222,6 +284,11 @@
     margin-bottom: 32px;
     background: #ffffff;
     border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .dark .practice-tabs-container {
+    background: #262626;
+    border-bottom-color: #404040;
   }
 
   .practice-tabs {
@@ -335,6 +402,11 @@
   overflow: hidden;
 }
 
+.dark .company-card {
+  background: #262626;
+  border-color: #404040;
+}
+
 .company-card::before {
   content: '';
   position: absolute;
@@ -348,6 +420,10 @@
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border-color: #ff6b35;
+}
+
+.dark .company-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .company-card:hover::before {
@@ -391,6 +467,12 @@
   border: 1px solid #e5e5e5;
 }
 
+.dark .coming-soon-card {
+  background: #262626;
+  border-color: #404040;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .coming-soon-icon {
   font-size: 64px;
   display: block;
@@ -404,10 +486,18 @@
   margin: 0 0 12px 0;
 }
 
+.dark .coming-soon-card h3 {
+  color: #e8e8e8;
+}
+
 .coming-soon-card p {
   font-size: 16px;
   color: #666;
   margin: 0 0 24px 0;
+}
+
+.dark .coming-soon-card p {
+  color: #b8b8b8;
 }
 
 .coming-soon-badge {
@@ -576,6 +666,10 @@
   color: #0f172a;
 }
 
+.dark .breadcrumb-current {
+  color: #e8e8e8;
+}
+
 /* Category Card Styling */
 .category-card {
   background: #ffffff;
@@ -584,9 +678,20 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.dark .category-card {
+  background: #262626;
+  border-color: #404040;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .category-card:hover {
   box-shadow: 0 4px 8px rgba(255, 119, 0, 0.12);
   border-color: #FF7700;
+}
+
+.dark .category-card:hover {
+  box-shadow: 0 4px 8px rgba(255, 119, 0, 0.25);
 }

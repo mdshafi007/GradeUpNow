@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContextNew";
-import { LogOut, User, ChevronDown } from "lucide-react";
+import { useTheme } from "../../contexts/ThemeContext";
+import { LogOut, User, ChevronDown, Moon, Sun } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./navbar.css";
 
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { user, signOut, loading } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const profileDropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -59,12 +61,15 @@ const Navbar = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-md fixed-top"
+      className="navbar navbar-expand-md fixed-top navbar-themed"
       style={{
-        backgroundColor: "#ffffff",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
+        backgroundColor: theme === 'dark' ? '#262626' : '#ffffff',
+        boxShadow: theme === 'dark' 
+          ? '0 2px 4px rgba(0,0,0,0.3)' 
+          : '0 2px 4px rgba(0,0,0,0.08)',
         padding: "0.15rem 0",
         minHeight: "36px",
+        transition: "all 0.3s ease",
       }}
     >
       <div className="container">
@@ -116,23 +121,31 @@ const Navbar = () => {
               <li className="nav-item" key={link.to}>
                 <Link
                   to={link.to}
-                  className="nav-link"
+                  className="custom-nav-link"
                   onClick={() => {
                     setIsMenuOpen(false);
                     document.body.classList.remove('menu-open');
                   }}
                   style={{
-                    color: "#4B5563",
+                    color: theme === 'dark' ? '#cbd5e1' : '#4B5563',
                     fontWeight: "500",
                     fontSize: "0.95rem",
                     padding: "0.25rem 0.5rem",
-                    transition: "all 0.2s ease",
+                    transition: "color 0.2s ease",
+                    backgroundColor: "transparent",
+                    background: "transparent",
+                    textDecoration: "none",
+                    display: "block",
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.color = "#FF7700";
+                    e.currentTarget.style.color = "#FF7700";
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.background = "transparent";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = "#4B5563";
+                    e.currentTarget.style.color = theme === 'dark' ? '#cbd5e1' : '#4B5563';
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.background = "transparent";
                   }}
                 >
                   {link.text}
@@ -143,6 +156,36 @@ const Navbar = () => {
 
           {/* Authentication Section */}
           <div className="d-flex align-items-center gap-2">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="btn theme-toggle-btn"
+              style={{
+                padding: "0.5rem",
+                borderRadius: "50%",
+                border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
+                backgroundColor: theme === 'dark' ? '#404040' : '#f8f9fa',
+                color: theme === 'dark' ? '#fbbf24' : '#FF7700',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                width: '36px',
+                height: '36px'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.backgroundColor = theme === 'dark' ? '#555555' : '#e9ecef';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.backgroundColor = theme === 'dark' ? '#404040' : '#f8f9fa';
+              }}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             {!loading && (
               <>
                 {user ? (
@@ -152,18 +195,18 @@ const Navbar = () => {
                       onClick={toggleProfile}
                       className="btn d-flex align-items-center gap-2 p-2"
                       style={{
-                        border: "1px solid #e9ecef",
+                        border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                         borderRadius: "50px",
-                        backgroundColor: "white",
+                        backgroundColor: theme === 'dark' ? '#262626' : 'white',
                         transition: "all 0.2s ease",
                       }}
                       onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = "#f8f9fa";
+                        e.target.style.backgroundColor = theme === 'dark' ? '#404040' : '#f8f9fa';
                         e.target.style.borderColor = "#FF7700";
                       }}
                       onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = "white";
-                        e.target.style.borderColor = "#e9ecef";
+                        e.target.style.backgroundColor = theme === 'dark' ? '#262626' : 'white';
+                        e.target.style.borderColor = theme === 'dark' ? '#404040' : '#e9ecef';
                       }}
                     >
                       {/* Profile Avatar */}
@@ -186,7 +229,11 @@ const Navbar = () => {
                       </div>
                       
                       {/* User Name - Hidden on mobile */}
-                      <span className="text-dark fw-medium d-none d-md-inline" style={{ fontSize: "0.9rem" }}>
+                      <span className="d-none d-md-inline" style={{ 
+                        fontSize: "0.9rem",
+                        color: theme === 'dark' ? '#f1f5f9' : '#1a1a1a',
+                        fontWeight: "500"
+                      }}>
                         {user.user_metadata?.full_name || user.email?.split('@')[0]}
                       </span>
                       
@@ -204,11 +251,12 @@ const Navbar = () => {
                     {/* Dropdown Menu */}
                     {isProfileOpen && (
                       <div
-                        className="position-absolute end-0 mt-2 py-2 bg-white rounded shadow"
+                        className="position-absolute end-0 mt-2 py-2 rounded shadow"
                         style={{
                           minWidth: "200px",
-                          border: "1px solid #e9ecef",
+                          border: theme === 'dark' ? '1px solid #404040' : '1px solid #e9ecef',
                           zIndex: 1000,
+                          backgroundColor: theme === 'dark' ? '#262626' : '#fff',
                         }}
                       >
                         {/* Profile Option - Placeholder for later */}
@@ -219,9 +267,10 @@ const Navbar = () => {
                             border: "none",
                             backgroundColor: "transparent",
                             width: "100%",
+                            color: theme === 'dark' ? '#cbd5e1' : '#4a5568',
                           }}
                           onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = "#f8f9fa";
+                            e.target.style.backgroundColor = theme === 'dark' ? '#404040' : '#f8f9fa';
                           }}
                           onMouseLeave={(e) => {
                             e.target.style.backgroundColor = "transparent";
@@ -237,7 +286,10 @@ const Navbar = () => {
                           Profile
                         </button>
 
-                        <hr className="my-1" style={{ margin: "0.5rem 0" }} />
+                        <hr className="my-1" style={{ 
+                          margin: "0.5rem 0",
+                          borderColor: theme === 'dark' ? '#555555' : '#e2e8f0'
+                        }} />
 
                         {/* Sign Out Option */}
                         <button
@@ -256,7 +308,7 @@ const Navbar = () => {
                             color: "#dc3545",
                           }}
                           onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = "#f8f9fa";
+                            e.target.style.backgroundColor = theme === 'dark' ? '#404040' : '#f8f9fa';
                           }}
                           onMouseLeave={(e) => {
                             e.target.style.backgroundColor = "transparent";
@@ -287,6 +339,7 @@ const Navbar = () => {
                         borderRadius: "0.5rem",
                         transition: "all 0.2s ease",
                         textDecoration: "none",
+                        backgroundColor: "transparent",
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.backgroundColor = "#FF7700";

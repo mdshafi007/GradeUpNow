@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import './TutorialViewer.css';
 import { useAuth } from '../../contexts/AuthContextNew';
+import { useTheme } from '../../contexts/ThemeContext';
 import { progressAPI } from '../../services/api';
 import { toast } from 'react-toastify';
 
@@ -21,6 +22,7 @@ const TutorialViewer = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const { user, session } = useAuth(); // Get user from AuthContext
+  const { theme } = useTheme(); // Get theme
   
   const [tutorialData, setTutorialData] = useState(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -266,17 +268,31 @@ const TutorialViewer = () => {
   // Show loading until BOTH tutorial data and progress are loaded
   if (loading || progressLoading) {
     return (
-      <div className="tutorial-viewer-n__loading">
+      <div className="tutorial-viewer-n__loading" style={{
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+        color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+        transition: 'all 0.3s ease'
+      }}>
         <div className="tutorial-viewer-n__spinner"></div>
-        <p>Loading tutorial...</p>
+        <p style={{
+          color: theme === 'dark' ? '#94a3b8' : '#6B7280',
+          transition: 'color 0.3s ease'
+        }}>Loading tutorial...</p>
       </div>
     );
   }
 
   if (!tutorialData) {
     return (
-      <div className="tutorial-viewer-n__error">
-        <p>Failed to load tutorial content</p>
+      <div className="tutorial-viewer-n__error" style={{
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+        color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+        transition: 'all 0.3s ease'
+      }}>
+        <p style={{
+          color: theme === 'dark' ? '#94a3b8' : '#6B7280',
+          transition: 'color 0.3s ease'
+        }}>Failed to load tutorial content</p>
         <button onClick={() => navigate('/courses')}>Back to Courses</button>
       </div>
     );
@@ -286,7 +302,11 @@ const TutorialViewer = () => {
   const currentLesson = currentSection.content[currentLessonIndex];
 
   return (
-    <div className="tutorial-viewer-n">
+    <div className="tutorial-viewer-n" style={{
+      backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+      color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+      transition: 'background-color 0.3s ease, color 0.3s ease'
+    }}>
       {/* Login Banner for Guest Users */}
       {showLoginBanner && !user && (
         <div className="tutorial-viewer-n__login-banner">
@@ -318,6 +338,18 @@ const TutorialViewer = () => {
         }`}
         onClick={() => setIsLeftSidebarCollapsed(!isLeftSidebarCollapsed)}
         title={isLeftSidebarCollapsed ? "Show course content" : "Hide course content"}
+        style={{
+          backgroundColor: isLeftSidebarCollapsed 
+            ? '#FF7A00' 
+            : (theme === 'dark' ? 'rgba(38, 38, 38, 0.95)' : 'rgba(255, 255, 255, 0.95)'),
+          borderColor: isLeftSidebarCollapsed 
+            ? '#FF7A00' 
+            : (theme === 'dark' ? '#404040' : '#E5E7EB'),
+          color: isLeftSidebarCollapsed 
+            ? '#FFFFFF' 
+            : (theme === 'dark' ? '#94a3b8' : '#6B7280'),
+          transition: 'all 0.3s ease'
+        }}
       >
         {isLeftSidebarCollapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
       </button>
@@ -325,16 +357,30 @@ const TutorialViewer = () => {
       {/* Left Sidebar - Course Navigation */}
       <aside className={`tutorial-viewer-n__sidebar tutorial-viewer-n__sidebar--left ${
         isLeftSidebarCollapsed ? 'tutorial-viewer-n__sidebar--collapsed' : ''
-      }`}>
-        <div className="tutorial-viewer-n__sidebar-header">
+      }`} style={{
+        backgroundColor: theme === 'dark' ? '#262626' : '#FAFAFA',
+        borderRight: `1px solid ${theme === 'dark' ? '#404040' : '#F3F4F6'}`,
+        transition: 'all 0.3s ease'
+      }}>
+        <div className="tutorial-viewer-n__sidebar-header" style={{
+          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+          borderBottom: `1px solid ${theme === 'dark' ? '#404040' : '#F3F4F6'}`,
+          transition: 'all 0.3s ease'
+        }}>
           <BookOpen size={20} className="tutorial-viewer-n__icon" />
-          <h2 className="tutorial-viewer-n__sidebar-title">Course Content</h2>
+          <h2 className="tutorial-viewer-n__sidebar-title" style={{
+            color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+            transition: 'color 0.3s ease'
+          }}>Course Content</h2>
         </div>
 
         <nav className="tutorial-viewer-n__nav">
           {tutorialData.sections.map((section, sectionIndex) => (
             <div key={section.id} className="tutorial-viewer-n__section">
-              <h3 className="tutorial-viewer-n__section-title">{section.title}</h3>
+              <h3 className="tutorial-viewer-n__section-title" style={{
+                color: theme === 'dark' ? '#e2e8f0' : '#6B7280',
+                transition: 'color 0.3s ease'
+              }}>{section.title}</h3>
               
               <ul className="tutorial-viewer-n__lesson-list">
                 {section.content.map((lesson, lessonIndex) => {
@@ -348,11 +394,18 @@ const TutorialViewer = () => {
                           isActive ? 'tutorial-viewer-n__lesson-item--active' : ''
                         }`}
                         onClick={() => jumpToLesson(sectionIndex, lessonIndex)}
+                        style={{
+                          color: isActive ? '#FFFFFF' : (theme === 'dark' ? '#f1f5f9' : '#374151'),
+                          backgroundColor: isActive ? '#FF7A00' : 'transparent',
+                          transition: 'all 0.2s ease'
+                        }}
                       >
                         {isCompleted ? (
                           <CheckCircle2 size={16} className="tutorial-viewer-n__lesson-icon tutorial-viewer-n__lesson-icon--completed" />
                         ) : (
-                          <Circle size={16} className="tutorial-viewer-n__lesson-icon" />
+                          <Circle size={16} className="tutorial-viewer-n__lesson-icon" style={{
+                            color: isActive ? '#FFFFFF' : (theme === 'dark' ? '#94a3b8' : '#9CA3AF')
+                          }} />
                         )}
                         <span className="tutorial-viewer-n__lesson-title">{lesson.title}</span>
                       </button>
@@ -388,36 +441,57 @@ const TutorialViewer = () => {
         </button>
 
         {/* Breadcrumb */}
-        <div className="tutorial-viewer-n__breadcrumb">
+        <div className="tutorial-viewer-n__breadcrumb" style={{
+          color: theme === 'dark' ? '#94a3b8' : '#6B7280',
+          transition: 'color 0.3s ease'
+        }}>
           {currentSection.title} &gt; {currentLesson.title}
         </div>
 
         {/* Lesson Title */}
-        <h1 className="tutorial-viewer-n__lesson-heading">
+        <h1 className="tutorial-viewer-n__lesson-heading" style={{
+          color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+          transition: 'color 0.3s ease'
+        }}>
           {currentLesson.title}
         </h1>
 
         {/* Progress Bar */}
         <div className="tutorial-viewer-n__progress-container">
-          <span className="tutorial-viewer-n__progress-label">Progress</span>
-          <div className="tutorial-viewer-n__progress-bar">
+          <span className="tutorial-viewer-n__progress-label" style={{
+            color: theme === 'dark' ? '#94a3b8' : '#6B7280',
+            transition: 'color 0.3s ease'
+          }}>Progress</span>
+          <div className="tutorial-viewer-n__progress-bar" style={{
+            backgroundColor: theme === 'dark' ? '#404040' : '#F3F4F6',
+            transition: 'background-color 0.3s ease'
+          }}>
             <div 
               className="tutorial-viewer-n__progress-fill" 
               style={{ width: `${getProgress()}%` }}
             ></div>
           </div>
-          <span className="tutorial-viewer-n__progress-percent">{getProgress()}%</span>
+          <span className="tutorial-viewer-n__progress-percent" style={{
+            color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+            transition: 'color 0.3s ease'
+          }}>{getProgress()}%</span>
         </div>
 
         {/* Lesson Content */}
         <div className="tutorial-viewer-n__content">
           <div className="tutorial-viewer-n__content-text">
-            <p>{currentLesson.content}</p>
+            <p style={{
+              color: theme === 'dark' ? '#cbd5e1' : '#374151',
+              transition: 'color 0.3s ease'
+            }}>{currentLesson.content}</p>
           </div>
 
           {/* Code Block */}
           {currentLesson.code && (
-            <div className="tutorial-viewer-n__code-block">
+            <div className="tutorial-viewer-n__code-block" style={{
+              backgroundColor: theme === 'dark' ? '#0f172a' : '#1E293B',
+              transition: 'background-color 0.3s ease'
+            }}>
               <pre>
                 <code>{currentLesson.code}</code>
               </pre>
@@ -427,12 +501,27 @@ const TutorialViewer = () => {
           {/* What You'll Learn Section (Show on first lesson) */}
           {currentSectionIndex === 0 && currentLessonIndex === 0 && (
             <div className="tutorial-viewer-n__learning-objectives">
-              <h2 className="tutorial-viewer-n__section-heading">What You'll Learn</h2>
+              <h2 className="tutorial-viewer-n__section-heading" style={{
+                color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+                transition: 'color 0.3s ease'
+              }}>What You'll Learn</h2>
               <ul className="tutorial-viewer-n__objectives-list">
-                <li>Core fundamentals and best practices</li>
-                <li>Advanced techniques and patterns</li>
-                <li>Real-world application examples</li>
-                <li>Problem-solving strategies</li>
+                <li style={{
+                  color: theme === 'dark' ? '#cbd5e1' : '#374151',
+                  transition: 'color 0.3s ease'
+                }}>Core fundamentals and best practices</li>
+                <li style={{
+                  color: theme === 'dark' ? '#cbd5e1' : '#374151',
+                  transition: 'color 0.3s ease'
+                }}>Advanced techniques and patterns</li>
+                <li style={{
+                  color: theme === 'dark' ? '#cbd5e1' : '#374151',
+                  transition: 'color 0.3s ease'
+                }}>Real-world application examples</li>
+                <li style={{
+                  color: theme === 'dark' ? '#cbd5e1' : '#374151',
+                  transition: 'color 0.3s ease'
+                }}>Problem-solving strategies</li>
               </ul>
             </div>
           )}
@@ -458,23 +547,49 @@ const TutorialViewer = () => {
       {/* Right Sidebar - AI Assistant */}
       <aside className={`tutorial-viewer-n__sidebar tutorial-viewer-n__sidebar--right ${
         isRightSidebarCollapsed ? 'tutorial-viewer-n__sidebar--collapsed' : ''
-      }`}>
-        <div className="tutorial-viewer-n__sidebar-header">
+      }`} style={{
+        backgroundColor: theme === 'dark' ? '#262626' : '#FAFAFA',
+        borderLeft: `1px solid ${theme === 'dark' ? '#404040' : '#F3F4F6'}`,
+        transition: 'all 0.3s ease'
+      }}>
+        <div className="tutorial-viewer-n__sidebar-header" style={{
+          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+          borderBottom: `1px solid ${theme === 'dark' ? '#404040' : '#F3F4F6'}`,
+          transition: 'all 0.3s ease'
+        }}>
           <Bot size={20} className="tutorial-viewer-n__icon tutorial-viewer-n__icon--ai" />
-          <h2 className="tutorial-viewer-n__sidebar-title">AI Assistant</h2>
+          <h2 className="tutorial-viewer-n__sidebar-title" style={{
+            color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+            transition: 'color 0.3s ease'
+          }}>AI Assistant</h2>
         </div>
 
-        <div className="tutorial-viewer-n__ai-container">
+        <div className="tutorial-viewer-n__ai-container" style={{
+          backgroundColor: theme === 'dark' ? '#262626' : '#FAFAFA',
+          transition: 'background-color 0.3s ease'
+        }}>
           <div className="tutorial-viewer-n__ai-greeting">
-            <div className="tutorial-viewer-n__ai-avatar">
+            <div className="tutorial-viewer-n__ai-avatar" style={{
+              backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFF6F1',
+              transition: 'background-color 0.3s ease'
+            }}>
               <Bot size={24} />
             </div>
-            <div className="tutorial-viewer-n__ai-message">
-              <p>Hi! I'm your AI learning assistant. How can I help you today?</p>
+            <div className="tutorial-viewer-n__ai-message" style={{
+              backgroundColor: theme === 'dark' ? '#1a1a1a' : '#F9FAFB',
+              transition: 'background-color 0.3s ease'
+            }}>
+              <p style={{
+                color: theme === 'dark' ? '#cbd5e1' : '#374151',
+                transition: 'color 0.3s ease'
+              }}>Hi! I'm your AI learning assistant. How can I help you today?</p>
             </div>
           </div>
 
-          <div className="tutorial-viewer-n__ai-input-container">
+          <div className="tutorial-viewer-n__ai-input-container" style={{
+            backgroundColor: theme === 'dark' ? '#262626' : '#FAFAFA',
+            transition: 'background-color 0.3s ease'
+          }}>
             <input
               type="text"
               className="tutorial-viewer-n__ai-input"
@@ -487,6 +602,12 @@ const TutorialViewer = () => {
                   console.log('Message:', aiMessage);
                   setAiMessage('');
                 }
+              }}
+              style={{
+                backgroundColor: theme === 'dark' ? '#1a1a1a' : '#FFFFFF',
+                color: theme === 'dark' ? '#f1f5f9' : '#0F1724',
+                borderColor: theme === 'dark' ? '#404040' : '#E5E7EB',
+                transition: 'all 0.3s ease'
               }}
             />
             <button 
@@ -510,6 +631,18 @@ const TutorialViewer = () => {
         }`}
         onClick={() => setIsRightSidebarCollapsed(!isRightSidebarCollapsed)}
         title={isRightSidebarCollapsed ? "Show AI assistant" : "Hide AI assistant"}
+        style={{
+          backgroundColor: isRightSidebarCollapsed 
+            ? '#FF7A00' 
+            : (theme === 'dark' ? 'rgba(38, 38, 38, 0.95)' : 'rgba(255, 255, 255, 0.95)'),
+          borderColor: isRightSidebarCollapsed 
+            ? '#FF7A00' 
+            : (theme === 'dark' ? '#404040' : '#E5E7EB'),
+          color: isRightSidebarCollapsed 
+            ? '#FFFFFF' 
+            : (theme === 'dark' ? '#94a3b8' : '#6B7280'),
+          transition: 'all 0.3s ease'
+        }}
       >
         {isRightSidebarCollapsed ? <ChevronsLeft size={18} /> : <ChevronsRight size={18} />}
       </button>

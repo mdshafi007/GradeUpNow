@@ -4,8 +4,14 @@
 .coursepage_container {
   background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f0f9ff 100%);
   min-height: 100vh;
-  padding-top: 80px; /* Account for fixed navbar */
+  padding-top: 60px; /* Account for fixed navbar */
   padding-bottom: 60px;
+  transition: background 0.3s ease;
+}
+
+/* Dark theme for container */
+.dark .coursepage_container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #262626 50%, #1a1a1a 100%);
 }
 
 /* Hero Section */
@@ -14,6 +20,13 @@
   padding: 60px 0 80px 0;
   border-bottom: 1px solid #e2e8f0;
   margin-top: 0;
+  transition: all 0.3s ease;
+}
+
+/* Dark theme for hero */
+.dark .coursepage_hero {
+  background: linear-gradient(135deg, #262626 0%, #333333 100%);
+  border-bottom: 1px solid #404040;
 }
 
 .coursepage_hero_content {
@@ -30,6 +43,12 @@
   line-height: 1.2;
   margin-bottom: 20px;
   letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for hero title */
+.dark .coursepage_hero_title {
+  color: #f1f5f9;
 }
 
 .coursepage_hero_subtitle {
@@ -39,6 +58,12 @@
   margin: 0 auto;
   max-width: 700px;
   font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for hero subtitle */
+.dark .coursepage_hero_subtitle {
+  color: #cbd5e1;
 }
 
 /* Main Content */
@@ -62,6 +87,12 @@
   margin: 0 0 8px 0;
   position: relative;
   display: inline-block;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for section title */
+.dark .coursepage_section_title {
+  color: #f1f5f9;
 }
 
 .coursepage_section_title::after {
@@ -107,10 +138,23 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Dark theme for cards */
+.dark .coursepage_card {
+  background: #262626;
+  border: 1px solid #404040;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .coursepage_card:hover {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   border-color: #d1d5db;
   transform: translateY(-2px);
+}
+
+/* Dark theme for card hover */
+.dark .coursepage_card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  border-color: #555555;
 }
 
 .coursepage_header {
@@ -129,6 +173,13 @@
   background: #f8fafc;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+/* Dark theme for icon */
+.dark .coursepage_icon {
+  background: #1a1a1a;
+  border: 1px solid #404040;
 }
 
 
@@ -143,6 +194,12 @@
   color: #111827;
   margin: 0 0 12px 0;
   line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for card title */
+.dark .coursepage_title {
+  color: #f1f5f9;
 }
 
 .coursepage_subtitle {
@@ -150,6 +207,12 @@
   color: #6b7280;
   line-height: 1.5;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for card subtitle */
+.dark .coursepage_subtitle {
+  color: #94a3b8;
 }
 
 .coursepage_footer {

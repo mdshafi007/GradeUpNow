@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext';
 import usePageTitle from '../hooks/usePageTitle';
 import './AboutUs.css';
 
 const AboutUs = () => {
   usePageTitle('About Us - GradeUpNow');
+  const { theme } = useTheme();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });

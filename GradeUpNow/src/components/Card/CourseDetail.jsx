@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 import usePageTitle from '../../hooks/usePageTitle';
 import './CourseDetail.css';
 
@@ -7,6 +8,7 @@ const CourseDetail = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme } = useTheme();
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -155,10 +157,15 @@ const CourseDetail = () => {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem',
-        paddingTop: 'max(6rem, calc(60px + 2rem))'
+        paddingTop: 'max(6rem, calc(60px + 2rem))',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+        transition: 'background-color 0.3s ease'
       }}>
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{ color: '#dc2626', marginBottom: '1rem' }}>Course Not Found</h2>
+          <h2 style={{ 
+            color: '#dc2626', 
+            marginBottom: '1rem' 
+          }}>Course Not Found</h2>
           <button
             onClick={() => navigate('/courses')}
             style={{
@@ -204,12 +211,21 @@ const CourseDetail = () => {
   ];
 
   return (
-    <div className="course-detail-container">
+    <div className="course-detail-container" style={{
+      backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+      transition: 'background-color 0.3s ease'
+    }}>
       <div className="course-detail-content">
         {/* Back Button */}
         <button
           onClick={handleBackToCourses}
           className="back-button"
+          style={{
+            color: theme === 'dark' ? '#94a3b8' : '#9ca3af',
+            transition: 'color 0.3s ease'
+          }}
+          onMouseEnter={(e) => e.target.style.color = theme === 'dark' ? '#f1f5f9' : '#1a1a1a'}
+          onMouseLeave={(e) => e.target.style.color = theme === 'dark' ? '#94a3b8' : '#9ca3af'}
         >
           ← Back to Courses
         </button>
@@ -224,10 +240,16 @@ const CourseDetail = () => {
               {course.icon}
             </div>
             <div className="course-info">
-              <h1 className="course-title">
+              <h1 className="course-title" style={{
+                color: theme === 'dark' ? '#f1f5f9' : '#1a1a1a',
+                transition: 'color 0.3s ease'
+              }}>
                 {course.title}
               </h1>
-              <p className="course-description">
+              <p className="course-description" style={{
+                color: theme === 'dark' ? '#94a3b8' : '#6c757d',
+                transition: 'color 0.3s ease'
+              }}>
                 {course.description}
               </p>
             </div>
@@ -236,7 +258,10 @@ const CourseDetail = () => {
 
         {/* Navigation Options */}
         <div className="navigation-options">
-          <h2 className="navigation-title">
+          <h2 className="navigation-title" style={{
+            color: theme === 'dark' ? '#94a3b8' : '#9ca3af',
+            transition: 'color 0.3s ease'
+          }}>
             Choose Your Learning Path
           </h2>
           
@@ -250,7 +275,24 @@ const CourseDetail = () => {
                 style={{
                   cursor: option.comingSoon ? 'not-allowed' : 'pointer',
                   opacity: option.comingSoon ? 0.7 : 1,
-                  position: 'relative'
+                  position: 'relative',
+                  backgroundColor: theme === 'dark' 
+                    ? (option.comingSoon ? '#262626' : '#262626')
+                    : (option.comingSoon ? '#fafafa' : '#ffffff'),
+                  borderColor: theme === 'dark' ? '#404040' : '#e5e7eb',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!option.comingSoon) {
+                    e.currentTarget.style.borderColor = '#ff6b35';
+                    e.currentTarget.style.backgroundColor = theme === 'dark' ? '#1a1a1a' : '#fffbf8';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!option.comingSoon) {
+                    e.currentTarget.style.borderColor = theme === 'dark' ? '#404040' : '#e5e7eb';
+                    e.currentTarget.style.backgroundColor = theme === 'dark' ? '#262626' : '#ffffff';
+                  }
                 }}
               >
                 {option.comingSoon && (
@@ -273,20 +315,27 @@ const CourseDetail = () => {
                   {option.icon}
                 </div>
                 
-                <h3 className="navigation-label">
+                <h3 className="navigation-label" style={{
+                  color: theme === 'dark' ? '#f1f5f9' : '#1a1a1a',
+                  transition: 'color 0.3s ease'
+                }}>
                   {option.label}
                 </h3>
                 
-                <p className="navigation-description">
+                <p className="navigation-description" style={{
+                  color: theme === 'dark' ? '#94a3b8' : '#9ca3af',
+                  transition: 'color 0.3s ease'
+                }}>
                   {option.description}
                 </p>
                 
                 {option.comingSoon && (
                   <p style={{
                     fontSize: '0.875rem',
-                    color: '#6b7280',
+                    color: theme === 'dark' ? '#94a3b8' : '#6b7280',
                     marginTop: '0.5rem',
-                    fontStyle: 'italic'
+                    fontStyle: 'italic',
+                    transition: 'color 0.3s ease'
                   }}>
                     We're working on it!
                   </p>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContextNew';
+import { useTheme } from '../../contexts/ThemeContext';
 import { notesAPI } from '../../services/api';
 import { 
   Plus, 
@@ -27,6 +28,7 @@ import './Notes.css';
 
 const Notes = () => {
   const { user, loading } = useAuth();
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [notes, setNotes] = useState([]); // currently displayed (may be filtered)
@@ -387,7 +389,7 @@ const Notes = () => {
   }
 
   return (
-    <div className="notes-container">
+    <div className={`notes-container ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Sidebar */}
       <div className="notes-sidebar">
 

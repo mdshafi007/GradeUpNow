@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./components/navbar/Navbar";
 import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContextNew"; 
+import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 import { Analytics } from "@vercel/analytics/react";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
@@ -49,6 +50,8 @@ import LMSStudentCodingResults from "./LMS/student/lms_student_coding_results";
 
 const Home=()=>{
   usePageTitle("Home - Learn, Practice, Excel");
+  const { theme } = useTheme();
+  
   return(
     <>
      <HeroSect />
@@ -86,6 +89,26 @@ const ConditionalFooter = () => {
   return shouldHideFooter ? null : <Footer />;
 };
 
+// Theme-aware ToastContainer component
+const ThemedToastContainer = () => {
+  const { theme } = useTheme();
+  
+  return (
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme={theme === 'dark' ? 'dark' : 'light'}
+    />
+  );
+};
+
 function App() {
   // Redirect from Vercel domain to custom domain
   React.useEffect(() => {
@@ -103,68 +126,59 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <Router>
-            <div className="App">
-              <ScrollToTop />
-              <Analytics />
-              <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-              <ConditionalNavbar />
-              <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/practice" element={<Practice />} />
-              <Route path="/practice/:topicSlug/test" element={<PracticeTest />} />
-              <Route path="/practice/company/accenture" element={<AccentureDetail />} />
-              <Route path="/practice/company/tcs-nqt" element={<TCSNQTDetail />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/courses" element={<CoursesPage />} />
-              <Route path="/course/:courseId" element={<CourseDetail />} />
-              <Route path="/course/:courseId/notes" element={<CourseNotes />} />
-              <Route path="/course/:courseId/tutorial" element={<TutorialViewer />} />
+      <ThemeProvider>
+        <AuthProvider>
+          <Router>
+              <div className="App">
+                <ScrollToTop />
+                <Analytics />
+                <ThemedToastContainer />
+                <ConditionalNavbar />
+                <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/auth/callback" element={<AuthCallback />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/practice" element={<Practice />} />
+                <Route path="/practice/:topicSlug/test" element={<PracticeTest />} />
+                <Route path="/practice/company/accenture" element={<AccentureDetail />} />
+                <Route path="/practice/company/tcs-nqt" element={<TCSNQTDetail />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/courses" element={<CoursesPage />} />
+                <Route path="/course/:courseId" element={<CourseDetail />} />
+                <Route path="/course/:courseId/notes" element={<CourseNotes />} />
+                <Route path="/course/:courseId/tutorial" element={<TutorialViewer />} />
 
-              <Route path="/notifications" element={<Notifications />} />
-              
-              {/* College Portal Routes */}
-              <Route path="/college/login" element={<LMSLogin />} />
-              <Route path="/college/admin" element={<LMSAdminLayout />}>
-                <Route path="students" element={<LMSAdminStudents />} />
-                <Route path="assessments" element={<LMSAdminAssessments />} />
-                <Route path="assessments/:assessmentId/quiz-editor" element={<LMSAdminQuizEditor />} />
-                <Route path="assessments/:assessmentId/coding-editor" element={<LMSAdminCodingEditor />} />
-                <Route path="reports" element={<LMSAdminReports />} />
-              </Route>
-              <Route path="/college/student" element={<LMSStudentDashboard />}>
-                <Route path="assessments" element={<LMSStudentAssessments />} />
-                <Route path="profile" element={<LMSStudentProfile />} />
-              </Route>
-              <Route path="/college/student/quiz/:assessmentId" element={<LMSStudentQuiz />} />
-              <Route path="/college/student/coding/:assessmentId" element={<LMSStudentCodingTest />} />
-              <Route path="/college/student/coding-results/:assessmentId" element={<LMSStudentCodingResults />} />
-              
-              {/* Catch-all route for any unmatched URLs - show 404 page */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <ConditionalFooter />
-          </div>
-        </Router>
-      </AuthProvider>
+                <Route path="/notifications" element={<Notifications />} />
+                
+                {/* College Portal Routes */}
+                <Route path="/college/login" element={<LMSLogin />} />
+                <Route path="/college/admin" element={<LMSAdminLayout />}>
+                  <Route path="students" element={<LMSAdminStudents />} />
+                  <Route path="assessments" element={<LMSAdminAssessments />} />
+                  <Route path="assessments/:assessmentId/quiz-editor" element={<LMSAdminQuizEditor />} />
+                  <Route path="assessments/:assessmentId/coding-editor" element={<LMSAdminCodingEditor />} />
+                  <Route path="reports" element={<LMSAdminReports />} />
+                </Route>
+                <Route path="/college/student" element={<LMSStudentDashboard />}>
+                  <Route path="assessments" element={<LMSStudentAssessments />} />
+                  <Route path="profile" element={<LMSStudentProfile />} />
+                </Route>
+                <Route path="/college/student/quiz/:assessmentId" element={<LMSStudentQuiz />} />
+                <Route path="/college/student/coding/:assessmentId" element={<LMSStudentCodingTest />} />
+                <Route path="/college/student/coding-results/:assessmentId" element={<LMSStudentCodingResults />} />
+                
+                {/* Catch-all route for any unmatched URLs - show 404 page */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <ConditionalFooter />
+            </div>
+          </Router>
+        </AuthProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

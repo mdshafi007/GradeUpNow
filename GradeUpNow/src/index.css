@@ -15,3 +15,64 @@ html {
 a {
   text-decoration: none;
 }
+
+/* Dark Mode Root Styles */
+:root {
+  /* Light mode colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9ff;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-tertiary: #666666;
+  --border-color: #e8e9eb;
+  --shadow-sm: rgba(0, 0, 0, 0.08);
+  --shadow-md: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+  --orange-primary: #FF7700;
+  --orange-secondary: #ff5500;
+  --orange-light: rgba(255, 119, 0, 0.1);
+}
+
+.dark {
+  /* Dark mode colors - Clean & Simple */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --border-color: #334155;
+  --shadow-sm: rgba(0, 0, 0, 0.3);
+  --shadow-md: rgba(0, 0, 0, 0.4);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+  --orange-primary: #FF7700;
+  --orange-secondary: #ff8e37;
+  --orange-light: rgba(255, 119, 0, 0.15);
+}
+
+/* Apply theme to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+.dark body {
+  background-color: var(--bg-primary);
+}
+
+/* App container */
+.App {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+/* Smooth transitions for all elements when theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}

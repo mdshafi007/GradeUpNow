@@ -3,6 +3,12 @@
   min-height: 100vh;
   padding-top: 90px;
   padding-bottom: 4rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Dark theme for page */
+.dark .about-page {
+  background-color: #1a1a1a;
 }
 
 .about-container {
@@ -22,6 +28,12 @@
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for title */
+.dark .about-title {
+  color: #f1f5f9;
 }
 
 .about-intro {
@@ -29,12 +41,24 @@
   color: #2c3e50;
   line-height: 1.7;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for intro */
+.dark .about-intro {
+  color: #cbd5e1;
 }
 
 .about-tagline {
   font-size: 1rem;
   color: #6c757d;
   line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for tagline */
+.dark .about-tagline {
+  color: #94a3b8;
 }
 
 /* Roadmap Style Features */
@@ -68,6 +92,13 @@
   font-size: 1.8rem;
   flex-shrink: 0;
   z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Dark theme for roadmap dot */
+.dark .roadmap-dot {
+  background-color: #262626;
+  border-color: #ff7700;
 }
 
 .roadmap-connector {
@@ -76,6 +107,12 @@
   background: linear-gradient(to bottom, #ff6b35 0%, #ffb399 100%);
   margin-top: 0.5rem;
   min-height: 60px;
+  transition: background 0.3s ease;
+}
+
+/* Dark theme for connector */
+.dark .roadmap-connector {
+  background: linear-gradient(to bottom, #ff7700 0%, #ff9944 100%);
 }
 
 .roadmap-content {
@@ -88,6 +125,12 @@
   font-weight: 600;
   color: #1a1a1a;
   margin: 0 0 0.8rem 0;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for roadmap title */
+.dark .roadmap-title {
+  color: #f1f5f9;
 }
 
 .roadmap-description {
@@ -95,6 +138,12 @@
   color: #5a6c7d;
   line-height: 1.7;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme for roadmap description */
+.dark .roadmap-description {
+  color: #94a3b8;
 }
 
 /* Simple CTA */
@@ -116,11 +165,23 @@
   box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
 }
 
+/* Dark theme for CTA button */
+.dark .cta-btn {
+  background-color: #ff7700;
+  box-shadow: 0 4px 12px rgba(255, 119, 0, 0.3);
+}
+
 .cta-btn:hover {
   background-color: #ff5722;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 107, 53, 0.35);
   color: white;
+}
+
+/* Dark theme for CTA button hover */
+.dark .cta-btn:hover {
+  background-color: #e85d00;
+  box-shadow: 0 6px 20px rgba(255, 119, 0, 0.4);
 }
 
 /* Responsive Design */

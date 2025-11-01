@@ -1,8 +1,18 @@
 /* WhySection - Professional & Sleek Design */
 .whysection {
-  background: #ffffff;
   padding: 5rem 0 2rem 0;
   position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Light mode background */
+.whysection {
+  background: #ffffff;
+}
+
+/* Dark mode background */
+.dark .whysection {
+  background: #1a1a1a;
 }
 
 .whysection-container {
@@ -19,16 +29,36 @@
 .whysection-main-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1f2937;
   margin-bottom: 0.75rem;
   line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+/* Light mode title */
+.whysection-main-title {
+  color: #1f2937;
+}
+
+/* Dark mode title */
+.dark .whysection-main-title {
+  color: #f1f5f9;
 }
 
 .whysection-subtitle {
   font-size: 1.125rem;
-  color: #6b7280;
   margin: 0;
   font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+/* Light mode subtitle */
+.whysection-subtitle {
+  color: #6b7280;
+}
+
+/* Dark mode subtitle */
+.dark .whysection-subtitle {
+  color: #94a3b8;
 }
 
 .whysection-grid {
@@ -39,13 +69,23 @@
 }
 
 .whysection-card {
-  background: #ffffff;
-  border: 1px solid #f1f5f9;
   border-radius: 16px;
   padding: 2rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+}
+
+/* Light mode card */
+.whysection-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+}
+
+/* Dark mode card */
+.dark .whysection-card {
+  background: #262626;
+  border: 1px solid #404040;
 }
 
 .whysection-card::before {
@@ -62,8 +102,18 @@
 
 .whysection-card:hover {
   transform: translateY(-4px);
+}
+
+/* Light mode card hover */
+.whysection-card:hover {
   border-color: #e2e8f0;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode card hover */
+.dark .whysection-card:hover {
+  border-color: rgba(255, 119, 0, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
 .whysection-card:hover::before {
@@ -92,9 +142,21 @@
   color: #1e40af;
 }
 
+/* Dark mode blue accent */
+.dark .whysection-accent-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.1));
+  color: #60a5fa;
+}
+
 .whysection-accent-purple {
   background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
   color: #7c3aed;
+}
+
+/* Dark mode purple accent */
+.dark .whysection-accent-purple {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(109, 40, 217, 0.1));
+  color: #a78bfa;
 }
 
 .whysection-accent-green {
@@ -102,14 +164,32 @@
   color: #16a34a;
 }
 
+/* Dark mode green accent */
+.dark .whysection-accent-green {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.1));
+  color: #4ade80;
+}
+
 .whysection-accent-orange {
   background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
   color: #ea580c;
 }
 
+/* Dark mode orange accent */
+.dark .whysection-accent-orange {
+  background: linear-gradient(135deg, rgba(255, 119, 0, 0.15), rgba(255, 140, 0, 0.1));
+  color: #FF7700;
+}
+
 .whysection-accent-red {
   background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
   color: #dc2626;
+}
+
+/* Dark mode red accent */
+.dark .whysection-accent-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
+  color: #f87171;
 }
 
 .whysection-card:hover .whysection-icon-wrapper {
@@ -123,24 +203,53 @@
 .whysection-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1f2937;
   margin-bottom: 0.75rem;
   line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+/* Light mode title */
+.whysection-title {
+  color: #1f2937;
+}
+
+/* Dark mode title */
+.dark .whysection-title {
+  color: #f1f5f9;
 }
 
 .whysection-description {
-  color: #6b7280;
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Light mode description */
+.whysection-description {
+  color: #6b7280;
+}
+
+/* Dark mode description */
+.dark .whysection-description {
+  color: #94a3b8;
 }
 
 .whysection-divider {
   margin-top: 3rem;
   margin-bottom: 0;
   height: 1px;
-  background: linear-gradient(to right, transparent 0%, #e5e7eb 20%, #d1d5db 50%, #e5e7eb 80%, transparent 100%);
   position: relative;
+}
+
+/* Light mode divider */
+.whysection-divider {
+  background: linear-gradient(to right, transparent 0%, #e5e7eb 20%, #d1d5db 50%, #e5e7eb 80%, transparent 100%);
+}
+
+/* Dark mode divider */
+.dark .whysection-divider {
+  background: linear-gradient(to right, transparent 0%, #334155 20%, #475569 50%, #334155 80%, transparent 100%);
 }
 
 .whysection-divider::before {

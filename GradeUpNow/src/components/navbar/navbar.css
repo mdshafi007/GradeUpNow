@@ -4,26 +4,27 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+.navbar-themed {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light mode navbar */
 .navbar {
   padding: 0.125rem 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  background-color: #ffffff;
+}
+
+/* Dark mode navbar */
+.dark .navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  background-color: #262626 !important;
 }
 
 .navbar-brand {
   font-weight: 600;
   font-size: 1.25rem;
-  color: #333;
-}
-
-.nav-link {
-  color: #4a5568;
-  font-weight: 500;
-  padding: 0.25rem 0.75rem;
-  transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-  color: #2d3748;
+  color: #FF7700 !important;
 }
 
 .btn {
@@ -71,6 +72,16 @@ body {
   outline: none;
 }
 
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  cursor: pointer;
+}
+
+.theme-toggle-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.2) !important;
+}
+
 @media (max-width: 767.98px) {
   .navbar {
     display: flex;
@@ -114,7 +125,11 @@ body {
   }
 
   .navbar-toggler:hover {
-    background-color: #f3f4f6;
+    background-color: transparent;
+  }
+
+  .dark .navbar-toggler:hover {
+    background-color: transparent;
   }
 
   .navbar-toggler:focus {
@@ -129,7 +144,6 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     padding: 0;
     margin: 0;
     display: flex;
@@ -142,6 +156,16 @@ body {
     transform: translateY(-20px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
+  }
+
+  /* Light mode menu background */
+  .navbar-collapse {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  }
+
+  /* Dark mode menu background */
+  .dark .navbar-collapse {
+    background: linear-gradient(135deg, #262626 0%, #1a1a1a 100%);
   }
 
   .navbar-collapse.show {
@@ -171,30 +195,41 @@ body {
     padding: 0.9rem 1.5rem;
     font-size: 1rem;
     font-weight: 500;
-    color: #374151 !important;
     text-align: center;
     text-decoration: none;
     border-radius: 10px;
     margin: 0;
     transition: all 0.3s ease;
     position: relative;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Light mode link styles */
+  .nav-link {
+    color: #374151 !important;
+  }
+
+  /* Dark mode link styles */
+  .dark .nav-link {
+    color: #cbd5e1 !important;
   }
 
   .nav-link:hover {
-    color: #ff7700 !important;
-    background: rgba(255, 119, 0, 0.08);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(255, 119, 0, 0.12);
+    color: #FF7700 !important;
+    background-color: transparent !important;
+    background: none !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 
   .nav-link.active {
-    color: #ff7700 !important;
-    background: rgba(255, 119, 0, 0.12);
+    color: #FF7700 !important;
     font-weight: 600;
+    background-color: transparent !important;
+    background: none !important;
+    box-shadow: none !important;
   }
 
   .auth-buttons {
@@ -204,10 +239,18 @@ body {
     width: 100%;
     max-width: 280px;
     padding: 0;
-    border: none;
     margin: 1rem 0 0 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
     padding-top: 1rem;
+  }
+
+  /* Light mode auth buttons border */
+  .auth-buttons {
+    border-top: none;
+  }
+
+  /* Dark mode auth buttons border */
+  .dark .auth-buttons {
+    border-top: none;
   }
 
   .auth-buttons .btn {
@@ -216,22 +259,42 @@ body {
     font-weight: 600;
     border-radius: 10px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
     flex: 1;
     min-width: 120px;
   }
 
+  /* Light mode button styles */
+  .auth-buttons .btn {
+    border: 2px solid #ff7700;
+  }
+
+  /* Dark mode button styles */
+  .dark .auth-buttons .btn {
+    border: 2px solid #ff7700;
+  }
+
   .auth-buttons .btn-outline-primary {
-    background: rgba(255, 255, 255, 0.9);
     color: #ff7700;
-    border-color: rgba(255, 119, 0, 0.3);
+    background-color: transparent !important;
+  }
+
+  /* Light mode outline button */
+  .auth-buttons .btn-outline-primary {
+    background-color: transparent !important;
+    border-color: #ff7700;
+  }
+
+  /* Dark mode outline button */
+  .dark .auth-buttons .btn-outline-primary {
+    background-color: transparent !important;
+    border-color: #ff7700;
   }
 
   .auth-buttons .btn-outline-primary:hover {
-    background: rgba(255, 119, 0, 0.05);
-    border-color: #ff7700;
+    border-color: #FF7700;
+    color: #FF7700 !important;
     transform: translateY(-1px);
+    background-color: transparent !important;
   }
 
   .auth-buttons .btn-primary {
@@ -252,27 +315,62 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     gap: 0.6rem;
     margin-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: #fff;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Light mode user dropdown button */
+  .user-dropdown-button {
+    background-color: transparent !important;
+  }
+
+  /* Dark mode user dropdown button */
+  .dark .user-dropdown-button {
+    background-color: transparent !important;
   }
 
   .dropdown-menu {
     position: relative;
     width: 100%;
     margin-top: 0.5rem;
-    border: 1px solid #e2e8f0;
     top: auto;
     right: auto;
   }
 
+  /* Light mode dropdown menu */
+  .dropdown-menu {
+    border: 1px solid #e2e8f0;
+    background-color: #fff;
+  }
+
+  /* Dark mode dropdown menu */
+  .dark .dropdown-menu {
+    border: 1px solid #334155;
+    background-color: #1e293b;
+  }
+
   .dropdown-item {
     padding: 1rem 1.25rem;
+    background-color: transparent !important;
+  }
+
+  /* Dark mode dropdown item */
+  .dark .dropdown-item {
+    color: #cbd5e1;
+    background-color: transparent !important;
+  }
+
+  .dropdown-item:hover {
+    background-color: transparent !important;
+    color: #FF7700 !important;
+  }
+
+  .dark .dropdown-item:hover {
+    background-color: transparent !important;
+    color: #FF7700 !important;
   }
 }
 
@@ -293,16 +391,17 @@ body {
 
 .user-dropdown-button {
   border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease;
   font-weight: 500;
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
+  background-color: transparent !important;
 }
 
 .user-dropdown-button:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e0;
+  background-color: transparent !important;
+  border-color: #FF7700;
 }
 
 .dropdown {
@@ -328,15 +427,16 @@ body {
   padding: 0.75rem 1.25rem;
   font-weight: 500;
   color: #4a5568;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  background-color: transparent !important;
 }
 
 .dropdown-item:hover {
-  background-color: #f8fafc;
-  color: #2d3748;
+  background-color: transparent !important;
+  color: #FF7700;
 }
 
 .dropdown-item.text-danger {
@@ -344,7 +444,8 @@ body {
 }
 
 .dropdown-item.text-danger:hover {
-  background-color: #fff5f5;
+  background-color: transparent !important;
+  color: #dc2626 !important;
 }
 
 .dropdown-divider {
@@ -374,6 +475,13 @@ body {
 /* Normal Hamburger Icon */
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2855, 65, 81, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  width: 24px;
+  height: 24px;
+}
+
+/* Dark mode hamburger icon */
+.dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28203, 213, 225, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   width: 24px;
   height: 24px;
 }
@@ -424,4 +532,175 @@ body {
     z-index: 1050;
     backdrop-filter: blur(2px);
   }
+}
+
+
+
+/* Custom nav link class - completely bypass Bootstrap */
+.custom-nav-link {
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.custom-nav-link:hover,
+.custom-nav-link:focus,
+.custom-nav-link:active,
+.custom-nav-link:visited {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+
+.nav-link,
+.nav-link *,
+.nav-link::before,
+.nav-link::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active,
+.nav-link:hover *,
+.nav-link:focus *,
+.nav-link:active *,
+.nav-link:hover::before,
+.nav-link:hover::after,
+.nav-link:focus::before,
+.nav-link:focus::after,
+.nav-link:active::before,
+.nav-link:active::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  color: #FF7700 !important;
+  -webkit-box-shadow: none !important;
+}
+
+
+html body .navbar .navbar-nav .nav-link,
+html body .navbar .navbar-nav a.nav-link,
+html body .navbar .nav-link,
+html body .navbar a.nav-link,
+html body .navbar-nav .nav-link,
+html body a.nav-link,
+html body .nav-link,
+html body .custom-nav-link {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+html body .navbar .navbar-nav .nav-link:hover,
+html body .navbar .navbar-nav .nav-link:focus,
+html body .navbar .navbar-nav .nav-link:active,
+html body .navbar .navbar-nav a.nav-link:hover,
+html body .navbar .navbar-nav a.nav-link:focus,
+html body .navbar .navbar-nav a.nav-link:active,
+html body .navbar .nav-link:hover,
+html body .navbar .nav-link:focus,
+html body .navbar .nav-link:active,
+html body .navbar a.nav-link:hover,
+html body .navbar a.nav-link:focus,
+html body .navbar a.nav-link:active,
+html body .navbar-nav .nav-link:hover,
+html body .navbar-nav .nav-link:focus,
+html body .navbar-nav .nav-link:active,
+html body a.nav-link:hover,
+html body a.nav-link:focus,
+html body a.nav-link:active,
+html body .nav-link:hover,
+html body .nav-link:focus,
+html body .nav-link:active,
+html body .custom-nav-link:hover,
+html body .custom-nav-link:focus,
+html body .custom-nav-link:active {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  color: #FF7700 !important;
+  -webkit-box-shadow: none !important;
+}
+
+/* Target the li parent as well */
+.navbar-nav .nav-item,
+.navbar-nav .nav-item:hover,
+.navbar-nav .nav-item:focus,
+.navbar-nav .nav-item:active {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+
+.navbar .nav-link,
+.navbar a.nav-link,
+.navbar-nav .nav-link,
+nav .nav-link,
+.nav-link {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .nav-link:active,
+.navbar a.nav-link:hover,
+.navbar a.nav-link:focus,
+.navbar a.nav-link:active,
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:active,
+nav .nav-link:hover,
+nav .nav-link:focus,
+nav .nav-link:active,
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  color: #FF7700 !important;
+}
+
+/* Also ensure Link components have no background */
+.navbar a[class*="nav-link"],
+.navbar-nav a[class*="nav-link"] {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.navbar a[class*="nav-link"]:hover,
+.navbar a[class*="nav-link"]:focus,
+.navbar a[class*="nav-link"]:active,
+.navbar-nav a[class*="nav-link"]:hover,
+.navbar-nav a[class*="nav-link"]:focus,
+.navbar-nav a[class*="nav-link"]:active {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #FF7700 !important;
 }

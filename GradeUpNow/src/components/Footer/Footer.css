@@ -1,10 +1,23 @@
 .footer {
+    padding: 1rem 0;
+    margin-top: 0;
+    transition: all 0.3s ease;
+}
+
+/* Light mode footer */
+.footer {
     background-color: #ffffff;
     color: #212529;
-    padding: 1rem 0;
     border-top: 1px solid #e8e9eb;
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.02);
-    margin-top: 0;
+}
+
+/* Dark mode footer */
+.dark .footer {
+    background-color: #262626;
+    color: #f1f5f9;
+    border-top: 1px solid #404040;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .footer-content {
@@ -16,9 +29,19 @@
 
 .footer-left p {
     margin: 0;
-    color: #6c757d;
     font-size: 0.9rem;
     font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+/* Light mode footer text */
+.footer-left p {
+    color: #6c757d;
+}
+
+/* Dark mode footer text */
+.dark .footer-left p {
+    color: #94a3b8;
 }
 
 .footer-center {
@@ -28,20 +51,39 @@
 }
 
 .footer-link {
-    color: #495057;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
     font-weight: 500;
 }
 
+/* Light mode footer link */
+.footer-link {
+    color: #495057;
+}
+
+/* Dark mode footer link */
+.dark .footer-link {
+    color: #cbd5e1;
+}
+
 .footer-link:hover {
-    color: #ff6b35;
+    color: #FF7700;
 }
 
 .separator {
-    color: #dee2e6;
     font-size: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+/* Light mode separator */
+.separator {
+    color: #dee2e6;
+}
+
+/* Dark mode separator */
+.dark .separator {
+    color: #475569;
 }
 
 .footer-right {
@@ -51,7 +93,6 @@
 }
 
 .social-icon {
-    color: #6c757d;
     text-decoration: none;
     font-size: 1.4rem;
     transition: all 0.3s ease;
@@ -61,13 +102,33 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
+}
+
+/* Light mode social icon */
+.social-icon {
+    color: #6c757d;
     background-color: #f8f9fa;
 }
 
+/* Dark mode social icon */
+.dark .social-icon {
+    color: #94a3b8;
+    background-color: #334155;
+}
+
 .social-icon:hover {
-    color: #ff6b35;
-    background-color: #fff3ed;
+    color: #FF7700;
     transform: translateY(-2px);
+}
+
+/* Light mode social icon hover */
+.social-icon:hover {
+    background-color: #fff3ed;
+}
+
+/* Dark mode social icon hover */
+.dark .social-icon:hover {
+    background-color: rgba(255, 119, 0, 0.15);
 }
 
 /* Responsive Design */

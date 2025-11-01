@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
 import usePageTitle from "../../hooks/usePageTitle";
 import "./CoursesPage.css";
 
@@ -49,6 +50,7 @@ const courses = [
 const CoursesPage = () => {
   usePageTitle("All Courses - Programming & Computer Science");
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   // Helper function to convert course title to URL-friendly ID
   const getCourseId = (title) => {

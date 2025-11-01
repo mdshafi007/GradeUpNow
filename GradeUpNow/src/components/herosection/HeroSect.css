@@ -1,9 +1,19 @@
 .hero-section {
   position: relative;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
   padding: 8rem 0 6rem;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
+  transition: background 0.3s ease;
+}
+
+/* Light mode background */
+.hero-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+}
+
+/* Dark mode background */
+.dark .hero-section {
+  background: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);
 }
 
 /* Animated Background Elements */
@@ -20,12 +30,25 @@
 .floating-shape {
   position: absolute;
   border-radius: 50%;
+  animation: float 20s infinite ease-in-out;
+}
+
+/* Light mode floating shapes */
+.floating-shape {
   background: linear-gradient(
     45deg,
     rgba(255, 119, 0, 0.1),
     rgba(255, 85, 0, 0.1)
   );
-  animation: float 20s infinite ease-in-out;
+}
+
+/* Dark mode floating shapes */
+.dark .floating-shape {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 119, 0, 0.12),
+    rgba(255, 85, 0, 0.12)
+  );
 }
 
 .shape-1 {
@@ -58,12 +81,25 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-size: 50px 50px;
+}
+
+/* Light mode tech grid */
+.tech-grid {
   background-image: linear-gradient(
       rgba(255, 119, 0, 0.03) 1px,
       transparent 1px
     ),
     linear-gradient(90deg, rgba(255, 119, 0, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+}
+
+/* Dark mode tech grid */
+.dark .tech-grid {
+  background-image: linear-gradient(
+      rgba(255, 119, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 119, 0, 0.05) 1px, transparent 1px);
 }
 
 .hero-inner {
@@ -85,12 +121,27 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: rgba(255, 119, 0, 0.1);
   border-radius: 100px;
   color: #ff7700;
   font-weight: 600;
   font-size: 0.9rem;
   position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Light mode badge */
+.tech-badge {
+  background: rgba(255, 119, 0, 0.1);
+}
+
+/* Dark mode badge */
+.dark .tech-badge {
+  background: rgba(255, 119, 0, 0.15);
+  border: 1px solid rgba(255, 119, 0, 0.3);
+}
+
+.dark .tech-badge .pulse {
+  background-color: #FF7700;
 }
 
 .pulse {
@@ -112,9 +163,19 @@
 }
 
 .headline-main {
-  color: #1a1a1a;
   display: block;
   margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Light mode headline */
+.headline-main {
+  color: #1a1a1a;
+}
+
+/* Dark mode headline */
+.dark .headline-main {
+  color: #f1f5f9;
 }
 
 .highlight-text {
@@ -125,6 +186,14 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
   position: relative;
+}
+
+/* Enhanced gradient for dark mode - subtle */
+.dark .highlight-text {
+  background: linear-gradient(120deg, #FF7700, #ff8e37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .headline-decorator {
@@ -138,17 +207,37 @@
 /* Description Styling */
 .hero-description {
   font-size: 1.25rem;
-  color: #4a4a4a;
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto 3rem;
+  transition: color 0.3s ease;
+}
+
+/* Light mode description */
+.hero-description {
+  color: #4a4a4a;
+}
+
+/* Dark mode description */
+.dark .hero-description {
+  color: #cbd5e1;
 }
 
 .highlight-subtext {
   display: block;
-  color: #666;
   font-size: 1.1rem;
   margin-top: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Light mode subtext */
+.highlight-subtext {
+  color: #666;
+}
+
+/* Dark mode subtext */
+.dark .highlight-subtext {
+  color: #94a3b8;
 }
 
 /* Button Styling */
@@ -176,9 +265,20 @@
   cursor: pointer;
 }
 
+/* Enhanced button for dark mode - clean */
+.dark .btn-start {
+  background: linear-gradient(135deg, #FF7700, #ff8e37);
+  box-shadow: 0 4px 15px rgba(255, 119, 0, 0.3);
+}
+
 .btn-start:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(255, 119, 0, 0.2);
+}
+
+.dark .btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 119, 0, 0.4);
 }
 
 .btn-explore {
@@ -230,7 +330,6 @@
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
   background: linear-gradient(120deg, #ff7700, #ff5500);
   -webkit-background-clip: text;
   background-clip: text;
@@ -238,16 +337,43 @@
   color: transparent;
 }
 
+/* Dark mode stat number (more vibrant) */
+.dark .stat-number {
+  background: linear-gradient(120deg, #FF7700, #ff8e37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .stat-label {
   font-size: 0.9rem;
-  color: #666;
   margin-top: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+/* Light mode stat label */
+.stat-label {
+  color: #666;
+}
+
+/* Dark mode stat label */
+.dark .stat-label {
+  color: #94a3b8;
 }
 
 .stat-divider {
   width: 1px;
   height: 40px;
+}
+
+/* Light mode stat divider */
+.stat-divider {
   background: linear-gradient(to bottom, transparent, #e0e0e0, transparent);
+}
+
+/* Dark mode stat divider */
+.dark .stat-divider {
+  background: linear-gradient(to bottom, transparent, #475569, transparent);
 }
 
 /* Animations */
@@ -321,7 +447,7 @@
     font-size: 2rem;
     display: inline;
     margin-bottom: 0;
-    color: #1a1a1a;
+    /* color: #1a1a1a; - Removed to inherit from parent dark mode styles */
   }
 
   .landing-hero .highlight-text {
@@ -349,7 +475,7 @@
   .landing-hero .highlight-subtext {
     font-size: 1rem;
     margin-top: 1rem;
-    color: #777;
+    /* color: #777; - Removed to inherit from parent dark mode styles */
     display: block;
   }
 
