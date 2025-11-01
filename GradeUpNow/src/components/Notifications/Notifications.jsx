@@ -1,30 +1,34 @@
 import React from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
 import usePageTitle from '../../hooks/usePageTitle';
 
 const Notifications = () => {
+  const { theme } = useTheme();
   usePageTitle("Notifications - Stay Updated");
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#ffffff',
+      backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2rem',
       paddingTop: 'max(6rem, calc(60px + 2rem))', // Account for navbar height + padding
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      transition: 'background-color 0.3s ease'
     }}>
       {/* Icon */}
       <div style={{
         width: '120px',
         height: '120px',
-        backgroundColor: '#fef3c7',
+        backgroundColor: theme === 'dark' ? 'rgba(251, 191, 36, 0.15)' : '#fef3c7',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        transition: 'background-color 0.3s ease'
       }}>
         <svg
           style={{ width: '60px', height: '60px', color: '#f59e0b' }}
@@ -39,9 +43,10 @@ const Notifications = () => {
       <h1 style={{
         fontSize: '2.5rem',
         fontWeight: '700',
-        color: '#0f172a',
+        color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
         marginBottom: '1rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        transition: 'color 0.3s ease'
       }}>
         Notifications
       </h1>
@@ -49,11 +54,12 @@ const Notifications = () => {
       {/* Subtitle */}
       <p style={{
         fontSize: '1.125rem',
-        color: '#64748b',
+        color: theme === 'dark' ? '#94a3b8' : '#64748b',
         textAlign: 'center',
         marginBottom: '2rem',
         maxWidth: '500px',
-        lineHeight: '1.6'
+        lineHeight: '1.6',
+        transition: 'color 0.3s ease'
       }}>
         We're working hard to bring you an amazing notifications experience. 
         Stay tuned for updates!
@@ -76,8 +82,9 @@ const Notifications = () => {
       <div style={{
         marginTop: '3rem',
         textAlign: 'center',
-        color: '#9ca3af',
-        fontSize: '0.875rem'
+        color: theme === 'dark' ? '#64748b' : '#9ca3af',
+        fontSize: '0.875rem',
+        transition: 'color 0.3s ease'
       }}>
         <p>This feature is under development</p>
         <p>Expected release: Soon™</p>

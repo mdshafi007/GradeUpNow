@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContextNew'
+import { useTheme } from '../../contexts/ThemeContext'
 import { User, Save, Edit3 } from 'lucide-react'
 import { profileAPI } from '../../services/api'
 import { toast } from 'react-toastify'
 
 const Profile = () => {
   const { user, loading: authLoading } = useAuth()
+  const { theme } = useTheme()
   
   // Show loading if auth is still loading
   if (authLoading) {
@@ -330,9 +332,10 @@ const Profile = () => {
       <style dangerouslySetInnerHTML={{
         __html: `
           .profile-container {
-            background: #ffffff;
+            background: ${theme === 'dark' ? '#1a1a1a' : '#ffffff'};
             min-height: 100vh;
             padding: 100px 0 60px 0;
+            transition: background-color 0.3s ease;
           }
           
           @media (max-width: 768px) {
@@ -431,8 +434,8 @@ const Profile = () => {
           }
           
           .stat-card {
-            background: white;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 12px;
             padding: 20px 16px;
             transition: all 0.2s ease;
@@ -440,7 +443,7 @@ const Profile = () => {
           
           .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 12px ${theme === 'dark' ? 'rgba(255, 119, 0, 0.2)' : 'rgba(0, 0, 0, 0.06)'};
             border-color: #FF7700;
           }
           
@@ -450,7 +453,7 @@ const Profile = () => {
           }
           
           .stat-label {
-            color: #6b7280;
+            color: ${theme === 'dark' ? '#94a3b8' : '#6b7280'};
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -466,13 +469,13 @@ const Profile = () => {
           }
           
           .stat-value.dark {
-            color: #111827;
+            color: ${theme === 'dark' ? '#f1f5f9' : '#111827'};
             font-size: 1.1rem;
           }
           
           /* Streak Card - Days boxes */
           .streak-card {
-            border: 1px solid #e5e7eb;
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
           }
           
           .streak-days {
@@ -486,13 +489,13 @@ const Profile = () => {
             width: 28px;
             height: 28px;
             border-radius: 6px;
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#262626' : '#f3f4f6'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.7rem;
-            color: #9ca3af;
+            color: ${theme === 'dark' ? '#64748b' : '#9ca3af'};
           }
           
           .day-box.active {
@@ -508,15 +511,15 @@ const Profile = () => {
           }
           
           .section-card {
-            background: white;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 12px;
             padding: 24px;
             transition: all 0.2s ease;
           }
           
           .section-card:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px ${theme === 'dark' ? 'rgba(255, 119, 0, 0.15)' : 'rgba(0, 0, 0, 0.04)'};
           }
           
           /* Streak Section - Compact Padding */
@@ -530,7 +533,7 @@ const Profile = () => {
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid ${theme === 'dark' ? '#404040' : '#f3f4f6'};
           }
           
           /* Streak Section Header - Less Margin */
@@ -546,13 +549,13 @@ const Profile = () => {
           .section-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #111827;
+            color: ${theme === 'dark' ? '#f1f5f9' : '#111827'};
             margin: 0;
             letter-spacing: -0.2px;
           }
           
           .section-subtitle {
-            color: #9ca3af;
+            color: ${theme === 'dark' ? '#64748b' : '#9ca3af'};
             font-size: 0.8rem;
             margin-bottom: 0;
             margin-left: auto;
@@ -573,19 +576,19 @@ const Profile = () => {
           }
           
           .info-item {
-            background: #fafbfc;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#1a1a1a' : '#fafbfc'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 10px;
             padding: 16px;
             transition: all 0.2s ease;
           }
           
           .info-item:hover {
-            background: #f5f7fa;
+            background: ${theme === 'dark' ? '#262626' : '#f5f7fa'};
           }
           
           .info-label {
-            color: #6b7280;
+            color: ${theme === 'dark' ? '#94a3b8' : '#6b7280'};
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -594,7 +597,7 @@ const Profile = () => {
           }
           
           .info-value {
-            color: #111827;
+            color: ${theme === 'dark' ? '#f1f5f9' : '#111827'};
             font-size: 1rem;
             font-weight: 600;
             line-height: 1.3;
@@ -613,7 +616,7 @@ const Profile = () => {
           .streak-month-name {
             font-size: 0.9rem;
             font-weight: 700;
-            color: #111827;
+            color: ${theme === 'dark' ? '#f1f5f9' : '#111827'};
           }
           
           .streak-weekdays {
@@ -630,7 +633,7 @@ const Profile = () => {
             text-align: center;
             font-size: 0.6rem;
             font-weight: 600;
-            color: #9ca3af;
+            color: ${theme === 'dark' ? '#64748b' : '#9ca3af'};
             text-transform: uppercase;
             letter-spacing: 0.3px;
           }
@@ -647,25 +650,25 @@ const Profile = () => {
           .streak-day {
             width: 32px;
             height: 32px;
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#262626' : '#f3f4f6'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.65rem;
             font-weight: 600;
-            color: #9ca3af;
+            color: ${theme === 'dark' ? '#64748b' : '#9ca3af'};
             cursor: pointer;
             transition: all 0.15s ease;
             position: relative;
           }
           
           .streak-day:not(.empty):hover {
-            background: #e5e7eb;
+            background: ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             transform: scale(1.15);
             z-index: 10;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 6px ${theme === 'dark' ? 'rgba(255, 119, 0, 0.3)' : 'rgba(0, 0, 0, 0.12)'};
           }
           
           .streak-day.empty {
@@ -700,8 +703,8 @@ const Profile = () => {
           }
           
           .academic-item {
-            background: #FFF9F0;
-            border: 1px solid #FFE8CC;
+            background: ${theme === 'dark' ? 'rgba(255, 119, 0, 0.15)' : '#FFF9F0'};
+            border: 1px solid ${theme === 'dark' ? 'rgba(255, 119, 0, 0.3)' : '#FFE8CC'};
             border-radius: 10px;
             padding: 20px 16px;
             text-align: center;
@@ -715,7 +718,7 @@ const Profile = () => {
           }
           
           .academic-label {
-            color: #92400e;
+            color: ${theme === 'dark' ? '#fbbf24' : '#92400e'};
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -731,7 +734,7 @@ const Profile = () => {
           }
           
           .college-value {
-            color: #92400e;
+            color: ${theme === 'dark' ? '#fbbf24' : '#92400e'};
             font-size: 1.1rem;
             font-weight: 700;
           }
@@ -744,9 +747,9 @@ const Profile = () => {
           }
           
           .skill-tag {
-            background: white;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
             color: #FF7700;
-            border: 1.5px solid #FFD9A3;
+            border: 1.5px solid ${theme === 'dark' ? 'rgba(255, 119, 0, 0.4)' : '#FFD9A3'};
             border-radius: 8px;
             padding: 8px 16px;
             font-size: 0.85rem;
@@ -767,9 +770,9 @@ const Profile = () => {
           }
           
           .interest-tag {
-            background: white;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
             color: #059669;
-            border: 1.5px solid #A7F3D0;
+            border: 1.5px solid ${theme === 'dark' ? 'rgba(5, 150, 105, 0.4)' : '#A7F3D0'};
             border-radius: 8px;
             padding: 8px 16px;
             font-size: 0.85rem;
@@ -793,7 +796,7 @@ const Profile = () => {
           .empty-state {
             text-align: center;
             padding: 32px 16px;
-            color: #9ca3af;
+            color: ${theme === 'dark' ? '#64748b' : '#9ca3af'};
           }
           
           .empty-state-icon {
@@ -812,7 +815,7 @@ const Profile = () => {
             display: flex;
             gap: 12px;
             padding-top: 20px;
-            border-top: 1px solid #f3f4f6;
+            border-top: 1px solid ${theme === 'dark' ? '#404040' : '#f3f4f6'};
             margin-top: 20px;
           }
           
@@ -834,35 +837,36 @@ const Profile = () => {
           }
           
           .save-button:disabled {
-            background: #d1d5db;
+            background: ${theme === 'dark' ? '#404040' : '#d1d5db'};
             cursor: not-allowed;
             box-shadow: none;
           }
           
           .cancel-button {
-            background: white;
-            border: 1px solid #e5e7eb;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 10px;
             padding: 12px 28px;
             font-size: 0.95rem;
             font-weight: 600;
-            color: #6b7280;
+            color: ${theme === 'dark' ? '#cbd5e1' : '#6b7280'};
             transition: all 0.2s ease;
           }
           
           .cancel-button:hover {
-            border-color: #d1d5db;
-            background: #f9fafb;
+            border-color: ${theme === 'dark' ? '#64748b' : '#d1d5db'};
+            background: ${theme === 'dark' ? '#1a1a1a' : '#f9fafb'};
           }
           
           /* Form Controls */
           .form-control-modern {
-            border: 1px solid #e5e7eb;
+            border: 1px solid ${theme === 'dark' ? '#404040' : '#e5e7eb'};
             border-radius: 10px;
             padding: 12px 16px;
             font-size: 0.95rem;
             transition: all 0.2s ease;
-            background: #fafbfc;
+            background: ${theme === 'dark' ? '#1a1a1a' : '#fafbfc'};
+            color: ${theme === 'dark' ? '#f1f5f9' : '#111827'};
             font-weight: 500;
           }
           
@@ -870,11 +874,11 @@ const Profile = () => {
             border-color: #FF7700;
             box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.1);
             outline: none;
-            background: white;
+            background: ${theme === 'dark' ? '#262626' : 'white'};
           }
           
           .form-label-modern {
-            color: #374151;
+            color: ${theme === 'dark' ? '#cbd5e1' : '#374151'};
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 8px;

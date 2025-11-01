@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
 import { profileAPI } from '../../services/api';
 import { toast } from 'react-toastify';
 import './ProfileSetup.css';
 
 const ProfileSetupClean = ({ onSetupComplete }) => {
+  const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   
