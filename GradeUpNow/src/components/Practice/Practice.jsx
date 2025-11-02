@@ -73,46 +73,6 @@ const Practice = () => {
     });
   };
 
-  const handleCompanyClick = (companyName) => {
-    // Navigate to company detail page
-    const slug = companyName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/practice/company/${slug}`);
-  };
-
-  const companies = [
-    {
-      name: "Accenture",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg",
-      color: "#A100FF",
-      description: "Global professional services company"
-    },
-    {
-      name: "TCS NQT",
-      logo: "https://images.seeklogo.com/logo-png/45/1/tcs-nqt-logo-png_seeklogo-456114.png",
-      color: "#0F1C3F",
-      description: "Ninja Qualifier Test for TCS recruitment",
-      link: "/practice/company/tcs-nqt"
-    },
-    {
-      name: "Infosys",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
-      color: "#007CC3",
-      description: "IT services and consulting company"
-    },
-    {
-      name: "TCS",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Tata_Consultancy_Services_old_logo.svg",
-      color: "#0F1C3F",
-      description: "IT services, consulting & business solutions"
-    },
-    {
-      name: "Cognizant",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Logo_Cognizant.png",
-      color: "#0033A1",
-      description: "American multinational IT company"
-    }
-  ];
-
   return (
     <div className={`practice-container ${theme === 'dark' ? 'dark' : ''}`}>
       {/* Hero Section */}
@@ -128,19 +88,6 @@ const Practice = () => {
       {/* Tabs Section */}
       <div className="practice-tabs-container">
         <div className="practice-tabs">
-          <button
-            className={`practice-tab ${
-              activeTab === "company-wise" ? "practice-tab-active" : ""
-            }`}
-            onClick={() => {
-              setActiveTab("company-wise");
-              setSelectedCategory(null);
-            }}
-          >
-            <span className="practice-tab-icon">🏢</span>
-            <span className="practice-tab-text">Company-wise</span>
-          </button>
-
           <button
             className={`practice-tab ${
               activeTab === "practice-tests" ? "practice-tab-active" : ""
@@ -178,25 +125,7 @@ const Practice = () => {
           </div>
         ) : (
           <>
-            {activeTab === "company-wise" ? (
-              <div className="company-wise-content">
-                <div className="companies-grid">
-                  {companies.map((company) => (
-                    <div
-                      key={company.name}
-                      className="company-card"
-                      onClick={() => handleCompanyClick(company.name)}
-                    >
-                      <img
-                        src={company.logo}
-                        alt={`${company.name} logo`}
-                        className="company-logo"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : activeTab === "practice-tests" ? (
+            {activeTab === "practice-tests" ? (
               <div className="practice-topics-grid">
                 {!selectedCategory ? (
                   // Show category card (DBMS)

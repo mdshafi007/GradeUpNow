@@ -221,11 +221,27 @@ const CourseDetail = () => {
           onClick={handleBackToCourses}
           className="back-button"
           style={{
-            color: theme === 'dark' ? '#94a3b8' : '#9ca3af',
-            transition: 'color 0.3s ease'
+            color: theme === 'dark' ? '#e2e8f0' : '#9ca3af',
+            backgroundColor: theme === 'dark' ? '#262626' : 'transparent',
+            padding: theme === 'dark' ? '8px 16px' : '0',
+            borderRadius: theme === 'dark' ? '8px' : '0',
+            border: theme === 'dark' ? '1px solid #404040' : 'none',
+            transition: 'all 0.3s ease'
           }}
-          onMouseEnter={(e) => e.target.style.color = theme === 'dark' ? '#f1f5f9' : '#1a1a1a'}
-          onMouseLeave={(e) => e.target.style.color = theme === 'dark' ? '#94a3b8' : '#9ca3af'}
+          onMouseEnter={(e) => {
+            e.target.style.color = theme === 'dark' ? '#ffffff' : '#1a1a1a';
+            if (theme === 'dark') {
+              e.target.style.backgroundColor = '#404040';
+              e.target.style.borderColor = '#525252';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.color = theme === 'dark' ? '#e2e8f0' : '#9ca3af';
+            if (theme === 'dark') {
+              e.target.style.backgroundColor = '#262626';
+              e.target.style.borderColor = '#404040';
+            }
+          }}
         >
           ← Back to Courses
         </button>

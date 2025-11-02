@@ -32,7 +32,7 @@ const TutorialViewer = () => {
   const [aiMessage, setAiMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(false);
-  const [isRightSidebarCollapsed, setIsRightSidebarCollapsed] = useState(false);
+  const [isRightSidebarCollapsed, setIsRightSidebarCollapsed] = useState(window.innerWidth <= 768);
   const [showLoginBanner, setShowLoginBanner] = useState(false);
 
   // Debug: Log auth state whenever it changes
@@ -378,7 +378,7 @@ const TutorialViewer = () => {
           {tutorialData.sections.map((section, sectionIndex) => (
             <div key={section.id} className="tutorial-viewer-n__section">
               <h3 className="tutorial-viewer-n__section-title" style={{
-                color: theme === 'dark' ? '#e2e8f0' : '#6B7280',
+                color: theme === 'dark' ? '#FFFFFF' : '#6B7280',
                 transition: 'color 0.3s ease'
               }}>{section.title}</h3>
               
@@ -395,7 +395,7 @@ const TutorialViewer = () => {
                         }`}
                         onClick={() => jumpToLesson(sectionIndex, lessonIndex)}
                         style={{
-                          color: isActive ? '#FFFFFF' : (theme === 'dark' ? '#f1f5f9' : '#374151'),
+                          color: theme === 'dark' ? '#FFFFFF' : (isActive ? '#FFFFFF' : '#374151'),
                           backgroundColor: isActive ? '#FF7A00' : 'transparent',
                           transition: 'all 0.2s ease'
                         }}
@@ -404,7 +404,7 @@ const TutorialViewer = () => {
                           <CheckCircle2 size={16} className="tutorial-viewer-n__lesson-icon tutorial-viewer-n__lesson-icon--completed" />
                         ) : (
                           <Circle size={16} className="tutorial-viewer-n__lesson-icon" style={{
-                            color: isActive ? '#FFFFFF' : (theme === 'dark' ? '#94a3b8' : '#9CA3AF')
+                            color: isActive ? '#FFFFFF' : (theme === 'dark' ? '#FFFFFF' : '#9CA3AF')
                           }} />
                         )}
                         <span className="tutorial-viewer-n__lesson-title">{lesson.title}</span>

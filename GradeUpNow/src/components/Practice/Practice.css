@@ -68,12 +68,12 @@
 
 /* Tabs Section - Clean & Professional */
 .practice-tabs-container {
-  background: #ffffff;
-  padding: 40px 20px;
+  background: transparent;
+  padding: 25px 20px 20px 20px;
   position: sticky;
   top: 60px;
   z-index: 100;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   transition: background-color 0.3s ease;
   display: flex;
   align-items: center;
@@ -81,27 +81,27 @@
 }
 
 .dark .practice-tabs-container {
-  background: #262626;
+  background: transparent;
 }
 
 .practice-tabs {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
 }
 
 .practice-tab {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 6px;
+  padding: 10px 20px;
   background: #f5f5f5;
   border: none;
-  border-radius: 25px;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: #666;
   transition: all 0.3s ease;
@@ -115,7 +115,7 @@
 .practice-tab:hover {
   color: #FF7700;
   background: #FFF5EB;
-  transform: translateY(-2px);
+  transform: translateY(0);
 }
 
 .dark .practice-tab:hover {
@@ -126,6 +126,7 @@
   color: #FF7700;
   background: #FFF5EB;
   border: 2px solid #FFE5CC;
+  transform: translateY(0);
 }
 
 .dark .practice-tab-active {
@@ -134,11 +135,12 @@
 }
 
 .practice-tab-icon {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .practice-tab-text {
   font-weight: 600;
+  font-size: 14px;
 }
 
 /* Content Section */
@@ -279,24 +281,24 @@
   }
 
   .practice-tabs-container {
-    padding: 16px 12px 0;
-    top: 0;
-    margin-bottom: 32px;
-    background: #ffffff;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 20px 12px 15px 12px;
+    top: 60px;
+    margin-bottom: 30px;
+    background: transparent;
+    border-bottom: none;
   }
   
   .dark .practice-tabs-container {
-    background: #262626;
-    border-bottom-color: #404040;
+    background: transparent;
+    border-bottom: none;
   }
 
   .practice-tabs {
-    gap: 10px;
+    gap: 8px;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 12px;
+    padding-bottom: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
     justify-content: flex-start;
@@ -307,11 +309,11 @@
   }
 
   .practice-tab {
-    padding: 11px 20px;
-    font-size: 13.5px;
+    padding: 8px 16px;
+    font-size: 13px;
     white-space: nowrap;
     flex-shrink: 0;
-    border-radius: 22px;
+    border-radius: 18px;
     background: #f8f8f8;
     border: 1px solid #e8e8e8;
     font-weight: 600;
@@ -323,8 +325,16 @@
     background: #FF7700;
     color: #ffffff;
     border: 2px solid #FF7700;
-    box-shadow: 0 3px 12px rgba(255, 119, 0, 0.3);
-    padding: 10px 20px;
+    box-shadow: 0 2px 8px rgba(255, 119, 0, 0.3);
+    padding: 7px 16px;
+  }
+
+  .practice-tab-icon {
+    font-size: 14px;
+  }
+
+  .practice-tab-text {
+    font-size: 13px;
   }
 
   .practice-tab-icon {
@@ -654,7 +664,19 @@
   transition: all 0.2s ease;
 }
 
+.dark .breadcrumb-back {
+  background: #262626;
+  border-color: #404040;
+  color: #e2e8f0;
+}
+
 .breadcrumb-back:hover {
+  background: #FF7700;
+  color: white;
+  border-color: #FF7700;
+}
+
+.dark .breadcrumb-back:hover {
   background: #FF7700;
   color: white;
   border-color: #FF7700;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TCSNQTDetail.css';
-import './AccentureDetail.css';
 
 const TCSNQTDetail = () => {
   const navigate = useNavigate();
